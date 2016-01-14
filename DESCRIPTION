@@ -1,0 +1,34 @@
+Package: LTRpred
+Type: Package
+Title: De Novo LTR Prediction and Annotation with R
+Version: 0.0.1
+Date: 2016-01-13
+Authors@R: as.person(c(
+    "Hajk-Georg Drost <hgd23@cam.ac.uk> [aut, cre]"
+    ))
+Maintainer: Hajk-Georg Drost <hgd23@cam.ac.uk>
+Description: Perform de novo LTR transposon prediction based on LTRharvest, LTRdigest, and additional post-processing steps.
+License: GPL-3
+SystemRequirements: C++
+VignetteBuilder: knitr
+NeedsCompilation: yes
+Depends:
+    R (>= 3.1.1),
+Imports:
+    parallel (>= 3.0.2),
+    dplyr (>= 0.3.0.2),
+    Biostrings,
+    stringr (>= 0.6.2),
+    IRanges,
+    RColorBrewer,
+    ggplot2,
+    readr 
+Suggests:
+    knitr (>= 1.6),
+    rmarkdown (>= 0.3.3),
+    devtools (>= 1.6.1),
+    testthat (>= 0.9.1)
+LinkingTo: Rcpp
+URL: https://github.com/HajkD/LTRpred
+BugReports: https://github.com/HajkD/LTRpred/issues
+RoxygenNote: 5.0.1
