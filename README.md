@@ -2,18 +2,34 @@
 
 ### De Novo LTR Prediction and Annotation with R
 
-Transposons ... LTR transposons are a type of transposons that have the capacity ...
+
+> Transposable genetic elements (TEs) comprise a vast array of DNA sequences, all having the ability to move to new sites in genomes either directly by a cut-and-paste mechanism (transposons) or indirectly through an RNA intermediate (retrotransposons). 
+>
+>  \- Nina V. Federoff, Science 2012 
+
+Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of adaptation, diversification,
+and evolution of eukaryotic organisms. In particular, understanding the recognition and 
+regulation of transposable elements by the genetic regulatory machinery will enable us to 
+systematically identify the key players and key processes that enable niche adaptation and
+species diversification on the genetic level.
+
 The `LTRpred` package aims to provide an integrated software framework to 
 predict LTR transposons _de novo_ in any genomic sequence of interest.
+LTR transposons have the capacity to move to new sites in genomes
+through a copy-and-paste mechanism and by doing so are able to contribute generatively 
+to genome evolution and environmental sensing on the genetic level.
+Hence, predicting the presence of LTR transposons within genomes as well as their
+capacity to perform this copy-and-paste strategy enables us to quantify the extent 
+to which transposons shape the adaptation and evolution of life in general.
 
 ## Tutorials
 
 These tutorials introduce users to `LTRpred`:
 
-- [Install Prerequisite Tools]()
-- [Introduction to LTRpred]()
-- [De Novo Annotation with LTRpred]()
-- [Analysis and Visualization of Predicted LTRs]()
+- [Install Prerequisite Tools](https://github.com/HajkD/LTRpred/blob/master/vignettes/Installation.Rmd)
+- [Introduction to LTRpred](https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd)
+- [De Novo Annotation with LTRpred](https://github.com/HajkD/LTRpred/blob/master/vignettes/Annotation.Rmd)
+- [Analysis and Visualization of Predicted LTRs](https://github.com/HajkD/LTRpred/blob/master/vignettes/Analysis.Rmd)
 
 
 ## NEWS
