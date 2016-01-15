@@ -4,11 +4,28 @@
 \alias{LTRharvest}
 \title{Run LTRharvest to predict putative LTR Retrotransposons}
 \usage{
-LTRharvest(input, index.file = NULL, seed = 30, minlenltr = 100,
-  maxlenltr = 3500, mindistltr = 4000, maxdistltr = 25000, similar = 70,
-  mintsd = 4, maxtsd = 20, vic = 60, overlaps = "no", xdrop = 5,
-  mat = 2, mis = -2, ins = -3, del = -3, motifmis = 0, motif = NULL,
-  output.path = NULL)
+LTRharvest(input, index.file = NULL, range = c(0, 0), seed = 30,
+  minlenltr = 100, maxlenltr = 3500, mindistltr = 4000,
+  maxdistltr = 25000, similar = 70, mintsd = 4, maxtsd = 20, vic = 60,
+  overlaps = "no", xdrop = 5, mat = 2, mis = -2, ins = -3, del = -3,
+  motifmis = 0, motif = NULL, output.path = NULL)
+}
+\arguments{
+\item{input}{path to the genome file in \code{fasta} format.}
+
+\item{index.file}{specify the name of the enhanced suffix array index file that is computed
+by \code{suffixerator}. This opten can be used in case the suffix file was previously 
+generated, e.g. during a previous call of this function. In this case the suffix array index
+file does not need to be re-computed for new analyses. This is particularly useful when 
+running \code{LTRharvest} with different parameter settings.}
+
+\item{range}{define the genomic interval in which predicted LTR transposons shall be reported
+. In case \code{range[1] = 1000} and \code{range[2] = 10000} then candidates are only 
+reported if they start after position 1000 and end before position 10000 in their respective 
+sequence coordinates. If \code{range[1] = 0} and \code{range[2] = 0}, 
+so \code{range = c(0,0)} (default) then the entire genome is being scanned.}
+
+\item{seed}{}
 }
 \description{
 This function implements an interface between R and

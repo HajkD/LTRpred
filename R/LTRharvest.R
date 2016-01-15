@@ -1,9 +1,18 @@
 #' @title Run LTRharvest to predict putative LTR Retrotransposons
 #' @description This function implements an interface between R and
 #' the LTRharvest command line tool to predict putative LTR retrotransposons from R.
-#' @param input
-#' @param index.file
-#' @param seed
+#' @param input path to the genome file in \code{fasta} format.
+#' @param index.file specify the name of the enhanced suffix array index file that is computed
+#'  by \code{suffixerator}. This opten can be used in case the suffix file was previously 
+#'  generated, e.g. during a previous call of this function. In this case the suffix array index
+#'  file does not need to be re-computed for new analyses. This is particularly useful when 
+#'  running \code{LTRharvest} with different parameter settings.
+#' @param range define the genomic interval in which predicted LTR transposons shall be reported
+#' . In case \code{range[1] = 1000} and \code{range[2] = 10000} then candidates are only 
+#' reported if they start after position 1000 and end before position 10000 in their respective 
+#' sequence coordinates. If \code{range[1] = 0} and \code{range[2] = 0}, 
+#' so \code{range = c(0,0)} (default) then the entire genome is being scanned.
+#' @param seed 
 #' @param minlenltr
 #' @param maxlenltr
 #' @param mindistltr
@@ -33,6 +42,7 @@
 
 LTRharvest <- function(input,
                        index.file  = NULL,
+                       range       = c(0,0),
                        seed        = 30,
                        minlenltr   = 100,
                        maxlenltr   = 3500,
@@ -92,6 +102,7 @@ LTRharvest <- function(input,
         
         # Run LTRharvest without motif
         system(paste0("gt ltrharvest -index ", IndexOutputFileName," \ ",
+                      "-range ",range[1]," ",range[2]," \ ",
                       "-seed ", seed," \ ",
                       "-minlenltr ", minlenltr, " \ ",
                       "-maxlenltr ", maxlenltr, " \ ",
