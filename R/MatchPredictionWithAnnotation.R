@@ -46,7 +46,7 @@ MatchPredictionWithAnnotation <- function(ltr.digest.prediction,
   
     # read the annotation file in gff3 format
     AnnotationFileGFF3 <- readr::read_tsv(annotation.file, col_names = FALSE, skip = 0, comment = "#")
-    names(AnnotationFileGFF3) <- c("seqname","source","feature","start","end","score","strand","frame","attribute")
+    names(AnnotationFileGFF3)[1:9] <- c("seqname","source","feature","start","end","score","strand","frame","attribute")
     
     # match LTRdigest prediction output with Annotation File in GFF3 format
     Annotation <- vector("list")
