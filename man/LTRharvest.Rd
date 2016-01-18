@@ -8,7 +8,7 @@ LTRharvest(input, index.file = NULL, range = c(0, 0), seed = 30,
   minlenltr = 100, maxlenltr = 3500, mindistltr = 4000,
   maxdistltr = 25000, similar = 70, mintsd = 4, maxtsd = 20, vic = 60,
   overlaps = "no", xdrop = 5, mat = 2, mis = -2, ins = -3, del = -3,
-  motifmis = 0, motif = NULL, output.path = NULL)
+  motif = NULL, motifmis = 0, output.path = NULL, verbose = TRUE)
 }
 \arguments{
 \item{input}{path to the genome file in \code{fasta} format.}
@@ -25,22 +25,109 @@ reported if they start after position 1000 and end before position 10000 in thei
 sequence coordinates. If \code{range[1] = 0} and \code{range[2] = 0}, 
 so \code{range = c(0,0)} (default) then the entire genome is being scanned.}
 
-\item{seed}{}
+\item{seed}{the minimum length for the exact maximal repeats. Only repeats with the specified minimum length are considered in all subsequent analyses. Default is \code{seed = 30}.}
+
+\item{minlenltr}{minimum LTR length. Default is \code{minlenltr = 100}.}
+
+\item{maxlenltr}{maximum LTR length. Default is \code{maxlenltr = 3500}.}
+
+\item{mindistltr}{minimum distance of LTR starting positions. Default is \code{mindistltr = 4000}.}
+
+\item{maxdistltr}{maximum distance of LTR starting positions. Default is \code{maxdistltr = 25000}.}
+
+\item{similar}{minimum similarity value between the two LTRs in percent. \code{similar = 70}.}
+
+\item{mintsd}{minimum target site duplications (TSDs) length. If no search for TSDs
+shall be performed, then specify \code{mintsd = NULL}. Default is \code{mintsd = 4}.}
+
+\item{maxtsd}{maximum target site duplications (TSDs) length. If no search for TSDs
+shall be performed, then specify \code{maxtsd = NULL}. Default is \code{maxtsd = 20}.}
+
+\item{vic}{number of nucleotide positions left and right (the vicinity) of the predicted
+boundary of a LTR that will be searched for TSDs and/or one motif (if specified). 
+Default is \code{vic = 60}.}
+
+\item{overlaps}{specify how overlapping LTR retrotransposon predictions shall be treated. 
+If \code{overlaps = "no"} is selected, then neither nested nor overlapping predictions will be reported in the output. In case \code{overlaps = "best"} is selected then in the case of two or more nested or overlapping predictions, solely the LTR retrotransposon prediction with
+the highest similarity between its LTRs will be reported.
+If \code{overlaps = "all"} is selected then all LTR retrotransposon predictions 
+will be reported whether there are nested and/or overlapping predictions or not. 
+Default is \code{overlaps = "best"}.}
+
+\item{xdrop}{}
+
+\item{mat}{specify the positive match score for the X-drop extension process. Default is \code{mat = 2}.}
+
+\item{mis}{specify the negative mismatch score for the X-drop extension process. Default is \code{mis = -2}.}
+
+\item{ins}{specify the negative insertion score for the X-drop extension process. Default is \code{ins = -3}.}
+
+\item{del}{specify the negative deletion score for the X-drop extension process. Default is \code{del = -3}.}
+
+\item{motif}{specify 2 nucleotides for the starting motif and 2 nucleotides for the ending
+motif at the beginning and the ending of each LTR, respectively.
+Only palindromic motif sequences - where the motif sequence is equal to its complementary
+sequence read backwards - are allowed, e.g. \code{motif = "tgca"}. Type the nucleotides without any space
+separating them. If this option is not selected by the user, candidate pairs will not be
+screened for potential motifs. If this options is set but no allowed number of
+mismatches is specified by the argument \code{motifmis} and a search for the exact 
+motif will be conducted. If \code{motif = NULL} then no explicit motif is being specified.}
+
+\item{motifmis}{allowed number of mismatches in the TSD motif specified in \code{motif}. 
+The number of mismatches needs to be between [0,3].  Default is \code{motifmis = 0}.}
+
+\item{output.path}{a path/folder to store all results returned by \code{LTRharvest}. 
+If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
+will be generated in the current working directory of R and all results are then stored in this folder.}
+}
+\value{
+The \code{LTRharvest} function generates the following output files:
+
+\itemize{
+\item *_BetweenLTRSeqs.fsa : DNA sequences of the region between the LTRs in fasta format. 
+\item *_Details.tsv : A spread sheet containing detailed information about the predicted LTRs.
+\item *_FullLTRRetrotransposonSeqs.fsa : DNA sequences of the entire predicted LTR retrotransposon.
+\item *_index.fsa : The suffixarray index file used to predict putative LTR retrotransposons.
+\item *_Prediction.gff : A spread sheet containing detailed additional information about the predicted LTRs (partially redundant with the *_Details.tsv file).
+
+The ' * ' is an place holder for the name of the input genome file.
+}
 }
 \description{
 This function implements an interface between R and
 the LTRharvest command line tool to predict putative LTR retrotransposons from R.
 }
 \details{
+The \code{LTRharvest} program
 
+\code{LTRharvest} can be used as independently or as initial pre-computation step
+to sufficiently detect LTR retrotransposons with \code{LTRdigest}.
 }
 \examples{
 \dontrun{
 
-}
+# Run LTRharvest for Arabidopsis thaliana using standard parameters
+LTRharvest(input = "TAIR10_chr_all.fas")
 
+# Run LTRharvest for Arabidopsis thaliana using standard parameters
+# and use an existing (already computed) suffixarray index file of 
+# the A. thaliana genome
+LTRharvest(input      = "TAIR10_chr_all.fas", 
+           index.file = "TAIR10_chr_all_index.fas")
+}
 }
 \author{
 Hajk-Georg Drost
+}
+\references{
+D Ellinghaus, S Kurtz and U Willhoeft. LTRharvest, an efficient and flexible software for de novo detection of LTR retrotransposons. BMC Bioinformatics (2008). 9:18.
+
+Most argument specifications are adapted from the User manual of LTRharvest.
+}
+\seealso{
+\code{\link{LTRdigest}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
+\code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
+\code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
+\code{\link{WritePredictionToFastA}}
 }
 

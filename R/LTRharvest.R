@@ -12,32 +12,81 @@
 #' reported if they start after position 1000 and end before position 10000 in their respective 
 #' sequence coordinates. If \code{range[1] = 0} and \code{range[2] = 0}, 
 #' so \code{range = c(0,0)} (default) then the entire genome is being scanned.
-#' @param seed 
-#' @param minlenltr
-#' @param maxlenltr
-#' @param mindistltr
-#' @param maxdistltr
-#' @param similar
-#' @param mintsd
-#' @param maxtsd
-#' @param vic
-#' @param overlaps
-#' @param xdrop
-#' @param mat
-#' @param mis
-#' @param ins
-#' @param del
-#' @param motifmis
-#' @param motif
-#' @param output.path
+#' @param seed  the minimum length for the exact maximal repeats. Only repeats with the specified minimum length are considered in all subsequent analyses. Default is \code{seed = 30}.
+#' @param minlenltr minimum LTR length. Default is \code{minlenltr = 100}. 
+#' @param maxlenltr maximum LTR length. Default is \code{maxlenltr = 3500}.
+#' @param mindistltr minimum distance of LTR starting positions. Default is \code{mindistltr = 4000}.
+#' @param maxdistltr maximum distance of LTR starting positions. Default is \code{maxdistltr = 25000}.
+#' @param similar minimum similarity value between the two LTRs in percent. \code{similar = 70}.
+#' @param mintsd minimum target site duplications (TSDs) length. If no search for TSDs
+#' shall be performed, then specify \code{mintsd = NULL}. Default is \code{mintsd = 4}.
+#' @param maxtsd maximum target site duplications (TSDs) length. If no search for TSDs
+#' shall be performed, then specify \code{maxtsd = NULL}. Default is \code{maxtsd = 20}.
+#' @param vic number of nucleotide positions left and right (the vicinity) of the predicted
+#'  boundary of a LTR that will be searched for TSDs and/or one motif (if specified). 
+#'  Default is \code{vic = 60}.
+#' @param overlaps specify how overlapping LTR retrotransposon predictions shall be treated. 
+#' If \code{overlaps = "no"} is selected, then neither nested nor overlapping predictions will be reported in the output. In case \code{overlaps = "best"} is selected then in the case of two or more nested or overlapping predictions, solely the LTR retrotransposon prediction with
+#' the highest similarity between its LTRs will be reported.
+#' If \code{overlaps = "all"} is selected then all LTR retrotransposon predictions 
+#' will be reported whether there are nested and/or overlapping predictions or not. 
+#' Default is \code{overlaps = "best"}.
+#' @param xdrop 
+#' @param mat specify the positive match score for the X-drop extension process. Default is \code{mat = 2}.
+#' @param mis specify the negative mismatch score for the X-drop extension process. Default is \code{mis = -2}.
+#' @param ins specify the negative insertion score for the X-drop extension process. Default is \code{ins = -3}.
+#' @param del specify the negative deletion score for the X-drop extension process. Default is \code{del = -3}.
+#' @param motif specify 2 nucleotides for the starting motif and 2 nucleotides for the ending
+#'  motif at the beginning and the ending of each LTR, respectively.
+#'  Only palindromic motif sequences - where the motif sequence is equal to its complementary
+#'  sequence read backwards - are allowed, e.g. \code{motif = "tgca"}. Type the nucleotides without any space
+#'  separating them. If this option is not selected by the user, candidate pairs will not be
+#'  screened for potential motifs. If this options is set but no allowed number of
+#'  mismatches is specified by the argument \code{motifmis} and a search for the exact 
+#'  motif will be conducted. If \code{motif = NULL} then no explicit motif is being specified.
+#' @param motifmis allowed number of mismatches in the TSD motif specified in \code{motif}. 
+#' The number of mismatches needs to be between [0,3].  Default is \code{motifmis = 0}.
+#' @param output.path a path/folder to store all results returned by \code{LTRharvest}. 
+#' If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
+#' will be generated in the current working directory of R and all results are then stored in this folder.
 #' @author Hajk-Georg Drost
 #' @details 
+#' The \code{LTRharvest} program
 #' 
+#' \code{LTRharvest} can be used as independently or as initial pre-computation step
+#' to sufficiently detect LTR retrotransposons with \code{LTRdigest}. 
 #' @examples 
 #' \dontrun{
 #' 
-#' }
+#' # Run LTRharvest for Arabidopsis thaliana using standard parameters
+#' LTRharvest(input = "TAIR10_chr_all.fas")
 #' 
+#' # Run LTRharvest for Arabidopsis thaliana using standard parameters
+#' # and use an existing (already computed) suffixarray index file of 
+#' # the A. thaliana genome
+#' LTRharvest(input      = "TAIR10_chr_all.fas", 
+#'            index.file = "TAIR10_chr_all_index.fas")
+#' }
+#' @references 
+#' D Ellinghaus, S Kurtz and U Willhoeft. LTRharvest, an efficient and flexible software for de novo detection of LTR retrotransposons. BMC Bioinformatics (2008). 9:18.
+#' 
+#' Most argument specifications are adapted from the User manual of LTRharvest.
+#' @seealso \code{\link{LTRdigest}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
+#' \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
+#' \code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
+#' \code{\link{WritePredictionToFastA}}
+#' @return
+#' The \code{LTRharvest} function generates the following output files:
+#' 
+#' \itemize{
+#' \item *_BetweenLTRSeqs.fsa : DNA sequences of the region between the LTRs in fasta format. 
+#' \item *_Details.tsv : A spread sheet containing detailed information about the predicted LTRs.
+#' \item *_FullLTRRetrotransposonSeqs.fsa : DNA sequences of the entire predicted LTR retrotransposon.
+#' \item *_index.fsa : The suffixarray index file used to predict putative LTR retrotransposons.
+#' \item *_Prediction.gff : A spread sheet containing detailed additional information about the predicted LTRs (partially redundant with the *_Details.tsv file).
+#' 
+#' The ' * ' is an place holder for the name of the input genome file.
+#' }
 #' @export
 
 LTRharvest <- function(input,
@@ -58,10 +107,17 @@ LTRharvest <- function(input,
                        mis         = -2,
                        ins         = -3,
                        del         = -3,
-                       motifmis    = 0,
                        motif       = NULL,
-                       output.path = NULL){
+                       motifmis    = 0,
+                       output.path = NULL,
+                       verbose     = TRUE){
     
+    
+  if ((is.null(mintsd) & !is.null(maxtsd)) || (!is.null(mintsd) & is.null(maxtsd)))
+    stop ("Please specify a TSD length for both: min and max TSD length!")
+  
+  if (!is.element(overlaps,c("no","best","all")))
+    stop ("Please select as LTR transposon overlap option either, 'no', 'best', or 'all'.")
     
     if (is.null(output.path)){
         output.path <- unlist(stringr::str_split(basename(input),"[.]"))[1]
@@ -86,18 +142,22 @@ LTRharvest <- function(input,
     # In case no index file is passed to this function
     # an index file will be generated using "gt suffixerator"
     if (is.null(index.file)){
-        cat("Generating the indexfile ",IndexOutputFileName," with suffixerator...")
-        cat("\n")
+        if (verbose){
+          cat("Generating the indexfile ",IndexOutputFileName," with suffixerator...")
+          cat("\n")
+        }
         # Genrate Suffix for LTRharvest
         system(paste0("gt suffixerator -db ",input," -indexname ", IndexOutputFileName," -tis -suf -lcp -des -ssp -sds -dna"))    
     } else {
         IndexOutputFileName <- index.file
     }
     
-    cat("\n")
-    cat("Running LTRharvest and write results to ",output.path," ...")
-    cat("\n")    
-    
+    if (verbose){
+      cat("\n")
+      cat("Running LTRharvest and write results to ",output.path," ...")
+      cat("\n")  
+    }
+      
     if (is.null(motif)){
         
         # Run LTRharvest without motif
@@ -109,8 +169,8 @@ LTRharvest <- function(input,
                       "-mindistltr ", mindistltr, " \ ",
                       "-maxdistltr ", maxdistltr, " \ ",
                       "-similar ", similar, " \ ",
-                      "-mintsd ", mintsd, " \ ",
-                      "-maxtsd ", maxtsd, " \ ",
+                      ifelse(!is.null(mintsd),paste0("-mintsd ", mintsd, " \ "),""),
+                      ifelse(!is.null(maxtsd),paste0("-maxtsd ", maxtsd, " \ "),""),
                       "-vic ", vic, " \ ",
                       "-overlaps ", overlaps, " \ ",
                       "-xdrop ", xdrop, " \ ",
@@ -141,8 +201,8 @@ LTRharvest <- function(input,
                       "-mindistltr ", mindistltr, " \ ",
                       "-maxdistltr ", maxdistltr, " \ ",
                       "-similar ", similar, " \ ",
-                      "-mintsd ", mintsd, " \ ",
-                      "-maxtsd ", maxtsd, " \ ",
+                      ifelse(!is.null(mintsd),paste0("-mintsd ", mintsd, " \ "),""),
+                      ifelse(!is.null(maxtsd),paste0("-maxtsd ", maxtsd, " \ "),""),
                       "-motif ", motif, " \ ",
                       "-motifmis ", motifmis, " \ ",
                       "-vic ", vic, " \ ",
@@ -159,9 +219,9 @@ LTRharvest <- function(input,
         
     }
     
-    cat("Analysis finished!")
-    cat("\n") 
-    
-    
+    if (verbose){
+      cat("Analysis finished!")
+      cat("\n")  
+    }
 }
 
