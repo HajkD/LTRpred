@@ -218,12 +218,30 @@ read.prediction <- function( gff.file        = NULL,
         cat("(5/5) Filtering for target site duplication has been finished.")
         cat("\n")
         # rename the chromosome number
-        FilteredAnnotationFile.repeat_region <- dplyr::mutate(FilteredAnnotationFile.repeat_region, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
+#         FilteredAnnotationFile.repeat_region <- dplyr::mutate(FilteredAnnotationFile.repeat_region, seq_number =  chromosome)
+#         FilteredAnnotationFile.repeat_region <- dplyr::mutate(FilteredAnnotationFile.repeat_region, chromosome =  sequence)
+#         FilteredAnnotationFile.repeat_region <- dplyr::select(FilteredAnnotationFile.repeat_region, -sequence)
+#         
+        
         LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, seq_number =  chromosome)
-        LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
-        FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
-        FilteredAnnotationFile.inverted_repeat <- dplyr::mutate(FilteredAnnotationFile.inverted_repeat, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
-        FilteredAnnotationFile.target_site_duplication <- dplyr::mutate(FilteredAnnotationFile.target_site_duplication, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
+        LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, chromosome =  sequence)
+        LTR_retrotransposonPredictionFeatures <- dplyr::select(LTR_retrotransposonPredictionFeatures, -sequence)
+        
+        
+#         FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, seq_number =  chromosome)
+#         FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, chromosome =  sequence)
+#         FilteredAnnotationFile.long_terminal_repeat <- dplyr::select(FilteredAnnotationFile.long_terminal_repeat, -sequence)
+#         
+#         
+#         FilteredAnnotationFile.inverted_repeat <- dplyr::mutate(FilteredAnnotationFile.inverted_repeat, seq_number =  chromosome)
+#         FilteredAnnotationFile.inverted_repeat <- dplyr::mutate(FilteredAnnotationFile.inverted_repeat, chromosome =  sequence)
+#         FilteredAnnotationFile.inverted_repeat <- dplyr::select(FilteredAnnotationFile.inverted_repeat, -sequence)
+#         
+#         
+#         FilteredAnnotationFile.target_site_duplication <- dplyr::mutate(FilteredAnnotationFile.target_site_duplication, seq_number =  chromosome)
+#         FilteredAnnotationFile.target_site_duplication <- dplyr::mutate(FilteredAnnotationFile.target_site_duplication, chromosome =  sequence)
+#         FilteredAnnotationFile.target_site_duplication <- dplyr::select(FilteredAnnotationFile.target_site_duplication, -sequence)
+#         
         
         return(list( repeat.region           = FilteredAnnotationFile.repeat_region, 
                      ltr.retrotransposon     = LTR_retrotransposonPredictionFeatures,
@@ -458,16 +476,44 @@ read.prediction <- function( gff.file        = NULL,
         cat("\n")
         
         # rename the chromosome number
-        FilteredAnnotationFile.repeat_region <- dplyr::mutate(FilteredAnnotationFile.repeat_region, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
-        LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, seq_number =  chromosome)
-        LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
-        FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
-        FilteredAnnotationFile.inverted_repeat <- dplyr::mutate(FilteredAnnotationFile.inverted_repeat, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
-        FilteredAnnotationFile.target_site_duplication <- dplyr::mutate(FilteredAnnotationFile.target_site_duplication, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
-        FilteredAnnotationFile.primer_binding_site <- dplyr::mutate(FilteredAnnotationFile.primer_binding_site, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
-        FilteredAnnotationFile.protein_match <- dplyr::mutate(FilteredAnnotationFile.protein_match, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
-        FilteredAnnotationFile.RR_tract <- dplyr::mutate(FilteredAnnotationFile.RR_tract, chromosome =  as.numeric(stringr::str_replace(chromosome,"seq","")) + 1)
+#         FilteredAnnotationFile.repeat_region <- dplyr::mutate(FilteredAnnotationFile.repeat_region, seq_number =  chromosome)
+#         FilteredAnnotationFile.repeat_region <- dplyr::mutate(FilteredAnnotationFile.repeat_region, chromosome =  sequence)
+#         FilteredAnnotationFile.repeat_region <- dplyr::select(FilteredAnnotationFile.repeat_region, -sequence)
+#         
         
+        LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, seq_number =  chromosome)
+        LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, chromosome =  sequence)
+        LTR_retrotransposonPredictionFeatures <- dplyr::select(LTR_retrotransposonPredictionFeatures, -sequence)
+        
+        
+#         FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, seq_number =  chromosome)
+#         FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, chromosome =  sequence)
+#         FilteredAnnotationFile.long_terminal_repeat <- dplyr::select(FilteredAnnotationFile.long_terminal_repeat, -sequence)
+#         
+#         
+#         FilteredAnnotationFile.inverted_repeat <- dplyr::mutate(FilteredAnnotationFile.inverted_repeat, seq_number =  chromosome)
+#         FilteredAnnotationFile.inverted_repeat <- dplyr::mutate(FilteredAnnotationFile.inverted_repeat, chromosome =  sequence)
+#         FilteredAnnotationFile.inverted_repeat <- dplyr::select(FilteredAnnotationFile.inverted_repeat, -sequence)
+#         
+#         
+#         FilteredAnnotationFile.target_site_duplication <- dplyr::mutate(FilteredAnnotationFile.target_site_duplication, seq_number =  chromosome)
+#         FilteredAnnotationFile.target_site_duplication <- dplyr::mutate(FilteredAnnotationFile.target_site_duplication, chromosome =  sequence)
+#         FilteredAnnotationFile.target_site_duplication <- dplyr::select(FilteredAnnotationFile.target_site_duplication, -sequence)
+#         
+#         
+#         FilteredAnnotationFile.primer_binding_site <- dplyr::mutate(FilteredAnnotationFile.primer_binding_site, seq_number =  chromosome)
+#         FilteredAnnotationFile.primer_binding_site <- dplyr::mutate(FilteredAnnotationFile.primer_binding_site, chromosome =  sequence)
+#         FilteredAnnotationFile.primer_binding_site <- dplyr::select(FilteredAnnotationFile.primer_binding_site, -sequence)
+#         
+#         
+#         FilteredAnnotationFile.protein_match <- dplyr::mutate(FilteredAnnotationFile.protein_match, seq_number =  chromosome)
+#         FilteredAnnotationFile.protein_match <- dplyr::mutate(FilteredAnnotationFile.protein_match, chromosome =  sequence)
+#         FilteredAnnotationFile.protein_match <- dplyr::select(FilteredAnnotationFile.protein_match, -sequence)
+#         
+#         FilteredAnnotationFile.RR_tract <- dplyr::mutate(FilteredAnnotationFile.RR_tract, seq_number =  chromosome)
+#         FilteredAnnotationFile.RR_tract <- dplyr::mutate(FilteredAnnotationFile.RR_tract, chromosome =  sequence)
+#         FilteredAnnotationFile.RR_tract <- dplyr::select(FilteredAnnotationFile.RR_tract, -sequence)
+#         
         return(list( repeat.region           = FilteredAnnotationFile.repeat_region, 
                      ltr.retrotransposon     = LTR_retrotransposonPredictionFeatures,
                      ltr                     = FilteredAnnotationFile.long_terminal_repeat,
