@@ -51,7 +51,12 @@
 #' will be generated in the current working directory of R and all results are then stored in this folder.
 #' @author Hajk-Georg Drost
 #' @details 
-#' The \code{LTRharvest} program
+#' The \code{LTRharvest} function provides an interface to the \code{LTRharvest} command line
+#' tool and furthermore takes care of the entire folder handling, output parsing, and data
+#' processing of the \code{LTRharvest} prediction.
+#' 
+#' Internally a folder named \code{output.path}_ltrharvest is generated and all computations
+#' returned by \code{LTRharvest} are then stored in this folder. These files (see section \code{Value}) are then parsed and returned as list of data.frames by this function.
 #' 
 #' \code{LTRharvest} can be used as independently or as initial pre-computation step
 #' to sufficiently detect LTR retrotransposons with \code{LTRdigest}. 
@@ -120,7 +125,7 @@ LTRharvest <- function(input,
     stop ("Please select as LTR transposon overlap option either, 'no', 'best', or 'all'.")
     
     if (is.null(output.path)){
-        output.path <- unlist(stringr::str_split(basename(input),"[.]"))[1]
+        output.path <- paste0(unlist(stringr::str_split(basename(input),"[.]"))[1],"_ltrharvest")
         if (dir.exists(output.path)){
             unlink(output.path, recursive = TRUE)
             dir.create(output.path)
