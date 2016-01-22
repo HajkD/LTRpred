@@ -7,3 +7,42 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
+
+# Introduction
+
+The `LTRpred` package aims to provide an integrated software framework to predict LTR transposons de novo in any genomic sequence of interest. For this purpose, this package provides a rich set of analytics tools as well as documentation and use cases to allow users to quickly 
+start annotating their own genomes.
+
+The `de novo` prediction of LTR transposons in `LTRpred` is based on the command line tools 
+[LTRharvest](http://www.zbh.uni-hamburg.de/?id=206) and [LTRdigest](http://www.zbh.uni-hamburg.de/forschung/arbeitsgruppe-genominformatik/software/ltrdigest.html) and extends these search strategies by additional analytics
+modules to filter the search space of putative LTR transposons for biologically meaningful candidates.
+
+# Getting Started
+
+For the `de novo` annotation of LTR transposons `LTRharvest` and `LTRdigest` use prior knowledge
+about sequence features (also referred to as `Structure-based methods`) such as the homology of Long Terminal Repeats (LTRs), Primer Binding Sites (PBS), _gag_ and _pol_ protein domains, and
+Target Site Duplications (TSDs) that are known to enable the process of transposition ([Bergman and Quesneville, 2007](http://bib.oxfordjournals.org/content/8/6/382.long)).
+
+The corresponding `de novo` annotation tools are therefore designed to screen the genome for
+these structural features. __Figure 1__ shows the structural features of LTR retrotransposons
+that are used for predicting putative LTR transposons `de novo` in any genome of interest.
+
+![Sequence features of LTR retrotransposons. The sequence homology between theLTRs correlates with the evolutionary age of the LTR transposon](LTRfeatures.png)
+
+The idea behind the `LTRpred` package is to provide users the maximal flexibility of
+parameters that can be used to adjust this structural template for finding LTR transposons
+to any biological question at hand. `LTRpred` package allows users to modify a vast range of
+parameters to screen for potential LTR transposons, so having this template shown in
+__Figure 1__ in mind will help users to modify structural parameters in a biologically meaningful manner.
+
+## Quick Start
+
+The fastest way to generate a LTR prediction for a genome of interest is to use the
+`LTRpred()` function.
+
+
+
+
+
+
+
