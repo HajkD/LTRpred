@@ -29,7 +29,7 @@ that are used for predicting putative LTR transposons `de novo` in any genome of
 
 ![Sequence features of LTR retrotransposons. The sequence homology between theLTRs correlates with the evolutionary age of the LTR transposon](LTRfeatures.png)
 
-The idea behind the `LTRpred` package is to provide users the maximal flexibility of
+The rational behind the `LTRpred` package is to provide users the maximal flexibility of
 parameters that can be used to adjust this structural template for finding LTR transposons
 to any biological question at hand. `LTRpred` package allows users to modify a vast range of
 parameters to screen for potential LTR transposons, so having this template shown in
@@ -37,10 +37,26 @@ __Figure 1__ in mind will help users to modify structural parameters in a biolog
 
 ## Quick Start
 
-The fastest way to generate a LTR prediction for a genome of interest is to use the
-`LTRpred()` function.
+The fastest way to generate a LTR prediction for a genome of interest (after [installing](Install.Rmd) all prerequisite command line tools) is to use the
+`LTRpred()` function and relying on the default parameters. In the following example,
+a LTR transposon prediction is performed for the `Arabidopsis thaliana` genome.
 
+First users can download the genome of `A. thaliana` as follows:
 
+```r
+
+```
+
+In the next step this genome can be used to predict putative LTR transposons that
+fulfill the structural parameters set by the `LTRpred()` function.
+
+```r
+# de novo LTR transposon prediction for the A. thaliana genome
+Ath.Prediction <- LTRpred(genome.file = "TAIR10_chr_all.fas")
+
+# looking at the results
+lapply(Ath.Prediction,head,2)
+```
 
 
 
