@@ -55,7 +55,7 @@ QueryRepBase <- function(ltr.seqs.file,
                          repbase.path, 
                          output   = "repbase_blast_output.txt", 
                          max.hits = 5000, 
-                         eval     = 1E-5, 
+                         eval     = 1E-10, 
                          cores    = 1){
     
     s_len <- alig_length <- input <- NULL

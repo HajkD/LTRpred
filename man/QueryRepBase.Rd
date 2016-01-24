@@ -5,7 +5,7 @@
 \title{Query the RepBase to annotate putative LTRs}
 \usage{
 QueryRepBase(ltr.seqs.file, repbase.path, output = "repbase_blast_output.txt",
-  max.hits = 5000, eval = 1e-05, cores = 1)
+  max.hits = 5000, eval = 1e-10, cores = 1)
 }
 \arguments{
 \item{ltr.seqs.file}{file path to the putative LTR transposon sequences in \code{fasta} format.}
