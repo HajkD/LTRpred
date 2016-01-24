@@ -1,7 +1,7 @@
 #' @title Run LTRharvest to predict putative LTR Retrotransposons
 #' @description This function implements an interface between R and
 #' the LTRharvest command line tool to predict putative LTR retrotransposons from R.
-#' @param input path to the genome file in \code{fasta} format.
+#' @param genome.file path to the genome file in \code{fasta} format.
 #' @param index.file specify the name of the enhanced suffix array index file that is computed
 #'  by \code{suffixerator}. This opten can be used in case the suffix file was previously 
 #'  generated, e.g. during a previous call of this function. In this case the suffix array index
@@ -64,13 +64,13 @@
 #' \dontrun{
 #' 
 #' # Run LTRharvest for Arabidopsis thaliana using standard parameters
-#' LTRharvest(input = "TAIR10_chr_all.fas")
+#' LTRharvest(genome.file = "TAIR10_chr_all.fas")
 #' 
 #' # Run LTRharvest for Arabidopsis thaliana using standard parameters
 #' # and use an existing (already computed) suffixarray index file of 
 #' # the A. thaliana genome
-#' LTRharvest(input      = "TAIR10_chr_all.fas", 
-#'            index.file = "TAIR10_chr_all_index.fas")
+#' LTRharvest(genome.file      = "TAIR10_chr_all.fas", 
+#'            index.file       = "TAIR10_chr_all_index.fas")
 #' }
 #' @references 
 #' D Ellinghaus, S Kurtz and U Willhoeft. LTRharvest, an efficient and flexible software for de novo detection of LTR retrotransposons. BMC Bioinformatics (2008). 9:18.
@@ -94,7 +94,7 @@
 #' }
 #' @export
 
-LTRharvest <- function(input,
+LTRharvest <- function(genome.file,
                        index.file  = NULL,
                        range       = c(0,0),
                        seed        = 30,
@@ -125,7 +125,7 @@ LTRharvest <- function(input,
     stop ("Please select as LTR transposon overlap option either, 'no', 'best', or 'all'.")
     
     if (is.null(output.path)){
-        output.path <- paste0(unlist(stringr::str_split(basename(input),"[.]"))[1],"_ltrharvest")
+        output.path <- paste0(unlist(stringr::str_split(basename(genome.file),"[.]"))[1],"_ltrharvest")
         if (dir.exists(output.path)){
             unlink(output.path, recursive = TRUE)
             dir.create(output.path)
@@ -141,7 +141,7 @@ LTRharvest <- function(input,
         }
     }
 
-    OutputFileNameIdentifier <- unlist(stringr::str_split(basename(input),"[.]"))[1] 
+    OutputFileNameIdentifier <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1] 
     IndexOutputFileName <- file.path(output.path,paste0(OutputFileNameIdentifier,"_index",".fsa"))
     
     # In case no index file is passed to this function
@@ -152,7 +152,7 @@ LTRharvest <- function(input,
           cat("\n")
         }
         # Genrate Suffix for LTRharvest
-        system(paste0("gt suffixerator -db ",input," -indexname ", IndexOutputFileName," -tis -suf -lcp -des -ssp -sds -dna"))    
+        system(paste0("gt suffixerator -db ",genome.file," -indexname ", IndexOutputFileName," -tis -suf -lcp -des -ssp -sds -dna"))    
     } else {
         IndexOutputFileName <- index.file
     }

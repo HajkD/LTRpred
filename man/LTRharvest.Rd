@@ -4,14 +4,14 @@
 \alias{LTRharvest}
 \title{Run LTRharvest to predict putative LTR Retrotransposons}
 \usage{
-LTRharvest(input, index.file = NULL, range = c(0, 0), seed = 30,
+LTRharvest(genome.file, index.file = NULL, range = c(0, 0), seed = 30,
   minlenltr = 100, maxlenltr = 3500, mindistltr = 4000,
   maxdistltr = 25000, similar = 70, mintsd = 4, maxtsd = 20, vic = 60,
   overlaps = "no", xdrop = 5, mat = 2, mis = -2, ins = -3, del = -3,
   motif = NULL, motifmis = 0, output.path = NULL, verbose = TRUE)
 }
 \arguments{
-\item{input}{path to the genome file in \code{fasta} format.}
+\item{genome.file}{path to the genome file in \code{fasta} format.}
 
 \item{index.file}{specify the name of the enhanced suffix array index file that is computed
 by \code{suffixerator}. This opten can be used in case the suffix file was previously 
@@ -112,13 +112,13 @@ to sufficiently detect LTR retrotransposons with \code{LTRdigest}.
 \dontrun{
 
 # Run LTRharvest for Arabidopsis thaliana using standard parameters
-LTRharvest(input = "TAIR10_chr_all.fas")
+LTRharvest(genome.file = "TAIR10_chr_all.fas")
 
 # Run LTRharvest for Arabidopsis thaliana using standard parameters
 # and use an existing (already computed) suffixarray index file of 
 # the A. thaliana genome
-LTRharvest(input      = "TAIR10_chr_all.fas", 
-           index.file = "TAIR10_chr_all_index.fas")
+LTRharvest(genome.file      = "TAIR10_chr_all.fas", 
+           index.file       = "TAIR10_chr_all_index.fas")
 }
 }
 \author{
