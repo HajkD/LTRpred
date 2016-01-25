@@ -7,6 +7,18 @@
 PredictORFs(input.file, orf.style = 7, min.codons = 200,
   trans.seqs = FALSE, output = NULL)
 }
+\arguments{
+\item{input.file}{a fasta file storing the sequences for which open reading frames shall be predicted.}
+
+\item{orf.style}{type of predicting open reading frames (see documentation of USEARCH).}
+
+\item{min.codons}{minimum number of codons in the predicted open reading frame.}
+
+\item{trans.seqs}{logical value indicating wheter or not predicted open reading frames
+shall be translated and the corresponding protein sequences stored in the output folder.}
+
+\item{output}{path to the folder in which predicted open reading frame sequences shall be stored.}
+}
 \description{
 This function provides a wrapper to the \code{USEARCH}
 \code{fastx_findorfs} command line tool to predict ORFs in
@@ -16,9 +28,14 @@ a given input fasta file and read the output as \code{\link{data.frame}} object.
 \dontrun{
 
 }
-
 }
 \author{
 Hajk-Georg Drost
+}
+\references{
+Robert Edgar. Search and clustering orders of magnitude faster than BLAST. Bioinformatics (2010) 26 (19): 2460-2461.
+}
+\seealso{
+\code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{LTRpred}}
 }
 
