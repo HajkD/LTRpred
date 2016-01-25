@@ -87,11 +87,10 @@
 #' \item *_BetweenLTRSeqs.fsa : DNA sequences of the region between the LTRs in fasta format. 
 #' \item *_Details.tsv : A spread sheet containing detailed information about the predicted LTRs.
 #' \item *_FullLTRRetrotransposonSeqs.fsa : DNA sequences of the entire predicted LTR retrotransposon.
-#' \item *_index.fsa : The suffixarray index file used to predict putative LTR retrotransposons.
+#' \item *_index.fsa : The suffixarray index file used to predict putative LTR retrotransposonswith \code{LTRharvest}.
 #' \item *_Prediction.gff : A spread sheet containing detailed additional information about the predicted LTRs (partially redundant with the *_Details.tsv file).
-#' 
-#' The ' * ' is an place holder for the name of the input genome file.
 #' }
+#' The ' * ' is an place holder for the name of the input genome file.
 #' @export
 
 LTRharvest <- function(genome.file,
