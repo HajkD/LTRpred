@@ -62,5 +62,3 @@ PredictORFs <- function(input.file,
   return (ORFCount.df)
 }
 
-
-
