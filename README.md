@@ -69,6 +69,7 @@ In the `LTRpred` framework users can find:
 
 #### De Novo Annotation Functions:
 
+* `LTRpred()` : Major pipeline to predict LTR retrotransposons in a given genome
 * `LTRharvest()` : Run LTRharvest to predict putative LTR Retrotransposons
 * `LTRdigest()` : Run LTRdigest to predict putative LTR Retrotransposons
 
@@ -77,16 +78,19 @@ In the `LTRpred` framework users can find:
 
 * `read.prediction()` : Import the output of LTRharvest or LTRdigest
 * `read.tabout()` : Import information sheet returned by LTRdigest
+* `read.PredictORFs()` : Read output of `PredictORFs()`
 
 
 #### Visualization and Analytics Tools:
 
+* `PredictORFs()` : Open Reading Frame prediction in putative LTR transposons 
 * `PlotLTRAgeDistribution()` : Plot the age distribution of predicted LTR transposons
 * `PlotLTRTransposonWidthDistribution()` : Plot the width distribution of putative LTR transposons
 * `PlotLTRWidthDistribution()` : Plot the LTR width distribution
 * `PlotRanges()` : Plot Ranges of an genomic feature
 
 #### Annotation and Validation:
+* `SearchDfam()` : Annotation of `de novo` predicted LTR transposons via [Dfam](http://dfam.org/help/tools) searches
 * `CleanRepBase()` : Clean the initial Repbase database for BLAST
 * `QueryRepBase()` : Query the RepBase to annotate putative LTRs
 * `FilterRepBaseQueryOutput()` : Filter the Repbase query output
