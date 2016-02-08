@@ -16,6 +16,8 @@
 #' @export
 read.PredictORFs <- function(input.file){
   
+  seq.id <- chromosome <- start <- end <- orfs <- NULL
+  
   ReadSeqFile <- Biostrings::readDNAStringSet(input.file)
   SeqFile.table <- table(sapply(ReadSeqFile@ranges@NAMES, 
                                 function(x) unlist(stringr::str_split(x, "[|]"))[1]))
@@ -30,6 +32,8 @@ read.PredictORFs <- function(input.file){
   ORFCount.df <- ORFCount.df[-remove.NA, ]
   ORFCount.df <- dplyr::mutate(ORFCount.df, start = unlist(GenomicLocus$start), end = unlist(GenomicLocus$end))
   
+  ORFCount.df <- dplyr::mutate(ORFCount.df, chromosome = paste0(unlist(stringr::str_split(seq.id, "__"))[1],"_"))
+  ORFCount.df <- dplyr::select(ORFCount.df,chromosome,seq.id,start,end,orfs)
   return (ORFCount.df) 
 }
 
