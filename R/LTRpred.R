@@ -1,0 +1,275 @@
+#' @title Predict LTR retrotransposons in a given genome
+#' @description This function is the main pipeline to perform
+#' sufficient LTR retrotransposon predictions for any genome of interest.
+#' @param genome.file path to the genome file in \code{fasta} format.
+#' @param index.file.havest specify the name of the enhanced suffix array index file that is computed
+#'  by \code{suffixerator} for the use of \code{LTRharvest}. This opten can be used in case the suffix file was previously 
+#'  generated, e.g. during a previous call of this function. In this case the suffix array index
+#'  file does not need to be re-computed for new analyses. This is particularly useful when 
+#'  running \code{LTRpred} with different parameter settings.
+#' @param index.file.digest specify the name of the enhanced suffix array index file that is computed
+#'  by \code{suffixerator} for the use of \code{LTRdigest}. This opten can be used in case the suffix file was previously 
+#'  generated, e.g. during a previous call of this function. In this case the suffix array index
+#'  file does not need to be re-computed for new analyses. This is particularly useful when 
+#'  running \code{LTRpred} with different parameter settings.
+#' @param range define the genomic interval in which predicted LTR transposons shall be reported
+#' . In case \code{range[1] = 1000} and \code{range[2] = 10000} then candidates are only 
+#' reported if they start after position 1000 and end before position 10000 in their respective 
+#' sequence coordinates. If \code{range[1] = 0} and \code{range[2] = 0}, 
+#' so \code{range = c(0,0)} (default) then the entire genome is being scanned.
+#' @param annotate annotation database that shall be queried to annotate predicted LTR transposons.
+#' Default is \code{annotate = NULL} indicating that no annotation query is being performed.
+#' Possible options are: \code{annotate = "Dfam"} (here the Dfam database must be stored locally and a nhammer search is performed against the Dfam database) or \code{annotate = "Repbase"} (here the Repbase database must be stored locally and a blastn search is performed against the Repbase database). Please consult the vignettes for details.
+#' @param seed  the minimum length for the exact maximal repeats. Only repeats with the specified minimum length are considered in all subsequent analyses. Default is \code{seed = 30}.
+#' @param minlenltr minimum LTR length. Default is \code{minlenltr = 100}. 
+#' @param maxlenltr maximum LTR length. Default is \code{maxlenltr = 3500}.
+#' @param mindistltr minimum distance of LTR starting positions. Default is \code{mindistltr = 4000}.
+#' @param maxdistltr maximum distance of LTR starting positions. Default is \code{maxdistltr = 25000}.
+#' @param similar minimum similarity value between the two LTRs in percent. \code{similar = 70}.
+#' @param mintsd minimum target site duplications (TSDs) length. If no search for TSDs
+#' shall be performed, then specify \code{mintsd = NULL}. Default is \code{mintsd = 4}.
+#' @param maxtsd maximum target site duplications (TSDs) length. If no search for TSDs
+#' shall be performed, then specify \code{maxtsd = NULL}. Default is \code{maxtsd = 20}.
+#' @param vic number of nucleotide positions left and right (the vicinity) of the predicted
+#'  boundary of a LTR that will be searched for TSDs and/or one motif (if specified). 
+#'  Default is \code{vic = 60}.
+#' @param overlaps specify how overlapping LTR retrotransposon predictions shall be treated. 
+#' If \code{overlaps = "no"} is selected, then neither nested nor overlapping predictions will be reported in the output. In case \code{overlaps = "best"} is selected then in the case of two or more nested or overlapping predictions, solely the LTR retrotransposon prediction with
+#' the highest similarity between its LTRs will be reported.
+#' If \code{overlaps = "all"} is selected then all LTR retrotransposon predictions 
+#' will be reported whether there are nested and/or overlapping predictions or not. 
+#' Default is \code{overlaps = "best"}.
+#' @param xdrop 
+#' @param mat specify the positive match score for the X-drop extension process. Default is \code{mat = 2}.
+#' @param mis specify the negative mismatch score for the X-drop extension process. Default is \code{mis = -2}.
+#' @param ins specify the negative insertion score for the X-drop extension process. Default is \code{ins = -3}.
+#' @param del specify the negative deletion score for the X-drop extension process. Default is \code{del = -3}.
+#' @param motif specify 2 nucleotides for the starting motif and 2 nucleotides for the ending
+#'  motif at the beginning and the ending of each LTR, respectively.
+#'  Only palindromic motif sequences - where the motif sequence is equal to its complementary
+#'  sequence read backwards - are allowed, e.g. \code{motif = "tgca"}. Type the nucleotides without any space
+#'  separating them. If this option is not selected by the user, candidate pairs will not be
+#'  screened for potential motifs. If this options is set but no allowed number of
+#'  mismatches is specified by the argument \code{motifmis} and a search for the exact 
+#'  motif will be conducted. If \code{motif = NULL} then no explicit motif is being specified.
+#' @param motifmis allowed number of mismatches in the TSD motif specified in \code{motif}. 
+#' The number of mismatches needs to be between [0,3].  Default is \code{motifmis = 0}.
+#' @param output.path a path/folder to store all results returned by \code{LTRharvest}. 
+#' If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
+#' will be generated in the current working directory of R and all results are then stored in this folder.
+#' @param aaout shall the protein sequence of the HMM matches to the predicted LTR transposon 
+#' be generated as fasta file or not. Options are \code{aaout = "yes"} or \code{aaout = "no"}.
+#' @param aliout shall the alignment of the protein sequence of the HMM matches to the predicted LTR transposon 
+#' be generated as fasta file or not. Options are \code{aaout = "yes"} or \code{aaout = "no"}.
+#' @param pptlen a two dimensional numeric vector specifying the minimum and maximum allowed
+#' lengths for PPT predictions. If a purine-rich region that does not fulfill this range is
+#' found, it will be discarded. Default is \code{pptlen = c(8,30)} (minimum = 8; maximum = 30).
+#' @param uboxlen a two dimensional numeric vector specifying the minimum and maximum allowed
+#' lengths for U-box predictions. If a T-rich region preceding a PPT that does not fulfill the PPT length criteria is
+#' found, it will be discarded. Default is \code{uboxlen = c(3,30)} (minimum = 3; maximum = 30).
+#' @param pptradius a numeric value specifying the area around the 3' LTR beginning to be 
+#' considered when searching for PPT. Default value is \code{pptradius = 30}.
+#' @param trnas path to the fasta file storing the unique tRNA sequences that shall be matched to the
+#' predicted LTR transposon (tRNA library). 
+#' @param pbsalilen a two dimensional numeric vector specifying the minimum and maximum allowed
+#' lengths for PBS/tRNA alignments. If the local alignments are shorter or longer than this
+#' range, it will be discarded. Default is \code{pbsalilen = c(11,30)} (minimum = 11; maximum = 30).
+#' @param pbsoffset a two dimensional numeric vector specifying the minimum and maximum allowed
+#' distance between the start of the PBS and the 3' end of the 5' LTR. Local alignments not 
+#' fulfilling this criteria will be discarded. Default is \code{pbsoffset = c(0,5)} (minimum = 0; maximum = 5).
+#' @param pbstrnaoffset a two dimensional numeric vector specifying the minimum and maximum allowed
+#' PBS/tRNA alignment offset from the 3' end of the tRNA. Local alignments not 
+#' fulfilling this criteria will be discarded. Default is \code{pbstrnaoffset = c(0,5)} (minimum = 0; maximum = 5).
+#' @param pbsmaxedist a numeric value specifying the maximal allowed unit edit distance in a
+#' local PBS/tRNA alignment.
+#' @param pbsradius a numeric value specifying the area around the 5' LTR end to be 
+#' considered when searching for PBS Default value is \code{pbsradius = 30}.
+#' @param hmms a character string or a character vector storing either the hmm files for
+#' searching internal domains between the LTRs of predicted LTR transposons or a vector of
+#' Pfam IDs from http://pfam.xfam.org/ that are downloaded and used to search for corresponding protein domains
+#' within the predicted LTR transposons. As an option users can rename all of their hmm files
+#' so that they start for example with the name \code{hmms = "hmm_*"}. This way all files starting with 
+#' \code{hmm_} will be considered for the subsequent protein domain search. In case Pfam IDs 
+#' are specified, the \code{LTRpred} function will automatically download the corresponding 
+#' HMM files and use them for further protein domain searches. In case users prefer to specify 
+#' Pfam IDs please specify them in the \code{pfam.ids} parmeter and choose \code{hmms = NULL}.  
+#' @param pdomevalcutoff a numeric value specifying the E-value cutoff for corresponding HMMER searches. All hits that do not fulfill this criteria are discarded. Default is \code{pdomevalcutoff = 1E-5}.
+#' @param pbsmatchscore specify the match score used in the PBS/tRNA Smith-Waterman alignment.
+#' Default is \code{pbsmatchscore = 5}.
+#' @param pbsmismatchscore specify the mismatch score used in the PBS/tRNA Smith-Waterman alignment.
+#' Default is \code{pbsmismatchscore = -10}.
+#' @param pbsinsertionscore specify the insertion score used in the PBS/tRNA Smith-Waterman alignment.
+#' Default is \code{pbsinsertionscore = -20}.
+#' @param pbsdeletionscore specify the deletion score used in the PBS/tRNA Smith-Waterman alignment.
+#' Default is \code{pbsdeletionscore = -20}.
+#' @param pfam.ids a character vector storing the Pfam IDs from http://pfam.xfam.org/
+#' that shall be downloaded and used to perform protein domain searches within the sequences
+#' between the predicted LTRs.
+#' @param cores number of cores to be used for multicore processing.
+#' @param orf.style type of predicting open reading frames (see documentation of USEARCH).
+#' @param min.codons minimum number of codons in the predicted open reading frame.
+#' @param trans.seqs logical value indicating wheter or not predicted open reading frames
+#' shall be translated and the corresponding protein sequences stored in the output folder. 
+#' @author Hajk-Georg Drost
+#' @details This function provides the main pipeline to perform \code{de novo} LTR transposon
+#' predictions.
+#' 
+#' @seealso \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
+#' \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
+#' \code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
+#' \code{\link{WritePredictionToFastA}}
+#' @importFrom magrittr %>%
+#' @return 
+#' The \code{LTRpred} function generates the following output files:
+#' 
+#' \itemize{
+#' \item *_BetweenLTRSeqs.fsa : DNA sequences of the region between the LTRs in fasta format. 
+#' \item *_Details.tsv : A spread sheet containing detailed information about the predicted LTRs.
+#' \item *_FullLTRRetrotransposonSeqs.fsa : DNA sequences of the entire predicted LTR retrotransposon.
+#' \item *_index.fsa : The suffixarray index file used to predict putative LTR retrotransposons.
+#' \item *_Prediction.gff : A spread sheet containing detailed additional information about the predicted LTRs (partially redundant with the *_Details.tsv file).
+#' \item *_index_ltrdigest.fsa : The suffixarray index file used to predict putative LTR retrotransposonswith \code{LTRdigest}.
+#' \item *_LTRdigestPrediction.gff : A spread sheet containing detailed information about the predicted LTRs.
+#' \item *-ltrdigest_tabout.csv : A spread sheet containing additional detailed information about the predicted LTRs.
+#' \item *-ltrdigest_complete.fas : The full DNA sequences of all predicted LTR transposons.
+#' \item *-ltrdigest_conditions.csv : Contains information about the parameters used for a given
+#' \code{LTRdigest} run.
+#' \item *-ltrdigest_pbs.fas : Stores the predicted PBS sequences for the putative LTR retrotransposons.
+#' \item *-ltrdigest_ppt.fas : Stores the predicted PPT sequences for the putative LTR retrotransposons.
+#' \item *-ltrdigest_5ltr.fas and *-ltrdigest_3ltr.fas: Stores the predicted 5' and 3' LTR sequences. Note: If the direction of the putative retrotransposon could be predicted, these
+#' files will contain the corresponding 3' and 5' LTR sequences. If no direction could be
+#' predicted, forward direction with regard to the original sequence will be assumed by 
+#' \code{LTRdigest}, i.e. the 'left' LTR will be considered the 5' LTR.
+#' \item *-ltrdigest_pdom_<domainname>.fas : Stores the DNA sequences of the HMM matches
+#' to the LTR retrotransposon candidates. 
+#' \item *-ltrdigest_pdom_<domainname>_aa.fas : Stores the concatenated protein sequences of 
+#' the HMM matches to the LTR retrotransposon candidates.
+#' \item *-ltrdigest_pdom_<domainname>_ali.fas : Stores the alignment information for all matches of the given protein domain model to the translations of all candidates.
+#' \item *_orfs_nt.fsa : Stores the predicted open reading frames within the predicted LTR transposons as DNA sequence.
+#' \item *_orfs_aa.fsa : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.
+#' }
+#' The ' * ' is an place holder for the name of the input genome file.
+#' @references 
+#' R Edgar. Search and clustering orders of magnitude faster than BLAST. Bioinformatics (2010) 26 (19): 2460-2461.
+#' 
+#' D Ellinghaus, S Kurtz and U Willhoeft. LTRharvest, an efficient and flexible software for de novo detection of LTR retrotransposons. BMC Bioinformatics (2008). 9:18.
+#' 
+#' S Steinbiss et al. Fine-grained annotation and classification of de novo predicted LTR retrotransposons. Nucl. Acids Res. (2009) 37 (21): 7002-7013.
+#' @export
+LTRpred <- function(genome.file,
+                    index.file.havest = NULL,
+                    index.file.digest = NULL,
+                    annotate          = NULL,
+                    range             = c(0,0),
+                    seed              = 30,
+                    minlenltr         = 100,
+                    maxlenltr         = 3500,
+                    mindistltr        = 4000,
+                    maxdistltr        = 25000,
+                    similar           = 70,
+                    mintsd            = 4,
+                    maxtsd            = 20,
+                    vic               = 60,
+                    overlaps          = "no",
+                    xdrop             = 5,
+                    mat               = 2,
+                    mis               = -2,
+                    ins               = -3,
+                    del               = -3,
+                    motif             = NULL,
+                    motifmis          = 0,
+                    aaout             = "yes",
+                    aliout            = "yes",
+                    pptlen            = c(8,30),
+                    uboxlen           = c(3,30),
+                    pptradius         = 30,
+                    trnas             = NULL,
+                    pbsalilen         = c(11,30),
+                    pbsoffset         = c(0,5),
+                    pbstrnaoffset     = c(0,5),
+                    pbsmaxedist       = 1,
+                    pbsradius         = 30,
+                    hmms              = NULL,
+                    pdomevalcutoff    = 1E-5,
+                    pbsmatchscore     = 5,
+                    pbsmismatchscore  = -10,
+                    pbsinsertionscore = -20,
+                    pbsdeletionscore  = -20,
+                    pfam.ids          = NULL,
+                    cores             = 1,
+                    output.path       = NULL,
+                    verbose           = TRUE){
+  
+  if (!is.null(annotate)){
+    if (!is.element(annotate,c("Repbase","Dfam")))
+      stop ("Only Dfam or Repbase can be used to annotate predicted LTR transposons!")
+  }
+  
+           LTRharvest(genome.file,
+                      index.file  = index.file.havest,
+                      range       = range,
+                      seed        = seed,
+                      minlenltr   = minlenltr,
+                      maxlenltr   = maxlenltr,
+                      mindistltr  = mindistltr,
+                      maxdistltr  = maxdistltr,
+                      similar     = similar,
+                      mintsd      = mintsd,
+                      maxtsd      = maxtsd,
+                      vic         = vic,
+                      overlaps    = overlaps,
+                      xdrop       = xdrop,
+                      mat         = mat,
+                      mis         = mis,
+                      ins         = ins,
+                      del         = del,
+                      motif       = motif,
+                      motifmis    = motifmis,
+                      output.path = output.path,
+                      verbose     = verbose) 
+  
+  ## read the LTRharvest output to run LTRdigest <-----
+  
+  LTRdigest(input.gff3        = file.path(paste0(basename(genome.file),"_ltrharvest"),paste0(basename(genome.file),"_Prediction.gff")),
+            genome.file       = genome.file,
+            aaout             = aaout,
+            aliout            = aliout,
+            pptlen            = pptlen,
+            uboxlen           = uboxlen,
+            pptradius         = pptradius,
+            trnas             = trnas,
+            pbsalilen         = pbsalilen,
+            pbsoffset         = pbsoffset,
+            pbstrnaoffset     = pbstrnaoffset,
+            pbsmaxedist       = pbsmaxedist,
+            pbsradius         = pbsradius,
+            hmms              = hmms,
+            pdomevalcutoff    = pdomevalcutoff,
+            pbsmatchscore     = pbsmatchscore,
+            pbsmismatchscore  = pbsmismatchscore,
+            pbsinsertionscore = pbsinsertionscore,
+            pbsdeletionscore  = pbsdeletionscore,
+            pfam.ids          = pfam.ids,
+            cores             = cores,
+            index.file        = index.file.digest,
+            output.path       = output.path) 
+  
+  
+  LTRdigestOutput <- read.prediction(gff.file    = file.path(paste0(basename(genome.file),"_ltrdigest"),paste0(basename(genome.file),"_LTRdigestPrediction.gff")),
+                                     tabout.file = file.path(paste0(basename(genome.file),"_ltrdigest"),paste0(basename(genome.file),"-ltrdigest_tabout.csv")),
+                                     program     = "LTRdigest")
+  
+  ORFTable <- PredictORFs(input.file = file.path(paste0(basename(genome.file),"_ltrdigest"),paste0(basename(genome.file),"-ltrdigest_complete.fas")), 
+                          orf.style  = orf.style, 
+                          min.codons = min.codons, 
+                          trans.seqs = trans.seqs,
+                          output     = output.path)
+  
+  ## here join ORFTable with LTRdigestOutput$ltr.transposon and all other tables LTRdigestOutput$ 
+  
+  # here implement nhmmer search to Dfam
+  SearchDfam()
+}
+
+
+
