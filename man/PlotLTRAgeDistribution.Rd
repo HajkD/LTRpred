@@ -11,7 +11,7 @@ PlotLTRAgeDistribution(LTRpred.tbl, similarity.bin = NULL, min.sim = NULL)
 
 \item{similarity.bin}{resolution of similarity binning. E.g. binning 98\%-100\% into 0.5\% intervals would be \code{similarity.bin = 0.5}.}
 
-\item{min.sim}{}
+\item{min.sim}{minimum similarity between LTRs that can shall be considered for visualization.}
 }
 \description{
 This function visualizes the age distribution of
