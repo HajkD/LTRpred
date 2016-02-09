@@ -9,10 +9,6 @@
 #' shall be translated and the corresponding protein sequences stored in the output folder. 
 #' @param output path to the folder in which predicted open reading frame sequences shall be stored.
 #' @author Hajk-Georg Drost
-#' @examples 
-#' \dontrun{
-#' 
-#' }
 #' @seealso \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{LTRpred}}
 #' @references 
 #' Robert Edgar. Search and clustering orders of magnitude faster than BLAST. Bioinformatics (2010) 26 (19): 2460-2461.

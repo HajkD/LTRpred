@@ -24,11 +24,6 @@ This function provides a wrapper to the \code{USEARCH}
 \code{fastx_findorfs} command line tool to predict ORFs in
 a given input fasta file and read the output as \code{\link{data.frame}} object.
 }
-\examples{
-\dontrun{
-
-}
-}
 \author{
 Hajk-Georg Drost
 }
