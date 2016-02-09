@@ -17,7 +17,8 @@ PlotLTRTransposonWidthDistribution(LTRpred.tbl, type = "boxplot",
 \item{min.sim}{minimum similarity between LTRs that can shall be considered for visualization.}
 }
 \description{
-This
+Function to visualize the correlation between LTR transposon age
+(measured in LTR similarity) and the width of the corresponding LTR retrotransposon (the complete sequence).
 }
 \details{
 This function visualizes the correlation between LTR transposon age
