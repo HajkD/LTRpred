@@ -223,9 +223,9 @@ read.prediction <- function( gff.file        = NULL,
 #         FilteredAnnotationFile.repeat_region <- dplyr::select(FilteredAnnotationFile.repeat_region, -sequence)
 #         
         
-        LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, seq_number =  chromosome)
-        LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, chromosome =  sequence)
-        LTR_retrotransposonPredictionFeatures <- dplyr::select(LTR_retrotransposonPredictionFeatures, -sequence)
+#         LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, seq_number =  chromosome)
+#         LTR_retrotransposonPredictionFeatures <- dplyr::mutate(LTR_retrotransposonPredictionFeatures, chromosome =  sequence)
+#         LTR_retrotransposonPredictionFeatures <- dplyr::select(LTR_retrotransposonPredictionFeatures, -sequence)
         
         
 #         FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, seq_number =  chromosome)
