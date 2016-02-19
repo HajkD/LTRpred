@@ -50,9 +50,9 @@ PredictORFs <- function(input.file,
   }
   
   if (!is.null(output)){
-    ORFCount.df <- read.findorfs.output(file.path(output,paste0(basename(input.file),"_nt.fsa")))
+    ORFCount.df <- read.orfs(file.path(output,paste0(basename(input.file),"_nt.fsa")))
   } else {
-    ORFCount.df <- read.findorfs.output(paste0(basename(input.file),"_nt.fsa"))
+    ORFCount.df <- read.orfs(paste0(basename(input.file),"_nt.fsa"))
   }
   
   return (ORFCount.df)
