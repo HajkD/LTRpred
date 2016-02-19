@@ -14,7 +14,8 @@ LTRpred(genome.file, index.file.havest = NULL, index.file.digest = NULL,
   5), pbstrnaoffset = c(0, 5), pbsmaxedist = 1, pbsradius = 30,
   hmms = NULL, pdomevalcutoff = 1e-05, pbsmatchscore = 5,
   pbsmismatchscore = -10, pbsinsertionscore = -20, pbsdeletionscore = -20,
-  pfam.ids = NULL, cores = 1, output.path = NULL, verbose = TRUE)
+  pfam.ids = NULL, cores = 1, orf.style = 7, min.codons = 200,
+  trans.seqs = FALSE, output.path = NULL, verbose = TRUE)
 }
 \arguments{
 \item{genome.file}{path to the genome file in \code{fasta} format.}
@@ -160,16 +161,18 @@ between the predicted LTRs.}
 
 \item{cores}{number of cores to be used for multicore processing.}
 
-\item{output.path}{a path/folder to store all results returned by \code{LTRharvest}. 
-If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
-will be generated in the current working directory of R and all results are then stored in this folder.}
-
 \item{orf.style}{type of predicting open reading frames (see documentation of USEARCH).}
 
 \item{min.codons}{minimum number of codons in the predicted open reading frame.}
 
 \item{trans.seqs}{logical value indicating wheter or not predicted open reading frames
 shall be translated and the corresponding protein sequences stored in the output folder.}
+
+\item{output.path}{a path/folder to store all results returned by \code{LTRharvest}. 
+If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
+will be generated in the current working directory of R and all results are then stored in this folder.}
+
+\item{verbose}{shall further information be printed on the console or not.}
 }
 \value{
 The \code{LTRpred} function generates the following output files:
@@ -224,6 +227,6 @@ S Steinbiss et al. Fine-grained annotation and classification of de novo predict
 \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
 \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
 \code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
-\code{\link{WritePredictionToFastA}}
+\code{\link{pred2fasta}}
 }
 

@@ -109,7 +109,8 @@
 #' @param orf.style type of predicting open reading frames (see documentation of USEARCH).
 #' @param min.codons minimum number of codons in the predicted open reading frame.
 #' @param trans.seqs logical value indicating wheter or not predicted open reading frames
-#' shall be translated and the corresponding protein sequences stored in the output folder. 
+#' shall be translated and the corresponding protein sequences stored in the output folder.
+#' @param verbose shall further information be printed on the console or not. 
 #' @author Hajk-Georg Drost
 #' @details This function provides the main pipeline to perform \code{de novo} LTR transposon
 #' predictions.
@@ -117,7 +118,7 @@
 #' @seealso \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
 #' \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
 #' \code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
-#' \code{\link{WritePredictionToFastA}}
+#' \code{\link{pred2fasta}}
 #' @importFrom magrittr %>%
 #' @return 
 #' The \code{LTRpred} function generates the following output files:
@@ -197,6 +198,9 @@ LTRpred <- function(genome.file,
                     pbsdeletionscore  = -20,
                     pfam.ids          = NULL,
                     cores             = 1,
+                    orf.style         = 7,
+                    min.codons        = 200,
+                    trans.seqs        = FALSE,
                     output.path       = NULL,
                     verbose           = TRUE){
   
@@ -204,6 +208,30 @@ LTRpred <- function(genome.file,
     if (!is.element(annotate,c("Repbase","Dfam")))
       stop ("Only Dfam or Repbase can be used to annotate predicted LTR transposons!")
   }
+  
+  if (parallel::detectCores() < cores)
+    stop ("Your system does not provide the number of cores you specified.")
+  
+  if (is.null(output.path)){
+    output.path <- paste0(unlist(stringr::str_split(basename(genome.file),"[.]"))[1],"_ltrpred")
+    if (dir.exists(output.path)){
+      unlink(output.path, recursive = TRUE)
+      dir.create(output.path)
+    } else {
+      dir.create(output.path)
+    }
+  } else {
+    
+    if (dir.exists(output.path)){
+      unlink(output.path, recursive = TRUE)
+      dir.create(output.path)
+    } else {
+      dir.create(output.path)
+    }
+  }
+  
+  rTSD_end <- lTSD_start <- PPT_end <- PPT_start <- PBS_end <- PBS_start <- NULL
+  ID <- match_width <- reading_frame <- width <- NULL
   
            LTRharvest(genome.file,
                       index.file  = index.file.havest,
@@ -227,8 +255,6 @@ LTRpred <- function(genome.file,
                       motifmis    = motifmis,
                       output.path = output.path,
                       verbose     = verbose) 
-  
-  ## read the LTRharvest output to run LTRdigest <-----
   
   LTRdigest(input.gff3        = file.path(paste0(basename(genome.file),"_ltrharvest"),paste0(basename(genome.file),"_Prediction.gff")),
             genome.file       = genome.file,
@@ -264,6 +290,22 @@ LTRpred <- function(genome.file,
                           min.codons = min.codons, 
                           trans.seqs = trans.seqs,
                           output     = output.path)
+  
+  LTRdigestOutput$ltr.retrotransposon <- dplyr::full_join(LTRdigestOutput$ltr.retrotransposon, ORFTable, by = c("chromosome" = "chromosome", "start" = "element_start", "end" = "element_end"))
+ 
+  LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, repeat_region_length = ifelse(!is.na(rTSD_end), (rTSD_end - lTSD_start) + 1, NA))
+  
+  LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, PPT_length = ifelse(!is.na(PPT_end),(PPT_end - PPT_start) + 1, NA))
+  
+  LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, PBS_length = ifelse(!is.na(PBS_end), (PBS_end - PBS_start) + 1, NA))
+  
+  ProteinMatch <- dplyr::select(LTRdigestOutput$protein.match,ID, start, end, match_width, reading_frame)
+  colnames(ProteinMatch) <- c("ID","protein_domain_start","protein_domain_end","protein_domain_match_width","protein_domain_reading_frame")
+  
+  LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, ProteinMatch, by = "ID")
+  
+  RR_tract <- dplyr::select(LTRdigestOutput$RR_tract,ID, start, end, width)
+  colnames(ProteinMatch) <- c("ID","RR_tract_start","RR_tract_end","RR_tract_length")
   
   ## here join ORFTable with LTRdigestOutput$ltr.transposon and all other tables LTRdigestOutput$ 
   
