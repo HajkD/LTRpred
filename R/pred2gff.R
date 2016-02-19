@@ -22,56 +22,140 @@
 #' write.table(gff.example,"test.gff", quote = FALSE, col.names = TRUE, row.names = FALSE)
 #' @references http://www.ensembl.org/info/website/upload/gff.html
 #' @export
-pred2gff <- function(LTR.data){
+pred2gff <- function(LTR.data, program = "LTRpred"){
   
-  chromosome <- ltr_similarity <- element_length <- attribute <- NULL
-  lLTR_start <- lLTR_end <- lLTR_length <- rLTR_start <- rLTR_end <- rLTR_length <- NULL
-  lTSD_start <- lTSD_end <- lTSD_motif <- rTSD_start <- rTSD_end <- rTSD_motif <- NULL
-  PPT_start <- PPT_end <- PPT_motif <- PPT_strand <- PPT_offset <- NULL
-  PBS_start <- PBS_end <- PBS_strand <- PBS_offset <- NULL
-  trna <- trna_offset <- trna_motif <- `PBS/tRNA_edist` <- protein_domain <- NULL
+  if (!is.element(program, c("LTRpred","LTRdigest","LTRharvest")))
+    stop ("Please select a program that is supported by this function: 'LTRpred', 'LTRdigest', or 'LTRharvest'.")
   
+  if (program == "LTRharvest"){
+    chromosome <- ltr_similarity <- attribute <- NULL
+    
+    res <- dplyr::data_frame(seqname   = LTR.data$ID, 
+                             source    = LTR.data$pred_tool, 
+                             feature   = LTR.data$annotation,
+                             start     = LTR.data$start,
+                             end       = LTR.data$end,
+                             score     = LTR.data$score,
+                             strand    = LTR.data$strand,
+                             frame     = LTR.data$frame, 
+                             attribute = unlist(
+                               dplyr::select(
+                                 dplyr::mutate(LTR.data,
+                                               attribute = paste0("Chr=",chromosome,";",
+                                                                  "ltr.sim=",ltr_similarity)),attribute)))
+  }
   
-  res <- dplyr::data_frame(seqname   = LTR.data$ID, 
-                           source    = LTR.data$pred_tool, 
-                           feature   = LTR.data$annotation,
-                           start     = LTR.data$start,
-                           end       = LTR.data$end,
-                           score     = LTR.data$score,
-                           strand    = LTR.data$strand,
-                           frame     = LTR.data$frame, 
-                           attribute = unlist(
-                                         dplyr::select(
-                                            dplyr::mutate(LTR.data,
-                                                           attribute = paste0("Chr=",chromosome,";",
-                                                                              "ltr.sim=",ltr_similarity,
-                                                                              ";","element_length=",element_length,";",
-                                                                              "lLTRstart=",lLTR_start,";",
-                                                                              "lLTRend=",lLTR_end,";",
-                                                                              "lLTRlength=",lLTR_length,";",
-                                                                              "rLTRstart=",rLTR_start,";",
-                                                                              "rLTRend=",rLTR_end,";",
-                                                                              "rLTRlength=",rLTR_length,";",
-                                                                              "lTSDstart=",lTSD_start,";",
-                                                                              "lTSDend=",lTSD_end,";",
-                                                                              "lTSDmotif=",lTSD_motif,";",
-                                                                              "rTSDstart=",rTSD_start,";",
-                                                                              "rTSDend=",rTSD_end,";",
-                                                                              "rTSDmotif=",rTSD_motif,";",
-                                                                              "PPTstart=",PPT_start,";",
-                                                                              "PPTend=",PPT_end,";",
-                                                                              "PPTmotif=",PPT_motif,";",
-                                                                              "PPTstrand=",PPT_strand,";",
-                                                                              "PPToffset=",PPT_offset,";",
-                                                                              "PBSstart=",PBS_start,";",
-                                                                              "PBSend=",PBS_end,";",
-                                                                              "PBSstrand=",PBS_strand,";",
-                                                                              "PBSoffset=",PBS_offset,";",
-                                                                              "trna=",trna,";",
-                                                                              "tRNAmotif=",trna_motif,";",
-                                                                              "tRNAoffset=",trna_offset,";",
-                                                                              "PBS/tRNAedist=",`PBS/tRNA_edist`,";",
-                                                                              "ProteinDomain=",protein_domain)),attribute)))
+  if (program == "LTRdigest"){
+    
+    chromosome <- ltr_similarity <- element_length <- attribute <- NULL
+    lLTR_start <- lLTR_end <- lLTR_length <- rLTR_start <- rLTR_end <- rLTR_length <- NULL
+    lTSD_start <- lTSD_end <- lTSD_motif <- rTSD_start <- rTSD_end <- rTSD_motif <- NULL
+    PPT_start <- PPT_end <- PPT_motif <- PPT_strand <- PPT_offset <- NULL
+    PBS_start <- PBS_end <- PBS_strand <- PBS_offset <- NULL
+    trna <- trna_offset <- trna_motif <- `PBS/tRNA_edist` <- protein_domain <- NULL
+    
+    
+    res <- dplyr::data_frame(seqname   = LTR.data$ID, 
+                             source    = LTR.data$pred_tool, 
+                             feature   = LTR.data$annotation,
+                             start     = LTR.data$start,
+                             end       = LTR.data$end,
+                             score     = LTR.data$score,
+                             strand    = LTR.data$strand,
+                             frame     = LTR.data$frame, 
+                             attribute = unlist(
+                               dplyr::select(
+                                 dplyr::mutate(LTR.data,
+                                               attribute = paste0("Chr=",chromosome,";",
+                                                                  "ltr.sim=",ltr_similarity,
+                                                                  ";","element_length=",element_length,";",
+                                                                  "lLTRstart=",lLTR_start,";",
+                                                                  "lLTRend=",lLTR_end,";",
+                                                                  "lLTRlength=",lLTR_length,";",
+                                                                  "rLTRstart=",rLTR_start,";",
+                                                                  "rLTRend=",rLTR_end,";",
+                                                                  "rLTRlength=",rLTR_length,";",
+                                                                  "lTSDstart=",lTSD_start,";",
+                                                                  "lTSDend=",lTSD_end,";",
+                                                                  "lTSDmotif=",lTSD_motif,";",
+                                                                  "rTSDstart=",rTSD_start,";",
+                                                                  "rTSDend=",rTSD_end,";",
+                                                                  "rTSDmotif=",rTSD_motif,";",
+                                                                  "PPTstart=",PPT_start,";",
+                                                                  "PPTend=",PPT_end,";",
+                                                                  "PPTmotif=",PPT_motif,";",
+                                                                  "PPTstrand=",PPT_strand,";",
+                                                                  "PPToffset=",PPT_offset,";",
+                                                                  "PBSstart=",PBS_start,";",
+                                                                  "PBSend=",PBS_end,";",
+                                                                  "PBSstrand=",PBS_strand,";",
+                                                                  "PBSoffset=",PBS_offset,";",
+                                                                  "trna=",trna,";",
+                                                                  "tRNAmotif=",trna_motif,";",
+                                                                  "tRNAoffset=",trna_offset,";",
+                                                                  "PBS/tRNAedist=",`PBS/tRNA_edist`,";",
+                                                                  "ProteinDomain=",protein_domain)),attribute)))
+  }
+  
+  if (program == "LTRpred"){
+    chromosome <- ltr_similarity <- element_length <- attribute <- NULL
+    lLTR_start <- lLTR_end <- lLTR_length <- rLTR_start <- rLTR_end <- rLTR_length <- NULL
+    lTSD_start <- lTSD_end <- lTSD_motif <- rTSD_start <- rTSD_end <- rTSD_motif <- NULL
+    PPT_start <- PPT_end <- PPT_length <- PPT_motif <- PPT_strand <- PPT_offset <- NULL
+    PBS_start <- PBS_end <- PBS_length <-  PBS_strand <- PBS_offset <- NULL
+    trna <- trna_offset <- trna_motif <- `PBS/tRNA_edist` <- protein_domain <- NULL
+    `seq.id` <- orfs <- repeat_region_length <- protein_domain_start <- protein_domain_end <- protein_domain_match_width <- protein_domain_reading_frame <-  NULL
+    
+    res <- dplyr::data_frame(seqname   = LTR.data$ID, 
+                             source    = LTR.data$pred_tool, 
+                             feature   = LTR.data$annotation,
+                             start     = LTR.data$start,
+                             end       = LTR.data$end,
+                             score     = LTR.data$score,
+                             strand    = LTR.data$strand,
+                             frame     = LTR.data$frame, 
+                             attribute = unlist(
+                               dplyr::select(
+                                 dplyr::mutate(LTR.data,
+                                               attribute = paste0("Chr=",chromosome,";",
+                                                                  "ltr.sim=",ltr_similarity,
+                                                                  ";","element_length=",element_length,";",
+                                                                  "lLTRstart=",lLTR_start,";",
+                                                                  "lLTRend=",lLTR_end,";",
+                                                                  "lLTRlength=",lLTR_length,";",
+                                                                  "rLTRstart=",rLTR_start,";",
+                                                                  "rLTRend=",rLTR_end,";",
+                                                                  "rLTRlength=",rLTR_length,";",
+                                                                  "lTSDstart=",lTSD_start,";",
+                                                                  "lTSDend=",lTSD_end,";",
+                                                                  "lTSDmotif=",lTSD_motif,";",
+                                                                  "rTSDstart=",rTSD_start,";",
+                                                                  "rTSDend=",rTSD_end,";",
+                                                                  "rTSDmotif=",rTSD_motif,";",
+                                                                  "PPTstart=",PPT_start,";",
+                                                                  "PPTend=",PPT_end,";",
+                                                                  "PPTmotif=",PPT_motif,";",
+                                                                  "PPTstrand=",PPT_strand,";",
+                                                                  "PPToffset=",PPT_offset,";",
+                                                                  "PPTlength=",PPT_length,";",
+                                                                  "PBSstart=",PBS_start,";",
+                                                                  "PBSend=",PBS_end,";",
+                                                                  "PBSstrand=",PBS_strand,";",
+                                                                  "PBSoffset=",PBS_offset,";",
+                                                                  "PBSlength",PBS_length,";",
+                                                                  "trna=",trna,";",
+                                                                  "tRNAmotif=",trna_motif,";",
+                                                                  "tRNAoffset=",trna_offset,";",
+                                                                  "PBS/tRNAedist=",`PBS/tRNA_edist`,";",
+                                                                  "ProteinDomain=",protein_domain,";",
+                                                                  "seqid=",`seq.id`,";",
+                                                                  "orfs=",orfs,";",
+                                                                  "repeat_region_length=",repeat_region_length,";",
+                                                                  "protein_domain_start=",protein_domain_start,";",
+                                                                  "protein_domain_end=",protein_domain_end,";",
+                                                                  "protein_domain_match_width=",protein_domain_match_width,";",
+                                                                  "protein_domain_reading_frame=",protein_domain_reading_frame)),attribute)))
+  }
   
   return(res)
 }
