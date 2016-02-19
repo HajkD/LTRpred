@@ -90,7 +90,7 @@ read.prediction <- function( gff.file        = NULL,
         
         # determine the width of the predicted intervals
         AnnotationFile <- dplyr::mutate(AnnotationFile, width = (X5 - X4) + 1)
-        colnames(AnnotationFile) <- c("chromosome","pred_tool","annotation","start","end","X6","strand","X8","X9","width")
+        colnames(AnnotationFile) <- c("chromosome","pred_tool","annotation","start","end","score","strand","frame","X9","width")
         
         ### Post-Processing of repeat_region
         FilteredAnnotationFile.repeat_region <- dplyr::filter(AnnotationFile, annotation == "repeat_region")
@@ -269,7 +269,7 @@ read.prediction <- function( gff.file        = NULL,
         
         # determine the width of the predicted intervals
         AnnotationFile <- dplyr::mutate(AnnotationFile, width = (X5 - X4) + 1)
-        colnames(AnnotationFile) <- c("chromosome","pred_tool","annotation","start","end","X6","strand","X8","X9","width")
+        colnames(AnnotationFile) <- c("chromosome","pred_tool","annotation","start","end","score","strand","frame","X9","width")
         
         ### Post-Processing of repeat_region
         FilteredAnnotationFile.repeat_region <- dplyr::filter(AnnotationFile, annotation == "repeat_region")
@@ -326,7 +326,8 @@ read.prediction <- function( gff.file        = NULL,
         
         #LTR_retrotransposonPredictionFeatures[ , "chromosome"] <- factor(LTR_retrotransposonPredictionFeatures[ , "chromosome"], ordered = TRUE, levels = paste0("Chr",1:10))
         
-        FilteredAnnotationFile.repeat_region <- suppressWarnings(dplyr::right_join(FilteredAnnotationFile.repeat_region, LTR_retrotransposonPredictionFeatures[ , c("repeat_region","ltr_similarity")], by = "repeat_region"))
+        FilteredAnnotationFile.repeat_region <- suppressWarnings(dplyr::right_join(FilteredAnnotationFile.repeat_region, LTR_retrotransposonPredictionFeatures[ , c("repeat_region","ltr_similarity")], 
+                                                                                   by = "repeat_region"))
         FilteredAnnotationFile.repeat_region <- dplyr::mutate(FilteredAnnotationFile.repeat_region, 
                                                               similarity = cut(ltr_similarity,
                                                                                rev(seq(100,min.similarity,-similarity.bin)),
