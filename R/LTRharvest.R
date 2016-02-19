@@ -49,6 +49,7 @@
 #' @param output.path a path/folder to store all results returned by \code{LTRharvest}. 
 #' If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
 #' will be generated in the current working directory of R and all results are then stored in this folder.
+#' @param verbose logical value indicating whether or not detailed information shall be printed on the console.
 #' @author Hajk-Georg Drost
 #' @details 
 #' The \code{LTRharvest} function provides an interface to the \code{LTRharvest} command line
@@ -79,7 +80,7 @@
 #' @seealso \code{\link{LTRdigest}},  \code{\link{LTRpred}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
 #' \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
 #' \code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
-#' \code{\link{WritePredictionToFastA}}
+#' \code{\link{pred2fasta}}
 #' @return
 #' The \code{LTRharvest} function generates the following output files:
 #' 

@@ -79,6 +79,8 @@ The number of mismatches needs to be between [0,3].  Default is \code{motifmis =
 \item{output.path}{a path/folder to store all results returned by \code{LTRharvest}. 
 If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
 will be generated in the current working directory of R and all results are then stored in this folder.}
+
+\item{verbose}{logical value indicating whether or not detailed information shall be printed on the console.}
 }
 \value{
 The \code{LTRharvest} function generates the following output files:
@@ -132,6 +134,6 @@ Most argument specifications are adapted from the User manual of LTRharvest.
 \code{\link{LTRdigest}},  \code{\link{LTRpred}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
 \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
 \code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
-\code{\link{WritePredictionToFastA}}
+\code{\link{pred2fasta}}
 }
 
