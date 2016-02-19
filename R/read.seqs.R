@@ -1,13 +1,15 @@
-#' @title Import sequences of LTRharvest predicted LTR transposons
+#' @title Import sequences of predicted LTR transposons
 #' @description This function 
-#' @param ltr.fasta.file
+#' @param seq.file a sequence file in fasta format. 
 #' @author Hajk-Georg Drost
 #' @export
 
-ReadLTRharvestPredictionSeqs <- function(ltr.fasta.file){
+read.seqs <- function(seq.file, program = "LTRharvest"){
     
-    
-    PredictedLTRSeqs <- Biostrings::readDNAStringSet(input,"fasta")
+    if (!is.element(program, c("LTRharvest")))
+      stop ("Please select a prediction program that is supported by this function.")
+  
+    PredictedLTRSeqs <- Biostrings::readDNAStringSet(seq.file,"fasta")
     HeaderInformation <- PredictedLTRSeqs@ranges@NAMES
     SeqInformation <- do.call(rbind,sapply(HeaderInformation, function(x) noquote(stringr::str_split(stringr::str_replace(stringr::str_replace(stringr::str_extract(x,"[?<=\\[].*?[?=\\]]"),"\\[",""),"\\]",""),","))))
     colnames(SeqInformation) <- c("start","end")
