@@ -209,7 +209,6 @@ LTRdigest <- function(input.gff3,
         
     
     cat("Analysis finished!")
+    cat("\n")
     cat("\n") 
-    
-    
 }
