@@ -2,7 +2,7 @@
 #' @description Main pipeline to perform
 #' sufficient LTR retrotransposon predictions for any genome of interest.
 #' @param genome.file path to the genome file in \code{fasta} format.
-#' @param index.file.havest specify the name of the enhanced suffix array index file that is computed
+#' @param index.file.harvest specify the name of the enhanced suffix array index file that is computed
 #'  by \code{suffixerator} for the use of \code{LTRharvest}. This opten can be used in case the suffix file was previously 
 #'  generated, e.g. during a previous call of this function. In this case the suffix array index
 #'  file does not need to be re-computed for new analyses. This is particularly useful when 
@@ -169,7 +169,7 @@
 #' S Steinbiss et al. Fine-grained annotation and classification of de novo predicted LTR retrotransposons. Nucl. Acids Res. (2009) 37 (21): 7002-7013.
 #' @export
 LTRpred <- function(genome.file       = NULL,
-                    index.file.havest = NULL,
+                    index.file.harvest = NULL,
                     index.file.digest = NULL,
                     LTRdigest.gff     = NULL,
                     tabout.file       = NULL,
@@ -255,7 +255,7 @@ LTRpred <- function(genome.file       = NULL,
   if (!is.null(genome.file) & is.null(LTRdigest.gff) & is.null(tabout.file)){
   
            LTRharvest(genome.file,
-                      index.file  = index.file.havest,
+                      index.file  = index.file.harvest,
                       range       = range,
                       seed        = seed,
                       minlenltr   = minlenltr,
@@ -274,7 +274,7 @@ LTRpred <- function(genome.file       = NULL,
                       del         = del,
                       motif       = motif,
                       motifmis    = motifmis,
-                      output.path = output.path,
+                      output.path = NULL,
                       verbose     = verbose) 
   
   LTRdigest(input.gff3        = file.path(paste0(basename(genome.file),"_ltrharvest"),paste0(basename(genome.file),"_Prediction.gff")),
@@ -299,7 +299,7 @@ LTRpred <- function(genome.file       = NULL,
             pfam.ids          = pfam.ids,
             cores             = cores,
             index.file        = index.file.digest,
-            output.path       = output.path) 
+            output.path       = NULL) 
   
   
   LTRdigestOutput <- read.prediction(gff.file    = file.path(paste0(basename(genome.file),"_ltrdigest"),paste0(basename(genome.file),"_LTRdigestPrediction.gff")),
