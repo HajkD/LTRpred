@@ -22,11 +22,11 @@
 #' PlotLTRAgeDistribution(Ath.Pred)
 #' }
 #' @seealso \code{\link{LTRpred}}, \code{\link{LTRharvest}}, \code{\link{LTRdigest}},
-#' \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
+#' \code{\link{PlotLTRTransposonWidthDistribution}},
 #' \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}}
 #' @export
 
-PlotLTRAgeDistribution <- function(LTRpred.tbl, similarity.bin = NULL, min.sim = NULL){
+PlotLTRAge <- function(LTRpred.tbl, similarity.bin = NULL, min.sim = NULL){
     
     similarity <- ltr_similarity <- NULL
     
