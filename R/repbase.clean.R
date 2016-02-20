@@ -1,6 +1,6 @@
 #' @title Clean the initial Repbase database for BLAST
-#' @description This function cleans the headers of the Repbase fasta files
-#' so that they can be used to create a blast-able database.
+#' @description Clean the headers of the Repbase fasta files
+#' so that headers can be used to create a blast-able database.
 #' @param repbase.file fasta file storing the corresponding Repbase annotation, e.g. \code{athrep.ref}.
 #' @param output.file name/path of the cleaned Repbase annotation file. 
 #' @author Hajk-Georg Drost
@@ -18,7 +18,7 @@
 #' }
 #' @references http://www.girinst.org/repbase/
 #' @export
-CleanRepBase <- function(repbase.file, output.file){
+repbase.clean <- function(repbase.file, output.file){
     
     repbase <- Biostrings::readDNAStringSet(repbase.file)
     repbase@ranges@NAMES <- stringr::str_replace_all(repbase@ranges@NAMES," ","_")
