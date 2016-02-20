@@ -1,7 +1,7 @@
-#' @title Match LTRharvest or LTRdigest prediction with a given Annotation file in GFF3 format
-#' @description This function allows users to match LTRharvest or LTRdigest predictions with a given Anootation file in GFF3 format
+#' @title Match LTRharvest, LTRdigest, or LTRpred prediction with a given annotation file in GFF3 format
+#' @description Match \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, or \code{\link{LTRpred}} predictions with a given annotation file in GFF3 format
 #' to check whether or not predicted LTR transposons overlap with annotated genomic features (in this case with genes).
-#' @param ltr.digest.prediction a \code{data.frame} returned by \code{\link{LTRharvest}} or \code{\link{LTRdigest}}.
+#' @param pred.file a \code{data.frame} returned by \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, or \code{\link{LTRpred}}.
 #' @param annotation.file an genome annotation file in gff3 format.
 #' @param strand.ori the strand orientation that shall be matched between the the prediction and the annotation.
 #' Please note that some predictions do not include strand information. In case strand information should not be considered
@@ -28,16 +28,16 @@
 #'                              program     = "LTRdigest")
 #'                                             
 #' # Match predicted LTR transposons with annotation file (feature = genes)        
-#' Anno <- MatchPredictionWithAnnotation(
-#'               ltr.digest.prediction = Ath.LTRdigest.prediction$ltr.retrotransposon,
+#' Anno <- pred2annotation(
+#'                pred.file = Ath.LTRdigest.prediction$ltr.retrotransposon,
 #'                annotation.file       = "Arabidopsis_thaliana.TAIR10.30.chr.gff3")
 #' }
 #' @export
 
-MatchPredictionWithAnnotation <- function(ltr.digest.prediction,
-                                          annotation.file, 
-                                          strand.ori      = "+",
-                                          overlap.type    = "any" ){
+pred2annotation <- function(pred.file,
+                            annotation.file, 
+                            strand.ori      = "+",
+                            overlap.type    = "any" ){
 
     if (!is.element(strand.ori,c("+","-")))
         stop ("Please enter the correct strand.ori information! Either '+' strand or '-' strand.")
@@ -50,8 +50,8 @@ MatchPredictionWithAnnotation <- function(ltr.digest.prediction,
     
     # match LTRdigest prediction output with Annotation File in GFF3 format
     Annotation <- vector("list")
-    for (i in as.numeric(names(table(ltr.digest.prediction[ , "chromosome"])))){
-        PutativeLTRsFiltered <- dplyr::filter(ltr.digest.prediction,chromosome == i, strand == strand.ori) 
+    for (i in as.numeric(names(table(pred.file[ , "chromosome"])))){
+        PutativeLTRsFiltered <- dplyr::filter(pred.file,chromosome == i, strand == strand.ori) 
         GeneAnnotation <- dplyr::filter(AnnotationFileGFF3, (feature == "gene") & (seqname == i), strand == strand.ori)
 
         GeneAnnotation.bins <- IRanges::IRanges(GeneAnnotation$start, GeneAnnotation$end)
