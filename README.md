@@ -102,12 +102,6 @@ In the `LTRpred` framework users can find:
 * `repbase.filter()` : Filter the Repbase query output
 * `pred2annotation()` : Match LTRharvest or LTRdigest prediction with a given Annotation file in GFF3 format
 
-
-#### Sequence Innput/Output
-
-* `ReadLTRharvestPredictionSeqs()` : Import sequences of LTRharvest predicted LTR transposons
-* `WritePredictionToFastA()` : Save the sequence of the predicted LTR Transposons in a fasta file
-
 #### Minor helper functions
 * `bcolor()` : Beautiful colors for plots
 
