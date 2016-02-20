@@ -4,7 +4,7 @@
 \alias{pred2gff}
 \title{Format LTR prediction data to GFF3 file format}
 \usage{
-pred2gff(LTR.data)
+pred2gff(LTR.data, program = "LTRpred")
 }
 \arguments{
 \item{LTR.data}{the LTR prediction \code{\link{data.frame}}
@@ -30,7 +30,7 @@ gff.example <- pred2gff(LTRfile$ltr.retrotransposon)
 head(gff.example)
 
 # write GFF file to hard drive
-write.table(gff.example,"test.gff", quote = FALSE, col.names = TRUE, row.names = FALSE)
+write.table(gff.example,"test.gff", quote = FALSE, col.names = FALSE, row.names = FALSE)
 }
 \author{
 Hajk-Georg Drost
