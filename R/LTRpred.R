@@ -282,7 +282,8 @@ LTRpred <- function(genome.file       = NULL,
                       output.path = NULL,
                       verbose     = verbose) 
   
-  LTRdigest(input.gff3        = file.path(paste0(basename(genome.file),"_ltrharvest"),paste0(basename(genome.file),"_Prediction.gff")),
+  chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
+  LTRdigest(input.gff3        = file.path(paste0(chopped.foldername,"_ltrharvest"),paste0(chopped.foldername,"_Prediction.gff")),
             genome.file       = genome.file,
             aaout             = aaout,
             aliout            = aliout,
@@ -307,8 +308,8 @@ LTRpred <- function(genome.file       = NULL,
             output.path       = NULL) 
   
   
-  LTRdigestOutput <- read.prediction(gff.file    = file.path(paste0(basename(genome.file),"_ltrdigest"),paste0(basename(genome.file),"_LTRdigestPrediction.gff")),
-                                     tabout.file = file.path(paste0(basename(genome.file),"_ltrdigest"),paste0(basename(genome.file),"-ltrdigest_tabout.csv")),
+  LTRdigestOutput <- read.prediction(gff.file    = file.path(paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"_LTRdigestPrediction.gff")),
+                                     tabout.file = file.path(paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_tabout.csv")),
                                      program     = "LTRdigest")
   } else {
     
@@ -318,7 +319,7 @@ LTRpred <- function(genome.file       = NULL,
   }
   
   if (is.null(orf.file)){
-    ORFTable <- ORFpred(seq.file = file.path(paste0(basename(genome.file),"_ltrdigest"),paste0(basename(genome.file),"-ltrdigest_complete.fas")), 
+    ORFTable <- ORFpred(seq.file = file.path(paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_complete.fas")), 
                         orf.style  = orf.style, 
                         min.codons = min.codons, 
                         trans.seqs = trans.seqs,
@@ -355,20 +356,20 @@ LTRpred <- function(genome.file       = NULL,
   
   if (!is.null(genome.file)){
     
-    file.copy(paste0(basename(genome.file),"_ltrharvest"),output.path, recursive = TRUE)
-    file.copy(paste0(basename(genome.file),"_ltrdigest"),output.path, recursive = TRUE)
-    file.remove(paste0(basename(genome.file),"_ltrharvest"), recursive = TRUE)
-    file.remove(paste0(basename(genome.file),"_ltrdigest"), recursive = TRUE)
-    write.table(pred2gff(res),file.path(output.path,paste0(basename(genome.file),"_LTRpred.gff")), 
+    file.copy(paste0(chopped.foldername,"_ltrharvest"),output.path, recursive = TRUE)
+    file.copy(paste0(chopped.foldername,"_ltrdigest"),output.path, recursive = TRUE)
+    file.remove(paste0(chopped.foldername,"_ltrharvest"), recursive = TRUE)
+    file.remove(paste0(chopped.foldername,"_ltrdigest"), recursive = TRUE)
+    write.table(pred2gff(res),file.path(output.path,paste0(chopped.foldername,"_LTRpred.gff")), 
                 quote     = FALSE, 
                 col.names = FALSE, 
                 row.names = FALSE)
     
-    write.table(pred2bed(res),file.path(output.path,paste0(basename(genome.file),"_LTRpred.bed")), 
+    write.table(pred2bed(res),file.path(output.path,paste0(chopped.foldername,"_LTRpred.bed")), 
                 quote     = FALSE, 
                 col.names = FALSE, 
                 row.names = FALSE)
-    write.table(res,file.path(output.path,paste0(basename(genome.file),"_LTRpred-DataSheet.csv")), 
+    write.table(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred-DataSheet.csv")), 
                 quote     = FALSE, 
                 col.names = TRUE, 
                 row.names = FALSE)
