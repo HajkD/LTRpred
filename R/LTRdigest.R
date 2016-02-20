@@ -69,7 +69,10 @@
 #' LTRharvest(genome.file = "TAIR10_chr_all.fas")
 #' 
 #' # Run LTRdigest for Arabidopsis thaliana using standard parameters
-#' LTRdigest()
+#' LTRdigest(input.gff3  = "TAIR10_chr_all_Prediction.gff", 
+#'           genome.file = "TAIR10_chr_all.fas",
+#'           trnas       = "plantRNA_Arabidopsis.fsa",
+#'           hmms        = "hmm_*")
 #' }
 #' @return 
 #' The \code{LTRdigest} function generates the following output files:
