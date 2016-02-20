@@ -345,10 +345,47 @@ LTRpred <- function(genome.file       = NULL,
   res <- dplyr::select(LTRdigestOutput$ltr.retrotransposon, -c(element_start,element_length,`width.y`, `start.y`, `end.y`))
   names(res)[c(4,5,9)] <- c("start","end","width")
   
-  file.copy(paste0(basename(genome.file),"_ltrharvest"),output.path, recursive = TRUE)
-  file.copy(paste0(basename(genome.file),"_ltrdigest"),output.path, recursive = TRUE)
-  file.remove(paste0(basename(genome.file),"_ltrharvest"), recursive = TRUE)
-  file.remove(paste0(basename(genome.file),"_ltrdigest"), recursive = TRUE)
+  if (!is.null(genome.file)){
+    
+    file.copy(paste0(basename(genome.file),"_ltrharvest"),output.path, recursive = TRUE)
+    file.copy(paste0(basename(genome.file),"_ltrdigest"),output.path, recursive = TRUE)
+    file.remove(paste0(basename(genome.file),"_ltrharvest"), recursive = TRUE)
+    file.remove(paste0(basename(genome.file),"_ltrdigest"), recursive = TRUE)
+    write.table(pred2gff(res),file.path(output.path,paste0(basename(genome.file),"_LTRpred.gff")), 
+                quote     = FALSE, 
+                col.names = FALSE, 
+                row.names = FALSE)
+    
+    write.table(pred2bed(res),file.path(output.path,paste0(basename(genome.file),"_LTRpred.bed")), 
+                quote     = FALSE, 
+                col.names = FALSE, 
+                row.names = FALSE)
+    write.table(res,file.path(output.path,paste0(basename(genome.file),"_LTRpred-DataSheet.csv")), 
+                quote     = FALSE, 
+                col.names = TRUE, 
+                row.names = FALSE)
+  } else {
+    file.copy(LTRdigest.gff,output.path, recursive = TRUE)
+    file.copy(tabout.file,output.path, recursive = TRUE)
+    file.remove(LTRdigest.gff, recursive = TRUE)
+    file.remove(tabout.file, recursive = TRUE)
+    write.table(pred2gff(res),file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.gff")), 
+                quote     = FALSE, 
+                col.names = FALSE, 
+                row.names = FALSE)
+    
+    write.table(pred2bed(res),file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.bed")), 
+                quote     = FALSE, 
+                col.names = FALSE, 
+                row.names = FALSE)
+    
+    write.table(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred-DataSheet.csv")), 
+                quote     = FALSE, 
+                col.names = TRUE, 
+                row.names = FALSE)
+  }
+  
+  
   
   return(res)
   
