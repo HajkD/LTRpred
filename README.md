@@ -78,23 +78,29 @@ In the `LTRpred` framework users can find:
 
 * `read.prediction()` : Import the output of LTRharvest or LTRdigest
 * `read.tabout()` : Import information sheet returned by LTRdigest
-* `read.PredictORFs()` : Read output of `PredictORFs()`
+* `read.orfs()` : Read output of `ORFpred()`
+* `read.seqs()` : Import sequences of predicted LTR transposons
 
+#### Export the Output Files of the Prediction Tools:
+
+* `pred2bed()` : Format LTR prediction data to BED file format
+* `pred2fasta()` : Save the sequence of the predicted LTR Transposons in a fasta file
+* `pred2gff()` : Format LTR prediction data to GFF3 file format
 
 #### Visualization and Analytics Tools:
 
-* `PredictORFs()` : Open Reading Frame prediction in putative LTR transposons 
-* `PlotLTRAgeDistribution()` : Plot the age distribution of predicted LTR transposons
+* `ORFpred()` : Open Reading Frame prediction in putative LTR transposons 
+* `PlotLTRAge()` : Plot the age distribution of predicted LTR transposons
 * `PlotLTRTransposonWidthDistribution()` : Plot the width distribution of putative LTR transposons
 * `PlotLTRWidthDistribution()` : Plot the LTR width distribution
-* `PlotRanges()` : Plot Ranges of an genomic feature
+* `PlotLTRRange()` : Plot Genomic Ranges of putative LTR transposons
 
 #### Annotation and Validation:
-* `SearchDfam()` : Annotation of `de novo` predicted LTR transposons via [Dfam](http://dfam.org/help/tools) searches
-* `CleanRepBase()` : Clean the initial Repbase database for BLAST
-* `QueryRepBase()` : Query the RepBase to annotate putative LTRs
-* `FilterRepBaseQueryOutput()` : Filter the Repbase query output
-* `MatchPredictionWithAnnotation()` : Match LTRharvest or LTRdigest prediction with a given Annotation file in GFF3 format
+* `dfam.query()` : Annotation of `de novo` predicted LTR transposons via [Dfam](http://dfam.org/help/tools) searches
+* `repbase.clean()` : Clean the initial Repbase database for BLAST
+* `repbase.query()` : Query the RepBase to annotate putative LTRs
+* `repbase.filter()` : Filter the Repbase query output
+* `pred2annotation()` : Match LTRharvest or LTRdigest prediction with a given Annotation file in GFF3 format
 
 
 #### Sequence Innput/Output
