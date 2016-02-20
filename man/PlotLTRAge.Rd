@@ -29,9 +29,9 @@ allows users to examine the rate of recent transposition events in extant organi
 \examples{
 \dontrun{
 # run LTRpred for A. thaliana
-Ath.Pred <- LTRpred()
+Ath.Pred <- LTRpred(genome.file = "TAIR10_chr_all.fas")
 # visualize the age distribution of predicted  A. thaliana LTR transposons
-PlotLTRAgeDistribution(Ath.Pred)
+PlotLTRAge(Ath.Pred)
 }
 }
 \author{
