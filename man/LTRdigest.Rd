@@ -143,8 +143,8 @@ Hajk-Georg Drost
 S Steinbiss et al. Fine-grained annotation and classification of de novo predicted LTR retrotransposons. Nucl. Acids Res. (2009) 37 (21): 7002-7013.
 }
 \seealso{
-\code{\link{LTRharvest}},  \code{\link{LTRpred}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
-\code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
+\code{\link{LTRharvest}},  \code{\link{LTRpred}}, \code{\link{PlotLTRAge}}, \code{\link{PlotLTRTransposonWidthDistribution}},
+\code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotLTRRange}},
 \code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
 \code{\link{pred2fasta}}
 }
