@@ -1,9 +1,9 @@
 #' @title Filter the Repbase query output
-#' @description Filter the output of the \code{\link{QueryRepBase}} function to quantify
+#' @description Filter the output of the \code{\link{repbase.query}} function to quantify
 #' the number of hits for each query LTR transposon (duplicates) and retain
 #' only hits found in Repbase that span the annotation sequence in Repbase
 #' to a certain percentage (\code{scope}).
-#' @param query.output a \code{data.frame} returned by the \code{\link{QueryRepBase}} function.
+#' @param query.output a \code{data.frame} returned by the \code{\link{repbase.query}} function.
 #' @param scope.value a value between [0,1] qunatifying the percentage of minimum sequence similariy 
 #' between the LTR transposon and the corresponding annotated sequence found in Repbase.
 #' @param verbose a logical value indicating whether or not additional information shall be printed 
@@ -13,16 +13,16 @@
 #' \dontrun{
 #' # PreProcess Repbase: A thaliana
 #' # and save the output into the file "Athaliana_repbase.ref"
-#' CleanRepBase(repbase.file = "athrep.ref",
-#'              output.file  = "Athaliana_repbase.ref")
+#' repbase.clean(repbase.file = "athrep.ref",
+#'               output.file  = "Athaliana_repbase.ref")
 #'              
 #' # perform blastn search against A thaliana repbase annotation
-#' AthalianaRepBaseAnnotation <- QueryRepBase(ltr.seqs     = "TAIR10_chr_all-ltrdigest_complete.fas", 
+#' AthalianaRepBaseAnnotation <- repbase.query(ltr.seqs     = "TAIR10_chr_all-ltrdigest_complete.fas", 
 #'                                            repbase.path = "Athaliana_repbase.ref", 
 #'                                            cores        = 1)
 #'  # filter the annotation query output                                           
-#'  AthalianaAnnot.HighMatches <- FilterRepBaseQueryOutput(AthalianaRepBaseAnnotation, 
-#'                                                         scope = 0.9)
+#'  AthalianaAnnot.HighMatches <- repbase.filter(AthalianaRepBaseAnnotation, 
+#'                                               scope = 0.9)
 #'  Ath.TE.Matches.Families <- sort(table(
 #'                             unlist(lapply(stringr::str_split(
 #'                             names(table(AthalianaAnnot.HighMatches$subject_id)),"_"),
@@ -38,10 +38,10 @@
 #' 
 #' }
 #' @return A \code{data.frame} storing the filtered output returned by \code{\link{QueryRepBase}}. 
-#' @seealso \code{\link{QueryRepBase}}, \code{\link{CleanRepBase}} 
+#' @seealso \code{\link{repbase.query}}, \code{\link{repbase.clean}} 
 
 
-FilterRepBaseQueryOutput <- function(query.output, scope.value = 0.7, verbose = TRUE){
+repbase.filter <- function(query.output, scope.value = 0.7, verbose = TRUE){
     
     if (!dplyr::between(scope.value,0,1))
         stop("The scope.value must be in the interval [0,1].")
