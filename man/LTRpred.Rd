@@ -4,7 +4,7 @@
 \alias{LTRpred}
 \title{Predict LTR retrotransposons in a given genome}
 \usage{
-LTRpred(genome.file = NULL, index.file.havest = NULL,
+LTRpred(genome.file = NULL, index.file.harvest = NULL,
   index.file.digest = NULL, LTRdigest.gff = NULL, tabout.file = NULL,
   orf.file = NULL, annotate = NULL, range = c(0, 0), seed = 30,
   minlenltr = 100, maxlenltr = 3500, mindistltr = 4000,
@@ -22,7 +22,7 @@ LTRpred(genome.file = NULL, index.file.havest = NULL,
 \arguments{
 \item{genome.file}{path to the genome file in \code{fasta} format.}
 
-\item{index.file.havest}{specify the name of the enhanced suffix array index file that is computed
+\item{index.file.harvest}{specify the name of the enhanced suffix array index file that is computed
 by \code{suffixerator} for the use of \code{LTRharvest}. This opten can be used in case the suffix file was previously 
 generated, e.g. during a previous call of this function. In this case the suffix array index
 file does not need to be re-computed for new analyses. This is particularly useful when 
@@ -225,7 +225,12 @@ This function provides the main pipeline to perform \code{de novo} LTR transposo
 predictions.
 }
 \examples{
+# generate de novo LTR transposon prediction
+test.LTRpred <- LTRpred(genome.file = "TAIR10_chr_all.fas",
+                        trnas       = "plantRNA_Arabidopsis.fsa",
+                        hmms        = "hmm_*")
 
+# run LTRpred with pre-computed predictions from LTRdigest()                   
 test.LTRpred <- LTRpred(LTRdigest.gff = system.file("TAIR10_chr_all_LTRdigestPrediction.gff",package = "LTRpred"),
                         tabout.file   = system.file("TAIR10_chr_all-ltrdigest_tabout.csv",package = "LTRpred"),
                         orf.file      = system.file("nt.fa",package = "LTRpred"))

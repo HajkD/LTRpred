@@ -157,7 +157,12 @@
 #' }
 #' The ' * ' is an place holder for the name of the input genome file.
 #' @examples 
+#' # generate de novo LTR transposon prediction
+#' test.LTRpred <- LTRpred(genome.file = "TAIR10_chr_all.fas",
+#'                         trnas       = "plantRNA_Arabidopsis.fsa",
+#'                         hmms        = "hmm_*")
 #' 
+#' # run LTRpred with pre-computed predictions from LTRdigest()                   
 #' test.LTRpred <- LTRpred(LTRdigest.gff = system.file("TAIR10_chr_all_LTRdigestPrediction.gff",package = "LTRpred"),
 #'                         tabout.file   = system.file("TAIR10_chr_all-ltrdigest_tabout.csv",package = "LTRpred"),
 #'                         orf.file      = system.file("nt.fa",package = "LTRpred"))
