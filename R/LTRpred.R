@@ -118,8 +118,8 @@
 #' @details This function provides the main pipeline to perform \code{de novo} LTR transposon
 #' predictions.
 #' 
-#' @seealso \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
-#' \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
+#' @seealso \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{PlotLTRAge}}, \code{\link{PlotLTRTransposonWidthDistribution}},
+#' \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotLTRRange}},
 #' \code{\link{read.prediction}}, \code{\link{read.tabout}}, \code{\link{read.seqs}},
 #' \code{\link{pred2fasta}}, \code{\link{pred2gff}}
 #' @importFrom magrittr %>%
