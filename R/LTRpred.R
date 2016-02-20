@@ -1,5 +1,5 @@
 #' @title Predict LTR retrotransposons in a given genome
-#' @description This function is the main pipeline to perform
+#' @description Main pipeline to perform
 #' sufficient LTR retrotransposon predictions for any genome of interest.
 #' @param genome.file path to the genome file in \code{fasta} format.
 #' @param index.file.havest specify the name of the enhanced suffix array index file that is computed
@@ -110,7 +110,7 @@
 #' @param min.codons minimum number of codons in the predicted open reading frame.
 #' @param trans.seqs logical value indicating wheter or not predicted open reading frames
 #' shall be translated and the corresponding protein sequences stored in the output folder.
-#' @param output.path a path/folder to store all results returned by \code{LTRharvest}. 
+#' @param output.path a path/folder to store all results returned by \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, and \code{LTRpred}. 
 #' If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
 #' will be generated in the current working directory of R and all results are then stored in this folder.
 #' @param verbose shall further information be printed on the console or not. 
@@ -151,6 +151,9 @@
 #' \item *-ltrdigest_pdom_<domainname>_ali.fas : Stores the alignment information for all matches of the given protein domain model to the translations of all candidates.
 #' \item *_orfs_nt.fsa : Stores the predicted open reading frames within the predicted LTR transposons as DNA sequence.
 #' \item *_orfs_aa.fsa : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.
+#' \item *_LTRpred.gff : Stores the \code{LTRpred} predicted LTR transposons in GFF format.
+#' \item *_LTRpred.bed : Stores the \code{LTRpred} predicted LTR transposons in BED format. 
+#' \item *_LTRpred-DataSheet.csv : Stores the output table as data sheet.
 #' }
 #' The ' * ' is an place holder for the name of the input genome file.
 #' @examples 
@@ -227,7 +230,7 @@ LTRpred <- function(genome.file       = NULL,
     if (!is.null(genome.file)){
       output.path <- paste0(unlist(stringr::str_split(basename(genome.file),"[.]"))[1],"_ltrpred")
     } else {
-      output.path <- "LTRpredOutput"
+      output.path <- paste0(unlist(stringr::str_split(basename(LTRdigest.gff),"[.]"))[1],"_ltrpred")
     }
     
     if (dir.exists(output.path)){

@@ -176,7 +176,7 @@ between the predicted LTRs.}
 \item{trans.seqs}{logical value indicating wheter or not predicted open reading frames
 shall be translated and the corresponding protein sequences stored in the output folder.}
 
-\item{output.path}{a path/folder to store all results returned by \code{LTRharvest}. 
+\item{output.path}{a path/folder to store all results returned by \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, and \code{LTRpred}. 
 If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
 will be generated in the current working directory of R and all results are then stored in this folder.}
 
@@ -210,11 +210,14 @@ the HMM matches to the LTR retrotransposon candidates.
 \item *-ltrdigest_pdom_<domainname>_ali.fas : Stores the alignment information for all matches of the given protein domain model to the translations of all candidates.
 \item *_orfs_nt.fsa : Stores the predicted open reading frames within the predicted LTR transposons as DNA sequence.
 \item *_orfs_aa.fsa : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.
+\item *_LTRpred.gff : Stores the \code{LTRpred} predicted LTR transposons in GFF format.
+\item *_LTRpred.bed : Stores the \code{LTRpred} predicted LTR transposons in BED format. 
+\item *_LTRpred-DataSheet.csv : Stores the output table as data sheet.
 }
 The ' * ' is an place holder for the name of the input genome file.
 }
 \description{
-This function is the main pipeline to perform
+Main pipeline to perform
 sufficient LTR retrotransposon predictions for any genome of interest.
 }
 \details{
