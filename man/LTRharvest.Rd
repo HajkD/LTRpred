@@ -131,8 +131,8 @@ D Ellinghaus, S Kurtz and U Willhoeft. LTRharvest, an efficient and flexible sof
 Most argument specifications are adapted from the User manual of LTRharvest.
 }
 \seealso{
-\code{\link{LTRdigest}},  \code{\link{LTRpred}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
-\code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
+\code{\link{LTRdigest}},  \code{\link{LTRpred}}, \code{\link{PlotLTRAge}}, \code{\link{PlotLTRTransposonWidthDistribution}},
+\code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotLTRRange}},
 \code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
 \code{\link{pred2fasta}}
 }
