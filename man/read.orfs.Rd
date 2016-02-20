@@ -2,7 +2,7 @@
 % Please edit documentation in R/read.orfs.R
 \name{read.orfs}
 \alias{read.orfs}
-\title{Read output of \code{PredictORFs}}
+\title{Read output of \code{ORFpred}}
 \usage{
 read.orfs(input.file)
 }
