@@ -25,7 +25,7 @@ sequences of the remaining (filtered) candidates can be retrieved by this functi
 \examples{
 \dontrun{
 # Hypothetical Example
-# Generate LTR transposon prediction for A. thaliana#' 
+# Generate LTR transposon prediction for A. thaliana 
 Ath.Pred <- LTRpred(input.gff3        = "TAIR10_chr_all/TAIR10_chr_all_Prediction.gff", 
                     genome.file       = "Genome/TAIR10_chr_all.fas",
                     trnas             = "araTha1-tRNAs.fa",
