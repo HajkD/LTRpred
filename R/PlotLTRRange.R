@@ -4,7 +4,7 @@
 #' @author Hajk-Georg Drost
 #' @export
 
-PlotGenomicRange <- function(LTRpred.tbl){
+PlotLTRRange <- function(LTRpred.tbl){
     
     chromosome <- NULL
     chromosomes <- names(table(LTRpred.tbl[ , "chromosome"]))
