@@ -1,7 +1,7 @@
 #' @title Query the RepBase to annotate putative LTRs
-#' @description This function allows users to validate or annotate putative LTR
+#' @description Validate or annotate putative LTR
 #' transposons that have been predicted using LTRharvest or LTRdigest.
-#' @param ltr.seqs.file file path to the putative LTR transposon sequences in \code{fasta} format.
+#' @param seq.file file path to the putative LTR transposon sequences in \code{fasta} format.
 #' @param repbase.path file path to the RepBase file in \code{fasta} format.
 #' @param output file name of the BLAST output.
 #' @param max.hits maximum number of hits that shall be retrieved that still fulfill the e-value criterium.
@@ -23,7 +23,7 @@
 #' @examples 
 #' \dontrun{
 #' # Example annotation run against the A thaliana RepBase using 4 cores
-#' q <- QueryRepBase(ltr.seqs     = "path/to/LTRtransposonSeqs.fasta",
+#' q <- repbase.query(seq.file     = "path/to/LTRtransposonSeqs.fasta",
 #'                   repbase.path = "path/to/Athaliana_repbase.ref",
 #'                   cores        = 4)
 #'                  
@@ -51,18 +51,18 @@
 #' Zhang Z., Schwartz S., Wagner L., & Miller W. (2000), "A greedy algorithm for aligning DNA sequences" J Comput Biol 2000; 7(1-2):203-14.
 #' @export
       
-QueryRepBase <- function(ltr.seqs.file, 
+repbase.query <- function(seq.file, 
                          repbase.path, 
                          output   = "repbase_blast_output.txt", 
                          max.hits = 5000, 
                          eval     = 1E-10, 
                          cores    = 1){
     
-    s_len <- alig_length <- input <- NULL
+    s_len <- alig_length <- NULL
     # Create a blast-able database of repbase and perform blastn search of 
     # LTR transposons against this blast formatted repbase file
     system(paste0("makeblastdb -in ",repbase.path," -parse_seqids -input_type fasta -dbtype nucl"))
-    system( paste0("blastn -db ",repbase.path," -query ",ltr.seqs.file,
+    system( paste0("blastn -db ",repbase.path," -query ",seq.file,
                    " -out ", output ," ","-evalue ", eval," -max_target_seqs ",max.hits," -num_threads ",cores,
                    " -outfmt '6 qseqid sseqid pident nident 
                    length mismatch gapopen gaps positive ppos qstart qend qlen qcovs qcovhsp qseq sstart send slen sseq evalue bitscore score'")
