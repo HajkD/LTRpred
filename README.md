@@ -100,7 +100,7 @@ In the `LTRpred` framework users can find:
 * `repbase.clean()` : Clean the initial Repbase database for BLAST
 * `repbase.query()` : Query the RepBase to annotate putative LTRs
 * `repbase.filter()` : Filter the Repbase query output
-* `pred2annotation()` : Match LTRharvest or LTRdigest prediction with a given Annotation file in GFF3 format
+* `pred2annotation()` : Match LTRharvest, LTRdigest, or LTRpred prediction with a given annotation file in GFF3 format
 
 #### Minor helper functions
 * `bcolor()` : Beautiful colors for plots
