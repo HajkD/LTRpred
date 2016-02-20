@@ -313,11 +313,11 @@ LTRpred <- function(genome.file       = NULL,
   }
   
   if (is.null(orf.file)){
-    ORFTable <- PredictORFs(input.file = file.path(paste0(basename(genome.file),"_ltrdigest"),paste0(basename(genome.file),"-ltrdigest_complete.fas")), 
-                            orf.style  = orf.style, 
-                            min.codons = min.codons, 
-                            trans.seqs = trans.seqs,
-                            output     = output.path)
+    ORFTable <- ORFpred(seq.file = file.path(paste0(basename(genome.file),"_ltrdigest"),paste0(basename(genome.file),"-ltrdigest_complete.fas")), 
+                        orf.style  = orf.style, 
+                        min.codons = min.codons, 
+                        trans.seqs = trans.seqs,
+                        output     = output.path)
   } else {
     
     ORFTable <- read.orfs(input.file = orf.file)
@@ -387,9 +387,7 @@ LTRpred <- function(genome.file       = NULL,
                 col.names = TRUE, 
                 row.names = FALSE)
   }
-  
-  
-  
+
   return(res)
   
   # here implement nhmmer search to Dfam
