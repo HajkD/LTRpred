@@ -240,7 +240,7 @@ S Steinbiss et al. Fine-grained annotation and classification of de novo predict
 \seealso{
 \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{PlotLTRAgeDistribution}}, \code{\link{PlotLTRTransposonWidthDistribution}},
 \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}},
-\code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
-\code{\link{pred2fasta}}
+\code{\link{read.prediction}}, \code{\link{read.tabout}}, \code{\link{read.seqs}},
+\code{\link{pred2fasta}}, \code{\link{pred2gff}}
 }
 
