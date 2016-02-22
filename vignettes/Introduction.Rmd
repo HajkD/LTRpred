@@ -52,8 +52,9 @@ fulfill the structural parameters set by the `LTRpred()` function.
 
 ```r
 # de novo LTR transposon prediction for the A. thaliana genome
-Ath.Prediction <- LTRpred(genome.file = "TAIR10_chr_all.fas")
-
+Ath.Prediction <- test.LTRpred <- LTRpred(genome.file = "TAIR10_chr_all.fas",
+                        trnas       = "plantRNA_Arabidopsis.fsa",
+                        hmms        = "hmm_*")
 # looking at the results
 lapply(Ath.Prediction,head,2)
 ```
