@@ -19,7 +19,7 @@
 #' head(gff.example)
 #' 
 #' # write GFF file to hard drive
-#' write.table(gff.example,"test.gff", quote = FALSE, col.names = FALSE, row.names = FALSE)
+#' write.table(gff.example,"test.gff", sep = "\t", quote = FALSE, col.names = FALSE, row.names = FALSE)
 #' @references http://www.ensembl.org/info/website/upload/gff.html
 #' @export
 pred2gff <- function(LTR.data, program = "LTRpred"){

@@ -30,7 +30,7 @@ gff.example <- pred2gff(LTRfile$ltr.retrotransposon)
 head(gff.example)
 
 # write GFF file to hard drive
-write.table(gff.example,"test.gff", quote = FALSE, col.names = FALSE, row.names = FALSE)
+write.table(gff.example,"test.gff", sep = "\\t", quote = FALSE, col.names = FALSE, row.names = FALSE)
 }
 \author{
 Hajk-Georg Drost
