@@ -97,10 +97,10 @@
 #' \item *-ltrdigest_pdom_<domainname>_ali.fas : Stores the alignment information for all matches of the given protein domain model to the translations of all candidates.
 #' }
 #' The ' * ' is an place holder for the name of the input genome file.
-#' @seealso \code{\link{LTRharvest}},  \code{\link{LTRpred}}, \code{\link{PlotLTRAge}}, \code{\link{PlotLTRTransposonWidthDistribution}},
-#' \code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotLTRRange}},
-#' \code{\link{read.prediction}}, \code{\link{ReadLTRharvestPredictionSeqs}},
-#' \code{\link{pred2fasta}}
+#' @seealso \code{\link{LTRharvest}},  \code{\link{LTRpred}}, \code{\link{PlotLTRAge}},
+#' \code{\link{PlotLTRWidth}}, \code{\link{PlotLTRRange}},
+#' \code{\link{read.prediction}}, \code{\link{read.seqs}},
+#' \code{\link{pred2fasta}}, \code{\link{pred2fasta}}
 #' @references S Steinbiss et al. Fine-grained annotation and classification of de novo predicted LTR retrotransposons. Nucl. Acids Res. (2009) 37 (21): 7002-7013.
 #' @export
 
