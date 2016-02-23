@@ -13,10 +13,17 @@
 #' @examples 
 #' \dontrun{
 #' # run LTRpred for A. thaliana
-#' Ath.Pred <- LTRpred()
+#' Ath.Pred <- LTRpred(genome.file = "TAIR10_chr_all.fas",
+#'                     trnas       = "plantRNA_Arabidopsis.fsa",
+#'                     hmms        = "hmm_*")
+#'                     
 #' # visualize the collelation between LTR transposon age and width
-#' # of predicted  A. thaliana LTR transposons
-#' PlotLTRTransposonWidthDistribution(Ath.Pred)
+#' # of predicted  A. thaliana LTR retrotransposons
+#' PlotLTRWidth(Ath.Pred, plot.type = "violin")
+#' 
+#' # visualize the collelation between LTR retrotransposon age and width
+#' # of predicted  A. thaliana LTR element
+#' PlotLTRWidth(Ath.Pred, element.type = "ltr_element", plot.type = "violin")
 #' }
 #' 
 #' @export
