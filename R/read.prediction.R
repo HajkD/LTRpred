@@ -242,6 +242,9 @@ read.prediction <- function( gff.file        = NULL,
 #         FilteredAnnotationFile.target_site_duplication <- dplyr::mutate(FilteredAnnotationFile.target_site_duplication, chromosome =  sequence)
 #         FilteredAnnotationFile.target_site_duplication <- dplyr::select(FilteredAnnotationFile.target_site_duplication, -sequence)
 #         
+        # replace strand information "?" by "." due to gff file format standard
+        FindQ <- which(LTR_retrotransposonPredictionFeatures$strand == "?")
+        LTR_retrotransposonPredictionFeatures$strand[FindQ] <- "."
         
         return(list( repeat.region           = FilteredAnnotationFile.repeat_region, 
                      ltr.retrotransposon     = LTR_retrotransposonPredictionFeatures,
@@ -515,6 +518,11 @@ read.prediction <- function( gff.file        = NULL,
 #         FilteredAnnotationFile.RR_tract <- dplyr::mutate(FilteredAnnotationFile.RR_tract, chromosome =  sequence)
 #         FilteredAnnotationFile.RR_tract <- dplyr::select(FilteredAnnotationFile.RR_tract, -sequence)
 #         
+        
+        # replace strand information "?" by "." due to gff file format standard
+        FindQ <- which(LTR_retrotransposonPredictionFeatures$strand == "?")
+        LTR_retrotransposonPredictionFeatures$strand[FindQ] <- "."
+        
         return(list( repeat.region           = FilteredAnnotationFile.repeat_region, 
                      ltr.retrotransposon     = LTR_retrotransposonPredictionFeatures,
                      ltr                     = FilteredAnnotationFile.long_terminal_repeat,
