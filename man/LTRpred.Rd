@@ -246,8 +246,7 @@ D Ellinghaus, S Kurtz and U Willhoeft. LTRharvest, an efficient and flexible sof
 S Steinbiss et al. Fine-grained annotation and classification of de novo predicted LTR retrotransposons. Nucl. Acids Res. (2009) 37 (21): 7002-7013.
 }
 \seealso{
-\code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{PlotLTRAge}}, \code{\link{PlotLTRTransposonWidthDistribution}},
-\code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotLTRRange}},
+\code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{PlotLTRAge}}, \code{\link{PlotLTRWidth}}, \code{\link{PlotLTRRange}},
 \code{\link{read.prediction}}, \code{\link{read.tabout}}, \code{\link{read.seqs}},
 \code{\link{pred2fasta}}, \code{\link{pred2gff}}
 }
