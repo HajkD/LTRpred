@@ -7,8 +7,21 @@
 PlotRanges(x, xlim = x, main = deparse(substitute(x)), col = "black",
   sep = 0.5, ...)
 }
+\arguments{
+\item{x}{range object.}
+
+\item{xlim}{range of the x-axis.}
+
+\item{main}{main text for the plot generated.}
+
+\item{col}{color of the visualized ranges.}
+
+\item{sep}{separation between ranges.}
+
+\item{...}{standard graphics parameters passed to \code{link{rect}}.}
+}
 \description{
-This function
+Helper function to plot the genomic range of the predicted LTR transposon.
 }
 \author{
 Hajk-Georg Drost

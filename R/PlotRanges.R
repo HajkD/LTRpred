@@ -1,15 +1,18 @@
 #' @title Plot Ranges of an genomic feature
-#' @description This function
-#' @param x
-#' @param xlim
-#' @param main
-#' @param col
-#' @param sep
-#' @param ...
+#' @description Helper function to plot the genomic range of the predicted LTR transposon.
+#' @param x range object.
+#' @param xlim range of the x-axis.
+#' @param main main text for the plot generated. 
+#' @param col color of the visualized ranges.
+#' @param sep separation between ranges.
+#' @param ... standard graphics parameters passed to \code{link{rect}}.
 #' @author Hajk-Georg Drost
-#' @export
 
-PlotRanges <- function(x, xlim = x, main = deparse(substitute(x)), col = "black", sep = 0.5, ...){
+PlotRanges <- function(x, 
+                       xlim = x, 
+                       main = deparse(substitute(x)), 
+                       col  = "black", 
+                       sep  = 0.5, ...){
     height <- 1
     
     if (is(xlim, "Ranges"))
