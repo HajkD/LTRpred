@@ -25,7 +25,8 @@
 #' # of predicted  A. thaliana LTR element
 #' PlotLTRWidth(Ath.Pred, element.type = "ltr_element", plot.type = "violin")
 #' }
-#' 
+#' @seealso \code{\link{LTRpred}}, \code{\link{LTRharvest}}, \code{\link{LTRdigest}},
+#' \code{\link{PlotLTRAge}}
 #' @export
 
 PlotLTRWidth <- function(LTRpred.tbl,
