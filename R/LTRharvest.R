@@ -31,7 +31,10 @@
 #' If \code{overlaps = "all"} is selected then all LTR retrotransposon predictions 
 #' will be reported whether there are nested and/or overlapping predictions or not. 
 #' Default is \code{overlaps = "best"}.
-#' @param xdrop 
+#' @param xdrop specify the xdrop value (> 0) for extending a seed repeat in both directions
+#'  allowing for matches, mismatches, insertions, and deletions. The xdrop extension process
+#'   stops as soon as the extension involving matches, mismatches, insersions, and deletions 
+#'   has a score smaller than T -X, where T denotes the largest score seen so far. Default is \code{cdrop = 5}.
 #' @param mat specify the positive match score for the X-drop extension process. Default is \code{mat = 2}.
 #' @param mis specify the negative mismatch score for the X-drop extension process. Default is \code{mis = -2}.
 #' @param ins specify the negative insertion score for the X-drop extension process. Default is \code{ins = -3}.
