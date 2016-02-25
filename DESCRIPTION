@@ -23,7 +23,8 @@ Imports:
     RColorBrewer,
     ggplot2,
     readr,
-    magrittr
+    magrittr,
+    downloader
 Suggests:
     knitr (>= 1.6),
     rmarkdown (>= 0.3.3),
