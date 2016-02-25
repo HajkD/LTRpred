@@ -39,7 +39,6 @@ Hajk-Georg Drost
 }
 \seealso{
 \code{\link{LTRpred}}, \code{\link{LTRharvest}}, \code{\link{LTRdigest}},
-\code{\link{PlotLTRTransposonWidthDistribution}},
-\code{\link{PlotLTRWidthDistribution}}, \code{\link{PlotRanges}}
+\code{\link{PlotLTRWidth}}, \code{\link{PlotRanges}}
 }
 
