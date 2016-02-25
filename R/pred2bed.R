@@ -27,7 +27,7 @@ pred2bed <- function(LTR.data, output = "output"){
                            end        = LTR.data$end,
                            name       = LTR.data$ID)
   
-  write.table(res,output, quote = FALSE, col.names = FALSE, row.names = FALSE)
+  write.table(res,output, sep = "\t", quote = FALSE, col.names = FALSE, row.names = FALSE)
 }
 
 
