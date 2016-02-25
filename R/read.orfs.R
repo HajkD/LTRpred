@@ -24,17 +24,20 @@ read.orfs <- function(input.file){
   ORFCount.df <- dplyr::data_frame(seq.id = names(SeqFile.table), 
                                    orfs = as.numeric(SeqFile.table))
   
-  GenomicLocus <- as.data.frame(do.call(rbind, sapply(ORFCount.df$seq.id, function(x){
-    as.numeric(unlist(stringr::str_split(unlist(stringr::str_split(x,"__"))[2],"_")))
-  })), row.names = FALSE)
-  names(GenomicLocus) <- c("start","end")
-  remove.NA <- which(is.na(GenomicLocus$start) | is.na(GenomicLocus$end))
-  GenomicLocus <- GenomicLocus[-remove.NA, ]
-  ORFCount.df <- ORFCount.df[-remove.NA, ]
-  ORFCount.df <- dplyr::mutate(ORFCount.df, start = unlist(GenomicLocus$start), end = unlist(GenomicLocus$end))
-  
-  ORFCount.df <- dplyr::mutate(ORFCount.df, chromosome = paste0(unlist(stringr::str_split(seq.id, "__"))[1],"_"))
-  ORFCount.df <- dplyr::select(ORFCount.df,chromosome,seq.id,start,end,orfs)
+#   GenomicLocus <- as.data.frame(do.call(rbind, sapply(ORFCount.df$seq.id, function(x){
+#     as.numeric(unlist(stringr::str_split(unlist(stringr::str_split(x,"__"))[2],"_")))
+#   })), row.names = FALSE)
+#   names(GenomicLocus) <- c("start","end")
+#   remove.NA <- which(is.na(GenomicLocus$start) | is.na(GenomicLocus$end))
+#   GenomicLocus <- GenomicLocus[-remove.NA, ]
+#   ORFCount.df <- ORFCount.df[-remove.NA, ]
+#   ORFCount.df <- dplyr::mutate(ORFCount.df, 
+#                                start = unlist(GenomicLocus$start), 
+#                                end   = unlist(GenomicLocus$end))
+#   
+#   ORFCount.df <- dplyr::mutate(ORFCount.df, chromosome = paste0(unlist(stringr::str_split(seq.id, "__"))[1],"_"))
+  #ORFCount.df <- dplyr::select(ORFCount.df,chromosome,seq.id,start,end,orfs)
+  ORFCount.df <- dplyr::select(ORFCount.df,seq.id,orfs)
   return (ORFCount.df) 
 }
 
