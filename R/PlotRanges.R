@@ -8,6 +8,7 @@
 #' @param ... standard graphics parameters passed to \code{link{rect}}.
 #' @author Hajk-Georg Drost
 
+
 PlotRanges <- function(x, 
                        xlim = x, 
                        main = deparse(substitute(x)), 
