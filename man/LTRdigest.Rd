@@ -102,7 +102,7 @@ The \code{LTRdigest} function generates the following output files:
 \item *_index_ltrdigest.fsa : The suffixarray index file used to predict putative LTR retrotransposonswith \code{LTRdigest}.
 \item *_LTRdigestPrediction.gff : A spread sheet containing detailed information about the predicted LTRs.
 \item *-ltrdigest_tabout.csv : A spread sheet containing additional detailed information about the predicted LTRs.
-\item *-ltrdigest_complete.fas : The full DNA sequences of all predicted LTR transposons.
+\item *-ltrdigest_complete.fas : The full length DNA sequences of all predicted LTR transposons.
 \item *-ltrdigest_conditions.csv : Contains information about the parameters used for a given
 \code{LTRdigest} run.
 \item *-ltrdigest_pbs.fas : Stores the predicted PBS sequences for the putative LTR retrotransposons.
