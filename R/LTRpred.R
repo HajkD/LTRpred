@@ -155,7 +155,7 @@
 #' \item *_orfs_aa.fsa : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.
 #' \item *_LTRpred.gff : Stores the \code{LTRpred} predicted LTR transposons in GFF format.
 #' \item *_LTRpred.bed : Stores the \code{LTRpred} predicted LTR transposons in BED format. 
-#' \item *_LTRpred-DataSheet.csv : Stores the output table as data sheet.
+#' \item *_LTRpred_DataSheet.csv : Stores the output table as data sheet.
 #' }
 #' The ' * ' is an place holder for the name of the input genome file.
 #' @examples 
@@ -366,38 +366,19 @@ LTRpred <- function(genome.file       = NULL,
     file.copy(paste0(chopped.foldername,"_ltrdigest"),output.path, recursive = TRUE)
     file.remove(paste0(chopped.foldername,"_ltrharvest"), recursive = TRUE)
     file.remove(paste0(chopped.foldername,"_ltrdigest"), recursive = TRUE)
-    write.table(pred2gff(res),file.path(output.path,paste0(chopped.foldername,"_LTRpred.gff")), 
-                quote     = FALSE, 
-                col.names = FALSE, 
-                row.names = FALSE)
+    pred2gff(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred.gff")))
+    pred2bed(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred.bed")))
+    pred2csv(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred_DataSheet.csv")))
     
-    write.table(pred2bed(res),file.path(output.path,paste0(chopped.foldername,"_LTRpred.bed")), 
-                quote     = FALSE, 
-                col.names = FALSE, 
-                row.names = FALSE)
-    write.table(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred-DataSheet.csv")), 
-                quote     = FALSE, 
-                col.names = TRUE, 
-                row.names = FALSE)
   } else {
     file.copy(LTRdigest.gff,output.path, recursive = TRUE)
     file.copy(tabout.file,output.path, recursive = TRUE)
     file.remove(LTRdigest.gff, recursive = TRUE)
     file.remove(tabout.file, recursive = TRUE)
-    write.table(pred2gff(res),file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.gff")), 
-                quote     = FALSE, 
-                col.names = FALSE, 
-                row.names = FALSE)
+    pred2gff(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.gff")))
+    pred2bed(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.bed")))
+    pred2csv(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred_DataSheet.csv")))
     
-    write.table(pred2bed(res),file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.bed")), 
-                quote     = FALSE, 
-                col.names = FALSE, 
-                row.names = FALSE)
-    
-    write.table(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred-DataSheet.csv")), 
-                quote     = FALSE, 
-                col.names = TRUE, 
-                row.names = FALSE)
   }
 
   return(res)

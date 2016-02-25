@@ -215,7 +215,7 @@ the HMM matches to the LTR retrotransposon candidates.
 \item *_orfs_aa.fsa : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.
 \item *_LTRpred.gff : Stores the \code{LTRpred} predicted LTR transposons in GFF format.
 \item *_LTRpred.bed : Stores the \code{LTRpred} predicted LTR transposons in BED format. 
-\item *_LTRpred-DataSheet.csv : Stores the output table as data sheet.
+\item *_LTRpred_DataSheet.csv : Stores the output table as data sheet.
 }
 The ' * ' is an place holder for the name of the input genome file.
 }
