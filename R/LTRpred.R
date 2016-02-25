@@ -262,7 +262,7 @@ LTRpred <- function(genome.file       = NULL,
   }
   
   rTSD_end <- lTSD_start <- PPT_end <- PPT_start <- PBS_end <- PBS_start <- NULL
-  ID <- match_width <- reading_frame <- width <- NULL
+  ID <- match_width <- chromosome <- reading_frame <- width <- orf.id <- NULL
   
   if (!is.null(genome.file) & is.null(LTRdigest.gff) & is.null(tabout.file)){
   
@@ -336,9 +336,8 @@ LTRpred <- function(genome.file       = NULL,
     ORFTable <- read.orfs(input.file = orf.file)
   }
   
-  names(ORFTable)[3:4] <- c("element_start","element_end") 
-  
-  LTRdigestOutput$ltr.retrotransposon <- dplyr::full_join(LTRdigestOutput$ltr.retrotransposon, ORFTable, by = c("chromosome" = "chromosome", "start" = "element_start", "end" = "element_end"))
+  LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, orf.id = paste0(chromosome,"_",start,"_",end))
+  LTRdigestOutput$ltr.retrotransposon <- dplyr::full_join(LTRdigestOutput$ltr.retrotransposon, ORFTable, by = c("orf.id" = "seq.id"))
  
   LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, repeat_region_length = ifelse(!is.na(rTSD_end), (rTSD_end - lTSD_start) + 1, NA))
   
