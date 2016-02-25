@@ -16,7 +16,7 @@ between the LTR transposon and the corresponding annotated sequence found in Rep
 to the console while executing this function.}
 }
 \value{
-A \code{data.frame} storing the filtered output returned by \code{\link{QueryRepBase}}.
+A \code{data.frame} storing the filtered output returned by \code{\link{repbase.query}}.
 }
 \description{
 Filter the output of the \code{\link{repbase.query}} function to quantify

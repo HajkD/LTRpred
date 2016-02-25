@@ -37,7 +37,7 @@
 #'         main = "RepBase Annotation: A. thaliana")
 #' 
 #' }
-#' @return A \code{data.frame} storing the filtered output returned by \code{\link{QueryRepBase}}. 
+#' @return A \code{data.frame} storing the filtered output returned by \code{\link{repbase.query}}. 
 #' @seealso \code{\link{repbase.query}}, \code{\link{repbase.clean}} 
 
 
