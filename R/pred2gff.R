@@ -32,13 +32,13 @@ pred2gff <- function(LTR.data,
   if (program == "LTRharvest"){
     chromosome <- ltr_similarity <- attribute <- NULL
     
-    res <- data.frame(seqname   = LTR.data$ID, 
+    res <- dplyr::data_frame(seqname   = LTR.data$ID, 
                              source    = LTR.data$pred_tool, 
                              feature   = LTR.data$annotation,
                              start     = LTR.data$start,
                              end       = LTR.data$end,
                              score     = LTR.data$score,
-                             strand    = LTR.data$strand,
+                             strand    = unlist(LTR.data$strand),
                              frame     = LTR.data$frame, 
                              attribute = unlist(
                                dplyr::select(
@@ -57,13 +57,13 @@ pred2gff <- function(LTR.data,
     trna <- trna_offset <- trna_motif <- `PBS/tRNA_edist` <- protein_domain <- NULL
     
     
-    res <- data.frame(seqname   = LTR.data$ID, 
+    res <- dplyr::data_frame(seqname   = LTR.data$ID, 
                              source    = LTR.data$pred_tool, 
                              feature   = LTR.data$annotation,
                              start     = LTR.data$start,
                              end       = LTR.data$end,
                              score     = LTR.data$score,
-                             strand    = LTR.data$strand,
+                             strand    = unlist(LTR.data$strand),
                              frame     = LTR.data$frame, 
                              attribute = unlist(
                                dplyr::select(
@@ -108,13 +108,13 @@ pred2gff <- function(LTR.data,
     trna <- trna_offset <- trna_motif <- `PBS/tRNA_edist` <- protein_domain <- NULL
     `seq.id` <- orfs <- repeat_region_length <- protein_domain_start <- protein_domain_end <- protein_domain_match_width <- protein_domain_reading_frame <-  NULL
     
-    res <- data.frame(seqname   = LTR.data$ID, 
+    res <- dplyr::data_frame(seqname   = LTR.data$ID, 
                              source    = LTR.data$pred_tool, 
                              feature   = LTR.data$annotation,
                              start     = LTR.data$start,
                              end       = LTR.data$end,
                              score     = LTR.data$score,
-                             strand    = LTR.data$strand,
+                             strand    = unlist(LTR.data$strand),
                              frame     = LTR.data$frame, 
                              attribute = unlist(
                                dplyr::select(
