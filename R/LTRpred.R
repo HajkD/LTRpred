@@ -350,11 +350,11 @@ LTRpred <- function(genome.file       = NULL,
    
    suppressWarnings(LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, ProteinMatch, by = "ID"))
    
-#   RR_tract <- dplyr::select(LTRdigestOutput$RR_tract,ID, start, end, width)
-#   colnames(ProteinMatch) <- c("ID","RR_tract_start","RR_tract_end","RR_tract_length")
-#   
-#   LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, RR_tract, by = "ID")
-#   
+   RR_tract <- dplyr::select(LTRdigestOutput$RR_tract,ID, start, end, width)
+   colnames(ProteinMatch) <- c("ID","RR_tract_start","RR_tract_end","RR_tract_length")
+   
+   LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, RR_tract, by = "ID")
+   
   element_start <- element_length <- `width.y` <- `start.y`<- `end.y` <- NULL
   
   res <- dplyr::select(LTRdigestOutput$ltr.retrotransposon, -c(element_start,element_length,`width.y`, `start.y`, `end.y`))
