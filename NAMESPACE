@@ -3,6 +3,7 @@
 export(LTRdigest)
 export(LTRharvest)
 export(LTRpred)
+export(LTRpred.meta)
 export(ORFpred)
 export(PlotLTRAge)
 export(PlotLTRRange)
