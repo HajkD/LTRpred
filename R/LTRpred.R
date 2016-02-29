@@ -362,19 +362,19 @@ LTRpred <- function(genome.file       = NULL,
   
   if (!is.null(genome.file)){
     
-    file.copy(paste0(chopped.foldername,"_ltrharvest"),output.path, recursive = TRUE)
-    file.copy(paste0(chopped.foldername,"_ltrdigest"),output.path, recursive = TRUE)
-    unlink(paste0(chopped.foldername,"_ltrharvest"), recursive = TRUE)
-    unlink(paste0(chopped.foldername,"_ltrdigest"), recursive = TRUE)
+    file.move(paste0(chopped.foldername,"_ltrharvest"),file.path(output.path,paste0(chopped.foldername,"_ltrharvest")), recursive = TRUE)
+    file.move(paste0(chopped.foldername,"_ltrdigest"),file.path(output.path,paste0(chopped.foldername,"_ltrdigest")), recursive = TRUE)
+    #unlink(paste0(chopped.foldername,"_ltrharvest"), recursive = TRUE)
+    #unlink(paste0(chopped.foldername,"_ltrdigest"), recursive = TRUE)
     pred2gff(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred.gff")))
     pred2bed(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred.bed")))
     pred2csv(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred_DataSheet.csv")))
     
   } else {
-    file.copy(LTRdigest.gff,output.path, recursive = TRUE)
-    file.copy(tabout.file,output.path, recursive = TRUE)
-    unlink(LTRdigest.gff, recursive = TRUE)
-    unlink(tabout.file, recursive = TRUE)
+    file.move(LTRdigest.gff,file.path(output.path,LTRdigest.gff), recursive = TRUE)
+    file.move(tabout.file,file.path(output.path,tabout.file), recursive = TRUE)
+    #unlink(LTRdigest.gff, recursive = TRUE)
+    #unlink(tabout.file, recursive = TRUE)
     pred2gff(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.gff")))
     pred2bed(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.bed")))
     pred2csv(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred_DataSheet.csv")))
