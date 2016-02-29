@@ -4,7 +4,7 @@
 \alias{LTRpred.meta}
 \title{Perform Meta-Analyses with LTRpred}
 \usage{
-LTRpred.meta(genome.folder, result.folder = getwd(), ...)
+LTRpred.meta(genome.folder, result.folder = NULL, ...)
 }
 \arguments{
 \item{genome.folder}{path to the folder storing all unmasked genomes for which \code{\link{LTRpred}}
