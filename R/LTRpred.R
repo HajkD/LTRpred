@@ -345,15 +345,15 @@ LTRpred <- function(genome.file       = NULL,
   
   LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, PBS_length = ifelse(!is.na(PBS_end), (PBS_end - PBS_start) + 1, NA))
   
-   ProteinMatch <- dplyr::select(LTRdigestOutput$protein.match,ID, start, end, match_width, reading_frame)
-   colnames(ProteinMatch) <- c("ID","protein_domain_start","protein_domain_end","protein_domain_match_width","protein_domain_reading_frame")
-   
-   suppressWarnings(LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, ProteinMatch, by = "ID"))
-   
+#    ProteinMatch <- dplyr::select(LTRdigestOutput$protein.match,ID, start, end, match_width, reading_frame)
+#    colnames(ProteinMatch) <- c("ID","protein_domain_start","protein_domain_end","protein_domain_match_width","protein_domain_reading_frame")
+#    
+#    suppressWarnings(LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, ProteinMatch, by = "ID"))
+#    
    RR_tract <- dplyr::select(LTRdigestOutput$RR_tract,ID, start, end, width)
-   colnames(ProteinMatch) <- c("ID","RR_tract_start","RR_tract_end","RR_tract_length")
+   colnames(RR_tract) <- c("ID","RR_tract_start","RR_tract_end","RR_tract_length")
    
-   LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, RR_tract, by = "ID")
+   suppressWarnings(LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, RR_tract, by = "ID"))
    
   element_start <- element_length <- `width.y` <- `start.y`<- `end.y` <- NULL
   
