@@ -22,14 +22,14 @@
 
 filter.jumpers <- function(LTRpred.tbl, ltr.similarity = 95){
   
-  ID <- chromosome <- strand <- ltr_similarity <- lTSD_motif <- rTSD_motif <- PPT_motif <- NULL
-  width <- lLTR_start <- PBS_length <- similarity <- PPT_motif <- orfs <- protein_domain <- NULL
+  ID <- chromosome <- strand <- repeat_region_length <- ltr_similarity <- lTSD_motif <- rTSD_motif <- PPT_motif <- NULL
+  width <- `orf.id` <- lLTR_start <- PBS_length <- similarity <- PPT_motif <- orfs <- protein_domain <- NULL
   
   res <- dplyr::filter(LTRpred.tbl, (ltr_similarity >= ltr.similarity) & (!is.na(lTSD_motif)) & (!is.na(rTSD_motif)) &
                        (!is.na(PPT_motif)) & (!is.na(orfs)) & (!is.na(protein_domain)))
   
   res <- unique(dplyr::select(res,ID, chromosome, start, end, strand, width,
-                              ltr_similarity, similarity,orfs, lLTR_start:PBS_length))
+                              ltr_similarity, similarity,orfs, lLTR_start:`orf.id`,repeat_region_length:PBS_length))
   return (res[order(res[ , "ltr_similarity"], decreasing = TRUE), ])
 }
 
