@@ -21,7 +21,7 @@
 #' }
 #' @export
    
-LTRpred.meta <- function(genome.folder, result.folder = getwd(), ...){
+LTRpred.meta <- function(genome.folder, result.folder = NULL, ...){
   
   cat("\n")
   cat("Starting LTRpred meta analysis on the following genomes: ")
@@ -38,9 +38,11 @@ LTRpred.meta <- function(genome.folder, result.folder = getwd(), ...){
     LTRpred(...)
   }
   
-  # store results in result folder -> default: working directory
-  file.move(from = paste0(genome.names.chopped,"_ltrpred"), 
-            to   = file.path(result.folder,paste0(genome.names.chopped,"_ltrpred")))
+  if (!is.null(result.folder)){
+    # store results in result folder -> default: working directory
+    file.move(from = paste0(genome.names.chopped,"_ltrpred"), 
+              to   = file.path(result.folder,paste0(genome.names.chopped,"_ltrpred")))
+  }
   
   cat("Finished meta analysis!")
 }
