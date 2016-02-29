@@ -152,11 +152,7 @@ pred2gff <- function(LTR.data,
                                                                   "ProteinDomain=",protein_domain,";",
                                                                   "seqid=",`seq.id`,";",
                                                                   "orfs=",orfs,";",
-                                                                  "repeat_region_length=",repeat_region_length,";",
-                                                                  "protein_domain_start=",protein_domain_start,";",
-                                                                  "protein_domain_end=",protein_domain_end,";",
-                                                                  "protein_domain_match_width=",protein_domain_match_width,";",
-                                                                  "protein_domain_reading_frame=",protein_domain_reading_frame)),attribute)))
+                                                                  "repeat_region_length=",repeat_region_length)),attribute)))
   }
   
   write.table(res,output, sep = "\t", quote = FALSE, col.names = FALSE, row.names = FALSE)
