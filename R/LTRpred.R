@@ -362,8 +362,8 @@ LTRpred <- function(genome.file       = NULL,
   
   if (!is.null(genome.file)){
     
-    file.move(paste0(chopped.foldername,"_ltrharvest"),file.path(output.path,paste0(chopped.foldername,"_ltrharvest")), recursive = TRUE)
-    file.move(paste0(chopped.foldername,"_ltrdigest"),file.path(output.path,paste0(chopped.foldername,"_ltrdigest")), recursive = TRUE)
+    file.move(paste0(chopped.foldername,"_ltrharvest"),file.path(output.path,paste0(chopped.foldername,"_ltrharvest")))
+    file.move(paste0(chopped.foldername,"_ltrdigest"),file.path(output.path,paste0(chopped.foldername,"_ltrdigest")))
     #unlink(paste0(chopped.foldername,"_ltrharvest"), recursive = TRUE)
     #unlink(paste0(chopped.foldername,"_ltrdigest"), recursive = TRUE)
     pred2gff(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred.gff")))
@@ -371,8 +371,8 @@ LTRpred <- function(genome.file       = NULL,
     pred2csv(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred_DataSheet.csv")))
     
   } else {
-    file.move(LTRdigest.gff,file.path(output.path,LTRdigest.gff), recursive = TRUE)
-    file.move(tabout.file,file.path(output.path,tabout.file), recursive = TRUE)
+    file.move(LTRdigest.gff,file.path(output.path,LTRdigest.gff))
+    file.move(tabout.file,file.path(output.path,tabout.file))
     #unlink(LTRdigest.gff, recursive = TRUE)
     #unlink(tabout.file, recursive = TRUE)
     pred2gff(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.gff")))
