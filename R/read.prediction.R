@@ -465,7 +465,7 @@ read.prediction <- function( gff.file        = NULL,
         colnames(FilteredAnnotationFile.protein_match)[9] <- "match_width"
         colnames(FilteredAnnotationFile.protein_match)[14] <- "width"
         
-        cat("(7/8) Filtering for primer binding site has been finished.")
+        cat("(7/8) Filtering for protein match has been finished.")
         cat("\n")
         
         ### Post-Processing of RR_tract
@@ -486,7 +486,7 @@ read.prediction <- function( gff.file        = NULL,
                                                                                include.lowest = TRUE,
                                                                                right          = TRUE))
         
-        cat("(8/8) Filtering for primer RR tract has been finished.")
+        cat("(8/8) Filtering for RR tract has been finished.")
         cat("\n")
         
         # rename the chromosome number
