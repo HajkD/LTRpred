@@ -24,7 +24,8 @@ Imports:
     ggplot2,
     readr,
     magrittr,
-    downloader
+    downloader,
+    BSDA
 Suggests:
     knitr (>= 1.6),
     rmarkdown (>= 0.3.3),
