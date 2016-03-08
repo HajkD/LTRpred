@@ -23,9 +23,15 @@ The LTR Similarity vs. predicted LTR count visualization
 allows to study the variability of predicted LTRs in different genomes.
 }
 \examples{
-\dontrun{
+SimMatrix <- read.csv(system.file("SimMatrix.csv",package = "LTRpred"), sep = ";")
+GenomeMatrix <- read.csv(system.file("GenomeMatrix.csv",package = "LTRpred"), sep = ";")
+names(SimMatrix) <- c("organism",levels(cut(100,rev(seq(100,70,-2)),
+                                 include.lowest = TRUE,right = TRUE)))
+SimMatrix2 <- SimMatrix
+SimMatrix2[ , 2:16] <- SimMatrix2[ , 2:16] / GenomeMatrix$genome.size
 
-}
+PlotSimCount(SimMatrix)
+PlotSimCount(SimMatrix2)
 }
 \author{
 Hajk-Georg Drost
