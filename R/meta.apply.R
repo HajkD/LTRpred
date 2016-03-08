@@ -15,16 +15,15 @@ meta.apply <- function(result.folder,FUN){
   
   func <- match.fun(FUN)
   result.files <- list.files(result.folder)
-  folders <- result.files[stringr::str_detect(result.files,"ltrpred")]
+  folders0 <- result.files[stringr::str_detect(result.files, "ltrpred")]
   
-  for (i in 1:length(folders)){
-    #currentFolder <- list.files(file.path(result.folder,folders[i]))
-    LTRdigestFolder <- currentFolder[stringr::str_detect(currentFolder,"ltrdigest")]
-    choppedFolder <- unlist(stringr::str_split(LTRdigestFolder,"_"))
+  for (i in 1:length(folders0)){
+    internal.file <- list.files(file.path(result.folder,result.files[i]))
+    folders <- internal.file[stringr::str_detect(internal.file, "ltrdigest")]
+    folders <- folders[1]
+    choppedFolder <- unlist(stringr::str_split(folders,"_"))
+    pred <- readr::read_delim(file.path(result.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")), delim = ";")
     
-    pred <- read.prediction(gff.file = file.path(result.folder,folders[i],paste0(paste0(choppedFolder[-length(choppedFolder)], collapse = "_"),"LTRdigest")))
-    
-    
+    func(pred)
   }
-  
 }
