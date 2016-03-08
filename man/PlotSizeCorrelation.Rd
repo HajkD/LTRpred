@@ -7,7 +7,7 @@
 PlotSizeCorrelation(genome.matrix, cor.method = "spearman",
   xlab = "LTR transposon Count", ylim = "Genome size in bp",
   main = "Genome size vs. LTR transp. count", text.size = 18,
-  check.overlap = TRUE)
+  label.size = 3, check.overlap = TRUE)
 }
 \arguments{
 \item{genome.matrix}{Genome matrix retruned by \code{\link{LTRpred.meta}}.}
@@ -28,9 +28,11 @@ PlotSizeCorrelation(genome.matrix, cor.method = "spearman",
 Genome size vs. LTR transposon count.
 }
 \examples{
-\dontrun{
-
-}
+GenomeMatrix <- read.csv(system.file("GenomeMatrix.csv",package = "LTRpred"), sep = ";")
+GenomeMatrix[ , 1] <- sapply(GenomeMatrix[ , 1], 
+                             function(x) unlist(stringr::str_split(x,"_"))[1])
+                             
+PlotSizeCorrelation(GenomeMatrix)
 }
 \author{
 Hajk-Georg Drost

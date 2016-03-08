@@ -9,16 +9,20 @@
 #' @param check.overlap shall overlaps of labels be avoided or not.
 #' @author Hajk-Georg Drost
 #' @examples 
-#' \dontrun{
-#' 
-#' }
+#' GenomeMatrix <- read.csv(system.file("GenomeMatrix.csv",package = "LTRpred"), sep = ";")
+#' GenomeMatrix[ , 1] <- sapply(GenomeMatrix[ , 1], 
+#'                              function(x) unlist(stringr::str_split(x,"_"))[1])
+#'                              
+#' PlotSizeCorrelation(GenomeMatrix)
 #' @export
+
 PlotSizeCorrelation <- function(genome.matrix,
                                 cor.method    = "spearman",
                                 xlab          = "LTR transposon Count",
                                 ylim          = "Genome size in bp", 
                                 main          = "Genome size vs. LTR transp. count",
                                 text.size     = 18,
+                                label.size    = 3,
                                 check.overlap = TRUE){
   
   cor.value <- cor(genome.matrix$nLTRs,genome.matrix$genome.size, method = cor.method)
@@ -32,11 +36,9 @@ PlotSizeCorrelation <- function(genome.matrix,
                         axis.text.x = ggplot2::element_text(size = text.size,face = "bold"),
                         panel.background = ggplot2::element_blank(), 
                         plot.title = ggplot2::element_text(size = text.size, colour = "black", face = "bold")) +
-    ggplot2::geom_text(ggplot2::aes(label = organism),hjust=0, vjust=0,size = 3, check_overlap = check.overlap)
+    ggplot2::geom_text(ggplot2::aes(label = organism), hjust = 0, vjust = 0, 
+                       size = label.size, check_overlap = check.overlap)
   
   return (res)
 }
-
-#          ggplot2::geom_text(ggplot2::aes(label = organism),hjust=0, vjust=0,size = 6, check_overlap = TRUE) +
-
 
