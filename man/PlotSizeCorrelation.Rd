@@ -4,18 +4,23 @@
 \alias{PlotSizeCorrelation}
 \title{Plot Genome size vs. LTR transposon count}
 \usage{
-PlotSizeCorrelation(genome.matrix, xlab = "LTR transposon Count",
-  ylim = "Genome size in bp", main = "Genome size vs. LTR transp. count",
-  text.size = 18)
+PlotSizeCorrelation(genome.matrix, cor.method = "spearman",
+  xlab = "LTR transposon Count", ylim = "Genome size in bp",
+  main = "Genome size vs. LTR transp. count", text.size = 18,
+  check.overlap = TRUE)
 }
 \arguments{
 \item{genome.matrix}{Genome matrix retruned by \code{\link{LTRpred.meta}}.}
+
+\item{cor.method}{correlation analysis method. Either \code{"pearson"}, \code{"kendall"}, or \code{"spearman"}.}
 
 \item{xlab}{x-axis label.}
 
 \item{main}{main text.}
 
 \item{text.size}{size of the labels in ggplot2 notation.}
+
+\item{check.overlap}{shall overlaps of labels be avoided or not.}
 
 \item{ylab}{y-axis label.}
 }
