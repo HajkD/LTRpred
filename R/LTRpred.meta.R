@@ -51,17 +51,14 @@ LTRpred.meta <- function(genome.folder, result.folder = NULL, ...){
   nLTRs.normalized <- 1
   gs <- 1
   for (i in 1:length(folders0)){
-    internal.file <- list.files(file.path(result.folder,result.files[i]))
-    folders <- internal.file[stringr::str_detect(internal.file, "ltrdigest")]
-    folders <- folders[1]
-    choppedFolder <- unlist(stringr::str_split(folders,"_"))
-    pred <- readr::read_delim(file.path(result.folder,folders0[i],folders,paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")), delim = ";")
+    choppedFolder <- unlist(stringr::str_split(folders0,"_"))
+    pred <- readr::read_delim(file.path(result.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")), delim = ";")
       
     SimMatrix[i] <- list(table(factor(pred$similarity, levels = levels(cut(pred$ltr_similarity, rev(seq(100,70,-2)),include.lowest = TRUE,right = TRUE)))))
     nLTRs[i] <- nrow(pred)
     genome.size <-  Biostrings::readDNAStringSet(file.path(genome.folder,genomes[i]))
     gs[i] <- sum(genome.size@ranges@width)
-    nLTRs.normalized[i] <- nrow(pred) / sum(genome.size@ranges@width)
+    nLTRs.normalized[i] <- length(unique(pred$ID)) / sum(genome.size@ranges@width)
   }
   
   names(nLTRs) <- folders0
@@ -71,8 +68,8 @@ LTRpred.meta <- function(genome.folder, result.folder = NULL, ...){
   GenomeInfo <- data.frame(organism = genomes, nLTRs = nLTRs, norm.nLTRs = nLTRs.normalized, genome.size = gs )
   SimMatrix <- do.call(rbind, SimMatrix)
   SimMatrix <- data.frame(organism = folders0 , SimMatrix)
-  write.table(SimMatrix,"SimilarityMatrix.csv" ,sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
-  write.table(GenomeInfo,"GenomeInfo.csv" ,sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
+  write.table(SimMatrix,paste0(folders0,"_SimilarityMatrix.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
+  write.table(GenomeInfo,paste0(folders0,"_GenomeInfo.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
   
   cat("Finished meta analysis!")
 }
