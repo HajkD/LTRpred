@@ -325,7 +325,7 @@ LTRpred <- function(genome.file       = NULL,
                                        program     = "LTRdigest")
   }
   
-  if (is.null(orf.file) & !is.na(LTRdigestOutput)){
+  if (is.null(orf.file) & !is.null(LTRdigestOutput)){
     ORFTable <- ORFpred(seq.file = file.path(paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_complete.fas")), 
                         orf.style  = orf.style, 
                         min.codons = min.codons, 
@@ -333,14 +333,14 @@ LTRpred <- function(genome.file       = NULL,
                         output     = output.path)
   } else {
     
-    if (is.na(LTRdigestOutput)){
+    if (is.null(LTRdigestOutput)){
       cat(file.path(paste0(chopped.foldername,"_ltrdigest")), " is empty and therefore ORF prediction has been omitted.")
     } else {
       ORFTable <- read.orfs(input.file = orf.file)
     }
   }
   
-  if (!is.na(LTRdigestOutput)){
+  if (!is.null(LTRdigestOutput)){
     LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, orf.id = paste0(chromosome,"_",start,"_",end))
     LTRdigestOutput$ltr.retrotransposon <- dplyr::full_join(LTRdigestOutput$ltr.retrotransposon, ORFTable, by = c("orf.id" = "seq.id"))
     
