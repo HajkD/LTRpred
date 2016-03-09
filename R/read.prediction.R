@@ -422,7 +422,7 @@ read.prediction <- function( gff.file        = NULL,
           FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, ID = LTRParentID)
           FilteredAnnotationFile.long_terminal_repeat <- dplyr::select(FilteredAnnotationFile.long_terminal_repeat,-X9)
           
-          FilteredAnnotationFile.long_terminal_repeat <- suppressWarnings(dplyr::right_join(FilteredAnnotationFile.long_terminal_repeat, LTR_retrotransposonPredictionFeatures[ , c("ID","ltr_similarity")], by = "ID"))
+          FilteredAnnotationFile.long_terminal_repeat <- suppressWarnings(dplyr::inner_join(FilteredAnnotationFile.long_terminal_repeat, LTR_retrotransposonPredictionFeatures[ , c("ID","ltr_similarity")], by = "ID"))
           FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, 
                                                                        similarity = cut(ltr_similarity,
                                                                                         rev(seq(100,min.similarity,-similarity.bin)),
