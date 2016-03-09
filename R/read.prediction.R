@@ -43,7 +43,7 @@ read.prediction <- function( gff.file        = NULL,
     # test if prediction gff file is empty 
     if (file.info(gff.file)$size == 0){
       cat("File ",gff.file, " is empty and therefore is not being processed.")
-      return (NA)
+      return (NULL)
     }
   
     X4 <- X5 <- X9 <- annotation <- ltr_similarity <- chromosome <- NULL
