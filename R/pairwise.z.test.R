@@ -6,7 +6,8 @@ pairwise.z.test <- function(sim.matrix){
     pvals[i - 1] <- BSDA::z.test(x = sim.matrix[ , i],
                                 y = sim.matrix[ , i + 1],
                                 sigma.x = sd(sim.matrix[ , i]), 
-                                sigma.y = sd(sim.matrix[ , i + 1]))$p.value
+                                sigma.y = sd(sim.matrix[ , i + 1]),
+                                alternative = "two.sided")$p.value
     
     names(pvals)[i - 1] <- paste0(colnames(sim.matrix)[i],"<->",colnames(sim.matrix)[i + 1])
   }
