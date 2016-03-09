@@ -22,6 +22,13 @@ PlotSimCount(sim.matrix, xlab = "LTR \% Similarity", ylab = "Count",
 The LTR Similarity vs. predicted LTR count visualization
 allows to study the variability of predicted LTRs in different genomes.
 }
+\details{
+In case the \code{sim.matrix} includes more than 30 observations (genomes), then
+a \code{z.test} is applied to compute pairwise differences between neighboring distributions.
+
+In case the \code{sim.matrix} includes less than 30 observations (genomes), then
+a \code{wilcox.test} is applied to compute pairwise differences between neighboring distributions.
+}
 \examples{
 SimMatrix <- read.csv(system.file("SimMatrix.csv",package = "LTRpred"), sep = ";")
 GenomeMatrix <- read.csv(system.file("GenomeMatrix.csv",package = "LTRpred"), sep = ";")

@@ -7,6 +7,13 @@
 #' @param main main text.
 #' @param text.size size of the labels in ggplot2 notation.
 #' @author Hajk-Georg Drost
+#' @details 
+#' In case the \code{sim.matrix} includes more than 30 observations (genomes), then
+#' a \code{z.test} is applied to compute pairwise differences between neighboring distributions.
+#' 
+#' In case the \code{sim.matrix} includes less than 30 observations (genomes), then
+#' a \code{wilcox.test} is applied to compute pairwise differences between neighboring distributions.
+#' 
 #' @examples 
 #' SimMatrix <- read.csv(system.file("SimMatrix.csv",package = "LTRpred"), sep = ";")
 #' GenomeMatrix <- read.csv(system.file("GenomeMatrix.csv",package = "LTRpred"), sep = ";")
@@ -25,7 +32,17 @@ PlotSimCount <- function(sim.matrix,
                          main            = "LTR % Similarity vs. Count",
                          text.size       = 18){
   
-  pvals <- pairwise.z.test(sim.matrix)
+  if (nrow(sim.matrix) > 30){
+    cat("There are ",nrow(sim.matrix), " elements in the dataset.. \nA z.test is applied to compute pairwise distribution differences.")
+    cat("\n")
+    pvals <- pairwise.z.test(sim.matrix)
+  }
+  
+  if (nrow(sim.matrix) < 30){
+    cat("There are ", nrow(sim.matrix), " elements in the dataset.. \nA wilcox.test is applied to compute pairwise distribution differences.")
+    cat("\n")
+    pvals <- pairwise.wilcox.test(sim.matrix)
+  }
   
   pvals.name <- rep("",ncol(sim.matrix)-1)
   pvals.name[which(pvals <= 0.05)] <- "*"
@@ -51,7 +68,7 @@ PlotSimCount <- function(sim.matrix,
                         plot.title       = ggplot2::element_text(size = text.size, colour = "black", face = "bold")) 
   # + ggplot2::geom_text(data = df, label = pvals)
   
-  cat("Pairwise comparisons ( z-test ) :")
+  cat("Pairwise comparisons:")
   cat("\n")
   pvals.res <- paste0("p = ",pvals)
   names(pvals.res) <- names(pvals)
