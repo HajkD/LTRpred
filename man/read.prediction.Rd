@@ -4,7 +4,7 @@
 \alias{read.prediction}
 \title{Import the output of LTRharvest, LTRdigest, or LTRpred}
 \usage{
-read.prediction(gff.file = NULL, tabout.file, program = "LTRharvest",
+read.prediction(gff.file = NULL, tabout.file, program = "LTRdigest",
   ltr.fasta = NULL, inner.seq.fasta = NULL, data = NULL,
   similarity.bin = 2, min.sim = NULL)
 }

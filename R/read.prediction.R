@@ -27,7 +27,7 @@
 
 read.prediction <- function( gff.file        = NULL,
                              tabout.file,
-                             program         = "LTRharvest",
+                             program         = "LTRdigest",
                              ltr.fasta       = NULL,
                              inner.seq.fasta = NULL,
                              data            = NULL,
@@ -40,6 +40,12 @@ read.prediction <- function( gff.file        = NULL,
     if (!is.element(program, c("LTRharvest", "LTRdigest")))
         stop ("Please choose a prediction returned by either LTRharvest or LTRdigest.")
     
+    # test if prediction gff file is empty 
+    if (file.info(gff.file)$size == 0){
+      cat("File ",gff.file, " is empty and therefore is not being processed.")
+      return (NA)
+    }
+  
     X4 <- X5 <- X9 <- annotation <- ltr_similarity <- chromosome <- NULL
     
     if (program == "LTRharvest"){
