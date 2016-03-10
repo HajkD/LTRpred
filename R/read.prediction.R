@@ -429,11 +429,31 @@ read.prediction <- function( gff.file        = NULL,
                                                                                         include.lowest = TRUE,
                                                                                         right          = TRUE))
           
-          FilteredAnnotationFile.long_terminal_repeat$ID <- factor(FilteredAnnotationFile.long_terminal_repeat$ID, levels=unique(FilteredAnnotationFile.long_terminal_repeat$ID))
-          FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, ltr_order = do.call(rbind,lapply(split(FilteredAnnotationFile.long_terminal_repeat,FilteredAnnotationFile.long_terminal_repeat$ID), function(x) if (x[1, "end"] < x[2, "start"]) return (rbind("left","right")) else return(rbind("right","left")))))
-          
-        }
-        
+          # FilteredAnnotationFile.long_terminal_repeat$ID <- factor(FilteredAnnotationFile.long_terminal_repeat$ID, levels = unique(FilteredAnnotationFile.long_terminal_repeat$ID))
+        #   print(as.data.frame(FilteredAnnotationFile.long_terminal_repeat))
+        #   
+        #   print(do.call(rbind,lapply(split(FilteredAnnotationFile.long_terminal_repeat,FilteredAnnotationFile.long_terminal_repeat$ID), function(x){
+        #     
+        #     if (x[1 , "end"] < x[2 , "start"]){
+        #       return (rbind("left","right")) 
+        #     } else {
+        #       return(rbind("right","left"))
+        #     }
+        #     
+        #   })))
+        #   
+        #   FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, ltr_order = do.call(rbind,lapply(split(FilteredAnnotationFile.long_terminal_repeat,FilteredAnnotationFile.long_terminal_repeat$ID), function(x){
+        #     
+        #     if (x[1 , "end"] < x[2 , "start"]){
+        #       return (rbind("left","right")) 
+        #     } else {
+        #       return(rbind("right","left"))
+        #     }
+        #       
+        #   }))) 
+        #   
+         }
+         
         cat("(4/8) Filtering for LTRs has been finished.")
         cat("\n")
         
