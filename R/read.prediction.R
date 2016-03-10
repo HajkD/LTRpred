@@ -223,8 +223,8 @@ read.prediction <- function( gff.file        = NULL,
                                                                                         include.lowest = TRUE,
                                                                                         right          = TRUE))
           
-          FilteredAnnotationFile.long_terminal_repeat$ID <- factor(FilteredAnnotationFile.long_terminal_repeat$ID, levels=unique(FilteredAnnotationFile.long_terminal_repeat$ID))
-          FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, ltr_order = do.call(rbind,lapply(split(FilteredAnnotationFile.long_terminal_repeat,FilteredAnnotationFile.long_terminal_repeat$ID), function(x) if (x[1, "end"] < x[2, "start"]) return (rbind("left","right")) else return(rbind("right","left")))))
+          # FilteredAnnotationFile.long_terminal_repeat$ID <- factor(FilteredAnnotationFile.long_terminal_repeat$ID, levels=unique(FilteredAnnotationFile.long_terminal_repeat$ID))
+          # FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, ltr_order = do.call(rbind,lapply(split(FilteredAnnotationFile.long_terminal_repeat,FilteredAnnotationFile.long_terminal_repeat$ID), function(x) if (x[1, "end"] < x[2, "start"]) return (rbind("left","right")) else return(rbind("right","left")))))
           
         } 
 
@@ -380,9 +380,12 @@ read.prediction <- function( gff.file        = NULL,
                                                                                  right          = TRUE))
           
           LTRdigest.tabout.file <- read.tabout(tabout.file)
-          LTR_retrotransposonPredictionFeatures <- dplyr::inner_join(LTR_retrotransposonPredictionFeatures, LTRdigest.tabout.file, by = c("start" = "element_start", "end" = "element_end"))
-        }
-
+          
+          if (nrow(LTRdigest.tabout.file) > 2){
+            LTR_retrotransposonPredictionFeatures <- dplyr::inner_join(LTR_retrotransposonPredictionFeatures, LTRdigest.tabout.file, by = c("start" = "element_start", "end" = "element_end"))
+          }
+          }
+          
         cat("(2/8) Filtering for LTR retrotransposons has been finished.")
         cat("\n")
         
