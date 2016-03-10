@@ -381,9 +381,8 @@ read.prediction <- function( gff.file        = NULL,
           
           LTRdigest.tabout.file <- read.tabout(tabout.file)
           
-          if (nrow(LTRdigest.tabout.file) > 2){
-            LTR_retrotransposonPredictionFeatures <- dplyr::inner_join(LTR_retrotransposonPredictionFeatures, LTRdigest.tabout.file, by = c("start" = "element_start", "end" = "element_end"))
-          }
+          LTR_retrotransposonPredictionFeatures <- dplyr::inner_join(LTR_retrotransposonPredictionFeatures, LTRdigest.tabout.file, by = c("start" = "element_start", "end" = "element_end"))
+          
           }
           
         cat("(2/8) Filtering for LTR retrotransposons has been finished.")
