@@ -35,7 +35,7 @@ LTRpred.meta <- function(genome.folder, result.folder = NULL, ...){
   
   # run meta analysis for all species sequencially
   for (i in 1:length(genomes)){
-    LTRpred(...)
+    LTRpred(genome.file = file.path(genome.folder, genomes[i]), ...)
   }
   
   if (!is.null(result.folder)){
@@ -53,7 +53,7 @@ LTRpred.meta <- function(genome.folder, result.folder = NULL, ...){
   for (i in 1:length(folders0)){
     choppedFolder <- unlist(stringr::str_split(folders0,"_"))
     pred <- readr::read_delim(file.path(result.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")), delim = ";")
-      
+    
     SimMatrix[i] <- list(table(factor(pred$similarity, levels = levels(cut(pred$ltr_similarity, rev(seq(100,70,-2)),include.lowest = TRUE,right = TRUE)))))
     nLTRs[i] <- nrow(pred)
     genome.size <-  Biostrings::readDNAStringSet(file.path(genome.folder,genomes[i]))
