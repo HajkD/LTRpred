@@ -25,7 +25,8 @@ Imports:
     readr,
     magrittr,
     downloader,
-    BSDA
+    BSDA,
+    amap
 Suggests:
     knitr (>= 1.6),
     rmarkdown (>= 0.3.3),
