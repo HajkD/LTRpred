@@ -24,12 +24,12 @@ ORFpred <- function(seq.file,
   if (!trans.seqs){
     
     if (is.null(output)){
-      system(paste0("usearch -fastx_findorfs ",seq.file,
+      system(paste0("usearch -fastx_findorfs ",ws.wrap.path(seq.file),
                     " -ntout ",paste0(basename(seq.file),"_nt.fsa"),
                     " -orfstyle ",orf.style," -mincodons ",min.codons))
     } else {
       
-      system(paste0("usearch -fastx_findorfs ",seq.file,
+      system(paste0("usearch -fastx_findorfs ",ws.wrap.path(seq.file),
                     " -ntout ",file.path(output,paste0(basename(seq.file),"_nt.fsa")),
                     " -orfstyle ",orf.style," -mincodons ",min.codons))
     }
@@ -37,12 +37,12 @@ ORFpred <- function(seq.file,
   } else {
     
     if (is.null(output)){
-      system(paste0("usearch -fastx_findorfs ",seq.file,
+      system(paste0("usearch -fastx_findorfs ",ws.wrap.path(seq.file),
                     " -ntout ",paste0(basename(seq.file),"_nt.fsa"),
                     " -aaout ",paste0(basename(seq.file),"_aa.fsa"),
                     " -orfstyle ",orf.style," -mincodons ",min.codons))
     } else {
-      system(paste0("usearch -fastx_findorfs ",seq.file,
+      system(paste0("usearch -fastx_findorfs ",ws.wrap.path(seq.file),
                     " -ntout ",file.path(output,paste0(basename(seq.file),"_orfs_nt.fsa")),
                     " -aaout ",file.path(output,paste0(basename(seq.file),"_orfs_aa.fsa")),
                     " -orfstyle ",orf.style," -mincodons ",min.codons))
