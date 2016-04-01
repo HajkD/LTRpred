@@ -23,12 +23,15 @@
    
 LTRpred.meta <- function(genome.folder, result.folder = NULL, ...){
   
+  if (!file.exists(genome.folder))
+    stop ("The folder ' ",genome.folder," ' could not be found.")
+  
   cat("\n")
   cat("Starting LTRpred meta analysis on the following genomes: ")
   genomes <- list.files(genome.folder)
   cat("\n")
   cat("\n")
-  cat(paste(genomes, sep = ", "))
+  cat(paste(genomes, collapse = ", "))
   cat("\n")
   cat("\n")
   genome.names.chopped <- sapply(genomes, function(x) unlist(stringr::str_split(x, "[.]"))[1])
