@@ -6,10 +6,12 @@
 #' @export
    
 read.ltrpred <- function(data.sheet){
-  if (file.info(data.sheet)$size == 0){
-    cat("File ",data.sheet, " is empty and therefore is not being processed.")
-    return (NA)
-  }
+   if (file.info(data.sheet)$size == 0 || is.na(file.info(data.sheet)$size == 0)){
+     cat("File ",data.sheet, " is empty and therefore is not being processed.")
+     cat("\n")
+     cat("\n")
+     return (NULL)
+   }
   pred <- readr::read_delim(data.sheet, delim = ";")
   return (pred)
 }
