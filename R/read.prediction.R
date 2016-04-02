@@ -41,7 +41,7 @@ read.prediction <- function( gff.file        = NULL,
         stop ("Please choose a prediction returned by either LTRharvest or LTRdigest.")
     
     # test if prediction gff file is empty 
-    if (file.info(gff.file)$size == 0){
+    if (file.info(gff.file)$size == 0 || is.na(file.info(gff.file)$size == 0)){
       cat("File ",gff.file, " is empty and therefore is not being processed.")
       return (NULL)
     }
