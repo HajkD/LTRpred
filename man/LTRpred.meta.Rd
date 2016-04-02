@@ -4,13 +4,16 @@
 \alias{LTRpred.meta}
 \title{Perform Meta-Analyses with LTRpred}
 \usage{
-LTRpred.meta(genome.folder, result.folder = NULL, ...)
+LTRpred.meta(genome.folder = NULL, result.folder = NULL, similarity = 70,
+  LTRpred.meta.folder = NULL, ...)
 }
 \arguments{
 \item{genome.folder}{path to the folder storing all unmasked genomes for which \code{\link{LTRpred}}
 based \code{de novo} LTR retrotransposon prediction shall be performed.}
 
 \item{result.folder}{folder in which \code{LTRpred} results shall be stored.}
+
+\item{similarity}{similarity threshold for defining LTR similarity.}
 
 \item{...}{all parameters of \code{\link{LTRpred}}.}
 }
