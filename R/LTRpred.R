@@ -351,6 +351,8 @@ LTRpred <- function(genome.file       = NULL,
       exclude <- c(length(folder_path)-1,length(folder_path))
       folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
       cat(file.path(folder_path,paste0(chopped.foldername,"_ltrdigest")), " is empty and therefore ORF prediction has been omitted.")
+      cat("\n")
+      cat("\n")
     } else {
       ORFTable <- read.orfs(input.file = orf.file)
     }
@@ -360,21 +362,24 @@ LTRpred <- function(genome.file       = NULL,
     LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, orf.id = paste0(chromosome,"_",start,"_",end))
     LTRdigestOutput$ltr.retrotransposon <- dplyr::full_join(LTRdigestOutput$ltr.retrotransposon, ORFTable, by = c("orf.id" = "seq.id"))
     
-    LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, repeat_region_length = ifelse(!is.na(rTSD_end), (rTSD_end - lTSD_start) + 1, NA))
+    LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, repeat_region_length = ifelse(!is.na(rTSD_end), (as.numeric(rTSD_end) - as.numeric(lTSD_start)) + 1L, NA))
     
-    LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, PPT_length = ifelse(!is.na(PPT_end),(PPT_end - PPT_start) + 1, NA))
+
+    LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, PPT_length = ifelse(!is.na(PPT_end),(as.numeric(PPT_end) - as.numeric(PPT_start)) + 1L, NA))
     
-    LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, PBS_length = ifelse(!is.na(PBS_end), (PBS_end - PBS_start) + 1, NA))
+    LTRdigestOutput$ltr.retrotransposon <- dplyr::mutate(LTRdigestOutput$ltr.retrotransposon, PBS_length = ifelse(!is.na(PBS_end), (as.numeric(PBS_end) - as.numeric(PBS_start)) + 1L, NA))
     
     #    ProteinMatch <- dplyr::select(LTRdigestOutput$protein.match,ID, start, end, match_width, reading_frame)
     #    colnames(ProteinMatch) <- c("ID","protein_domain_start","protein_domain_end","protein_domain_match_width","protein_domain_reading_frame")
     #    
     #    suppressWarnings(LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, ProteinMatch, by = "ID"))
-    #    
-    RR_tract <- dplyr::select(LTRdigestOutput$RR_tract,ID, start, end, width)
-    colnames(RR_tract) <- c("ID","RR_tract_start","RR_tract_end","RR_tract_length")
+    #
     
-    suppressWarnings(LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, RR_tract, by = "ID"))
+    if (nrow(LTRdigestOutput$RR_tract) > 0){
+      RR_tract <- dplyr::select(LTRdigestOutput$RR_tract,ID, start, end, width)
+      colnames(RR_tract) <- c("ID","RR_tract_start","RR_tract_end","RR_tract_length")
+      suppressWarnings(LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, RR_tract, by = "ID"))
+    }
     
     element_start <- element_length <- `width.y` <- `start.y`<- `end.y` <- NULL
     
