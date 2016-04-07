@@ -4,7 +4,7 @@
 #' based \code{de novo} LTR retrotransposon prediction shall be performed.
 #' @param result.folder folder in which \code{LTRpred} results shall be stored.
 #' @param similarity similarity threshold for defining LTR similarity.
-#' @parm LTRpred.meta.folder meta-folder storing already pre-cumputed \code{\link{LTRpred generated files}}.
+#' @parm LTRpred.meta.folder meta-folder storing already pre-cumputed \code{\link{LTRpred}} generated files.
 #' @param ... all parameters of \code{\link{LTRpred}}.
 #' @author Hajk-Georg Drost
 #' @details 
@@ -46,6 +46,13 @@ LTRpred.meta <- function(genome.folder       = NULL,
     result.files <- list.files(LTRpred.meta.folder)
     folders0 <- result.files[stringr::str_detect(result.files, "ltrpred")]
     
+    genomes.chopped <- sapply(genomes, function(x) unlist(stringr::str_split(x,"[.]"))[1])
+    
+    ltrdigest.folder.files.chopped <- sapply(folders0, function(x) unlist(stringr::str_replace(x,"_ltrpred","")))
+    
+    available.genomes <- match(ltrdigest.folder.files.chopped,genomes.chopped)
+    genomes <- genomes[available.genomes]
+    
     if (length(folders0) != length(genomes))
       stop ("Please make sure that the number of your genome files matches with your LTRpred folders.")
     
@@ -59,6 +66,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
     for (i in 1:length(folders0)){
       choppedFolder <- unlist(stringr::str_split(folders0[i],"_"))
       print(file.path(LTRpred.meta.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")))
+      cat("\n")
       cat("\n")
       
       if (!file.exists(file.path(LTRpred.meta.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")))){
@@ -84,8 +92,8 @@ LTRpred.meta <- function(genome.folder       = NULL,
     GenomeInfo <- data.frame(organism = genomes, nLTRs = nLTRs, norm.nLTRs = nLTRs.normalized, genome.size = gs )
     SimMatrix <- do.call(rbind, SimMatrix)
     SimMatrix <- data.frame(organism = folders0 , SimMatrix)
-    write.table(SimMatrix,paste0(folders0,"_SimilarityMatrix.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
-    write.table(GenomeInfo,paste0(folders0,"_GenomeInfo.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
+    write.table(SimMatrix,paste0(basename(LTRpred.meta.folder),"_SimilarityMatrix.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
+    write.table(GenomeInfo,paste0(basename(LTRpred.meta.folder),"_GenomeInfo.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
     
     cat("Finished meta analysis!")
     
@@ -139,8 +147,8 @@ LTRpred.meta <- function(genome.folder       = NULL,
     GenomeInfo <- data.frame(organism = genomes, nLTRs = nLTRs, norm.nLTRs = nLTRs.normalized, genome.size = gs )
     SimMatrix <- do.call(rbind, SimMatrix)
     SimMatrix <- data.frame(organism = folders0 , SimMatrix)
-    write.table(SimMatrix,paste0(folders0,"_SimilarityMatrix.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
-    write.table(GenomeInfo,paste0(folders0,"_GenomeInfo.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
+    write.table(SimMatrix,paste0(basename(result.folder),"_SimilarityMatrix.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
+    write.table(GenomeInfo,paste0(basename(result.folder),"_GenomeInfo.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
     
     cat("Finished meta analysis!")
   }
