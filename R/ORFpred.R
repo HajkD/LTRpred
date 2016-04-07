@@ -50,9 +50,21 @@ ORFpred <- function(seq.file,
   }
   
   if (!is.null(output)){
-    ORFCount.df <- read.orfs(file.path(output,paste0(basename(seq.file),"_nt.fsa")))
+    orf.file <- file.path(output,paste0(basename(seq.file),"_nt.fsa"))
+    if (file.info(orf.file)$size == 0 || is.na(file.info(orf.file)$size == 0)){
+      ReadSeqFile <- Biostrings::readDNAStringSet(seq.file)
+      ORFCount.df <- dplyr::data_frame(seq.id = ReadSeqFile@ranges@NAMES, orfs = rep(0,length(ReadSeqFile@ranges@NAMES)))
+    } else {
+      ORFCount.df <- read.orfs(orf.file)
+    }
   } else {
-    ORFCount.df <- read.orfs(paste0(basename(seq.file),"_nt.fsa"))
+    orf.file <- paste0(basename(seq.file),"_nt.fsa")
+    if (file.info(orf.file)$size == 0 || is.na(file.info(orf.file)$size == 0)){
+      ReadSeqFile <- Biostrings::readDNAStringSet(seq.file)
+      ORFCount.df <- dplyr::data_frame(seq.id = ReadSeqFile@ranges@NAMES, orfs = rep(0,length(ReadSeqFile@ranges@NAMES)))
+    } else {
+    ORFCount.df <- read.orfs(orf.file)
+    }
   }
   
   return (ORFCount.df)
