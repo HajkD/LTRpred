@@ -5,9 +5,11 @@
 \title{Plot Genome size vs. LTR transposon count}
 \usage{
 PlotSizeCorrelation(genome.matrix, cor.method = "spearman",
-  xlab = "LTR transposon Count", ylim = "Genome size in bp",
-  main = "Genome size vs. LTR transp. count", text.size = 18,
-  label.size = 3, check.overlap = TRUE)
+  xlab = "LTR transposon Count", ylab = "Genome size in bp",
+  main = "Genome size vs. LTR transp. count", arrow_lab = FALSE,
+  cl.analysis = FALSE, cl.centers = NULL, cl.method = "euclidean",
+  cl.nstart = 100, cl.iter.max = 10000, sim.matrix = NULL,
+  text.size = 18, label.size = 3, check.overlap = TRUE)
 }
 \arguments{
 \item{genome.matrix}{Genome matrix retruned by \code{\link{LTRpred.meta}}.}
@@ -16,13 +18,29 @@ PlotSizeCorrelation(genome.matrix, cor.method = "spearman",
 
 \item{xlab}{x-axis label.}
 
+\item{ylab}{y-axis label.}
+
 \item{main}{main text.}
+
+\item{arrow_lab}{whether or not data points shall be labelled with arrows (ggrepel).}
+
+\item{cl.analysis}{logical value indicating whether or not cluster analysis of the \code{sim.matrix} returned by \code{\link{LTRpred.meta}} shall be performed (see Details sections).}
+
+\item{cl.centers}{number of expected clusters or a set of initial (distinct) cluster centres.}
+
+\item{cl.method}{distance measure to perform cluster analysis. Options are \code{"euclidean"}, \code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"}, \code{"pearson"} , \code{"abspearson"} , \code{"abscorrelation"}, \code{"correlation"}, \code{"spearman"} or \code{"kendall"}.}
+
+\item{cl.nstart}{If \code{cl.centers} is a number, number of random sets that shall be chosen.}
+
+\item{cl.iter.max}{maximum number of iterations for cluster analysis.}
+
+\item{sim.matrix}{Similarity matrix retruned by \code{\link{LTRpred.meta}}.}
 
 \item{text.size}{size of the labels in ggplot2 notation.}
 
-\item{check.overlap}{shall overlaps of labels be avoided or not.}
+\item{label.size}{size of the dot-labels.}
 
-\item{ylab}{y-axis label.}
+\item{check.overlap}{shall overlaps of labels be avoided or not.}
 }
 \description{
 Genome size vs. LTR transposon count.
