@@ -2,6 +2,7 @@
 #' @description Detect solo LTR copies and genomic locations of predicted LTR transposons using a BLAST search strategy.
 #' @param LTRpred.folder file path to the \code{\link{LTRpred}} output folder.
 #' @param genome file path to the reference genome in which solo LTRs shall be found (in \code{fasta} format).
+#' @param ltr.similarity similarity threshold for defining LTR similarity.
 #' @param output file name of the BLAST output. If \code{output = NULL} (default) then the BLAST output file will be deleted after the result \code{data.frame} is returned by this function.
 #' @param max.hits maximum number of hits that shall be retrieved that still fulfill the e-value criterium.
 #' Default is \code{max.hits = 5000}.
@@ -31,6 +32,8 @@ find.solo_ltrs <- function(LTRpred.folder,
                           output   = NULL, 
                           max.hits = 5000, 
                           eval     = 1E-5){
+  
+  ltr_similarity <- NULL
   
   if (is.null(output))
     output <- file.path(tempdir(),"solo_ltrs_blast_output.txt")

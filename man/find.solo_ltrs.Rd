@@ -12,6 +12,8 @@ find.solo_ltrs(LTRpred.folder, genome, ltr.similarity = 98, output = NULL,
 
 \item{genome}{file path to the reference genome in which solo LTRs shall be found (in \code{fasta} format).}
 
+\item{ltr.similarity}{similarity threshold for defining LTR similarity.}
+
 \item{output}{file name of the BLAST output. If \code{output = NULL} (default) then the BLAST output file will be deleted after the result \code{data.frame} is returned by this function.}
 
 \item{max.hits}{maximum number of hits that shall be retrieved that still fulfill the e-value criterium.
