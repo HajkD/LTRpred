@@ -84,7 +84,7 @@ Default is \code{overlaps = "best"}.}
 \item{xdrop}{specify the xdrop value (> 0) for extending a seed repeat in both directions
 allowing for matches, mismatches, insertions, and deletions. The xdrop extension process
  stops as soon as the extension involving matches, mismatches, insersions, and deletions 
- has a score smaller than T -X, where T denotes the largest score seen so far. Default is \code{cdrop = 5}.}
+ has a score smaller than T -X, where T denotes the largest score seen so far. Default is \code{xrop = 5}.}
 
 \item{mat}{specify the positive match score for the X-drop extension process. Default is \code{mat = 2}.}
 
