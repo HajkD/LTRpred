@@ -17,9 +17,9 @@ Helper function to retrieve the sequences of a \code{Biostrings} object.
 \examples{
 # read example sequences
 seqs <- system.file("nt.fa",package = "LTRpred")
-input.seqs <- read.seqs(seqs)
+input.seqs <- Biostrings::readDNAStringSet(seqs)
 
-retrieve sequences of Biostrings object
+# retrieve sequences of Biostrings object
 head(get.seqs(input.seqs))
 }
 \author{
