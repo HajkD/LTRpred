@@ -1,6 +1,7 @@
 
 pairwise.z.test <- function(sim.matrix){
   
+  sim.matrix <- as.data.frame(sim.matrix)
   pvals <- vector("numeric",ncol(sim.matrix)-2)
   for (i in 2:(ncol(sim.matrix)-1)){
     pvals[i - 1] <- BSDA::z.test(x = sim.matrix[ , i],
