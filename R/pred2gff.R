@@ -29,6 +29,8 @@ pred2gff <- function(LTR.data,
   if (!is.element(program, c("LTRpred","LTRdigest","LTRharvest")))
     stop ("Please select a program that is supported by this function: 'LTRpred', 'LTRdigest', or 'LTRharvest'.")
   
+  ID <- NULL
+  
   if (program == "LTRharvest"){
     chromosome <- ltr_similarity <- attribute <- NULL
     
