@@ -11,19 +11,20 @@
 #' }
 #' @seealso \code{\link{LTRpred.meta}}, \code{\link{LTRpred}}
 #' @export
-meta.apply <- function(result.folder,FUN){
+meta.apply <- function(result.folder, FUN){
   
   func <- match.fun(FUN)
   result.files <- list.files(result.folder)
   folders0 <- result.files[stringr::str_detect(result.files, "ltrpred")]
   
   for (i in 1:length(folders0)){
-    internal.file <- list.files(file.path(result.folder,result.files[i]))
-    folders <- internal.file[stringr::str_detect(internal.file, "ltrdigest")]
-    folders <- folders[1]
-    choppedFolder <- unlist(stringr::str_split(folders,"_"))
+    #internal.file <- list.files(file.path(result.folder,result.files[i]))
+    # folders <- internal.file[stringr::str_detect(internal.file, "ltrdigest")]
+    # folders <- folders[1]
+    choppedFolder <- unlist(stringr::str_split(folders0[i],"_"))
     pred <- readr::read_delim(file.path(result.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")), delim = ";")
     
     func(pred)
   }
 }
+
