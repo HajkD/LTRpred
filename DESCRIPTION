@@ -26,7 +26,10 @@ Imports:
     magrittr,
     downloader,
     BSDA,
-    amap
+    amap,
+    ggrepel,
+    ggbio,
+    reshape2
 Suggests:
     knitr (>= 1.6),
     rmarkdown (>= 0.3.3),
