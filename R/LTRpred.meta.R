@@ -4,8 +4,8 @@
 #' based \code{de novo} LTR retrotransposon prediction shall be performed.
 #' @param result.folder folder in which \code{LTRpred} results shall be stored.
 #' @param similarity similarity threshold for defining LTR similarity.
-#' @parm LTRpred.meta.folder meta-folder storing already pre-cumputed \code{\link{LTRpred}} generated files.
-#' @param ... all parameters of \code{\link{LTRpred}}.
+#' @param LTRpred.meta.folder meta-folder storing already pre-cumputed \code{\link{LTRpred}} generated files.
+#' @param \dots all parameters of \code{\link{LTRpred}}.
 #' @author Hajk-Georg Drost
 #' @details 
 #' This function provides a crawler to run \code{\link{LTRpred}} sequencially
@@ -26,7 +26,8 @@
 LTRpred.meta <- function(genome.folder       = NULL, 
                          result.folder       = NULL,
                          similarity          = 70,
-                         LTRpred.meta.folder = NULL, ...){
+                         LTRpred.meta.folder = NULL, 
+                         ...){
   
   
   if (!is.null(genome.folder) && is.null(result.folder) && !is.null(LTRpred.meta.folder)){

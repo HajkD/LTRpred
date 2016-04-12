@@ -15,7 +15,9 @@ based \code{de novo} LTR retrotransposon prediction shall be performed.}
 
 \item{similarity}{similarity threshold for defining LTR similarity.}
 
-\item{...}{all parameters of \code{\link{LTRpred}}.}
+\item{LTRpred.meta.folder}{meta-folder storing already pre-cumputed \code{\link{LTRpred}} generated files.}
+
+\item{\dots}{all parameters of \code{\link{LTRpred}}.}
 }
 \description{
 Run \code{\link{LTRpred}} on several genomes (sequentially) that are stored in a given folder.
