@@ -4,11 +4,23 @@
 \alias{PlotSimCount}
 \title{Plot LTR Similarity vs. predicted LTR count}
 \usage{
-PlotSimCount(sim.matrix, xlab = "LTR \% Similarity", ylab = "Count",
+PlotSimCount(sim.matrix, cl.analysis = FALSE, cl.centers = NULL,
+  cl.method = "euclidean", cl.nstart = 100, cl.iter.max = 10000,
+  xlab = "LTR \% Similarity", ylab = "Count",
   main = "LTR \% Similarity vs. Count", text.size = 18)
 }
 \arguments{
 \item{sim.matrix}{Similarity matrix retruned by \code{\link{LTRpred.meta}}.}
+
+\item{cl.analysis}{logical value indicating whether or not cluster analysis of the \code{sim.matrix} returned by \code{\link{LTRpred.meta}} shall be performed (see Details sections).}
+
+\item{cl.centers}{number of expected clusters or a set of initial (distinct) cluster centres.}
+
+\item{cl.method}{distance measure to perform cluster analysis. Options are \code{"euclidean"}, \code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"}, \code{"pearson"} , \code{"abspearson"} , \code{"abscorrelation"}, \code{"correlation"}, \code{"spearman"} or \code{"kendall"}.}
+
+\item{cl.nstart}{If \code{cl.centers} is a number, number of random sets that shall be chosen.}
+
+\item{cl.iter.max}{maximum number of iterations for cluster analysis.#' @param xlab x-axis label.}
 
 \item{xlab}{x-axis label.}
 
