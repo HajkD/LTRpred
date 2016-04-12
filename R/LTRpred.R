@@ -162,17 +162,17 @@
 #' @examples 
 #' \dontrun{
 #' # generate de novo LTR transposon prediction
-#' pred <- LTRpred(genome.file = "TAIR10_chr_all.fas",
-#'                 trnas       = "plantRNA_Arabidopsis.fsa",
-#'                 hmms        = "hmm_*")
+#' LTRpred(genome.file = "TAIR10_chr_all.fas",
+#'         trnas       = "plantRNA_Arabidopsis.fsa",
+#'         hmms        = "hmm_*")
 #' 
 #' # run LTRpred with pre-computed predictions from LTRdigest()  
 #' genome <- system.file("TAIR10_chr_all_LTRdigestPrediction.gff",package = "LTRpred")   
 #' tabout <- system.file("TAIR10_chr_all-ltrdigest_tabout.csv",package = "LTRpred")
 #' orf.pred <- system.file("nt.fa",package = "LTRpred")              
-#' pred <- LTRpred(LTRdigest.gff = genome,
-#'                 tabout.file   = tabout,
-#'                 orf.file      = orf.pred)
+#' LTRpred(LTRdigest.gff = genome,
+#'         tabout.file   = tabout,
+#'         orf.file      = orf.pred)
 #'}
 #' @references 
 #' R Edgar. Search and clustering orders of magnitude faster than BLAST. Bioinformatics (2010) 26 (19): 2460-2461.
@@ -336,8 +336,13 @@ LTRpred <- function(genome.file       = NULL,
     chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
     folder_path <- unlist(stringr::str_split(LTRdigest.gff,.Platform$file.sep))
     exclude <- c(length(folder_path)-1,length(folder_path))
-    folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
     
+    if (exclude[1] == 1){
+      folder_path <- getwd()
+    } else {
+      folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
+    }
+  
     ORFTable <- ORFpred(seq.file = file.path(folder_path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_complete.fas")), 
                         orf.style  = orf.style, 
                         min.codons = min.codons, 
@@ -349,7 +354,11 @@ LTRpred <- function(genome.file       = NULL,
       chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
       folder_path <- unlist(stringr::str_split(LTRdigest.gff,.Platform$file.sep))
       exclude <- c(length(folder_path)-1,length(folder_path))
-      folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
+      if (exclude[1] == 1){
+        folder_path <- getwd()
+      } else {
+        folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
+      }
       cat(file.path(folder_path,paste0(chopped.foldername,"_ltrdigest")), " is empty and therefore ORF prediction has been omitted.")
       cat("\n")
       cat("\n")
@@ -390,7 +399,11 @@ LTRpred <- function(genome.file       = NULL,
       chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
       folder_path <- unlist(stringr::str_split(LTRdigest.gff,.Platform$file.sep))
       exclude <- c(length(folder_path)-1,length(folder_path))
-      folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
+      if (exclude[1] == 1){
+        folder_path <- getwd()
+      } else {
+        folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
+      }
       
       if (is.null(LTRharvest.folder)){
         file.move(file.path(folder_path,paste0(chopped.foldername,"_ltrharvest")),file.path(output.path,paste0(chopped.foldername,"_ltrharvest"))) 
@@ -407,7 +420,7 @@ LTRpred <- function(genome.file       = NULL,
       pred2csv(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred_DataSheet.csv")))
     }
     
-    return(res)
+    #return(res)
     
   } else {
     

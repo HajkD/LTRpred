@@ -232,17 +232,17 @@ predictions.
 \examples{
 \dontrun{
 # generate de novo LTR transposon prediction
-pred <- LTRpred(genome.file = "TAIR10_chr_all.fas",
-                trnas       = "plantRNA_Arabidopsis.fsa",
-                hmms        = "hmm_*")
+LTRpred(genome.file = "TAIR10_chr_all.fas",
+        trnas       = "plantRNA_Arabidopsis.fsa",
+        hmms        = "hmm_*")
 
 # run LTRpred with pre-computed predictions from LTRdigest()  
 genome <- system.file("TAIR10_chr_all_LTRdigestPrediction.gff",package = "LTRpred")   
 tabout <- system.file("TAIR10_chr_all-ltrdigest_tabout.csv",package = "LTRpred")
 orf.pred <- system.file("nt.fa",package = "LTRpred")              
-pred <- LTRpred(LTRdigest.gff = genome,
-                tabout.file   = tabout,
-                orf.file      = orf.pred)
+LTRpred(LTRdigest.gff = genome,
+        tabout.file   = tabout,
+        orf.file      = orf.pred)
 }
 }
 \author{
