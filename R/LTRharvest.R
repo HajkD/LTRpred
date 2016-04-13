@@ -155,7 +155,7 @@ LTRharvest <- function(genome.file,
           cat("\n")
         }
         # Genrate Suffix for LTRharvest
-        system(paste0("gt suffixerator -db ",genome.file," -indexname ", IndexOutputFileName," -tis -suf -lcp -des -ssp -sds -dna"))    
+        system(paste0("gt suffixerator -db ",ws.wrap.path(genome.file)," -indexname ", IndexOutputFileName," -tis -suf -lcp -des -ssp -sds -dna"))    
     } else {
         IndexOutputFileName <- index.file
     }
@@ -169,7 +169,7 @@ LTRharvest <- function(genome.file,
     if (is.null(motif)){
         
         # Run LTRharvest without motif
-        system(paste0("gt ltrharvest -index ", IndexOutputFileName," \ ",
+        system(paste0("gt ltrharvest -index ", ws.wrap.path(IndexOutputFileName)," \ ",
                       "-range ",range[1]," ",range[2]," \ ",
                       "-seed ", seed," \ ",
                       "-minlenltr ", minlenltr, " \ ",
@@ -187,10 +187,10 @@ LTRharvest <- function(genome.file,
                       "-ins ", ins, " \ ",
                       "-del ", del, " \ ",
                       ifelse(!is.null(mintsd),"-longoutput \ "," "),
-                      "-out ", file.path(output.path,paste0(OutputFileNameIdentifier,"_FullLTRretrotransposonSeqs",".fsa")) , " \ ",
-                      "-outinner ", file.path(output.path,paste0(OutputFileNameIdentifier,"_BetweenLTRSeqs",".fsa")) , " \ ",
-                      "-gff3 ", file.path(output.path,paste0(OutputFileNameIdentifier,"_Prediction",".gff")), " \ ",
-                      ">> ", file.path(output.path,paste0(OutputFileNameIdentifier,"_Details",".tsv"))," 2>&1"))
+                      "-out ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_FullLTRretrotransposonSeqs",".fsa"))) , " \ ",
+                      "-outinner ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_BetweenLTRSeqs",".fsa"))) , " \ ",
+                      "-gff3 ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_Prediction",".gff"))), " \ ",
+                      ">> ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_Details",".tsv"))," 2>&1")))
     }
     
     if (!is.null(motif)){
@@ -202,7 +202,7 @@ LTRharvest <- function(genome.file,
             stop ("Please choose 2 nucleotides for the starting motif and 2 nucleotides for the ending motif.")
         
         # Run LTRharvest with motif
-        system(paste0("gt ltrharvest -index ", IndexOutputFileName," \ ",
+        system(paste0("gt ltrharvest -index ", ws.wrap.path(IndexOutputFileName)," \ ",
                       "-seed ", seed," \ ",
                       "-minlenltr ", minlenltr, " \ ",
                       "-maxlenltr ", maxlenltr, " \ ",
@@ -221,9 +221,9 @@ LTRharvest <- function(genome.file,
                       "-ins ", ins, " \ ",
                       "-del ", del, " \ ",
                       "-longoutput ", " \ ",
-                      "-out ", file.path(output.path,paste0(OutputFileNameIdentifier,"_FullLTRretrotransposonSeqs",".fsa")) , " \ ",
-                      "-outinner ", file.path(output.path,paste0(OutputFileNameIdentifier,"_BetweenLTRSeqs",".fsa")) , " \ ",
-                      "-gff3 ", file.path(output.path,paste0(OutputFileNameIdentifier,"_Prediction",".gff"))))
+                      "-out ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_FullLTRretrotransposonSeqs",".fsa"))) , " \ ",
+                      "-outinner ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_BetweenLTRSeqs",".fsa"))) , " \ ",
+                      "-gff3 ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_Prediction",".gff")))))
         
     }
     
