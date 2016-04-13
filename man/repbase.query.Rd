@@ -5,7 +5,7 @@
 \title{Query the RepBase to annotate putative LTRs}
 \usage{
 repbase.query(seq.file, repbase.path, output = "repbase_blast_output.txt",
-  max.hits = 5000, eval = 1e-10, cores = 1)
+  max.hits = 5000, eval = 1e-30, cores = 1)
 }
 \arguments{
 \item{seq.file}{file path to the putative LTR transposon sequences in \code{fasta} format.}
@@ -17,7 +17,7 @@ repbase.query(seq.file, repbase.path, output = "repbase_blast_output.txt",
 \item{max.hits}{maximum number of hits that shall be retrieved that still fulfill the e-value criterium.
 Default is \code{max.hits = 5000}.}
 
-\item{eval}{e-value threshold for BLAST hit detection. Default is \code{eval = 1E-5}.}
+\item{eval}{e-value threshold for BLAST hit detection. Default is \code{eval = 1E-30}.}
 
 \item{cores}{number of cores to use to perform parallel computations.}
 }

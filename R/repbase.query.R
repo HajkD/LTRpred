@@ -6,7 +6,7 @@
 #' @param output file name of the BLAST output.
 #' @param max.hits maximum number of hits that shall be retrieved that still fulfill the e-value criterium.
 #' Default is \code{max.hits = 5000}.
-#' @param eval e-value threshold for BLAST hit detection. Default is \code{eval = 1E-5}.
+#' @param eval e-value threshold for BLAST hit detection. Default is \code{eval = 1E-30}.
 #' @param cores number of cores to use to perform parallel computations.
 #' @author Hajk-Georg Drost
 #' @details 
@@ -55,7 +55,7 @@ repbase.query <- function(seq.file,
                          repbase.path, 
                          output   = "repbase_blast_output.txt", 
                          max.hits = 5000, 
-                         eval     = 1E-10, 
+                         eval     = 1E-30, 
                          cores    = 1){
     
     s_len <- alig_length <- NULL
