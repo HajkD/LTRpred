@@ -172,7 +172,7 @@ LTRdigest <- function(input.gff3,
         cat("Generating the index file ",IndexOutputFileName," with suffixerator...")
         cat("\n")
         # Genrate Suffix for LTRdigest
-        system(paste0("gt suffixerator -tis -des -dna -ssp -db ",genome.file," -indexname ", IndexOutputFileName))    
+        system(paste0("gt suffixerator -tis -des -dna -ssp -db ",ws.wrap.path(genome.file)," -indexname ", ws.wrap.path(IndexOutputFileName)))    
     } else {
         IndexOutputFileName <- index.file
     }
@@ -186,7 +186,6 @@ LTRdigest <- function(input.gff3,
     
     cat("Running LTRdigest and write results to ",output.path," ...")
     cat("\n")    
-    
     
         # Run LTRdigest
         system(paste0("gt -j ",cores," ltrdigest "," \ ",
@@ -207,8 +206,8 @@ LTRdigest <- function(input.gff3,
                       "-pbsmismatchscore ", pbsmismatchscore, " \ ",
                       "-pbsinsertionscore ", pbsinsertionscore, " \ ",
                       "-pbsdeletionscore ", pbsdeletionscore, " \ ",
-                      "-outfileprefix ", file.path(output.path,paste0(OutputFileNameIdentifier,"-ltrdigest")) ," ",sorted.input.gff3," \ "
-                      ,IndexOutputFileName, " > ", file.path(output.path,paste0(OutputFileNameIdentifier,"_LTRdigestPrediction",".gff"))))
+                      "-outfileprefix ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"-ltrdigest"))) ," ",sorted.input.gff3," \ "
+                      ,ws.wrap.path(IndexOutputFileName), " > ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_LTRdigestPrediction",".gff")))))
         
     
     cat("Analysis finished!")
