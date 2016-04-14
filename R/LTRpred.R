@@ -428,7 +428,12 @@ LTRpred <- function(genome.file       = NULL,
       chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
       folder_path <- unlist(stringr::str_split(LTRdigest.gff,.Platform$file.sep))
       exclude <- c(length(folder_path)-1,length(folder_path))
-      folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
+      
+      if (exclude[1] == 1){
+        folder_path <- getwd()
+      } else {
+        folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
+      }
       
       if (is.null(LTRharvest.folder)){
         file.move(file.path(folder_path,paste0(chopped.foldername,"_ltrharvest")),file.path(output.path,paste0(chopped.foldername,"_ltrharvest")))
