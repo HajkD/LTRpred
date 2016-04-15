@@ -334,14 +334,7 @@ LTRpred <- function(genome.file       = NULL,
   
   if (is.null(orf.file) & !is.null(LTRdigestOutput)){
     chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
-    folder_path <- unlist(stringr::str_split(LTRdigest.gff,.Platform$file.sep))
-    exclude <- c(length(folder_path)-1,length(folder_path))
-    
-    if (exclude[1] == 1){
-      folder_path <- getwd()
-    } else {
-      folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
-    }
+    folder_path <- getwd()
   
     ORFTable <- ORFpred(seq.file = file.path(folder_path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_complete.fas")), 
                         orf.style  = orf.style, 
@@ -397,13 +390,7 @@ LTRpred <- function(genome.file       = NULL,
     
     if (!is.null(genome.file)){
       chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
-      folder_path <- unlist(stringr::str_split(LTRdigest.gff,.Platform$file.sep))
-      exclude <- c(length(folder_path)-1,length(folder_path))
-      if (exclude[1] == 1){
-        folder_path <- getwd()
-      } else {
-        folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
-      }
+      folder_path <- getwd()
       
       if (is.null(LTRharvest.folder)){
         file.move(file.path(folder_path,paste0(chopped.foldername,"_ltrharvest")),file.path(output.path,paste0(chopped.foldername,"_ltrharvest"))) 
@@ -428,7 +415,6 @@ LTRpred <- function(genome.file       = NULL,
       chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
       folder_path <- unlist(stringr::str_split(LTRdigest.gff,.Platform$file.sep))
       exclude <- c(length(folder_path)-1,length(folder_path))
-      
       if (exclude[1] == 1){
         folder_path <- getwd()
       } else {
