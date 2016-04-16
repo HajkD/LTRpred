@@ -81,7 +81,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         SimMatrix[i] <- list(table(factor(pred$similarity, levels = levels(cut(pred$ltr_similarity, rev(seq(100,similarity,-2)),include.lowest = TRUE,right = TRUE)))))
         nLTRs[i] <- nrow(pred)
         genome.size <-  Biostrings::readDNAStringSet(file.path(genome.folder,genomes[i]))
-        gs[i] <- sum(genome.size@ranges@width)
+        gs[i] <- sum(as.numeric(genome.size@ranges@width))
         nLTRs.normalized[i] <- length(unique(pred$ID)) / sum(genome.size@ranges@width)
       }
 }
