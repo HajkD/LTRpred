@@ -27,7 +27,7 @@
 PlotSizeCorrelation <- function(genome.matrix,
                                 cor.method          = "spearman",
                                 xlab                = "LTR transposon Count",
-                                ylab                = "Genome size in bp", 
+                                ylab                = "Genome size in Mega [bp]", 
                                 main                = "Genome size vs. LTR transp. count",
                                 arrow_lab           = FALSE,
                                 cl.analysis         = FALSE,
