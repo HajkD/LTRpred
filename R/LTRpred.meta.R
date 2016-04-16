@@ -82,7 +82,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         nLTRs[i] <- nrow(pred)
         genome.size <-  Biostrings::readDNAStringSet(file.path(genome.folder,genomes[i]))
         gs[i] <- sum(as.numeric(genome.size@ranges@width))
-        nLTRs.normalized[i] <- length(unique(pred$ID)) / sum(genome.size@ranges@width)
+        nLTRs.normalized[i] <- as.numeric(length(unique(pred$ID)) / gs[i])
       }
 }
       
@@ -138,7 +138,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
       nLTRs[i] <- nrow(pred)
       genome.size <-  Biostrings::readDNAStringSet(file.path(genome.folder,genomes[i]))
       gs[i] <- sum(as.numeric(genome.size@ranges@width))
-      nLTRs.normalized[i] <- length(unique(pred$ID)) / sum(genome.size@ranges@width)
+      nLTRs.normalized[i] <- as.numeric(length(unique(pred$ID)) / gs[i])
     }
     
     names(nLTRs) <- folders0
