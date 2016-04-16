@@ -78,10 +78,17 @@ LTRpred.meta <- function(genome.folder       = NULL,
         
         pred <- readr::read_delim(file.path(LTRpred.meta.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")), delim = ";")
         
-        SimMatrix[i] <- list(table(factor(pred$similarity, levels = levels(cut(pred$ltr_similarity, rev(seq(100,similarity,-2)),include.lowest = TRUE,right = TRUE)))))
+        # try to reduce false positives by filtering for PBS and ORFs
+        pred <- dplyr::filter(pred, ltr_similarity >= similarity, (!is.na(PBS_start)) | (!is.na(protein_domain)), orfs >= 2)
+        
+        SimMatrix[i] <- list(table(factor(pred$similarity, 
+                                          levels = levels(cut(pred$ltr_similarity,
+                                                              rev(seq(100,similarity,-2)),
+                                                              include.lowest = TRUE,
+                                                              right = TRUE)))))
         nLTRs[i] <- nrow(pred)
         genome.size <-  Biostrings::readDNAStringSet(file.path(genome.folder,genomes[i]))
-        gs[i] <- sum(as.numeric(genome.size@ranges@width))
+        gs[i] <- sum(as.numeric(genome.size@ranges@width)) / 1000000
         nLTRs.normalized[i] <- as.numeric(length(unique(pred$ID)) / gs[i])
       }
 }
@@ -90,7 +97,11 @@ LTRpred.meta <- function(genome.folder       = NULL,
     names(nLTRs.normalized) <- folders0
     names(gs) <- folders0
     
-    GenomeInfo <- data.frame(organism = genomes, nLTRs = nLTRs, norm.nLTRs = nLTRs.normalized, genome.size = gs )
+    GenomeInfo <- data.frame( organism    = genomes, 
+                              nLTRs       = nLTRs, 
+                              norm.nLTRs  = nLTRs.normalized, 
+                              genome.size = gs )
+    
     SimMatrix <- do.call(rbind, SimMatrix)
     SimMatrix <- data.frame(organism = folders0 , SimMatrix)
     write.table(SimMatrix,paste0(basename(LTRpred.meta.folder),"_SimilarityMatrix.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
@@ -134,10 +145,17 @@ LTRpred.meta <- function(genome.folder       = NULL,
       choppedFolder <- unlist(stringr::str_split(folders0[i],"_"))
       pred <- readr::read_delim(file.path(result.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")), delim = ";")
       
-      SimMatrix[i] <- list(table(factor(pred$similarity, levels = levels(cut(pred$ltr_similarity, rev(seq(100,similarity,-2)),include.lowest = TRUE,right = TRUE)))))
+      # try to reduce false positives by filtering for PBS and ORFs
+      pred <- dplyr::filter(pred, ltr_similarity >= similarity, (!is.na(PBS_start)) | (!is.na(protein_domain)), orfs >= 2)
+      
+      SimMatrix[i] <- list(table(factor(pred$similarity, 
+                                        levels = levels(cut(pred$ltr_similarity, 
+                                                            rev(seq(100,similarity,-2)),
+                                                            include.lowest = TRUE,
+                                                            right = TRUE)))))
       nLTRs[i] <- nrow(pred)
       genome.size <-  Biostrings::readDNAStringSet(file.path(genome.folder,genomes[i]))
-      gs[i] <- sum(as.numeric(genome.size@ranges@width))
+      gs[i] <- sum(as.numeric(genome.size@ranges@width)) / 1000000
       nLTRs.normalized[i] <- as.numeric(length(unique(pred$ID)) / gs[i])
     }
     
@@ -145,7 +163,11 @@ LTRpred.meta <- function(genome.folder       = NULL,
     names(nLTRs.normalized) <- folders0
     names(gs) <- folders0
     
-    GenomeInfo <- data.frame(organism = genomes, nLTRs = nLTRs, norm.nLTRs = nLTRs.normalized, genome.size = gs )
+    GenomeInfo <- data.frame( organism    = genomes, 
+                              nLTRs       = nLTRs, 
+                              norm.nLTRs  = nLTRs.normalized, 
+                              genome.size = gs )
+    
     SimMatrix <- do.call(rbind, SimMatrix)
     SimMatrix <- data.frame(organism = folders0 , SimMatrix)
     write.table(SimMatrix,paste0(basename(result.folder),"_SimilarityMatrix.csv"), sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
