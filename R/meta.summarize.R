@@ -51,10 +51,14 @@ meta.summarize <- function(result.folder,
   
   for (i in 1:length(folders0)){
     choppedFolder <- unlist(stringr::str_split(folders0[i],"_"))
-    pred <- readr::read_delim(file.path(result.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")), delim = ";")
+    pred <- readr::read_delim(file.path(result.folder,folders0[i],
+                                        paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),
+                                               "_LTRpred_DataSheet.csv")), delim = ";")
     
     if (quality.filter){
-      pred.filtered <- dplyr::filter(pred, ltr_similarity >= ltr.similarity, (!is.na(PBS_start)) | (!is.na(protein_domain)), orfs >= n.orfs)
+      pred.filtered <- dplyr::filter(pred, ltr_similarity >= ltr.similarity,
+                                           (!is.na(PBS_start)) | (!is.na(protein_domain)),
+                                           orfs >= n.orfs)
     }
     
     if (!quality.filter){
@@ -62,9 +66,9 @@ meta.summarize <- function(result.folder,
     }
       
     if (nrow(pred.filtered) > 0){
-      org.list[i] <- list(data.frame(organism = rep(stringr::str_replace(folders0[i],"_ltrpred",""),nrow(pred.filtered)),as.data.frame(pred.filtered[ , 1:45])))
+      org.list[i] <- list(data.frame(organism = rep(stringr::str_replace(folders0[i],"_ltrpred",""),
+                                                    nrow(pred.filtered)),as.data.frame(pred.filtered[ , 1:45])))
     }
-    
   }
   
   return (do.call(rbind,org.list))
