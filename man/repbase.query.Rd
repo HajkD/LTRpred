@@ -4,7 +4,7 @@
 \alias{repbase.query}
 \title{Query the RepBase to annotate putative LTRs}
 \usage{
-repbase.query(seq.file, repbase.path, output = "repbase_blast_output.txt",
+repbase.query(seq.file, repbase.path, output = "RepbaseOutput.txt",
   max.hits = 5000, eval = 1e-30, cores = 1)
 }
 \arguments{

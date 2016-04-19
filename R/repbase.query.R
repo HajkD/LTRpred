@@ -53,7 +53,7 @@
       
 repbase.query <- function(seq.file, 
                          repbase.path, 
-                         output   = "repbase_blast_output.txt", 
+                         output   = "RepbaseOutput.txt", 
                          max.hits = 5000, 
                          eval     = 1E-30, 
                          cores    = 1){
@@ -64,7 +64,7 @@ repbase.query <- function(seq.file,
     system(paste0("makeblastdb -in ",repbase.path," -parse_seqids -input_type fasta -dbtype nucl"))
     system( paste0("blastn -db ",repbase.path," -query ",seq.file,
                    " -out ", output ," ","-evalue ", eval," -max_target_seqs ",max.hits," -num_threads ",cores,
-                   " -outfmt '6 qseqid sseqid pident nident 
+                   " -dust no -outfmt '6 qseqid sseqid pident nident 
                    length mismatch gapopen gaps positive ppos qstart qend qlen qcovs qcovhsp qseq sstart send slen sseq evalue bitscore score'")
     )
     
