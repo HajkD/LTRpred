@@ -5,7 +5,7 @@
 \title{Plot Genome size vs. LTR transposon count}
 \usage{
 PlotSizeCorrelation(genome.matrix, cor.method = "spearman",
-  xlab = "LTR transposon Count", ylab = "Genome size in bp",
+  xlab = "LTR transposon Count", ylab = "Genome size in Mega [bp]",
   main = "Genome size vs. LTR transp. count", arrow_lab = FALSE,
   cl.analysis = FALSE, cl.centers = NULL, cl.method = "euclidean",
   cl.nstart = 100, cl.iter.max = 10000, sim.matrix = NULL,
