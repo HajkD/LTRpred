@@ -5,7 +5,7 @@
 \title{Detect solo LTR copies of predicted LTR transposons}
 \usage{
 find.solo_ltrs(LTRpred.folder, genome, ltr.similarity = 98, output = NULL,
-  max.hits = 5000, eval = 1e-05)
+  max.hits = 5000, eval = 1e-05, cores = 1)
 }
 \arguments{
 \item{LTRpred.folder}{file path to the \code{\link{LTRpred}} output folder.}
@@ -20,6 +20,8 @@ find.solo_ltrs(LTRpred.folder, genome, ltr.similarity = 98, output = NULL,
 Default is \code{max.hits = 5000}.}
 
 \item{eval}{e-value threshold for BLAST hit detection. Default is \code{eval = 1E-5}.}
+
+\item{cores}{number of cores to run a parallel BLAST search.}
 }
 \description{
 Detect solo LTR copies and genomic locations of predicted LTR transposons using a BLAST search strategy.
