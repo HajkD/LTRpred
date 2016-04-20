@@ -7,6 +7,7 @@
 #' @param max.hits maximum number of hits that shall be retrieved that still fulfill the e-value criterium.
 #' Default is \code{max.hits = 5000}.
 #' @param eval e-value threshold for BLAST hit detection. Default is \code{eval = 1E-5}.
+#' @param cores number of cores to run a parallel BLAST search.
 #' @author Hajk-Georg Drost
 #' @details 
 #' The
@@ -31,7 +32,8 @@ find.solo_ltrs <- function(LTRpred.folder,
                           ltr.similarity = 98,
                           output   = NULL, 
                           max.hits = 5000, 
-                          eval     = 1E-5){
+                          eval     = 1E-5,
+                          cores    = 1){
   
   ltr_similarity <- NULL
   
@@ -55,7 +57,7 @@ find.solo_ltrs <- function(LTRpred.folder,
   
   # BLAST putative LTRs against genome file
   system( paste0("blastn -query ",ws.wrap.path(LTR.filtered.fasta)," -subject ",ws.wrap.path(genome),
-                 " -out ", output ," ","-evalue ", eval," -max_target_seqs ",max.hits," -dust no -outfmt '6 qseqid sseqid pident nident 
+                 " -out ", output ," ","-evalue ", eval," -max_target_seqs ",max.hits," -num_threads ",cores," -dust no -outfmt '6 qseqid sseqid pident nident 
                  length mismatch gapopen gaps positive ppos qstart qend qlen qcovs qcovhsp qseq sstart send slen sseq evalue bitscore score'")
   )
   
