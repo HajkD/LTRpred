@@ -23,16 +23,16 @@ dfam.query <- function(seq.file,
   
   if (Dfam.db == "download"){
     
-    downloader::download("http://dfam.org/web_download/Current_Release/Dfam.hmm.gz",file.path(output.folder,"Dfam.hmm"),mode = "wb")
+    downloader::download("http://dfam.org/web_download/Current_Release/Dfam.hmm.gz",file.path(output.folder,"Dfam.hmm.gz"),mode = "wb")
     cat("\n")
     cat("Prepare the Dfam.hmm database...")
     cat("\n")
-    system(paste0("hmmpress ",file.path(output.folder,"Dfam.hmm")))
+    system(paste0("hmmpress ",file.path(ws.wrap.path(output.folder),"Dfam.hmm")))
     cat("Run Dfam scan...")
     cat("\n")
-    system(paste0("perl ",system.file("dfamscan.pl", package = "LTRpred", mustWork = TRUE)," -fastafile ",seq.file," -hmmfile ",file.path(output.folder,"Dfam.hmm")," -dfam_outfile ",
-                  file.path(output.folder,paste0(basename(seq.file),"_DfamAnnotation.out")) ," -E ", eval,
-                 "-cpu ",cores," --log_file ",file.path(output.folder,paste0(basename(seq.file),"_logfile.txt")) ," --masking_thresh "))
+    system(paste0("perl ",ws.wrap.path(system.file("dfamscan.pl", package = "LTRpred", mustWork = TRUE))," -fastafile ",ws.wrap.path(seq.file)," -hmmfile ",file.path(ws.wrap.path(output.folder),"Dfam.hmm")," -dfam_outfile ",
+                  ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_DfamAnnotation.out"))) ," -E ", eval,
+                 " -cpu ",cores," --log_file ",ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_logfile.txt"))) ," --masking_thresh "))
     cat("Finished Dfam scan!")
     cat("\n")
   } else {
@@ -43,9 +43,12 @@ dfam.query <- function(seq.file,
     system(paste0("hmmpress ",file.path(Dfam.db,"Dfam.hmm")))
     cat("Run Dfam scan...")
     cat("\n")
-    system(paste0("perl ",system.file("dfamscan.pl", package = "LTRpred", mustWork = TRUE)," -fastafile ",seq.file," -hmmfile ",file.path(Dfam.db,"Dfam.hmm")," -dfam_outfile ",
-                  file.path(output.folder,paste0(basename(seq.file),"_DfamAnnotation.out")) ," -E ", eval,
-                  "-cpu ",cores," --log_file ",file.path(output.folder,paste0(basename(seq.file),"_logfile.txt")) ," --masking_thresh "))
-    cat("Finished Dfam scan!")  }
+    system(paste0("perl ",ws.wrap.path(system.file("dfamscan.pl", package = "LTRpred", mustWork = TRUE))," -fastafile ",ws.wrap.path(seq.file)," -hmmfile ",ws.wrap.path(file.path(Dfam.db,"Dfam.hmm"))," -dfam_outfile ",
+                  ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_DfamAnnotation.out"))) ," -E ", eval,
+                  " -cpu ",cores," --log_file ",ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_logfile.txt"))) ," --masking_thresh "))
+    cat("Finished Dfam scan!")
+    cat("\n")
+    cat("\n")
+    }
   
 }
