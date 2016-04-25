@@ -4,7 +4,6 @@ use warnings;
 use Getopt::Long;
 use File::Temp qw(tempfile);
 use Cwd;
-use Dfamscan;
 
 my $VERSION = 1.4;
 
