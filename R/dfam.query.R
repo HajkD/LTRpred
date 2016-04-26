@@ -21,6 +21,9 @@ dfam.query <- function(seq.file,
           Dfam.db = 'download' so that Dfam.hmm is automatically loaded by this function
           (make sure that the internet connection is stabe.")
   
+  if (!file.exists("/usr/local/bin/dfamscan.pl"))
+    stop ("The perl script dfamscan.pl could not be found! Please download it from Dfam and store it in /usr/local/bin .")
+  
   if (Dfam.db == "download"){
     
     downloader::download("http://dfam.org/web_download/Current_Release/Dfam.hmm.gz",file.path(output.folder,"Dfam.hmm.gz"),mode = "wb")
