@@ -30,7 +30,7 @@ dfam.query <- function(seq.file,
     system(paste0("hmmpress ",file.path(ws.wrap.path(output.folder),"Dfam.hmm")))
     cat("Run Dfam scan...")
     cat("\n")
-    system(paste0("perl ",ws.wrap.path(system.file("dfamscan.pl", package = "LTRpred", mustWork = TRUE))," -fastafile ",ws.wrap.path(seq.file)," -hmmfile ",file.path(ws.wrap.path(output.folder),"Dfam.hmm")," -dfam_outfile ",
+    system(paste0("perl ","dfamscan.pl"," -fastafile ",ws.wrap.path(seq.file)," -hmmfile ",file.path(ws.wrap.path(output.folder),"Dfam.hmm")," -dfam_outfile ",
                   ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_DfamAnnotation.out"))) ," -E ", eval,
                  " -cpu ",cores," --log_file ",ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_logfile.txt"))) ," --masking_thresh "))
     cat("Finished Dfam scan!")
@@ -43,7 +43,7 @@ dfam.query <- function(seq.file,
     system(paste0("hmmpress ",file.path(Dfam.db,"Dfam.hmm")))
     cat("Run Dfam scan...")
     cat("\n")
-    system(paste0("perl ",ws.wrap.path(system.file("dfamscan.pl", package = "LTRpred", mustWork = TRUE))," -fastafile ",ws.wrap.path(seq.file)," -hmmfile ",ws.wrap.path(file.path(Dfam.db,"Dfam.hmm"))," -dfam_outfile ",
+    system(paste0("perl ","dfamscan.pl"," -fastafile ",ws.wrap.path(seq.file)," -hmmfile ",ws.wrap.path(file.path(Dfam.db,"Dfam.hmm"))," -dfam_outfile ",
                   ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_DfamAnnotation.out"))) ," -E ", eval,
                   " -cpu ",cores," --log_file ",ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_logfile.txt"))) ," --masking_thresh "))
     cat("Finished Dfam scan!")
