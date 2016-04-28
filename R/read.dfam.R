@@ -1,3 +1,13 @@
+#' @title Import Dfam Query Output
+#' @description Import the output file generated with \code{\link{dfam.query}}.
+#' @param dfam.file path to Dfam output file generated with \code{\link{dfam.query}}.
+#' @author Hajk-Georg Drost
+#' @examples 
+#' # import example Dfam output
+#' dfam.file <- read.dfam(system.file("example_dfam.out", package = "LTRpred"))
+#' 
+#' head(dfam.file)
+#' @export
 
 read.dfam <- function(dfam.file){
 
