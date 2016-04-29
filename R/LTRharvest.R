@@ -190,7 +190,7 @@ LTRharvest <- function(genome.file,
                       "-out ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_FullLTRretrotransposonSeqs",".fsa"))) , " \ ",
                       "-outinner ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_BetweenLTRSeqs",".fsa"))) , " \ ",
                       "-gff3 ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_Prediction",".gff"))), " \ ",
-                      ">> ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_Details",".tsv"))," 2>&1")))
+                      ">> ", file.path(output.path,paste0(OutputFileNameIdentifier,"_Details",".tsv"))," 2>&1"))
     }
     
     if (!is.null(motif)){
