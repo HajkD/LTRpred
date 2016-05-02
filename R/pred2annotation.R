@@ -46,13 +46,21 @@ pred2annotation <- function(pred.file,
   
     # read the annotation file in gff3 format
     AnnotationFileGFF3 <- readr::read_tsv(annotation.file, col_names = FALSE, skip = 0, comment = "#")
-    names(AnnotationFileGFF3)[1:9] <- c("seqname","source","feature","start","end","score","strand","frame","attribute")
+    names(AnnotationFileGFF3)[1:9] <- c("chromosome","source","feature","start","end","score","strand","frame","attribute")
+    
+    chrms.annotation <- names(table(AnnotationFileGFF3[ , "chromosome"]))
+    chrms.pred <- names(table(pred.file[ , "chromosome"]))
+    
+    if (!identical(chrms.annotation,chrms.pred))
+      stop ("Please check chromosome names in pred.file and annotation.file... 
+            chromosome names do not seem to match.")
+    
     
     # match LTRdigest prediction output with Annotation File in GFF3 format
     Annotation <- vector("list")
-    for (i in as.numeric(names(table(pred.file[ , "chromosome"])))){
-        PutativeLTRsFiltered <- dplyr::filter(pred.file,chromosome == i, strand == strand.ori) 
-        GeneAnnotation <- dplyr::filter(AnnotationFileGFF3, (feature == "gene") & (seqname == i), strand == strand.ori)
+    for (i in seq_len(length(chrms.pred))){
+        PutativeLTRsFiltered <- dplyr::filter(pred.file,chromosome == chrms.pred[i], strand == strand.ori) 
+        GeneAnnotation <- dplyr::filter(AnnotationFileGFF3, (feature == "gene") & (chromosome == chrms.annotation[i]), strand == strand.ori)
 
         GeneAnnotation.bins <- IRanges::IRanges(GeneAnnotation$start, GeneAnnotation$end)
         PutativeLTRs.bins <- IRanges::IRanges(PutativeLTRsFiltered$start, PutativeLTRsFiltered$end)
@@ -60,7 +68,7 @@ pred2annotation <- function(pred.file,
         Annotation[i] <- list(cbind(PutativeLTRsFiltered[IntersectingIntervals@queryHits, ], GeneAnnotation[IntersectingIntervals@subjectHits, ]))
     }
     AnnotationResult <- do.call(rbind,Annotation)
-    AnnotationResult <- AnnotationResult[order(AnnotationResult[ , "ltr_similarity"], decreasing = TRUE), ]
+    #AnnotationResult <- AnnotationResult[order(AnnotationResult[ , "ltr_similarity"], decreasing = TRUE), ]
     
     return (AnnotationResult)
 }
