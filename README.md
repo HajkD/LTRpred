@@ -1,6 +1,6 @@
 # LTRpred
 
-### De Novo LTR Prediction and Annotation with R
+### Perform _de novo_ Prediction, Annotation, Meta-Genomics, and Analytics of LTR retrotransposons with R
 
 
 > Transposable genetic elements (TEs) comprise a vast array of DNA sequences, all having the ability to move to new sites in genomes either directly by a cut-and-paste mechanism (transposons) or indirectly through an RNA intermediate (retrotransposons). 
@@ -22,6 +22,39 @@ Hence, predicting the presence of LTR transposons within genomes as well as thei
 capacity to perform this copy-and-paste strategy enables us to quantify the extent 
 to which transposons shape the adaptation and evolution of life in general.
 
+In particular the following analyses can be performed with `LTRpred`:
+
+### _De novo_ prediction and annotation
+
+- _de novo_ prediction of LTR retrotransposons (nested, overlapping, or pure template)
+- annotation of predicted LTR retrotransposons using [Dfam](http://dfam.org/) or [Repbase](http://www.girinst.org/repbase/) as reference
+- solo LTR prediction
+- copy number estimation of LTR elements and LTR retrotransposons
+- open reading frame prediction in LTR retrotransposons
+- LTR retrotransposon clustering based on DNA sequence
+- age estimation of predicted LTR retrotransposons in Mya
+- Methylation mark quantification in predicted LTR retrotransposons (CHH, CHG, CG, ... content)
+- filtering for (potentially) active LTR retrotransposons  
+- quality assesment of input genomes used to predict LTR retrotransposons
+
+### Motif Discovery
+
+- transcription factor binding site estimation in predicted LTR retrotransposons
+
+
+
+### Meta-Genomics Analyses
+
+- run `LTRpred` on entire kingdoms of life
+- perform meta genomics studies customized for LTR retrotransposons
+- cluster LTR retrotransposons within and between species
+- quantify the diversity space of LTR retrotransposons for entire kingdoms of life
+
+### Visualization and Analytics Framework
+
+- visualize the properties of predicted LTR retrotransposons
+- visualize correlation between geome size and LTR retrotransposon abundance for entire kingdoms of life
+
 ## Tutorials
 
 These tutorials introduce users to `LTRpred`:
@@ -30,7 +63,7 @@ These tutorials introduce users to `LTRpred`:
 - [Introduction to LTRpred](https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd)
 - [De Novo Annotation with LTRpred](https://github.com/HajkD/LTRpred/blob/master/vignettes/Annotation.Rmd)
 - [Analysis and Visualization of Predicted LTRs](https://github.com/HajkD/LTRpred/blob/master/vignettes/Analysis.Rmd)
-
+- [Perform Meta-Genomics Studies with LTRpred]()
 
 ## NEWS
 
