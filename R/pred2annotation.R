@@ -60,7 +60,7 @@ pred2annotation <- function(pred.file,
     Annotation <- vector("list")
     for (i in seq_len(length(chrms.pred))){
         PutativeLTRsFiltered <- dplyr::filter(pred.file,chromosome == chrms.pred[i], strand == strand.ori) 
-        GeneAnnotation <- dplyr::filter(annotation.file, (feature == "gene") & (chromosome == chrms.annotation[i]), strand == strand.ori)
+        GeneAnnotation <- dplyr::filter(annotation.file, (is.element(feature, c("gene","transposable_element","transposable_element_gene","transposon_fragment"))) & (chromosome == chrms.annotation[i]), strand == strand.ori)
 
         GeneAnnotation.bins <- IRanges::IRanges(GeneAnnotation$start, GeneAnnotation$end)
         PutativeLTRs.bins <- IRanges::IRanges(PutativeLTRsFiltered$start, PutativeLTRsFiltered$end)
