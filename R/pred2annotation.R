@@ -28,14 +28,14 @@
 #'                              program     = "LTRdigest")
 #' # read annotation file
 #' # read the annotation file in gff3 format
-#' AnnotationFileGFF3 <- readr::read_tsv("Arabidopsis_thaliana.TAIR10.30.chr.gff3", col_names = FALSE, skip = 0, comment = "#")
-#' names(AnnotationFileGFF3)[1:9] <- c("chromosome","source","feature","start","end","score","strand","frame","attribute")
+#' annotation.file <- readr::read_tsv("Arabidopsis_thaliana.TAIR10.30.chr.gff3", col_names = FALSE, skip = 0, comment = "#")
+#' names(annotation.file)[1:9] <- c("chromosome","source","feature","start","end","score","strand","frame","attribute")
 #'                                              
 #'                                        
 #' # Match predicted LTR transposons with annotation file (feature = genes)        
 #' Anno <- pred2annotation(
 #'                pred.file = Ath.LTRdigest.prediction$ltr.retrotransposon,
-#'                annotation.file       = AnnotationFileGFF3)
+#'                annotation.file       = annotation.file)
 #' }
 #' @export
 
@@ -49,7 +49,7 @@ pred2annotation <- function(pred.file,
     
     chromosome <- strand <- feature <- NULL
   
-    chrms.annotation <- names(table(AnnotationFileGFF3[ , "chromosome"]))
+    chrms.annotation <- names(table(annotation.file[ , "chromosome"]))
     chrms.pred <- names(table(pred.file[ , "chromosome"]))
     
     if (!identical(chrms.annotation,chrms.pred))
@@ -60,7 +60,7 @@ pred2annotation <- function(pred.file,
     Annotation <- vector("list")
     for (i in seq_len(length(chrms.pred))){
         PutativeLTRsFiltered <- dplyr::filter(pred.file,chromosome == chrms.pred[i], strand == strand.ori) 
-        GeneAnnotation <- dplyr::filter(AnnotationFileGFF3, (feature == "gene") & (chromosome == chrms.annotation[i]), strand == strand.ori)
+        GeneAnnotation <- dplyr::filter(annotation.file, (feature == "gene") & (chromosome == chrms.annotation[i]), strand == strand.ori)
 
         GeneAnnotation.bins <- IRanges::IRanges(GeneAnnotation$start, GeneAnnotation$end)
         PutativeLTRs.bins <- IRanges::IRanges(PutativeLTRsFiltered$start, PutativeLTRsFiltered$end)
