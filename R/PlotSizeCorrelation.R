@@ -48,7 +48,7 @@ PlotSizeCorrelation <- function(genome.matrix,
     if (is.null(sim.matrix))
       stop ("Please specify the 'sim.matrix' argument to be able to perform cluster analysis.")
     
-    cl <- amap::Kmeans(x        = sim.matrix[ , 2:ncol(sim.matrix)], 
+    cl <- amap::Kmeans(x        = genome.matrix[ , 2:ncol(sim.matrix)], 
                        centers  = cl.centers,
                        nstart   = cl.nstart, 
                        iter.max = cl.iter.max, 
