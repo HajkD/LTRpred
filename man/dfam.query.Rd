@@ -10,7 +10,8 @@ dfam.query(seq.file, Dfam.db = NULL, eval = 1e-05, cores = 1,
 \arguments{
 \item{seq.file}{file path to the putative LTR transposon sequences in \code{fasta} format.}
 
-\item{Dfam.db}{folder path to the local Dfam database.}
+\item{Dfam.db}{folder path to the local Dfam database or \code{Dfam.db = "download"} in case the Dfam
+database shall be automatically downloaded before performing query analyses.}
 
 \item{eval}{E-value threshhold to perform the HMMer search against the Dfam database.}
 

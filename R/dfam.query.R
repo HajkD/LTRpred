@@ -2,7 +2,8 @@
 #' @description Validate or annotate putative LTR
 #' transposons that have been predicted using \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, or \code{\link{LTRpred}}.
 #' @param seq.file file path to the putative LTR transposon sequences in \code{fasta} format.
-#' @param Dfam.db folder path to the local Dfam database.
+#' @param Dfam.db folder path to the local Dfam database or \code{Dfam.db = "download"} in case the Dfam
+#'  database shall be automatically downloaded before performing query analyses.
 #' @param eval E-value threshhold to perform the HMMer search against the Dfam database.
 #' @param cores number of cores to use to perform parallel computations.
 #' @param output.folder folder path to store the annotation results.
