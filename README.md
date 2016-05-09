@@ -170,7 +170,7 @@ In the `LTRpred` framework users can find:
 * `file.move()` : Move folders from one location to another
 * `get.pred.filenames()` : Retrieve file names of files genereated by LTRpred
 * `get.seqs()` : Quickly retrieve the sequences of a 'Biostrings' object
-
+* `ws.wrap.path()` : Wrap whitespace in paths
 
 ## Developer Version of `LTRpred`
 
