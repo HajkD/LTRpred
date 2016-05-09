@@ -63,8 +63,8 @@ filter.jumpers <- function(LTRpred.tbl, ltr.similarity = 95, strategy = "conserv
     
   }
   
-  res <- dplyr::select(res,ID, chromosome, start, end, strand, width,
-                       ltr_similarity, similarity,orfs, lLTR_start:`orf.id`,repeat_region_length:PBS_length)
+  # res <- dplyr::select(res,ID, chromosome, start, end, strand, width,
+  #                      ltr_similarity, similarity,orfs, lLTR_start:`orf.id`,repeat_region_length:PBS_length)
   return (res[order(unlist(res[ , "ltr_similarity"]), decreasing = TRUE), ])
 
   #return ( res )
