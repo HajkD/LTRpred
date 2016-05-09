@@ -42,14 +42,14 @@ LTRdigest <- read.prediction(gff.file    = "TAIR10_chr_all_LTRdigestPrediction.g
                              program     = "LTRdigest")
 # read annotation file
 # read the annotation file in gff3 format
-AnnotationFileGFF3 <- readr::read_tsv("Arabidopsis_thaliana.TAIR10.30.chr.gff3", col_names = FALSE, skip = 0, comment = "#")
-names(AnnotationFileGFF3)[1:9] <- c("chromosome","source","feature","start","end","score","strand","frame","attribute")
+annotation.file <- readr::read_tsv("Arabidopsis_thaliana.TAIR10.30.chr.gff3", col_names = FALSE, skip = 0, comment = "#")
+names(annotation.file)[1:9] <- c("chromosome","source","feature","start","end","score","strand","frame","attribute")
                                              
                                        
 # Match predicted LTR transposons with annotation file (feature = genes)        
 Anno <- pred2annotation(
                pred.file = Ath.LTRdigest.prediction$ltr.retrotransposon,
-               annotation.file       = AnnotationFileGFF3)
+               annotation.file       = annotation.file)
 }
 }
 \author{
