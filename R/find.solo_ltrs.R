@@ -73,3 +73,6 @@ find.solo_ltrs <- function(LTRpred.folder,
   
   return(BLASTOutput)
 }
+
+
+
