@@ -7,17 +7,19 @@
 LTRpred(genome.file = NULL, index.file.harvest = NULL,
   index.file.digest = NULL, LTRdigest.gff = NULL, tabout.file = NULL,
   LTRharvest.folder = NULL, orf.file = NULL, annotate = NULL,
-  range = c(0, 0), seed = 30, minlenltr = 100, maxlenltr = 3500,
-  mindistltr = 4000, maxdistltr = 25000, similar = 70, mintsd = 4,
-  maxtsd = 20, vic = 60, overlaps = "no", xdrop = 5, mat = 2,
-  mis = -2, ins = -3, del = -3, motif = NULL, motifmis = 0,
-  aaout = "yes", aliout = "yes", pptlen = c(8, 30), uboxlen = c(3, 30),
-  pptradius = 30, trnas = NULL, pbsalilen = c(11, 30), pbsoffset = c(0,
-  5), pbstrnaoffset = c(0, 5), pbsmaxedist = 1, pbsradius = 30,
-  hmms = NULL, pdomevalcutoff = 1e-05, pbsmatchscore = 5,
-  pbsmismatchscore = -10, pbsinsertionscore = -20, pbsdeletionscore = -20,
-  pfam.ids = NULL, cores = 1, orf.style = 7, min.codons = 200,
-  trans.seqs = FALSE, output.path = NULL, verbose = TRUE)
+  Dfam.db = NULL, dfam.eval = NULL, dfam.file = NULL, range = c(0, 0),
+  seed = 30, minlenltr = 100, maxlenltr = 3500, mindistltr = 4000,
+  maxdistltr = 25000, similar = 70, mintsd = 4, maxtsd = 20, vic = 60,
+  overlaps = "no", xdrop = 5, mat = 2, mis = -2, ins = -3, del = -3,
+  motif = NULL, motifmis = 0, aaout = "yes", aliout = "yes",
+  pptlen = c(8, 30), uboxlen = c(3, 30), pptradius = 30, trnas = NULL,
+  pbsalilen = c(11, 30), pbsoffset = c(0, 5), pbstrnaoffset = c(0, 5),
+  pbsmaxedist = 1, pbsradius = 30, hmms = NULL, pdomevalcutoff = 1e-05,
+  pbsmatchscore = 5, pbsmismatchscore = -10, pbsinsertionscore = -20,
+  pbsdeletionscore = -20, pfam.ids = NULL, cores = 1,
+  dfam.cores = cores, hmm.cores = cores, orf.style = 7,
+  min.codons = 200, trans.seqs = FALSE, output.path = NULL,
+  verbose = TRUE)
 }
 \arguments{
 \item{genome.file}{path to the genome file in \code{fasta} format.}
@@ -45,6 +47,14 @@ running \code{LTRpred} with different parameter settings.}
 \item{annotate}{annotation database that shall be queried to annotate predicted LTR transposons.
 Default is \code{annotate = NULL} indicating that no annotation query is being performed.
 Possible options are: \code{annotate = "Dfam"} (here the Dfam database must be stored locally and a nhammer search is performed against the Dfam database) or \code{annotate = "Repbase"} (here the Repbase database must be stored locally and a blastn search is performed against the Repbase database). Please consult the vignettes for details.}
+
+\item{Dfam.db}{folder path to the local Dfam database or \code{Dfam.db = "download"} in case the Dfam
+database shall be automatically downloaded before performing query analyses.}
+
+\item{dfam.eval}{E-value threshhold to perform HMMer search against the Dfam database.}
+
+\item{dfam.file}{path to pre-computed \code{\link{dfam.query}} output file. Can only be used in combination
+with \code{annotate = "Dfam"}.}
 
 \item{range}{define the genomic interval in which predicted LTR transposons shall be reported
 . In case \code{range[1] = 1000} and \code{range[2] = 10000} then candidates are only 
@@ -84,7 +94,7 @@ Default is \code{overlaps = "best"}.}
 \item{xdrop}{specify the xdrop value (> 0) for extending a seed repeat in both directions
 allowing for matches, mismatches, insertions, and deletions. The xdrop extension process
  stops as soon as the extension involving matches, mismatches, insersions, and deletions 
- has a score smaller than T -X, where T denotes the largest score seen so far. Default is \code{xrop = 5}.}
+ has a score smaller than T - X, where T denotes the largest score seen so far. Default is \code{xrop = 5}.}
 
 \item{mat}{specify the positive match score for the X-drop extension process. Default is \code{mat = 2}.}
 
@@ -174,6 +184,10 @@ between the predicted LTRs.}
 
 \item{cores}{number of cores to be used for multicore processing.}
 
+\item{dfam.cores}{number of cores to be used for multicore processing when running Dfam query (in case \code{annotate = "Dfam"}).}
+
+\item{hmm.cores}{number of cores to be used for multicore processing when performing hmmer protein search with \code{\link{LTRdigest}}.}
+
 \item{orf.style}{type of predicting open reading frames (see documentation of USEARCH).}
 
 \item{min.codons}{minimum number of codons in the predicted open reading frame.}
@@ -220,6 +234,14 @@ the HMM matches to the LTR retrotransposon candidates.
 \item *_LTRpred_DataSheet.csv : Stores the output table as data sheet.
 }
 The ' * ' is an place holder for the name of the input genome file.
+
+\strong{If annotate = "Dfam"}
+In case the Dfam annotation option is specified the following
+additional files are generated and stored in the LTRpred result folder:
+
+\itemize{
+\item 
+}
 }
 \description{
 Main pipeline to perform
