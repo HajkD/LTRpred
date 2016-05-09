@@ -7,19 +7,19 @@
 LTRpred(genome.file = NULL, index.file.harvest = NULL,
   index.file.digest = NULL, LTRdigest.gff = NULL, tabout.file = NULL,
   LTRharvest.folder = NULL, orf.file = NULL, annotate = NULL,
-  Dfam.db = NULL, dfam.eval = NULL, dfam.file = NULL, range = c(0, 0),
-  seed = 30, minlenltr = 100, maxlenltr = 3500, mindistltr = 4000,
-  maxdistltr = 25000, similar = 70, mintsd = 4, maxtsd = 20, vic = 60,
-  overlaps = "no", xdrop = 5, mat = 2, mis = -2, ins = -3, del = -3,
-  motif = NULL, motifmis = 0, aaout = "yes", aliout = "yes",
-  pptlen = c(8, 30), uboxlen = c(3, 30), pptradius = 30, trnas = NULL,
-  pbsalilen = c(11, 30), pbsoffset = c(0, 5), pbstrnaoffset = c(0, 5),
-  pbsmaxedist = 1, pbsradius = 30, hmms = NULL, pdomevalcutoff = 1e-05,
-  pbsmatchscore = 5, pbsmismatchscore = -10, pbsinsertionscore = -20,
-  pbsdeletionscore = -20, pfam.ids = NULL, cores = 1,
-  dfam.cores = cores, hmm.cores = cores, orf.style = 7,
-  min.codons = 200, trans.seqs = FALSE, output.path = NULL,
-  verbose = TRUE)
+  Dfam.db = NULL, dfam.eval = NULL, dfam.file = NULL, cluster = FALSE,
+  clust.sim = 0.9, range = c(0, 0), seed = 30, minlenltr = 100,
+  maxlenltr = 3500, mindistltr = 4000, maxdistltr = 25000, similar = 70,
+  mintsd = 4, maxtsd = 20, vic = 60, overlaps = "no", xdrop = 5,
+  mat = 2, mis = -2, ins = -3, del = -3, motif = NULL, motifmis = 0,
+  aaout = "yes", aliout = "yes", pptlen = c(8, 30), uboxlen = c(3, 30),
+  pptradius = 30, trnas = NULL, pbsalilen = c(11, 30), pbsoffset = c(0,
+  5), pbstrnaoffset = c(0, 5), pbsmaxedist = 1, pbsradius = 30,
+  hmms = NULL, pdomevalcutoff = 1e-05, pbsmatchscore = 5,
+  pbsmismatchscore = -10, pbsinsertionscore = -20, pbsdeletionscore = -20,
+  pfam.ids = NULL, cores = 1, dfam.cores = cores, hmm.cores = cores,
+  orf.style = 7, min.codons = 200, trans.seqs = FALSE,
+  output.path = NULL, verbose = TRUE)
 }
 \arguments{
 \item{genome.file}{path to the genome file in \code{fasta} format.}
@@ -55,6 +55,10 @@ database shall be automatically downloaded before performing query analyses.}
 
 \item{dfam.file}{path to pre-computed \code{\link{dfam.query}} output file. Can only be used in combination
 with \code{annotate = "Dfam"}.}
+
+\item{cluster}{shall predicted transposons be clustered with \code{\link{CLUST}}.}
+
+\item{clust.sim}{cluster reject if sequence similarity is lower than this threshold when performing clustering with \code{\link{CLUST}}.}
 
 \item{range}{define the genomic interval in which predicted LTR transposons shall be reported
 . In case \code{range[1] = 1000} and \code{range[2] = 10000} then candidates are only 
