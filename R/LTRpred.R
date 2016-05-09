@@ -19,6 +19,11 @@
 #' @param annotate annotation database that shall be queried to annotate predicted LTR transposons.
 #' Default is \code{annotate = NULL} indicating that no annotation query is being performed.
 #' Possible options are: \code{annotate = "Dfam"} (here the Dfam database must be stored locally and a nhammer search is performed against the Dfam database) or \code{annotate = "Repbase"} (here the Repbase database must be stored locally and a blastn search is performed against the Repbase database). Please consult the vignettes for details.
+#' @param Dfam.db folder path to the local Dfam database or \code{Dfam.db = "download"} in case the Dfam
+#'  database shall be automatically downloaded before performing query analyses.
+#' @param dfam.eval E-value threshhold to perform HMMer search against the Dfam database.
+#' @param dfam.file path to pre-computed \code{\link{dfam.query}} output file. Can only be used in combination
+#' with \code{annotate = "Dfam"}.
 #' @param range define the genomic interval in which predicted LTR transposons shall be reported
 #' . In case \code{range[1] = 1000} and \code{range[2] = 10000} then candidates are only 
 #' reported if they start after position 1000 and end before position 10000 in their respective 
@@ -46,7 +51,7 @@
 #' @param xdrop specify the xdrop value (> 0) for extending a seed repeat in both directions
 #'  allowing for matches, mismatches, insertions, and deletions. The xdrop extension process
 #'   stops as soon as the extension involving matches, mismatches, insersions, and deletions 
-#'   has a score smaller than T -X, where T denotes the largest score seen so far. Default is \code{xrop = 5}.
+#'   has a score smaller than T - X, where T denotes the largest score seen so far. Default is \code{xrop = 5}.
 #' @param mat specify the positive match score for the X-drop extension process. Default is \code{mat = 2}.
 #' @param mis specify the negative mismatch score for the X-drop extension process. Default is \code{mis = -2}.
 #' @param ins specify the negative insertion score for the X-drop extension process. Default is \code{ins = -3}.
@@ -110,6 +115,8 @@
 #' that shall be downloaded and used to perform protein domain searches within the sequences
 #' between the predicted LTRs.
 #' @param cores number of cores to be used for multicore processing.
+#' @param dfam.cores number of cores to be used for multicore processing when running Dfam query (in case \code{annotate = "Dfam"}).
+#' @param hmm.cores number of cores to be used for multicore processing when performing hmmer protein search with \code{\link{LTRdigest}}.
 #' @param orf.style type of predicting open reading frames (see documentation of USEARCH).
 #' @param min.codons minimum number of codons in the predicted open reading frame.
 #' @param trans.seqs logical value indicating wheter or not predicted open reading frames
@@ -159,6 +166,14 @@
 #' \item *_LTRpred_DataSheet.csv : Stores the output table as data sheet.
 #' }
 #' The ' * ' is an place holder for the name of the input genome file.
+#' 
+#' \strong{If annotate = "Dfam"}
+#' In case the Dfam annotation option is specified the following
+#' additional files are generated and stored in the LTRpred result folder:
+#' 
+#' \itemize{
+#' \item 
+#' }  
 #' @examples 
 #' \dontrun{
 #' # generate de novo LTR transposon prediction
@@ -189,6 +204,9 @@ LTRpred <- function(genome.file       = NULL,
                     LTRharvest.folder = NULL,
                     orf.file          = NULL,
                     annotate          = NULL,
+                    Dfam.db           = NULL,
+                    dfam.eval         = NULL,
+                    dfam.file         = NULL,
                     range             = c(0,0),
                     seed              = 30,
                     minlenltr         = 100,
@@ -226,6 +244,8 @@ LTRpred <- function(genome.file       = NULL,
                     pbsdeletionscore  = -20,
                     pfam.ids          = NULL,
                     cores             = 1,
+                    dfam.cores        = cores,
+                    hmm.cores         = cores,
                     orf.style         = 7,
                     min.codons        = 200,
                     trans.seqs        = FALSE,
@@ -234,16 +254,18 @@ LTRpred <- function(genome.file       = NULL,
   
   if (!is.null(LTRharvest.folder))
     if (LTRharvest.folder != "skip")
-      stop ("The argument 'LTRharvest.folder' can only either be 'NULL' (default) or 'skip' when LTRharvest folder movement shall be skipped.")
-      
+      stop ("The argument 'LTRharvest.folder' can only either be 'NULL' (default) or 'skip' when LTRharvest folder movement shall be skipped.", call. = FALSE)
       
   if (!is.null(annotate)){
     if (!is.element(annotate,c("Repbase","Dfam")))
-      stop ("Only Dfam or Repbase can be used to annotate predicted LTR transposons!")
+      stop ("Only Dfam or Repbase can be used to annotate predicted LTR transposons!", call. = FALSE)
   }
   
   if (parallel::detectCores() < cores)
-    stop ("Your system does not provide the number of cores you specified.")
+    stop ("Your system does not provide the number of cores you specified.", call. = FALSE)
+  
+  if (!is.null(dfam.file) & is.null(annotate))
+    stop ("Please specify annotate = 'Dfam' when providing a dfam.file path.", call. = FALSE)
   
   if (is.null(output.path)){
     if (!is.null(genome.file)){
@@ -317,7 +339,7 @@ LTRpred <- function(genome.file       = NULL,
             pbsinsertionscore = pbsinsertionscore,
             pbsdeletionscore  = pbsdeletionscore,
             pfam.ids          = pfam.ids,
-            cores             = cores,
+            cores             = hmm.cores,
             index.file        = index.file.digest,
             output.path       = NULL) 
   
@@ -413,6 +435,39 @@ LTRpred <- function(genome.file       = NULL,
         }
       }
       
+      # annotate predicted LTRtransposons
+      if (!is.null(annotate)){
+        if (annotate == "Dfam"){
+          if (!is.null(dfam.file)){
+            Dfam.tbl <- read.dfam(dfam.file = dfam.file)
+          }
+          
+          if (is.null(dfam.file)){
+            if (is.null(Dfam.db) | (Dfam.db != "download"))
+              stop ("Please specify either the path to the Dfam database (Dfam.db argument) or allow
+                    download by specifying Dfam.db = 'download'.", call. = FALSE)
+            
+            # perform query against the Dfam database
+            predSeqs <- file.path(folder_path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_complete.fas"))
+            dfam.query(seq.file      = predSeqs,
+                       Dfam.db       = Dfam.db,
+                       eval          = dfam.eval,
+                       cores         = dfam.cores,
+                       output.folder = folder_path)
+            
+            Dfam.tbl <- read.dfam(dfam.file = file.path(folder_path,paste0(basename(predSeqs),"_DfamAnnotation.out")))
+          }
+          
+        }
+        if (annotate == "Repbase"){
+          
+          repbase.clean()
+          repbase.query()
+          repbase.filter()
+        }
+      }
+      
+      # perform internal file handling
       if (is.null(LTRharvest.folder)){
         file.move(file.path(folder_path,paste0(chopped.foldername,"_ltrharvest")),file.path(output.path,paste0(chopped.foldername,"_ltrharvest"))) 
       }
@@ -420,17 +475,28 @@ LTRpred <- function(genome.file       = NULL,
       pred2gff(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred.gff")))
       pred2bed(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred.bed")))
       pred2csv(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred_DataSheet.csv")))
+      
+      if (annotate == "Dfam"){
+        file.move(file.path(folder_path,paste0(basename(predSeqs)),"_DfamAnnotation.out"),file.path(output.path,paste0(basename(predSeqs),"_DfamAnnotation.out")))
+      }
+      
     } else {
       file.move(LTRdigest.gff,file.path(output.path,LTRdigest.gff))
       file.move(tabout.file,file.path(output.path,tabout.file))
       pred2gff(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.gff")))
       pred2bed(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.bed")))
       pred2csv(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred_DataSheet.csv")))
+      
+      if (annotate == "Dfam"){
+        file.move(file.path(folder_path,paste0(basename(predSeqs)),"_DfamAnnotation.out"),file.path(output.path,paste0(basename(predSeqs),"_DfamAnnotation.out")))
+      }
     }
     
     #return(res)
     
-  } else {
+  } 
+  
+  if (is.null(LTRdigestOutput)) {
     
     if (!is.null(genome.file)){
       chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
@@ -453,8 +519,8 @@ LTRpred <- function(genome.file       = NULL,
     }
   }
 
-  # here implement nhmmer search to Dfam
-  # dfam.query()
+  
+  
 }
 
 
