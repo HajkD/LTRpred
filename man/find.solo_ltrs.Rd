@@ -5,7 +5,7 @@
 \title{Detect solo LTR copies of predicted LTR transposons}
 \usage{
 find.solo_ltrs(LTRpred.folder, genome, ltr.similarity = 98, output = NULL,
-  max.hits = 5000, eval = 1e-05)
+  max.hits = 1e+05, eval = 1e-10)
 }
 \arguments{
 \item{LTRpred.folder}{file path to the \code{\link{LTRpred}} output folder.}

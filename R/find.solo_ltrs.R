@@ -30,8 +30,8 @@ find.solo_ltrs <- function(LTRpred.folder,
                           genome,
                           ltr.similarity = 98,
                           output   = NULL, 
-                          max.hits = 5000, 
-                          eval     = 1E-5){
+                          max.hits = 100000, 
+                          eval     = 1E-10){
   
   ltr_similarity <- NULL
   
