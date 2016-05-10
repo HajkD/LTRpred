@@ -175,7 +175,13 @@
 #' 
 #' \itemize{
 #' \item 
+#' }
+#' 
+#' \strong{if cluster = TRUE}
+#' \itemize{
+#' \item 
 #' }  
+#'       
 #' @examples 
 #' \dontrun{
 #' # generate de novo LTR transposon prediction
@@ -494,8 +500,25 @@ LTRpred <- function(genome.file       = NULL,
               cluster.file <- read.uc(file.path(output.path,"CLUSTpred.uc"))
           }
           
-             
+          cluster.file.type.H <- dplyr::filter(cluster.file,Type == "H")
+          cluster.file.type.H <- dplyr::select(cluster.file.type.H, Cluster,Query,Target,Perc_Ident)
+          names(cluster.file.type.H) <- paste0("Clust_",names(cluster.file.type.H))
+          names(cluster.file.type.H)[2] <- "orf.id"
+          
+          res <- dplyr::full_join(res,cluster.file.type.H, by = "orf.id")
+          res <- dplyr::mutate(res, Clust_Cluster = ifelse(is.na(Clust_Cluster),"unique",as.character(paste0("cl_",Clust_Cluster))),
+                                    Clust_Target = ifelse(is.na(Clust_Target),"none",as.character(Clust_Target)))
+          
+          # compute copy number of clustered elements
+          Clust.cn <- dplyr::filter(dplyr::summarise(dplyr::group_by(res,Clust_Cluster), Clust_cn = n()),Clust_Cluster != "unique")
+          
+          # join copy number information of clustered elements with result table
+          res <- dplyr::full_join(res,Clust.cn, by = "Clust_Cluster")
+          res <- dplyr::mutate(res, Clust_cn = ifelse(is.na(Clust_cn),1,as.numeric(Clust_cn)))
       }
+      
+      
+      
       
       # perform internal file handling
       if (is.null(LTRharvest.folder)){

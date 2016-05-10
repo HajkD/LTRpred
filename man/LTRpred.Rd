@@ -246,6 +246,11 @@ additional files are generated and stored in the LTRpred result folder:
 \itemize{
 \item 
 }
+
+\strong{if cluster = TRUE}
+\itemize{
+\item 
+}
 }
 \description{
 Main pipeline to perform
