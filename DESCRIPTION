@@ -34,7 +34,8 @@ Suggests:
     knitr (>= 1.6),
     rmarkdown (>= 0.3.3),
     devtools (>= 1.6.1),
-    testthat (>= 0.9.1)
+    testthat (>= 0.9.1),
+    roxygen2,
 URL: https://github.com/HajkD/LTRpred
 BugReports: https://github.com/HajkD/LTRpred/issues
 RoxygenNote: 5.0.1
