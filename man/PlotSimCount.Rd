@@ -4,13 +4,18 @@
 \alias{PlotSimCount}
 \title{Plot LTR Similarity vs. predicted LTR count}
 \usage{
-PlotSimCount(sim.matrix, cl.analysis = FALSE, cl.centers = NULL,
-  cl.method = "euclidean", cl.nstart = 100, cl.iter.max = 10000,
-  xlab = "LTR \% Similarity", ylab = "Count",
+PlotSimCount(sim.matrix, genome.matrix = NULL, type = "absolute",
+  cl.analysis = FALSE, cl.centers = NULL, cl.method = "euclidean",
+  cl.nstart = 100, cl.iter.max = 10000, min.sim = 70,
+  similarity.bin = 2, xlab = "LTR \% Similarity", ylab = "Count",
   main = "LTR \% Similarity vs. Count", text.size = 18)
 }
 \arguments{
 \item{sim.matrix}{Similarity matrix retruned by \code{\link{LTRpred.meta}}.}
+
+\item{genome.matrix}{Genome matrix retruned by \code{\link{LTRpred.meta}}.}
+
+\item{type}{either absolute count value or normalized count value (normalized by genome size is shown): \code{type = "absolute"} or \code{type = "normalized"}. Default is \code{type = "absolute"}.}
 
 \item{cl.analysis}{logical value indicating whether or not cluster analysis of the \code{sim.matrix} returned by \code{\link{LTRpred.meta}} shall be performed (see Details sections).}
 
@@ -21,6 +26,10 @@ PlotSimCount(sim.matrix, cl.analysis = FALSE, cl.centers = NULL,
 \item{cl.nstart}{If \code{cl.centers} is a number, number of random sets that shall be chosen.}
 
 \item{cl.iter.max}{maximum number of iterations for cluster analysis.#' @param xlab x-axis label.}
+
+\item{min.sim}{minimum similarity that was used with \code{\link{LTRpred.meta}}.}
+
+\item{similarity.bin}{resolution of similarity binning that was used with \code{\link{LTRpred.meta}}.}
 
 \item{xlab}{x-axis label.}
 
