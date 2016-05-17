@@ -2,11 +2,15 @@
 #' @description The LTR Similarity vs. predicted LTR count visualization
 #' allows to study the variability of predicted LTRs in different genomes.
 #' @param sim.matrix Similarity matrix retruned by \code{\link{LTRpred.meta}}.
+#' @param genome.matrix Genome matrix retruned by \code{\link{LTRpred.meta}}.
+#' @param type either absolute count value or normalized count value (normalized by genome size is shown): \code{type = "absolute"} or \code{type = "normalized"}. Default is \code{type = "absolute"}.
 #' @param cl.analysis logical value indicating whether or not cluster analysis of the \code{sim.matrix} returned by \code{\link{LTRpred.meta}} shall be performed (see Details sections).
 #' @param cl.centers number of expected clusters or a set of initial (distinct) cluster centres.
 #' @param cl.method distance measure to perform cluster analysis. Options are \code{"euclidean"}, \code{"maximum"}, \code{"manhattan"}, \code{"canberra"}, \code{"binary"}, \code{"pearson"} , \code{"abspearson"} , \code{"abscorrelation"}, \code{"correlation"}, \code{"spearman"} or \code{"kendall"}.
 #' @param cl.nstart If \code{cl.centers} is a number, number of random sets that shall be chosen.
 #' @param cl.iter.max maximum number of iterations for cluster analysis.#' @param xlab x-axis label.
+#' @param min.sim minimum similarity that was used with \code{\link{LTRpred.meta}}.
+#' @param similarity.bin resolution of similarity binning that was used with \code{\link{LTRpred.meta}}.
 #' @param xlab x-axis label.
 #' @param ylab y-axis label.
 #' @param main main text.
@@ -32,18 +36,37 @@
 #' @export
 
 PlotSimCount <- function(sim.matrix,
+                         genome.matrix       = NULL,
+                         type                = "absolute",
                          cl.analysis         = FALSE,
                          cl.centers          = NULL,
                          cl.method           = "euclidean",
                          cl.nstart           = 100,
                          cl.iter.max         = 10000,
+                         min.sim             = 70,
+                         similarity.bin      = 2,
                          xlab                = "LTR % Similarity", 
                          ylab                = "Count", 
                          main                = "LTR % Similarity vs. Count",
                          text.size           = 18){
   
   
+  if (!is.element(type, c("absolute", "normalized")))
+    stop("Please choose a valid type: either 'absolute' or 'normalized'.", call. = FALSE)
+  
+  if ((type == "normalized") && (is.null(genome.matrix)))
+    stop("Please specify the 'genome.matrix' argument when using type = 'normalized'.")
+  
   similarity <- count <- NULL
+  
+  if (type == "normalized") {
+    
+    sim.matrix[ , 2:ncol(sim.matrix)] <- sim.matrix[ , 2:ncol(sim.matrix)] / genome.matrix$genome.size
+    
+  }
+  
+  names(sim.matrix) <- c("organism",levels(cut(100,rev(seq(100,min.sim,-similarity.bin)),
+                                              include.lowest = TRUE,right = TRUE)))
   
   if (cl.analysis){
     
