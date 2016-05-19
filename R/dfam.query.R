@@ -13,7 +13,7 @@
 #' @export
 dfam.query <- function(seq.file, 
                        Dfam.db       = NULL, 
-                       eval          = 1E-5, 
+                       eval          = 1E-10, 
                        cores         = 1, 
                        output.folder = getwd()){
   
@@ -31,7 +31,7 @@ dfam.query <- function(seq.file,
     cat("\n")
     cat("Prepare the Dfam.hmm database...")
     cat("\n")
-    system(paste0("hmmpress ",file.path(ws.wrap.path(output.folder),"Dfam.hmm")))
+    system(paste0("hmmpress ",file.path(ws.wrap.path(output.folder),gzfile("Dfam.hmm.gz"))))
     cat("Run Dfam scan...")
     cat("\n")
     # make sure that in future versions the PATH variable is set and OSX, Linux, 
