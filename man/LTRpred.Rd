@@ -7,7 +7,7 @@
 LTRpred(genome.file = NULL, index.file.harvest = NULL,
   index.file.digest = NULL, LTRdigest.gff = NULL, tabout.file = NULL,
   LTRharvest.folder = NULL, orf.file = NULL, annotate = NULL,
-  Dfam.db = NULL, dfam.eval = NULL, dfam.file = NULL, cluster = FALSE,
+  Dfam.db = NULL, dfam.eval = 1e-10, dfam.file = NULL, cluster = FALSE,
   clust.sim = 0.9, copy.number.est = TRUE, cn.eval = 1e-10, range = c(0,
   0), seed = 30, minlenltr = 100, maxlenltr = 3500, mindistltr = 4000,
   maxdistltr = 25000, similar = 70, mintsd = 4, maxtsd = 20, vic = 60,
@@ -17,10 +17,9 @@ LTRpred(genome.file = NULL, index.file.harvest = NULL,
   pbsalilen = c(11, 30), pbsoffset = c(0, 5), pbstrnaoffset = c(0, 5),
   pbsmaxedist = 1, pbsradius = 30, hmms = NULL, pdomevalcutoff = 1e-05,
   pbsmatchscore = 5, pbsmismatchscore = -10, pbsinsertionscore = -20,
-  pbsdeletionscore = -20, pfam.ids = NULL, cores = 1,
-  dfam.cores = cores, hmm.cores = cores, orf.style = 7,
-  min.codons = 200, trans.seqs = FALSE, output.path = NULL,
-  verbose = TRUE)
+  pbsdeletionscore = -20, pfam.ids = NULL, cores = 1, dfam.cores = NULL,
+  hmm.cores = NULL, orf.style = 7, min.codons = 200, trans.seqs = FALSE,
+  output.path = NULL, verbose = TRUE)
 }
 \arguments{
 \item{genome.file}{path to the genome file in \code{fasta} format.}
