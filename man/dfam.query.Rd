@@ -4,7 +4,7 @@
 \alias{dfam.query}
 \title{Query the Dfam database to annotate putative LTRs}
 \usage{
-dfam.query(seq.file, Dfam.db = NULL, eval = 1e-05, cores = 1,
+dfam.query(seq.file, Dfam.db = NULL, eval = 1e-10, cores = 1,
   output.folder = getwd())
 }
 \arguments{
