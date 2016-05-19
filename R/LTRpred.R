@@ -215,7 +215,7 @@ LTRpred <- function(genome.file       = NULL,
                     orf.file          = NULL,
                     annotate          = NULL,
                     Dfam.db           = NULL,
-                    dfam.eval         = NULL,
+                    dfam.eval         = 1e-10,
                     dfam.file         = NULL,
                     cluster           = FALSE,
                     clust.sim         = 0.9,
@@ -258,8 +258,8 @@ LTRpred <- function(genome.file       = NULL,
                     pbsdeletionscore  = -20,
                     pfam.ids          = NULL,
                     cores             = 1,
-                    dfam.cores        = cores,
-                    hmm.cores         = cores,
+                    dfam.cores        = NULL,
+                    hmm.cores         = NULL,
                     orf.style         = 7,
                     min.codons        = 200,
                     trans.seqs        = FALSE,
@@ -281,6 +281,19 @@ LTRpred <- function(genome.file       = NULL,
   if (!is.null(dfam.file) & is.null(annotate))
     stop ("Please specify annotate = 'Dfam' when providing a dfam.file path.", call. = FALSE)
   
+    
+    if (is.null(dfam.cores) && is.null(hmm.cores)){
+        dfam.cores <- hmm.cores <- cores
+    }
+    
+    if ((!is.null(dfam.cores)) && is.null(hmm.cores)){
+        hmm.cores <- cores
+    }
+    
+    if (is.null(dfam.cores) && (!is.null(hmm.cores))){
+        dfam.cores <- cores
+    }
+    
   if (is.null(output.path)){
     if (!is.null(genome.file)){
       output.path <- paste0(unlist(stringr::str_split(basename(genome.file),"[.]"))[1],"_ltrpred")
@@ -306,6 +319,10 @@ LTRpred <- function(genome.file       = NULL,
   
   rTSD_end <- lTSD_start <- PPT_end <- PPT_start <- PBS_end <- PBS_start <- NULL
   ID <- chromosome <- reading_frame <- width <- orf.id <- NULL
+  
+  cat("\n")
+  cat("Starting LTRpred analysis...")
+  cat("\n")
   
   if (!is.null(genome.file) & is.null(LTRdigest.gff) & is.null(tabout.file)){
   
@@ -358,6 +375,10 @@ LTRpred <- function(genome.file       = NULL,
             output.path       = NULL) 
   
   
+  cat("\n")
+  cat("Import LTRdigest Prediction...")
+  cat("\n")
+  
   LTRdigestOutput <- read.prediction(gff.file    = file.path(paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"_LTRdigestPrediction.gff")),
                                      tabout.file = file.path(paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_tabout.csv")),
                                      program     = "LTRdigest")
@@ -382,7 +403,10 @@ LTRpred <- function(genome.file       = NULL,
         folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
       }
     }
-
+    
+    cat("\n")
+    cat("Perform ORF Prediction...")
+    cat("\n")
     ORFTable <- ORFpred(seq.file = file.path(folder_path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_complete.fas")), 
                         orf.style  = orf.style, 
                         min.codons = min.codons, 
@@ -424,25 +448,25 @@ LTRpred <- function(genome.file       = NULL,
     #    suppressWarnings(LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, ProteinMatch, by = "ID"))
     #
     
-    if (nrow(LTRdigestOutput$RR_tract) > 0){
+    if (nrow(LTRdigestOutput$RR_tract) > 0) {
       RR_tract <- dplyr::select(LTRdigestOutput$RR_tract,ID, start, end, width)
       colnames(RR_tract) <- c("ID","RR_tract_start","RR_tract_end","RR_tract_length")
       suppressWarnings(LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, RR_tract, by = "ID"))
     }
     
-    element_start <- element_length <- `width.y` <- `start.y`<- `end.y` <- NULL
+    element_start <- element_length <- `width.y` <- `start.y` <- `end.y` <- NULL
     
     res <- dplyr::select(LTRdigestOutput$ltr.retrotransposon, -c(element_start,element_length,`width.y`, `start.y`, `end.y`))
     names(res)[c(4,5,9)] <- c("start","end","width")
     
-    if (!is.null(genome.file)){
+    if (!is.null(genome.file)) {
       chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
-      if (is.null(LTRdigest.gff)){
+      if (is.null(LTRdigest.gff)) {
         folder_path <- getwd()
       } else {
         folder_path <- unlist(stringr::str_split(LTRdigest.gff,.Platform$file.sep))
-        exclude <- c(length(folder_path)-1,length(folder_path))
-        if (exclude[1] == 1){
+        exclude <- c(length(folder_path) - 1,length(folder_path))
+        if (exclude[1] == 1) {
           folder_path <- getwd()
         } else {
           folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
@@ -450,17 +474,16 @@ LTRpred <- function(genome.file       = NULL,
       }
       
       # annotate predicted LTRtransposons
-      if (!is.null(annotate)){
-        if (annotate == "Dfam"){
-          if (!is.null(dfam.file)){
+      if (!is.null(annotate)) {
+        if (annotate == "Dfam") {
+          if (!is.null(dfam.file)) {
             Dfam.tbl <- read.dfam(dfam.file = dfam.file)
           }
           
-          if (is.null(dfam.file)){
-            if (is.null(Dfam.db) | (Dfam.db != "download"))
-              stop ("Please specify either the path to the Dfam database (Dfam.db argument) or allow
-                    download by specifying Dfam.db = 'download'.", call. = FALSE)
-            
+          if (is.null(dfam.file)) {
+            cat("\n")
+            cat("Perform Dfam search....")
+            cat("\n")
             # perform query against the Dfam database
             predSeqs <- file.path(folder_path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_complete.fas"))
             dfam.query(seq.file      = predSeqs,
@@ -470,16 +493,14 @@ LTRpred <- function(genome.file       = NULL,
                        output.folder = folder_path)
             
             Dfam.tbl <- read.dfam(dfam.file = file.path(folder_path,paste0(basename(predSeqs),"_DfamAnnotation.out")))
-            
-            # join Dfam prediction table with LTRpred table
-            # choose hit in Dfam with highest bit score
-            Dfam.tbl.grouped <- dplyr::filter(dplyr::group_by(Dfam.tbl,query_name), bits == max(bits))
-            names(Dfam.tbl.grouped)[3] <- "orf.id"
-            names(Dfam.tbl.grouped)[-3] <- paste0("dfam_",names(Dfam.tbl.grouped)[-3])
-            res <- dplyr::full_join(res,Dfam.tbl.grouped, by = "orf.id")
-            res <- dplyr::mutate(res, dfam_target_name = ifelse(is.na(dfam_target_name),"unknown",as.character(dfam_target_name)))
           }
-          
+          # join Dfam prediction table with LTRpred table
+          # choose hit in Dfam with highest bit score
+          Dfam.tbl.grouped <- dplyr::filter(dplyr::group_by(Dfam.tbl,query_name), bits == max(bits))
+          names(Dfam.tbl.grouped)[3] <- "orf.id"
+          names(Dfam.tbl.grouped)[-3] <- paste0("dfam_",names(Dfam.tbl.grouped)[-3])
+          res <- dplyr::full_join(res,Dfam.tbl.grouped, by = "orf.id")
+          res <- dplyr::mutate(res, dfam_target_name = ifelse(is.na(dfam_target_name),"unknown",as.character(dfam_target_name)))
         }
         if (annotate == "Repbase"){
           
@@ -491,6 +512,10 @@ LTRpred <- function(genome.file       = NULL,
       
       # perform transposon clustering
       if (cluster) {
+          
+          cat("\n")
+          cat("Perform Clustering of LTR transposons....")
+          cat("\n")
           predSeqs <- file.path(folder_path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_complete.fas"))
           CLUSTpred(file       = ws.wrap.path(predSeqs),
                     similarity = clust.sim,
@@ -521,35 +546,6 @@ LTRpred <- function(genome.file       = NULL,
           res <- dplyr::mutate(res, Clust_cn = ifelse(is.na(Clust_cn),1,as.numeric(Clust_cn)))
       }
       
-      # perform copy number estimation analysis
-      if (copy.number.est) {
-          
-          data_sheet <- file.path(folder_path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"_LTRpred_DataSheet.csv"))
-          seqs_3ltr <- file.path(folder_path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_3ltr.fas"))
-          seqs_5ltr <- file.path(folder_path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_5ltr.fas"))
-          
-          solo.ltr.cn <- ltr.cn(data.sheet     = data_sheet,
-                                LTR.fasta_3ltr = seqs_3ltr,
-                                LTR.fasta_5ltr = seqs_5ltr,
-                                genome         = genome.file,
-                                ltr.similarity = similar,
-                                eval           = cn.eval)
-          
-          cn2bed(solo.ltr.cn, type = "solo")
-          
-          # quantify copy number of solo LTRs for 3 prime LTR and 5 prime LTR separately
-          solo.ltr.cn.n_3ltr <- dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_3ltr,query_id), cn_3ltr = n())
-          solo.ltr.cn.n_5ltr <- dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_5ltr,query_id), cn_5ltr = n())
-          
-          names(solo.ltr.cn.n_3ltr)[1] <- "orf.id"
-          names(solo.ltr.cn.n_5ltr)[1] <- "orf.id"
-          
-          res <- dplyr::full_join(res,solo.ltr.cn.n_3ltr,by = "orf.id")
-          res <- dplyr::mutate(res, cn_3ltr = ifelse(is.na(cn_3ltr),0,as.numeric(cn_3ltr)))
-          res <- dplyr::full_join(res,solo.ltr.cn.n_5ltr,by = "orf.id")
-          res <- dplyr::mutate(res, cn_5ltr = ifelse(is.na(cn_5ltr),0,as.numeric(cn_5ltr)))
-      }
-      
       # perform internal file handling
       if (is.null(LTRharvest.folder)) {
         file.move(file.path(folder_path,paste0(chopped.foldername,"_ltrharvest")),file.path(output.path,paste0(chopped.foldername,"_ltrharvest"))) 
@@ -559,8 +555,8 @@ LTRpred <- function(genome.file       = NULL,
       pred2bed(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred.bed")))
       pred2csv(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred_DataSheet.csv")))
       
-      if (annotate == "Dfam") {
-        file.move(file.path(folder_path,paste0(basename(predSeqs)),"_DfamAnnotation.out"),file.path(output.path,paste0(basename(predSeqs),"_DfamAnnotation.out")))
+      if ((!is.null(annotate)) && (annotate == "Dfam")) {
+        file.move(file.path(folder_path,paste0(basename(predSeqs),"_DfamAnnotation.out")),file.path(output.path,paste0(basename(predSeqs),"_DfamAnnotation.out")))
       }
       
     } else {
@@ -570,8 +566,8 @@ LTRpred <- function(genome.file       = NULL,
       pred2bed(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred.bed")))
       pred2csv(res,file.path(output.path,paste0(basename(LTRdigest.gff),"_LTRpred_DataSheet.csv")))
       
-      if (annotate == "Dfam"){
-        file.move(file.path(folder_path,paste0(basename(predSeqs)),"_DfamAnnotation.out"),file.path(output.path,paste0(basename(predSeqs),"_DfamAnnotation.out")))
+      if ((!is.null(annotate)) && (annotate == "Dfam")) {
+        file.move(file.path(folder_path,paste0(basename(predSeqs),"_DfamAnnotation.out")),file.path(output.path,paste0(basename(predSeqs),"_DfamAnnotation.out")))
       }
     }
     
@@ -581,17 +577,17 @@ LTRpred <- function(genome.file       = NULL,
   
   if (is.null(LTRdigestOutput)) {
     
-    if (!is.null(genome.file)){
+    if (!is.null(genome.file)) {
       chopped.foldername <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1]
       folder_path <- unlist(stringr::str_split(LTRdigest.gff,.Platform$file.sep))
-      exclude <- c(length(folder_path)-1,length(folder_path))
-      if (exclude[1] == 1){
+      exclude <- c(length(folder_path) - 1,length(folder_path))
+      if (exclude[1] == 1) {
         folder_path <- getwd()
       } else {
         folder_path <- stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
       }
       
-      if (is.null(LTRharvest.folder)){
+      if (is.null(LTRharvest.folder)) {
         file.move(file.path(folder_path,paste0(chopped.foldername,"_ltrharvest")),file.path(output.path,paste0(chopped.foldername,"_ltrharvest")))
       }
       
@@ -602,8 +598,43 @@ LTRpred <- function(genome.file       = NULL,
     }
   }
 
+  # perform copy number estimation analysis
+  # if (copy.number.est) {
+  #     
+  #     data_sheet <- file.path(output.path, paste0(chopped.foldername,"_LTRpred_DataSheet.csv"))
+  #     seqs_3ltr <- file.path(output.path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_3ltr.fas"))
+  #     seqs_5ltr <- file.path(output.path, paste0(chopped.foldername,"_ltrdigest"),paste0(chopped.foldername,"-ltrdigest_5ltr.fas"))
+  #     
+  #     cat("\n")
+  #     cat("Perform solo LTR search....")
+  #     cat("\n")
+  #     solo.ltr.cn <- ltr.cn(data.sheet     = data_sheet,
+  #                           LTR.fasta_3ltr = seqs_3ltr,
+  #                           LTR.fasta_5ltr = seqs_5ltr,
+  #                           genome         = genome.file,
+  #                           ltr.similarity = similar,
+  #                           eval           = cn.eval)
+  #     
+  #     # write estimated solo LTR loci to LTRpred output folder
+  #     #cn2bed(solo.ltr.cn, type = "solo", filename = chopped.foldername,output = output.path)
+  #     
+  #     # quantify copy number of solo LTRs for 3 prime LTR and 5 prime LTR separately
+  #     solo.ltr.cn.n_3ltr <- dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_3ltr,query_id), cn_3ltr = n())
+  #     solo.ltr.cn.n_5ltr <- dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_5ltr,query_id), cn_5ltr = n())
+  #     
+  #     names(solo.ltr.cn.n_3ltr)[1] <- "orf.id"
+  #     names(solo.ltr.cn.n_5ltr)[1] <- "orf.id"
+  #     
+  #     res <- dplyr::full_join(res,solo.ltr.cn.n_3ltr,by = "orf.id")
+  #     res <- dplyr::mutate(res, cn_3ltr = ifelse(is.na(cn_3ltr),0,as.numeric(cn_3ltr)))
+  #     res <- dplyr::full_join(res,solo.ltr.cn.n_5ltr,by = "orf.id")
+  #     res <- dplyr::mutate(res, cn_5ltr = ifelse(is.na(cn_5ltr),0,as.numeric(cn_5ltr)))
+  # }
   
-  
+  pred2csv(res,file.path(output.path,paste0(chopped.foldername,"_LTRpred_DataSheet.csv")))
+  cat("\n")
+  cat("LTRpred analysis finished properly.")
+  cat("\n")
 }
 
 
