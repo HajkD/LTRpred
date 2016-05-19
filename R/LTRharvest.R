@@ -147,10 +147,15 @@ LTRharvest <- function(genome.file,
     OutputFileNameIdentifier <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1] 
     IndexOutputFileName <- file.path(output.path,paste0(OutputFileNameIdentifier,"_index",".fsa"))
     
+    cat("\n")
+    cat("Run LTRharvest...")
+    cat("\n")
+    
     # In case no index file is passed to this function
     # an index file will be generated using "gt suffixerator"
     if (is.null(index.file)){
         if (verbose){
+          cat("\n")
           cat("Generating the indexfile ",IndexOutputFileName," with suffixerator...")
           cat("\n")
         }
@@ -161,8 +166,7 @@ LTRharvest <- function(genome.file,
     }
     
     if (verbose){
-      cat("\n")
-      cat("Running LTRharvest and write results to ",output.path," ...")
+      cat("Running LTRharvest and write results to ",output.path,"...")
       cat("\n")  
     }
       
@@ -228,7 +232,7 @@ LTRharvest <- function(genome.file,
     }
     
     if (verbose){
-      cat("Analysis finished!")
+      cat("LTRharvest analysis finished!")
       cat("\n")  
     }
 }
