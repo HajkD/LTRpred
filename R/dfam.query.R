@@ -43,10 +43,13 @@ dfam.query <- function(seq.file,
     cat("\n")
   } else {
     
-    cat("\n")
-    cat("Prepare the Dfam.hmm database...")
-    cat("\n")
-    system(paste0("hmmpress ",file.path(Dfam.db,"Dfam.hmm")))
+      if (file.exists(file.path(ws.wrap.path(output.folder),"Dfam.hmm.h3f")) & file.exists(file.path(ws.wrap.path(output.folder),"Dfam.hmm.h3i")) & file.exists(file.path(ws.wrap.path(output.folder),"Dfam.hmm.h3m")) & file.exists(file.path(ws.wrap.path(output.folder),"Dfam.hmm.h3p"))) {
+          cat("\n")
+          cat("Prepare the Dfam.hmm database...")
+          cat("\n")
+          system(paste0("hmmpress ",file.path(Dfam.db,"Dfam.hmm")))
+      } 
+    
     cat("Run Dfam scan...")
     cat("\n")
     system(paste0("perl ","/usr/local/bin/dfamscan.pl"," -fastafile ",ws.wrap.path(seq.file)," -hmmfile ",ws.wrap.path(file.path(Dfam.db,"Dfam.hmm"))," -dfam_outfile ",
@@ -56,5 +59,4 @@ dfam.query <- function(seq.file,
     cat("\n")
     cat("\n")
     }
-  
 }
