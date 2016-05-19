@@ -164,7 +164,9 @@ LTRdigest <- function(input.gff3,
         
     }
     
-    
+    cat("\n")
+    cat("Run LTRdigest...")
+    cat("\n")
     # In case no index file is passed to this function
     # an index file will be generated using "gt suffixerator"
     if (is.null(index.file)){
@@ -184,7 +186,7 @@ LTRdigest <- function(input.gff3,
     system(paste0("gt gff3 -sort ",input.gff3," > ", sorted.input.gff3))
     
     
-    cat("Running LTRdigest and write results to ",output.path," ...")
+    cat("Running LTRdigest and write results to ",output.path,"...")
     cat("\n")    
     
         # Run LTRdigest
@@ -210,7 +212,7 @@ LTRdigest <- function(input.gff3,
                       ,ws.wrap.path(IndexOutputFileName), " > ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_LTRdigestPrediction",".gff")))))
         
     
-    cat("Analysis finished!")
+    cat("LTRdigest analysis finished!")
     cat("\n")
     cat("\n") 
 }
