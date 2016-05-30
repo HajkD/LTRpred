@@ -171,7 +171,7 @@ LTRdigest <- function(input.gff3,
     # an index file will be generated using "gt suffixerator"
     if (is.null(index.file)){
         cat("\n")
-        cat("Generating the index file ",IndexOutputFileName," with suffixerator...")
+        cat("Generating index file ",IndexOutputFileName," with suffixerator...")
         cat("\n")
         # Genrate Suffix for LTRdigest
         system(paste0("gt suffixerator -tis -des -dna -ssp -db ",ws.wrap.path(genome.file)," -indexname ", ws.wrap.path(IndexOutputFileName)))    
