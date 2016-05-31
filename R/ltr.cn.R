@@ -234,12 +234,18 @@ ltr.cn <- function(data.sheet,
                       subject_id = as.character(subject_id))
 
     # remove mitochondria
+    
+    BLASTOutput_3ltr <- dplyr::filter(BLASTOutput_3ltr, !stringr::str_detect(subject_id, "mito"))
+    BLASTOutput_3ltr <- dplyr::filter(BLASTOutput_3ltr, !stringr::str_detect(subject_id, "mt"))
+    BLASTOutput_5ltr <- dplyr::filter(BLASTOutput_5ltr, !stringr::str_detect(subject_id, "mito"))
+    BLASTOutput_5ltr <- dplyr::filter(BLASTOutput_5ltr, !stringr::str_detect(subject_id, "mt"))
+    
     LTR.fasta_full.te <- dplyr::filter(LTRpred.tbl, !stringr::str_detect(chromosome, "mito"))
     LTR.fasta_full.te <- dplyr::filter(LTR.fasta_full.te, !stringr::str_detect(chromosome, "mt"))
     # test whether or not 3ltr and 5 ltr loci overlap with predicted full ltr transposon locus
     full.te.chr <- names(table(LTR.fasta_full.te$chromosome))
     ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
-    
+
     if (!identical(full.te.chr, ltr_chr))
         stop(
             "Chromosome names in full LTR transposon sequence file and LTR element blast file do not match!",
