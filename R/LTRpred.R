@@ -753,15 +753,23 @@ LTRpred <- function(genome.file       = NULL,
             ))
             
             if ((!is.null(annotate)) && (annotate == "Dfam")) {
-             
-                file.move(file.path(
-                    folder_path,
-                    paste0(chopped.foldername, "-ltrdigest_complete.fas", "_DfamAnnotation.out")
-                ),
-                file.path(
-                    output.path,
-                    paste0(chopped.foldername, "-ltrdigest_complete.fas", "_DfamAnnotation.out")
-                ))
+              if (is.null(dfam.file)) {
+                  file.move(file.path(
+                      folder_path,
+                      paste0(chopped.foldername, "-ltrdigest_complete.fas", "_DfamAnnotation.out")
+                  ),
+                  file.path(
+                      output.path,
+                      paste0(chopped.foldername, "-ltrdigest_complete.fas", "_DfamAnnotation.out")
+                  ))
+              }
+              if (!is.null(dfam.file)){
+                    file.move(dfam.file,
+                    file.path(
+                        output.path,
+                        basename(dfam.file)
+                    ))
+                }
             }
             
         } 
@@ -781,14 +789,23 @@ LTRpred <- function(genome.file       = NULL,
             ))
             
             if ((!is.null(annotate)) && (annotate == "Dfam")) {
-                file.move(file.path(
-                    folder_path,
-                    paste0(chopped.foldername, "-ltrdigest_complete.fas", "_DfamAnnotation.out")
-                ),
-                file.path(
-                    output.path,
-                    paste0(chopped.foldername, "-ltrdigest_complete.fas", "_DfamAnnotation.out")
-                ))
+                if (is.null(dfam.file)) {
+                    file.move(file.path(
+                        folder_path,
+                        paste0(chopped.foldername, "-ltrdigest_complete.fas", "_DfamAnnotation.out")
+                    ),
+                    file.path(
+                        output.path,
+                        paste0(chopped.foldername, "-ltrdigest_complete.fas", "_DfamAnnotation.out")
+                    ))
+                }
+                if (!is.null(dfam.file)) {
+                    file.move(dfam.file,
+                    file.path(
+                        output.path,
+                        basename(dfam.file)
+                    ))
+                }
             }
         }
         
