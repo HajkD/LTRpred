@@ -224,24 +224,18 @@ ltr.cn <- function(data.sheet,
         dplyr::mutate(BLASTOutput_3ltr, subject_id = as.character(subject_id))
     BLASTOutput_5ltr <-
         dplyr::mutate(BLASTOutput_5ltr, subject_id = as.character(subject_id))
+   
+    # here match Chromosomes....
     BLASTOutput_3ltr <-
         dplyr::mutate(BLASTOutput_3ltr,
-                      subject_id = stringr::str_replace(
-                          subject_id,
-                          subject_id,
-                          paste0(subject_id, "_CHROMOSOME_dumped_")
-                      ))
+                      subject_id = as.character(subject_id))
     BLASTOutput_5ltr <-
         dplyr::mutate(BLASTOutput_5ltr,
-                      subject_id = stringr::str_replace(
-                          subject_id,
-                          subject_id,
-                          paste0(subject_id, "_CHROMOSOME_dumped_")
-                      ))
-    
+                      subject_id = as.character(subject_id))
+
     # remove mitochondria
-    LTR.fasta_full.te <-
-        dplyr::filter(LTRpred.tbl, !stringr::str_detect(chromosome, "mito"))
+    LTR.fasta_full.te <- dplyr::filter(LTRpred.tbl, !stringr::str_detect(chromosome, "mito"))
+    LTR.fasta_full.te <- dplyr::filter(LTR.fasta_full.te, !stringr::str_detect(chromosome, "mt"))
     # test whether or not 3ltr and 5 ltr loci overlap with predicted full ltr transposon locus
     full.te.chr <- names(table(LTR.fasta_full.te$chromosome))
     ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
@@ -254,7 +248,7 @@ ltr.cn <- function(data.sheet,
             full.te.chr[1],
             " and LTR blast name = ",
             ltr_chr[1],
-            ". Please fix...",
+            ". Maybe there are mitochondira or chloroplasts in your FASTA file. Please fix...",
             call. = FALSE
         )
     
