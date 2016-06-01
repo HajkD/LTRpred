@@ -233,19 +233,21 @@ ltr.cn <- function(data.sheet,
         dplyr::mutate(BLASTOutput_5ltr,
                       subject_id = as.character(subject_id))
 
-    # remove mitochondria
-    
-    BLASTOutput_3ltr <- dplyr::filter(BLASTOutput_3ltr, !stringr::str_detect(subject_id, "mito"))
-    BLASTOutput_3ltr <- dplyr::filter(BLASTOutput_3ltr, !stringr::str_detect(subject_id, "mt"))
-    BLASTOutput_5ltr <- dplyr::filter(BLASTOutput_5ltr, !stringr::str_detect(subject_id, "mito"))
-    BLASTOutput_5ltr <- dplyr::filter(BLASTOutput_5ltr, !stringr::str_detect(subject_id, "mt"))
-    
-    LTR.fasta_full.te <- dplyr::filter(LTRpred.tbl, !stringr::str_detect(chromosome, "mito"))
-    LTR.fasta_full.te <- dplyr::filter(LTR.fasta_full.te, !stringr::str_detect(chromosome, "mt"))
+    ## remove non-matching chromosomes or mitochondria or chloroplast (sequences)
     # test whether or not 3ltr and 5 ltr loci overlap with predicted full ltr transposon locus
+    full.te.chr <- names(table(LTRpred.tbl$chromosome))
+    ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
+    # setdiff is not symmetrical so setdiff(A,B) != setdiff(B,A)
+    setdiff.full.te <- Biostrings::setdiff(full.te.chr, ltr_chr)
+    setdiff.ltr <- Biostrings::setdiff(ltr_chr, full.te.chr)
+    LTR.fasta_full.te <- dplyr::filter(LTRpred.tbl, !is.element(chromosome, setdiff.full.te))
+    BLASTOutput_3ltr <- dplyr::filter(BLASTOutput_3ltr, !is.element(subject_id, setdiff.ltr))
+    BLASTOutput_5ltr <- dplyr::filter(BLASTOutput_5ltr, !is.element(subject_id, setdiff.ltr))
+    
+    # test again after removal of different chromosomes if chromosomes in both tables match
     full.te.chr <- names(table(LTR.fasta_full.te$chromosome))
     ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
-
+    
     if (!identical(full.te.chr, ltr_chr))
         stop(
             "Chromosome names in full LTR transposon sequence file and LTR element blast file do not match!",
