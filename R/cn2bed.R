@@ -9,7 +9,7 @@
 #' @seealso \code{\link{ltr.cn}}, \code{\link{te.cn}}, \code{\link{LTRpred}}
 #' @export
 
-cn2bed <- function(cn.pred, type = "solo", filename = "copy_number_est", sep = ";", output = NULL) {
+cn2bed <- function(cn.pred, type = "solo", filename = "copy_number_est", sep = "\t", output = NULL) {
     
     if (!is.element(type, c("solo", "te")))
         stop("Please choose either 'solo' or 'te' as type.")
@@ -35,10 +35,10 @@ cn2bed <- function(cn.pred, type = "solo", filename = "copy_number_est", sep = "
                     bit_score,
                     strand
                 ),
-                file = paste0(filename, ".csv"),
+                file = paste0(filename, ".bed"),
                 sep = sep,
                 row.names = FALSE,
-                col.names = TRUE
+                col.names = FALSE
             )
         
         if (!is.null(output))
@@ -52,10 +52,10 @@ cn2bed <- function(cn.pred, type = "solo", filename = "copy_number_est", sep = "
                     bit_score,
                     strand
                 ),
-                file = file.path(output, paste0(filename, ".csv")),
+                file = file.path(output, paste0(filename, ".bed")),
                 sep = sep,
                 row.names = FALSE,
-                col.names = TRUE
+                col.names = FALSE
             )
     }
 }
