@@ -4,7 +4,7 @@
 \alias{cn2bed}
 \title{Write copy number estimation results to BED file format.}
 \usage{
-cn2bed(cn.pred, type = "solo", filename = "copy_number_est", sep = ";",
+cn2bed(cn.pred, type = "solo", filename = "copy_number_est", sep = "\\t",
   output = NULL)
 }
 \arguments{
