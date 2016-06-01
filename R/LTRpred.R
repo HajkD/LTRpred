@@ -502,11 +502,18 @@ LTRpred <- function(genome.file       = NULL,
     if (!is.null(LTRdigestOutput)) {
         LTRdigestOutput$ltr.retrotransposon <-
             dplyr::mutate(LTRdigestOutput$ltr.retrotransposon,
-                          orf.id = paste0(chromosome, "_", start, "_", end))
+                          orf.id = paste0(chromosome_ltrharvest, "_", start, "_", end))
         LTRdigestOutput$ltr.retrotransposon <-
             dplyr::full_join(LTRdigestOutput$ltr.retrotransposon,
                              ORFTable,
                              by = c("orf.id" = "seq.id"))
+        cat("\n")
+        cat("Join ORF Prediction table: nrow(df) = ",nrow(LTRdigestOutput$ltr.retrotransposon), " candidates.")
+        cat("\n")
+        cat("unique(ID) = ",length(unique(LTRdigestOutput$ltr.retrotransposon$ID)), " candidates.")
+        cat("\n")
+        cat("unique(orf.id) = ",length(unique(LTRdigestOutput$ltr.retrotransposon$orf.id)), " candidates.")
+        cat("\n")
         
         LTRdigestOutput$ltr.retrotransposon <-
             dplyr::mutate(LTRdigestOutput$ltr.retrotransposon,
@@ -533,20 +540,21 @@ LTRpred <- function(genome.file       = NULL,
         #    suppressWarnings(LTRdigestOutput$ltr.retrotransposon <- dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, ProteinMatch, by = "ID"))
         #
         
-        if (nrow(LTRdigestOutput$RR_tract) > 0) {
-            RR_tract <-
-                dplyr::select(LTRdigestOutput$RR_tract, ID, start, end, width)
-            colnames(RR_tract) <-
-                c("ID",
-                  "RR_tract_start",
-                  "RR_tract_end",
-                  "RR_tract_length")
-            suppressWarnings(
-                LTRdigestOutput$ltr.retrotransposon <-
-                    dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, RR_tract, by = "ID")
-            )
-        }
-        
+        # if (nrow(LTRdigestOutput$RR_tract) > 0) {
+        #     RR_tract <-
+        #         dplyr::select(LTRdigestOutput$RR_tract, ID, start, end, width)
+        #     colnames(RR_tract) <-
+        #         c("ID",
+        #           "RR_tract_start",
+        #           "RR_tract_end",
+        #           "RR_tract_length")
+        #     suppressWarnings(
+        #         LTRdigestOutput$ltr.retrotransposon <-
+        #             dplyr::inner_join(LTRdigestOutput$ltr.retrotransposon, RR_tract, by = "ID")
+        #     )
+        # }
+        # 
+  
         element_start <-
             element_length <- `width.y` <- `start.y` <- `end.y` <- NULL
         
@@ -626,8 +634,18 @@ LTRpred <- function(genome.file       = NULL,
                     names(Dfam.tbl.grouped)[3] <- "orf.id"
                     names(Dfam.tbl.grouped)[-3] <-
                         paste0("dfam_", names(Dfam.tbl.grouped)[-3])
+                    
                     res <-
-                        dplyr::full_join(res, Dfam.tbl.grouped, by = "orf.id")
+                        dplyr::left_join(res, Dfam.tbl.grouped, by = "orf.id")
+                    
+                    cat("\n")
+                    cat("Join Dfam Annotation table: nrow(df) = ",nrow(res), " candidates.")
+                    cat("\n")
+                    cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
+                    cat("\n")
+                    cat("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
+                    cat("\n")
+                    
                     res <-
                         dplyr::mutate(res,
                                       dfam_target_name = ifelse(
@@ -690,7 +708,16 @@ LTRpred <- function(genome.file       = NULL,
                 names(cluster.file.type.H)[2] <- "orf.id"
                 
                 res <-
-                    dplyr::full_join(res, cluster.file.type.H, by = "orf.id")
+                    dplyr::left_join(res, cluster.file.type.H, by = "orf.id")
+                
+                cat("\n")
+                cat("Join Cluster table: nrow(df) = ",nrow(res), " candidates.")
+                cat("\n")
+                cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
+                cat("\n")
+                cat("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
+                cat("\n")
+                
                 res <-
                     dplyr::mutate(
                         res,
@@ -715,10 +742,146 @@ LTRpred <- function(genome.file       = NULL,
                 
                 # join copy number information of clustered elements with result table
                 res <-
-                    dplyr::full_join(res, Clust.cn, by = "Clust_Cluster")
+                    dplyr::left_join(res, Clust.cn, by = "Clust_Cluster")
+               
+                 cat("\n")
+                cat("Join Cluster Copy Number table: nrow(df) = ",nrow(res), " candidates.")
+                cat("\n")
+                cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
+                cat("\n")
+                cat("unique(orf.id)) = ",length(unique(res$orf.id)), " candidates.")
+                cat("\n")
+                
                 res <-
                     dplyr::mutate(res, Clust_cn = ifelse(is.na(Clust_cn), 1, as.numeric(Clust_cn)))
             }
+            
+            
+            # perform methylation mark counting
+            full.te.seq <-
+                file.path(
+                    folder_path,
+                    paste0(chopped.foldername, "_ltrdigest"),
+                    paste0(chopped.foldername, "-ltrdigest_complete.fas")
+                )
+            seq_3ltr <-
+                file.path(
+                    folder_path,
+                    paste0(chopped.foldername, "_ltrdigest"),
+                    paste0(chopped.foldername, "-ltrdigest_3ltr.fas")
+                )
+            
+            seq_5ltr <-
+                file.path(
+                    folder_path,
+                    paste0(chopped.foldername, "_ltrdigest"),
+                    paste0(chopped.foldername, "-ltrdigest_3ltr.fas")
+                )
+            
+            # count CG: absolute
+            full.te.seq.CG.abs <-
+                motif.count(seq.file = full.te.seq,
+                            motif    = "CG")
+            seq_3ltr.CG.abs <- motif.count(seq.file = seq_3ltr,
+                                           motif    = "CG")
+            seq_5ltr.CG.abs <- motif.count(seq.file = seq_5ltr,
+                                           motif    = "CG")
+            # count CG: relative
+            full.te.seq.CG.rel <-
+                motif.count(seq.file = full.te.seq,
+                            motif    = "CG",
+                            as.ratio = TRUE)
+            seq_3ltr.CG.rel <- motif.count(seq.file = seq_3ltr,
+                                           motif    = "CG",
+                                           as.ratio = TRUE)
+            seq_5ltr.CG.rel <- motif.count(seq.file = seq_5ltr,
+                                           motif    = "CG",
+                                           as.ratio = TRUE)
+            
+            
+            # count CHG: absolute
+            full.te.seq.CHG.abs <-
+                motif.count(seq.file = full.te.seq,
+                            motif    = "CHG")
+            seq_3ltr.CHG.abs <- motif.count(seq.file = seq_3ltr,
+                                            motif    = "CHG")
+            seq_5ltr.CHG.abs <- motif.count(seq.file = seq_5ltr,
+                                            motif    = "CHG")
+            
+            # count CHG: relative
+            full.te.seq.CHG.rel <-
+                motif.count(seq.file = full.te.seq,
+                            motif    = "CHG",
+                            as.ratio = TRUE)
+            seq_3ltr.CHG.rel <- motif.count(seq.file = seq_3ltr,
+                                            motif    = "CHG",
+                                            as.ratio = TRUE)
+            seq_5ltr.CHG.rel <- motif.count(seq.file = seq_5ltr,
+                                            motif    = "CHG",
+                                            as.ratio = TRUE)
+            
+            # count CHH: absolute
+            full.te.seq.CHH.abs <-
+                motif.count(seq.file = full.te.seq,
+                            motif    = "CHH")
+            seq_3ltr.CHH.abs <- motif.count(seq.file = seq_3ltr,
+                                            motif    = "CHH")
+            seq_5ltr.CHH.abs <- motif.count(seq.file = seq_5ltr,
+                                            motif    = "CHH")
+            
+            # count CHH: relative
+            full.te.seq.CHH.rel <-
+                motif.count(seq.file = full.te.seq,
+                            motif    = "CHH",
+                            as.ratio = TRUE)
+            seq_3ltr.CHH.rel <- motif.count(seq.file = seq_3ltr,
+                                            motif    = "CHH",
+                                            as.ratio = TRUE)
+            seq_5ltr.CHH.rel <- motif.count(seq.file = seq_5ltr,
+                                            motif    = "CHH",
+                                            as.ratio = TRUE)
+            
+            if (!identical(names(full.te.seq.CHG.rel), names(seq_3ltr.CHG.rel)))
+                stop("Order of names in files: '",
+                     full.te.seq,
+                     "' and '",
+                     seq_3ltr,
+                     "' do not match.",
+                     call. = FALSE
+                )
+            
+            # construct count data.frame
+            count.df <- data.frame(
+                orf.id = names(full.te.seq.CHG.rel),
+                TE_CG_abs = full.te.seq.CG.abs,
+                TE_CG_rel = full.te.seq.CG.rel,
+                TE_CHG_abs = full.te.seq.CHG.abs,
+                TE_CHG_rel = full.te.seq.CHG.rel,
+                TE_CHH_abs = full.te.seq.CHH.abs,
+                TE_CHH_rel = full.te.seq.CHH.rel,
+                CG_3ltr_abs = seq_3ltr.CG.abs,
+                CG_3ltr_rel = seq_3ltr.CG.rel,
+                CHG_3ltr_abs = seq_3ltr.CHG.abs,
+                CHG_3ltr_rel = seq_3ltr.CHG.rel,
+                CHH_3ltr_abs = seq_3ltr.CHH.abs,
+                CHH_3ltr_rel = seq_3ltr.CHH.rel,
+                CG_5ltr_abs = seq_5ltr.CG.abs,
+                CG_5ltr_rel = seq_5ltr.CG.rel,
+                CHG_5ltr_abs = seq_5ltr.CHG.abs,
+                CHG_5ltr_rel = seq_5ltr.CHG.rel,
+                CHH_5ltr_abs = seq_5ltr.CHH.abs,
+                CHH_5ltr_rel = seq_5ltr.CHH.rel
+            )
+
+            res <-
+                dplyr::left_join(res, dplyr::tbl_df(count.df), by = "orf.id")
+            cat("\n")
+            cat("Join methylation context (CG, CHG, CHH) count table: nrow(df) = ",nrow(res), " candidates.")
+            cat("\n")
+            cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
+            cat("\n")
+            cat("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
+            cat("\n")
             
             # perform internal file handling
             if (is.null(LTRharvest.folder)) {
@@ -908,7 +1071,16 @@ LTRpred <- function(genome.file       = NULL,
         names(solo.ltr.cn.n_3ltr)[1] <- "orf.id"
         names(solo.ltr.cn.n_5ltr)[1] <- "orf.id"
         
-        res <- dplyr::full_join(res, solo.ltr.cn.n_3ltr, by = "orf.id")
+        res <- dplyr::left_join(res, solo.ltr.cn.n_3ltr, by = "orf.id")
+        cat("\n")
+        cat("Join solo LTR Copy Number Estimation table: nrow(df) = ",nrow(res), " candidates.")
+        cat("\n")
+        cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
+        cat("\n")
+        cat("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
+        cat("\n")
+        
+        
         res <-
             dplyr::mutate(res, cn_3ltr = ifelse(is.na(cn_3ltr), 0, as.numeric(cn_3ltr)))
         res <- dplyr::full_join(res, solo.ltr.cn.n_5ltr, by = "orf.id")
