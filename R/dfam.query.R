@@ -17,46 +17,97 @@ dfam.query <- function(seq.file,
                        cores         = 1, 
                        output.folder = getwd()){
   
-  if (is.null(Dfam.db))
-    stop ("Please provide either a path to the Dfam.hmm database (file) or choose
-          Dfam.db = 'download' so that Dfam.hmm is automatically loaded by this function
-          (make sure that the internet connection is stabe.")
-  
-  if (!file.exists("/usr/local/bin/dfamscan.pl"))
-    stop ("The perl script dfamscan.pl could not be found! Please download it from Dfam and store it in /usr/local/bin .")
-  
-  if (Dfam.db == "download"){
+    if (is.null(Dfam.db))
+        stop (
+            "Please provide either a path to the Dfam.hmm database (file) or choose
+            Dfam.db = 'download' so that Dfam.hmm is automatically loaded by this function
+            (make sure that the internet connection is stabe."
+            )
     
-    downloader::download("http://dfam.org/web_download/Current_Release/Dfam.hmm.gz",file.path(output.folder,"Dfam.hmm.gz"),mode = "wb")
-    cat("\n")
-    cat("Prepare the Dfam.hmm database...")
-    cat("\n")
-    system(paste0("hmmpress ",file.path(ws.wrap.path(output.folder),gzfile("Dfam.hmm.gz"))))
-    cat("Run Dfam scan...")
-    cat("\n")
-    # make sure that in future versions the PATH variable is set and OSX, Linux, 
-    # and Windows paths will be supported
-    system(paste0("perl ","/usr/local/bin/dfamscan.pl"," -fastafile ",ws.wrap.path(seq.file)," -hmmfile ",file.path(ws.wrap.path(output.folder),"Dfam.hmm")," -dfam_outfile ",
-                  ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_DfamAnnotation.out"))) ," -E ", eval,
-                 " -cpu ",cores," --log_file ",ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_logfile.txt"))) ," --masking_thresh "))
-    cat("Finished Dfam scan!")
-    cat("\n")
-  } else {
+    if (!file.exists("/usr/local/bin/dfamscan.pl"))
+        stop (
+            "The perl script dfamscan.pl could not be found! Please download it from Dfam and store it in /usr/local/bin ."
+        )
     
-      if (file.exists(file.path(ws.wrap.path(output.folder),"Dfam.hmm.h3f")) & file.exists(file.path(ws.wrap.path(output.folder),"Dfam.hmm.h3i")) & file.exists(file.path(ws.wrap.path(output.folder),"Dfam.hmm.h3m")) & file.exists(file.path(ws.wrap.path(output.folder),"Dfam.hmm.h3p"))) {
-          cat("\n")
-          cat("Prepare the Dfam.hmm database...")
-          cat("\n")
-          system(paste0("hmmpress ",file.path(Dfam.db,"Dfam.hmm")))
-      } 
-    
-    cat("Run Dfam scan...")
-    cat("\n")
-    system(paste0("perl ","/usr/local/bin/dfamscan.pl"," -fastafile ",ws.wrap.path(seq.file)," -hmmfile ",ws.wrap.path(file.path(Dfam.db,"Dfam.hmm"))," -dfam_outfile ",
-                  ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_DfamAnnotation.out"))) ," -E ", eval,
-                  " -cpu ",cores," --log_file ",ws.wrap.path(file.path(output.folder,paste0(basename(seq.file),"_logfile.txt"))) ," --masking_thresh "))
-    cat("Finished Dfam scan!")
-    cat("\n")
-    cat("\n")
+    if (Dfam.db == "download") {
+        downloader::download(
+            "http://dfam.org/web_download/Current_Release/Dfam.hmm.gz",
+            file.path(output.folder, "Dfam.hmm.gz"),
+            mode = "wb"
+        )
+        cat("\n")
+        cat("Prepare the Dfam.hmm database...")
+        cat("\n")
+        system(paste0("hmmpress ", file.path(
+            ws.wrap.path(output.folder), gzfile("Dfam.hmm.gz")
+        )))
+        cat("Run Dfam scan...")
+        cat("\n")
+        # make sure that in future versions the PATH variable is set and OSX, Linux,
+        # and Windows paths will be supported
+        system(
+            paste0(
+                "perl ",
+                "/usr/local/bin/dfamscan.pl",
+                " -fastafile ",
+                ws.wrap.path(seq.file),
+                " -hmmfile ",
+                file.path(ws.wrap.path(output.folder), "Dfam.hmm"),
+                " -dfam_outfile ",
+                ws.wrap.path(file.path(
+                    output.folder, paste0(basename(seq.file), "_DfamAnnotation.out")
+                )) ,
+                " -E ",
+                eval,
+                " -cpu ",
+                cores,
+                " --log_file ",
+                ws.wrap.path(file.path(
+                    output.folder, paste0(basename(seq.file), "_logfile.txt")
+                )) ,
+                " --masking_thresh "
+            )
+        )
+        cat("Finished Dfam scan!")
+        cat("\n")
+    } else {
+        if (file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3f")) &&
+            file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3i")) &&
+            file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3m")) &&
+            file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3p"))) {
+            cat("\n")
+            cat("Prepare the Dfam.hmm database...")
+            cat("\n")
+            system(paste0("hmmpress ", file.path(Dfam.db, "Dfam.hmm")))
+        }
+        
+        cat("Run Dfam scan...")
+        cat("\n")
+        system(
+            paste0(
+                "perl ",
+                "/usr/local/bin/dfamscan.pl",
+                " -fastafile ",
+                ws.wrap.path(seq.file),
+                " -hmmfile ",
+                ws.wrap.path(file.path(Dfam.db, "Dfam.hmm")),
+                " -dfam_outfile ",
+                ws.wrap.path(file.path(
+                    output.folder, paste0(basename(seq.file), "_DfamAnnotation.out")
+                )) ,
+                " -E ",
+                eval,
+                " -cpu ",
+                cores,
+                " --log_file ",
+                ws.wrap.path(file.path(
+                    output.folder, paste0(basename(seq.file), "_logfile.txt")
+                )) ,
+                " --masking_thresh "
+            )
+        )
+        cat("Finished Dfam scan!")
+        cat("\n")
+        cat("\n")
     }
 }
