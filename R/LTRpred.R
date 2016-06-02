@@ -662,6 +662,12 @@ LTRpred <- function(genome.file       = NULL,
             }
             
             # perform transposon clustering
+            if (!cluster &&
+                !is.null(cluster.file))
+                warning(
+                    "Please specify 'cluster = TRUE' when specifying 'cluster.file'! Since 'cluster = FALSE' no clustering is performed!"
+                    
+                )
             if (cluster) {
                 cat("\n")
                 cat("Perform Clustering of LTR transposons....")
@@ -758,6 +764,10 @@ LTRpred <- function(genome.file       = NULL,
             
             
             # perform methylation mark counting
+            
+            cat("Perform methylation context quantification..")
+            cat("/n")
+            
             full.te.seq <-
                 file.path(
                     folder_path,
