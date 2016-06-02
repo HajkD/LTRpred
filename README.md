@@ -7,8 +7,8 @@
 >
 >  \- Nina V. Federoff, Science 2012 
 
-Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of adaptation, diversification,
-and evolution of eukaryotic organisms. In particular, understanding the recognition and 
+Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of phenotypic adaptation, diversification,
+and evolution. In particular, understanding the recognition and 
 regulation of transposable elements by the genetic regulatory machinery will enable us to 
 systematically identify the key players and key processes that enable niche adaptation and
 species diversification on the genetic level.
