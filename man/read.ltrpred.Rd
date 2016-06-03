@@ -18,6 +18,9 @@ imports this table.
 pred.file <- system.file("Athaliana_TAIR10_chr_all_LTRpred_DataSheet.csv", package = "LTRpred")
 # read LTRpred generated prediction file (data sheet)
 pred <- read.ltrpred(pred.file)
+
+# or arrange by ltr_similarity
+dplyr::arrange(tidy.datasheet(pred), dplyr::desc(ltr_similarity))
 }
 \author{
 Hajk-Georg Drost

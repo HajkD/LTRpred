@@ -8,15 +8,22 @@
 #' pred.file <- system.file("Athaliana_TAIR10_chr_all_LTRpred_DataSheet.csv", package = "LTRpred")
 #' # read LTRpred generated prediction file (data sheet)
 #' pred <- read.ltrpred(pred.file)
+#' 
+#' # or arrange by ltr_similarity
+#' dplyr::arrange(tidy.datasheet(pred), dplyr::desc(ltr_similarity))
 #' @export
    
 read.ltrpred <- function(data.sheet){
-   if (file.info(data.sheet)$size == 0 || is.na(file.info(data.sheet)$size == 0)){
-     cat("File ",data.sheet, " is empty and therefore is not being processed.")
-     cat("\n")
-     cat("\n")
-     return (NULL)
-   }
-  pred <- readr::read_delim(data.sheet, delim = ";")
-  return (pred)
+    if (file.info(data.sheet)$size == 0 ||
+        is.na(file.info(data.sheet)$size == 0)) {
+        cat("File ",
+            data.sheet,
+            " is empty and therefore is not being processed.")
+        cat("\n")
+        cat("\n")
+        return(NULL)
+    }
+    pred <- readr::read_delim(data.sheet, delim = ";")
+    return(pred
+    )
 }
