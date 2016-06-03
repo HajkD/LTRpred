@@ -23,8 +23,6 @@
 #' # look at results
 #' str(LTRfile$ltr.retrotransposon)
 #' 
-#' # or arrange by ltr_similarity
-#' dplyr::arrange(tidy.datasheet(pred), dplyr::desc(ltr_similarity))
 #' }
 #' @export
 
