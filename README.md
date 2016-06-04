@@ -111,7 +111,8 @@ In the `LTRpred` framework users can find:
 
 #### Solo LTR Prediction
 
-* `find.solo_ltrs()` : Detect solo LTR copies of predicted LTR transposons
+* `ltr.cn()` : Detect solo LTR copies of predicted LTR transposons
+* `cn2bed()` : Write copy number estimation results to BED file format.
 
 #### Copy Number Prediction
 
@@ -150,6 +151,10 @@ In the `LTRpred` framework users can find:
 * `PlotSimCount()` : Plot LTR Similarity vs. predicted LTR count
 * `PlotSizeCorrelation()` : Plot Genome size vs. LTR transposon count
 * `PlotJumperSizeCorrelation()` : Plot Genome size vs. LTR transposon count for jumpers
+* `PlotFamily()` : Visualize the Superfamily distribution of predicted LTR retrotransposons
+* `PlotProteinDomain()` : Visualize the Protein Domain distribution of predicted LTR retrotransposons
+* `PlotCopyNumber()` : Plot correlation between LTR copy number and methylation context  
+
 
 #### Annotation and Validation:
 
@@ -171,6 +176,7 @@ In the `LTRpred` framework users can find:
 * `get.pred.filenames()` : Retrieve file names of files genereated by LTRpred
 * `get.seqs()` : Quickly retrieve the sequences of a 'Biostrings' object
 * `ws.wrap.path()` : Wrap whitespace in paths
+* `tidy.datasheet()` : Select most important columns of 'LTRpred' output for further analytics
 
 ## Developer Version of `LTRpred`
 
