@@ -31,7 +31,7 @@ tidy.datasheet <- function(LTRpred.tbl){
             PBS_length,
             dfam_target_description,
             orf.id,
-            TE_CG_abs:CHH_5ltr_rel
+            TE_CG_abs:N_5ltr_abs
         )
     )
     
