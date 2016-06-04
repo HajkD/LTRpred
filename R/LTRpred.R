@@ -766,7 +766,7 @@ LTRpred <- function(genome.file       = NULL,
             # perform methylation mark counting
             
             cat("Perform methylation context quantification..")
-            cat("/n")
+            cat("\n")
             
             full.te.seq <-
                 file.path(
@@ -851,6 +851,19 @@ LTRpred <- function(genome.file       = NULL,
                                             motif    = "CHH",
                                             as.ratio = TRUE)
             
+            # count N's: to assess the quality of the corresponding sequences
+            full.te.seq.N.abs <-
+                motif.count(seq.file = full.te.seq,
+                            motif    = "N",
+                            as.ratio = FALSE)
+            seq_3ltr.N.abs <- motif.count(seq.file = seq_3ltr,
+                                            motif    = "N",
+                                            as.ratio = FALSE)
+            seq_5ltr.N.abs <- motif.count(seq.file = seq_5ltr,
+                                            motif    = "N",
+                                            as.ratio = FALSE)
+            
+            
             if (!identical(names(full.te.seq.CHG.rel), names(seq_3ltr.CHG.rel)))
                 stop("Order of names in files: '",
                      full.te.seq,
@@ -869,18 +882,21 @@ LTRpred <- function(genome.file       = NULL,
                 TE_CHG_rel = full.te.seq.CHG.rel,
                 TE_CHH_abs = full.te.seq.CHH.abs,
                 TE_CHH_rel = full.te.seq.CHH.rel,
+                TE_N_abs   = full.te.seq.N.abs,
                 CG_3ltr_abs = seq_3ltr.CG.abs,
                 CG_3ltr_rel = seq_3ltr.CG.rel,
                 CHG_3ltr_abs = seq_3ltr.CHG.abs,
                 CHG_3ltr_rel = seq_3ltr.CHG.rel,
                 CHH_3ltr_abs = seq_3ltr.CHH.abs,
                 CHH_3ltr_rel = seq_3ltr.CHH.rel,
+                N_3ltr_abs = seq_3ltr.N.abs,
                 CG_5ltr_abs = seq_5ltr.CG.abs,
                 CG_5ltr_rel = seq_5ltr.CG.rel,
                 CHG_5ltr_abs = seq_5ltr.CHG.abs,
                 CHG_5ltr_rel = seq_5ltr.CHG.rel,
                 CHH_5ltr_abs = seq_5ltr.CHH.abs,
-                CHH_5ltr_rel = seq_5ltr.CHH.rel
+                CHH_5ltr_rel = seq_5ltr.CHH.rel,
+                N_5ltr_abs = seq_5ltr.N.abs
             )
 
             res <-
