@@ -36,6 +36,7 @@ PlotFamily <- function(LTRpred.tbl,
             ggplot2::geom_bar() + 
             ggplot2::labs(x = xlab, y = ylab, title = main) +
             ggplot2::scale_fill_discrete(name = legend.title) +
+            ggplot2::theme_minimal() +
             ggplot2::theme(
                 title            = ggplot2::element_text(size = 18, face = "bold"),
                 legend.title     = ggplot2::element_text(size = 18, face = "bold"),
