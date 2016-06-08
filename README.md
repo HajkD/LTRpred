@@ -37,12 +37,6 @@ In particular the following analyses can be performed with `LTRpred`:
 - filtering for (potentially) active LTR retrotransposons  
 - quality assesment of input genomes used to predict LTR retrotransposons
 
-### Motif Discovery
-
-- transcription factor binding site estimation in predicted LTR retrotransposons
-
-
-
 ### Meta-Genomics Analyses
 
 - run `LTRpred` on entire kingdoms of life
@@ -109,19 +103,22 @@ In the `LTRpred` framework users can find:
 * `LTRharvest()` : Run LTRharvest to predict putative LTR Retrotransposons
 * `LTRdigest()` : Run LTRdigest to predict putative LTR Retrotransposons
 
-#### Solo LTR Prediction
+#### LTR Copy Number Estimation
 
 * `ltr.cn()` : Detect solo LTR copies of predicted LTR transposons
 * `cn2bed()` : Write copy number estimation results to BED file format.
 
-#### Copy Number Prediction
+#### TE Copy Number Estimation (Clustering Similar TEs)
 
-* 
+* `CLUSTpred()` : Cluster Sequences with VSEARCH
+* `cluster.members()` : Select members of a specific cluster
+* `clust2fasta()` : Export sequences of TEs belonging to the same cluster to fasta files
 
 
 #### Filter Functions
 
 * `filter.jumpers()` : Detect LTR retrotransposons that are potential jumpers
+* `tidy.datasheet()` : Select most important columns of 'LTRpred' output for further analytics
 
 #### Import the Output Files of the Prediction Tools:
 
@@ -144,7 +141,6 @@ In the `LTRpred` framework users can find:
 #### Visualization and Analytics Tools:
 
 * `ORFpred()` : Open Reading Frame prediction in putative LTR transposons
-* `CLUSTpred()` : Cluster Sequences with VSEARCH
 * `PlotLTRAge()` : Plot the age distribution of predicted LTR transposons
 * `PlotLTRWidth()` : Plot the width distribution of putative LTR transposons or LTRs
 * `PlotLTRRange()` : Plot Genomic Ranges of putative LTR transposons
@@ -164,7 +160,7 @@ In the `LTRpred` framework users can find:
 * `repbase.query()` : Query the RepBase to annotate putative LTRs
 * `repbase.filter()` : Filter the Repbase query output
 
-#### Motif Discovery in Predicted LTR Transposons
+#### Methylation Context Estimation
 
 * `motif.count()` : Low level function to detect motifs in strings
 
@@ -176,7 +172,6 @@ In the `LTRpred` framework users can find:
 * `get.pred.filenames()` : Retrieve file names of files genereated by LTRpred
 * `get.seqs()` : Quickly retrieve the sequences of a 'Biostrings' object
 * `ws.wrap.path()` : Wrap whitespace in paths
-* `tidy.datasheet()` : Select most important columns of 'LTRpred' output for further analytics
 
 ## Developer Version of `LTRpred`
 
