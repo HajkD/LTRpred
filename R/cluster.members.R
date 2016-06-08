@@ -19,6 +19,10 @@
 
 cluster.members <- function(LTRpred.tbl, cluster = NULL){
     
+    if (!is.element(cluster, names(table(LTRpred.tbl$Clust_Cluster))))
+        stop("Cluster '",cluster,"' is not present in this dataset.", call. = FALSE)
+    
+    
     if (!is.null(cluster)) {
         LTRpred.sub.tbl <-
             dplyr::filter(LTRpred.tbl, Clust_Cluster == cluster)
