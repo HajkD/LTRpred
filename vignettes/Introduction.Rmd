@@ -10,34 +10,43 @@ vignette: >
 
 # Introduction
 
-The `LTRpred` package aims to provide an integrated software framework to predict LTR transposons de novo in any genomic sequence of interest. For this purpose, this package provides a rich set of analytics tools as well as documentation and use cases to allow users to quickly 
-start annotating their own genomes.
+The `LTRpred` package aims to provide an integrated software framework to predict LTR transposons _de novo_ in any genomic sequence of interest. For this purpose, this package provides a rich set of analytics tools to allow researchers to quickly 
+start annotating and explore their own genomes.
 
 The `de novo` prediction of LTR transposons in `LTRpred` is based on the command line tools 
 [LTRharvest](http://www.zbh.uni-hamburg.de/?id=206) and [LTRdigest](http://www.zbh.uni-hamburg.de/forschung/arbeitsgruppe-genominformatik/software/ltrdigest.html) and extends these search strategies by additional analytics
 modules to filter the search space of putative LTR transposons for biologically meaningful candidates.
 
+Please make sure that all command line tools are installed properly before running any `LTRpred` function. Researchers can find a detailed documentation on how to install all
+pre-requisite tools in the [Installation Vignette]().
+
 # Getting Started
 
-For the `de novo` annotation of LTR transposons `LTRharvest` and `LTRdigest` use prior knowledge
-about sequence features (also referred to as `Structure-based methods`) such as the homology of Long Terminal Repeats (LTRs), Primer Binding Sites (PBS), _gag_ and _pol_ protein domains, and
-Target Site Duplications (TSDs) that are known to enable the process of transposition ([Bergman and Quesneville, 2007](http://bib.oxfordjournals.org/content/8/6/382.long)).
+My rational for implementing `LTRpred` was to extend the best state-of-the art LTR transposon
+inference tools by a powerful analytics and extended annotation framework. Hence, _LTRpred_
+aims to provide a high-level _de novo_ prediction infrastructure to generate high quality annotations
+of intact LTR retrotransposons. The focus of _LTRpred_ is on detecting potentially active of recently active
+LTR retrotransposons and therefore, most functions are optimized for this purpose. However, I implemented
+all functions generic so that parameters can be changed to detect any form of LTR retrotransposon in any genome.
 
-The corresponding `de novo` annotation tools are therefore designed to screen the genome for
-these structural features. __Figure 1__ shows the structural features of LTR retrotransposons
+Internally, _LTRpred_ is based on the `de novo` annotation tools `LTRharvest` and `LTRdigest` which use prior knowledge
+about DNA sequence features (also referred to as `Structure-based methods`) such as the homology of Long Terminal Repeats (LTRs), Primer Binding Sites (PBS), _gag_ and _pol_ protein domains, and
+Target Site Duplications (TSDs) that are known to enable the process of transposition ([Bergman and Quesneville, 2007](http://bib.oxfordjournals.org/content/8/6/382.long)) to infer LTR retrotransposons in any genome.
+
+Hence, these `de novo` annotation tools are designed to screen the genome systematically and efficiently for
+these structural DNA features. __Figure 1__ shows the structural features of LTR retrotransposons
 that are used for predicting putative LTR transposons `de novo` in any genome of interest.
 
-![Sequence features of LTR retrotransposons. The sequence homology between theLTRs correlates with the evolutionary age of the LTR transposon](LTRfeatures.png)
+![Sequence features of LTR retrotransposons. The structural element (LTR length, LTR similarity, TSD, max. size of full LTR rertrotransposon, PBS length, tRNA binding, protein domain search, etc.) can be mofified and controlled separately by corresponding arguments implemented in the `LTRpred()` function. In addition to controlling the structural features of candidate LTR retrotransposons, a open reading frame prediction, Dfam annotation, copy number clustering, and LTR copy number estimation, and methylation context quantification is performed subsequently after reporting putative LTR retrotransposons.](LTRfeatures.png)
 
-The rational behind the `LTRpred` package is to provide users the maximal flexibility of
-parameters that can be used to adjust this structural template for finding LTR transposons
-to any biological question at hand. `LTRpred` package allows users to modify a vast range of
+Based on the optimized output of these tools, the `LTRpred` package aims to provide researchers with a maximal flexibility of
+parameters that can be used to adjust this structural template to detect any type of LTR retrotransposons. `LTRpred` package allows users to modify a vast range of
 parameters to screen for potential LTR transposons, so having this template shown in
-__Figure 1__ in mind will help users to modify structural parameters in a biologically meaningful manner.
+__Figure 1__ in mind will help researchers to modify structural parameters in a biologically meaningful manner.
 
 ## Quick Start
 
-The fastest way to generate a LTR prediction for a genome of interest (after [installing](Install.Rmd) all prerequisite command line tools) is to use the
+The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after [installing](Install.Rmd) all prerequisite command line tools) is to use the
 `LTRpred()` function and relying on the default parameters. In the following example,
 a LTR transposon prediction is performed for the `Arabidopsis thaliana` genome.
 
@@ -48,7 +57,9 @@ First users can download the genome of `A. thaliana` as follows:
 ```
 
 In the next step this genome can be used to predict putative LTR transposons that
-fulfill the structural parameters set by the `LTRpred()` function.
+fulfill the structural parameters set by the `LTRpred()` function. `LTRpred()` is the
+main pipeline function of the `LTRpred` package and implements all functionality
+to generate high quality annotations for any genome of interest.
 
 ```r
 # de novo LTR transposon prediction for the A. thaliana genome
@@ -60,6 +71,79 @@ lapply(Ath.Prediction,head,2)
 ```
 
 
+### Output of `LTRpred()`
 
+`LTRpred()` generates an result folder storing information about the predicted LTR retrotransposons.
+The folder and files generated by `LTRpred()` are the following:
+
+
+The file ... can be imported as a `data.frame` using the `read.ltrpred()` function.
+The columns of the prediction file store the following information:
+
+tidy format:
+
+- `ID` :
+- `chromosome` :
+- `start` :
+- `end` :
+- `strand` :
+- `dfam_target_name` :
+- `dfam_acc` :
+- `width` :
+- `ltr_similarity` :
+- `orfs` :
+- `protein_domain` :
+- `Clust_Cluster` :
+- `Clust_Target` :
+- `Clust_Perc_Ident` :
+- `Clust_cn` :
+- `cn_3ltr` :
+- `cn_5ltr` :
+- `lLTR_start` :
+- `lLTR_end` :
+- `lLTR_length` :
+- `rLTR_start` :
+- `rLTR_end` :
+- `rLTR_length` :
+- `lTSD_start` :
+- `lTSD_end` :
+- `lTSD_motif` :
+- `PPT_start` :
+- `PPT_end` :
+- `PPT_motif` :
+- `PPT_strand` :
+- `PPT_offset` :
+- `PBS_start` :
+- `PBS_end` :
+- `PBS_PBS_strand` :
+- `tRNA` :
+- `tRNA_motif` :
+- `PBS_offset` :
+- `tRNA_offset` :
+- `PBS/tRNA_edist` :
+- `PPT_length` :
+- `PBS_length` :
+- `dfam_target_description` :
+- `orf.id` :
+- `TE_CG_abs` :
+- `TE_CG_rel` :
+- `TE_CHG_abs` :
+- `TE_CHG_rel` :
+- `TE_CHH_abs` :
+- `TE_CHH_rel` :
+- `TE_N_abs` :
+- `CG_3ltr_abs` :
+- `CG_3ltr_rel` :
+- `CHG_3ltr_abs` :
+- `CHG_3ltr_rel` :
+- `CHH_3ltr_abs` :
+- `CG_5ltr_abs` :
+- `CG_5ltr_rel` :
+- `N_3ltr_abs` :
+- `CHG_5ltr_abs` :
+- `CHG_5ltr_rel` :
+- `CHH_5ltr_abs` :
+- `CHH_5ltr_rel` :
+- `N_5ltr_abs` :
 
 
