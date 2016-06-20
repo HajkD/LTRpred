@@ -1067,7 +1067,8 @@ LTRpred <- function(genome.file       = NULL,
             LTR.fasta_5ltr = seqs_5ltr,
             genome         = genome.file,
             ltr.similarity = similar,
-            eval           = cn.eval
+            eval           = cn.eval,
+            cores          = cores
         )
         
         # write estimated solo LTR loci to LTRpred output folder
