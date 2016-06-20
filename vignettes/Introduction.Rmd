@@ -22,10 +22,10 @@ pre-requisite tools in the [Installation Vignette]().
 
 # Getting Started
 
-My rational for implementing `LTRpred` was to extend the best state-of-the art LTR transposon
+The rational for implementing `LTRpred` was to extend the best state-of-the art LTR transposon
 inference tools by a powerful analytics and extended annotation framework. Hence, _LTRpred_
 aims to provide a high-level _de novo_ prediction infrastructure to generate high quality annotations
-of intact LTR retrotransposons. The focus of _LTRpred_ is on detecting potentially active of recently active
+of intact LTR retrotransposons. The focus of _LTRpred_ lies on detecting potentially active of recently active
 LTR retrotransposons and therefore, most functions are optimized for this purpose. However, I implemented
 all functions generic so that parameters can be changed to detect any form of LTR retrotransposon in any genome.
 
