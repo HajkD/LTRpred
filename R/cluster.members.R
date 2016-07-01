@@ -28,10 +28,12 @@ cluster.members <- function(LTRpred.tbl, cluster = NULL){
             dplyr::filter(LTRpred.tbl, Clust_Cluster == cluster)
         Cluster.target.tbl <-
             dplyr::filter(LTRpred.tbl, orf.id == unlist(unique(LTRpred.sub.tbl$Clust_Target)))
-        Cluster.target.tbl$Clust_Cluster <- cluster
-        Cluster.target.tbl$Clust_Target <-
-            unlist(unique(LTRpred.sub.tbl$Clust_Target))
         
+        if (nrow(Cluster.target.tbl) > 0){
+            Cluster.target.tbl$Clust_Cluster <- cluster
+            Cluster.target.tbl$Clust_Target <-
+                unlist(unique(LTRpred.sub.tbl$Clust_Target))
+        }
         return(rbind(Cluster.target.tbl, LTRpred.sub.tbl))
     } else {
         stop("Please specify a cluster!", call. = FALSE)
