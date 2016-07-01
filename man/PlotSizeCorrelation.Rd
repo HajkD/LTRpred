@@ -5,7 +5,8 @@
 \title{Plot Genome size vs. LTR transposon count}
 \usage{
 PlotSizeCorrelation(genome.matrix, cor.method = "spearman",
-  xlab = "LTR transposon Count", ylab = "Genome size in Mega [bp]",
+  smooth.method = "glm", xlab = "LTR transposon Count",
+  ylab = "Genome size in Mega [bp]",
   main = "Genome size vs. LTR transp. count", arrow_lab = FALSE,
   cl.analysis = FALSE, cl.centers = NULL, cl.method = "euclidean",
   cl.nstart = 100, cl.iter.max = 10000, sim.matrix = NULL,
@@ -15,6 +16,10 @@ PlotSizeCorrelation(genome.matrix, cor.method = "spearman",
 \item{genome.matrix}{Genome matrix retruned by \code{\link{LTRpred.meta}}.}
 
 \item{cor.method}{correlation analysis method. Either \code{"pearson"}, \code{"kendall"}, or \code{"spearman"}.}
+
+\item{smooth.method}{method to add a smoothed conditional mean (see \code{ggplot2::geom_smooth()}).
+Users can choose from \code{auto}, \code{glm}, \code{lm}, or \code{loess}. If no smoothing function shall be applied,
+users can specify \code{smooth.method = 'NULL'}.}
 
 \item{xlab}{x-axis label.}
 
