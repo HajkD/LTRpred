@@ -850,6 +850,29 @@ LTRpred <- function(genome.file       = NULL,
                                             motif    = "CHH",
                                             as.ratio = TRUE)
             
+            
+            # count CCG: absolute
+            full.te.seq.CCG.abs <-
+                motif.count(seq.file = full.te.seq,
+                            motif    = "CCG")
+            seq_3ltr.CCG.abs <- motif.count(seq.file = seq_3ltr,
+                                            motif    = "CCG")
+            seq_5ltr.CCG.abs <- motif.count(seq.file = seq_5ltr,
+                                            motif    = "CCG")
+            
+            # count CCG: relative
+            full.te.seq.CCG.rel <-
+                motif.count(seq.file = full.te.seq,
+                            motif    = "CCG",
+                            as.ratio = TRUE)
+            seq_3ltr.CCG.rel <- motif.count(seq.file = seq_3ltr,
+                                            motif    = "CCG",
+                                            as.ratio = TRUE)
+            seq_5ltr.CCG.rel <- motif.count(seq.file = seq_5ltr,
+                                            motif    = "CCG",
+                                            as.ratio = TRUE)
+            
+            
             # count N's: to assess the quality of the corresponding sequences
             full.te.seq.N.abs <-
                 motif.count(seq.file = full.te.seq,
@@ -881,6 +904,8 @@ LTRpred <- function(genome.file       = NULL,
                 TE_CHG_rel = full.te.seq.CHG.rel,
                 TE_CHH_abs = full.te.seq.CHH.abs,
                 TE_CHH_rel = full.te.seq.CHH.rel,
+                TE_CCG_abs = full.te.seq.CCG.abs,
+                TE_CCG_rel = full.te.seq.CCG.rel,
                 TE_N_abs   = full.te.seq.N.abs,
                 CG_3ltr_abs = seq_3ltr.CG.abs,
                 CG_3ltr_rel = seq_3ltr.CG.rel,
@@ -888,6 +913,8 @@ LTRpred <- function(genome.file       = NULL,
                 CHG_3ltr_rel = seq_3ltr.CHG.rel,
                 CHH_3ltr_abs = seq_3ltr.CHH.abs,
                 CHH_3ltr_rel = seq_3ltr.CHH.rel,
+                CCG_3ltr_abs = seq_3ltr.CCG.abs,
+                CCG_3ltr_rel = seq_3ltr.CCG.rel,
                 N_3ltr_abs = seq_3ltr.N.abs,
                 CG_5ltr_abs = seq_5ltr.CG.abs,
                 CG_5ltr_rel = seq_5ltr.CG.rel,
@@ -895,13 +922,15 @@ LTRpred <- function(genome.file       = NULL,
                 CHG_5ltr_rel = seq_5ltr.CHG.rel,
                 CHH_5ltr_abs = seq_5ltr.CHH.abs,
                 CHH_5ltr_rel = seq_5ltr.CHH.rel,
+                CCG_5ltr_abs = seq_5ltr.CCG.abs,
+                CCG_5ltr_rel = seq_5ltr.CCG.rel,
                 N_5ltr_abs = seq_5ltr.N.abs
             )
 
             res <-
                 dplyr::left_join(res, dplyr::tbl_df(count.df), by = "orf.id")
             cat("\n")
-            cat("Join methylation context (CG, CHG, CHH) count table: nrow(df) = ",nrow(res), " candidates.")
+            cat("Join methylation context (CG, CHG, CHH, CCG) count table: nrow(df) = ",nrow(res), " candidates.")
             cat("\n")
             cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
             cat("\n")
