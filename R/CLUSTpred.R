@@ -30,6 +30,9 @@ CLUSTpred <- function(file,
                       out.name   = "CLUSTpred",
                       output     = NULL){
   
+  if (!file.exists(file))
+      stop ("CLUSTpred: The file '",file,"' does not exist! Please check the path to cluster input file.", call. = FALSE)
+    
   if (!is.element(strand, c("both","plus")))
     stop ("Please specify either strand = 'both' or strand = 'plus'.")
   
