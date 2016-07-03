@@ -35,6 +35,10 @@
 #' 
 #' @export
 read.uc <- function(uc.file){
+    
+  if (!file.exists(uc.file))
+      stop ("Import *.uc file: The file '",uc.file,"' could not be found! Please check the path to the input *.uc file.")
+    
   uc.df <- readr::read_tsv(uc.file, col_names = FALSE)
   colnames(uc.df) <- c("Type","Cluster","Size","Perc_Ident",
                        "Strand","Qlo","Tlo","Alignment",
