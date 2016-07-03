@@ -49,6 +49,22 @@ ltr.cn <- function(data.sheet,
   
     ltr_similarity <- NULL
     
+    if (!file.exists(data.sheet)) {
+        stop ("ltr.cn: The file '",data.sheet,"' has not been found. Please check the path.")
+    }
+    
+    if (!file.exists(LTR.fasta_3ltr)) {
+        stop ("ltr.cn: The file '",LTR.fasta_3ltr,"' has not been found. Please check the path.")
+    }
+    
+    if (!file.exists(LTR.fasta_5ltr)) {
+        stop ("ltr.cn: The file '",LTR.fasta_5ltr,"' has not been found. Please check the path.")
+    }
+    
+    if (!file.exists(genome)) {
+        stop ("ltr.cn: The file '",genome,"' has not been found. Please check the path.")
+    }
+    
     if (is.null(output)) {
         output_3ltr <-
             file.path(tempdir(), "solo_ltrs_blast_output_3ltr.txt")
