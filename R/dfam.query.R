@@ -29,6 +29,9 @@ dfam.query <- function(seq.file,
             "The perl script dfamscan.pl could not be found! Please download it from Dfam and store it in /usr/local/bin ."
         )
     
+    if (!file.exists(seq.file))
+        stop ("The file '",seq.file,"' does not exist! Please make sure that a correct path to the sequence file is passed to the dfam.query() function.", call. = FALSE)
+    
     if (Dfam.db == "download") {
         downloader::download(
             "http://dfam.org/web_download/Current_Release/Dfam.hmm.gz",
