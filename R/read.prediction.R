@@ -44,14 +44,23 @@ read.prediction <- function( gff.file        = NULL,
     if (!is.element(program, c("LTRharvest", "LTRdigest")))
         stop ("Please choose a prediction returned by either LTRharvest or LTRdigest.")
     
-    # test if prediction gff file is empty
-    if (file.info(gff.file)$size == 0 ||
-        is.na(file.info(gff.file)$size == 0)) {
-        cat("File ",
-            gff.file,
-            " is empty and therefore is not being processed.")
-        return (NULL)
+    if (!file.exists(tabout.file))
+        stop ("The file '",tabout.file,"' does not exist! Please check the correct path or the correct output of LTRharvest() or LTRdigest().", call. = FALSE)
+    
+    if (!is.null(gff.file)){
+        if (!file.exists(gff.file))
+            stop ("The file '", gff.file ,"' does not exist! Please check the correct path or the correct output of LTRharvest() or LTRdigest().", call. = FALSE)
+        
+        # test if prediction gff file is empty
+        if (file.info(gff.file)$size == 0 ||
+            is.na(file.info(gff.file)$size == 0)) {
+            cat("File ",
+                gff.file,
+                " is empty and therefore is not being processed.")
+            return (NULL)
+        }
     }
+  
     
     X4 <- X5 <- X9 <- annotation <- ltr_similarity <- chromosome <- NULL
     
