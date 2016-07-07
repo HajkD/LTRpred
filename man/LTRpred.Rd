@@ -7,7 +7,7 @@
 LTRpred(genome.file = NULL, index.file.harvest = NULL,
   index.file.digest = NULL, LTRdigest.gff = NULL, tabout.file = NULL,
   LTRharvest.folder = NULL, LTRpred.folder = NULL, orf.file = NULL,
-  annotate = NULL, Dfam.db = NULL, dfam.eval = 1e-10, dfam.file = NULL,
+  annotate = NULL, Dfam.db = NULL, dfam.eval = 1e-05, dfam.file = NULL,
   cluster = FALSE, clust.sim = 0.9, clust.file = NULL,
   copy.number.est = TRUE, cn.eval = 1e-10, range = c(0, 0), seed = 30,
   minlenltr = 100, maxlenltr = 3500, mindistltr = 4000,
