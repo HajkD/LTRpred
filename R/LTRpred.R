@@ -683,7 +683,7 @@ LTRpred <- function(genome.file       = NULL,
             if (!cluster &&
                 !is.null(clust.file))
                 warning(
-                    "Please specify 'cluster = TRUE' when specifying 'clust.file'! Since 'cluster = FALSE' no clustering is performed!"
+                    "Please specify 'cluster = TRUE' when specifying 'clust.file'! Since 'cluster = FALSE' no clustering will be performed!"
                 )
             if (cluster) {
                 cat("\n")
@@ -780,12 +780,12 @@ LTRpred <- function(genome.file       = NULL,
                     res <-
                         dplyr::mutate(res, Clust_cn = ifelse(is.na(Clust_cn), 1, as.numeric(Clust_cn)))
                 }
+                
+                if (nrow(cluster.file) == 0) {
+                    warning("CLUSTpred: The cluster file was empty and therefore has not been joined with the prediction file.", call. = FALSE)   
+                }
             }
             
-            if (nrow(cluster.file) == 0) {
-             warning("CLUSTpred: The cluster file was empty and therefore has not been joined with the prediction file.", call. = FALSE)   
-            }
-                
             # perform methylation mark counting
             
             cat("Perform methylation context quantification..")
