@@ -61,7 +61,6 @@ read.prediction <- function( gff.file        = NULL,
         }
     }
   
-    
     X4 <- X5 <- X9 <- annotation <- ltr_similarity <- chromosome <- NULL
     
     if (program == "LTRharvest") {
