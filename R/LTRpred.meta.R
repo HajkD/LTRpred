@@ -110,6 +110,8 @@ LTRpred.meta <- function(genome.folder       = NULL,
         nLTRs <- vector("numeric", length(folders0))
         nLTRs.normalized <- vector("numeric", length(folders0))
         gs <- vector("numeric", length(folders0))
+        total.LTR.mass <- vector("numeric", length(folders0))
+        LTR.prop <- vector("numeric", length(folders0))
         
         cat("Processing file:")
         cat("\n")
@@ -159,17 +161,13 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 
                 if (quality.filter) {
                     # try to reduce false positives by filtering for PBS and ORFs
-                    pred <- dplyr::filter(pred,
-                                          ltr_similarity >= sim,
-                                          (!is.na(PBS_start)) |
-                                              (!is.na(protein_domain)),
-                                          orfs >= n.orfs)
-                    
+                    pred <- quality.filter(pred, sim = sim, n.orfs = n.orfs)
                 }
                 
                 if (!quality.filter) {
                     # keep all predicted LTR transposons including false positives
                     pred <- dplyr::filter(pred, ltr_similarity >= sim)
+                    cat("No quality filter has been applied. Threshold: sim = ",sim,"%.")
                 }
                 
                 binned.similarities <- cut(
@@ -183,13 +181,22 @@ LTRpred.meta <- function(genome.folder       = NULL,
                     binned.similarities,
                     levels = levels(binned.similarities)
                 )))
+                
+                # count the number of predicted LTR transposons
                 nLTRs[i] <- length(unique(pred$ID))
+                # determine the total length of all LTR transposons in Mega base pairs
+                total.LTR.mass[i] <- sum(pred$width) / 1000000
+                # determine the genome size
                 genome.size <-
                     Biostrings::readDNAStringSet(file.path(genome.folder, genomes[i]))
                 # compute genome size in Mega base pairs
                 gs[i] <- sum(as.numeric(genome.size@ranges@width)) / 1000000
+                
+                # compute normalized LTR count: LTR count / genome size in Mbp
                 nLTRs.normalized[i] <-
                     as.numeric(length(unique(pred$ID)) / gs[i])
+                # compute the proportion of LTR retrotransposons with the entire genome
+                LTR.prop[i] <- total.LTR.mass[i] / gs[i]
             }
         }
         
@@ -200,6 +207,8 @@ LTRpred.meta <- function(genome.folder       = NULL,
         GenomeInfo <- data.frame(
             organism    = genomes,
             nLTRs       = nLTRs,
+            totalMass   = total.LTR.mass,
+            prop        = LTR.prop,
             norm.nLTRs  = nLTRs.normalized,
             genome.size = gs
         )
@@ -308,6 +317,10 @@ LTRpred.meta <- function(genome.folder       = NULL,
         nLTRs <- vector("numeric", length(folders0))
         nLTRs.normalized <- vector("numeric", length(folders0))
         gs <- vector("numeric", length(folders0))
+        total.LTR.mass <- vector("numeric", length(folders0))
+        LTR.prop <- vector("numeric", length(folders0))
+        
+    
         
         for (i in 1:length(folders0)) {
             choppedFolder <- unlist(stringr::str_split(folders0[i], "_"))
@@ -346,14 +359,21 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 levels = levels(binned.similarities)
             )))
             
+            # count the number of predicted LTR transposons
             nLTRs[i] <- length(unique(pred$ID))
+            # determine the total length of all LTR transposons in Mega base pairs
+            total.LTR.mass[i] <- sum(pred$width) / 1000000
+            # determine the genome size
             genome.size <-
                 Biostrings::readDNAStringSet(file.path(genome.folder, genomes[i]))
-            # genome size can become very large, so store sum value as double -> as.numeric()
-            
+            # compute genome size in Mega base pairs
             gs[i] <- sum(as.numeric(genome.size@ranges@width)) / 1000000
+            
+            # compute normalized LTR count: LTR count / genome size in Mbp
             nLTRs.normalized[i] <-
                 as.numeric(length(unique(pred$ID)) / gs[i])
+            # compute the proportion of LTR retrotransposons with the entire genome
+            LTR.prop[i] <- total.LTR.mass[i] / gs[i]
         }
         
         names(nLTRs) <- folders0
@@ -363,6 +383,8 @@ LTRpred.meta <- function(genome.folder       = NULL,
         GenomeInfo <- data.frame(
             organism    = genomes,
             nLTRs       = nLTRs,
+            totalMass   = total.LTR.mass,
+            prop        = LTR.prop,
             norm.nLTRs  = nLTRs.normalized,
             genome.size = gs
         )
