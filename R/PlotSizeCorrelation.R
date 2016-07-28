@@ -1,6 +1,8 @@
 #' @title Plot Genome size vs. LTR transposon count
 #' @description Genome size vs. LTR transposon count.
 #' @param genome.matrix Genome matrix retruned by \code{\link{LTRpred.meta}}.
+#' @param type type of LTR abundance. Options are: \code{type = "mass"} (total length of all TEs in Mbp), \code{type = "prop.mass"} (proportion of TEs within entire genome in %),
+#' \code{type = "count"} (total number of TEs in genome), \code{type = "norm.count"} (total number of TEs in genome normalized by genome size in Mbp).
 #' @param cor.method correlation analysis method. Either \code{"pearson"}, \code{"kendall"}, or \code{"spearman"}.
 #' @param smooth.method method to add a smoothed conditional mean (see \code{ggplot2::geom_smooth()}).
 #' Users can choose from \code{auto}, \code{glm}, \code{lm}, or \code{loess}. If no smoothing function shall be applied,
@@ -28,11 +30,12 @@
 #' @export
 
 PlotSizeCorrelation <- function(genome.matrix,
+                                type                = "mass",
                                 cor.method          = "spearman",
                                 smooth.method       = "glm",
-                                xlab                = "LTR transposon Count",
+                                xlab                = "LTR transposon Abundance",
                                 ylab                = "Genome size in Mega [bp]", 
-                                main                = "Genome size vs. LTR transp. count",
+                                main                = "Genome size vs. LTR transp. abundance",
                                 arrow_lab           = FALSE,
                                 cl.analysis         = FALSE,
                                 cl.centers          = NULL,
@@ -46,6 +49,9 @@ PlotSizeCorrelation <- function(genome.matrix,
   
   
     nLTRs <- genome.size <- cl.colors <- organism <- NULL
+    
+    if (!is.element(type, c("mass", "prop.mass", "count", "norm.count")))
+        stop ("Please specify: type = 'mass' for total length of all TEs in Mbp; type = 'prop.mass' for proportion of TEs within entire genome in %; type = 'count' for total number of TEs in genome; type = 'norm.count' for total number of TEs in genome normalized by genome size in Mbp.")
     
     if (cl.analysis) {
         if (is.null(sim.matrix))
@@ -72,19 +78,63 @@ PlotSizeCorrelation <- function(genome.matrix,
         genome.matrix <-
             dplyr::mutate(genome.matrix, cl.colors = colors[cl$cluster])
         
+        if (type == "count")
         cor.value <-
             cor(genome.matrix$nLTRs, genome.matrix$genome.size, method = cor.method)
+       
+         if (type == "norm.count")
+            cor.value <-
+            cor(genome.matrix$norm.nLTRs, genome.matrix$genome.size, method = cor.method)
+        
+        if (type == "mass")
+            cor.value <-
+                 cor(genome.matrix$totalMass, genome.matrix$genome.size, method = cor.method)
+        
+        if (type == "prop.mass")
+            cor.value <-
+            cor(genome.matrix$prop, genome.matrix$genome.size, method = cor.method)
+        
         
         colnames(genome.matrix)[1] <- "organism"
         
         if (!arrow_lab) {
+            
+            if (type == "count")
             res <-
                 ggplot2::ggplot(genome.matrix,
                                 ggplot2::aes(
                                     x = nLTRs,
                                     y = genome.size,
                                     colour = cl.colors
-                                )) + ggplot2::geom_point() +
+                                ))  
+            
+            if (type == "norm.count")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = norm.nLTRs,
+                                        y = genome.size,
+                                        colour = cl.colors
+                                    ))  
+            
+            if (type == "mass")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = totalMass,
+                                        y = genome.size,
+                                        colour = cl.colors
+                                    ))    
+            if (type == "prop.mass")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = prop * 100,
+                                        y = genome.size,
+                                        colour = cl.colors
+                                    )) 
+                
+                res <- res + ggplot2::geom_point() +
                 ggplot2::theme_minimal() +
                 ggplot2::labs(
                     x = xlab,
@@ -123,13 +173,38 @@ PlotSizeCorrelation <- function(genome.matrix,
         }
         
         if (arrow_lab) {
-            res <-
-                ggplot2::ggplot(genome.matrix,
-                                ggplot2::aes(
-                                    x = nLTRs,
-                                    y = genome.size,
-                                    colour = cl.colors
-                                )) + ggplot2::geom_point() +
+            
+            if (type == "count")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(x = nLTRs,
+                                                 y = genome.size,
+                                                 colour = cl.colors)) 
+            
+            if (type == "norm.count")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(x = norm.nLTRs,
+                                                 y = genome.size,
+                                                 colour = cl.colors)) 
+            
+            if (type == "mass")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = totalMass,
+                                        y = genome.size,
+                                        colour = cl.colors
+                                    ))    
+            if (type == "prop.mass")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = prop * 100,
+                                        y = genome.size,
+                                        colour = cl.colors
+                                    )) 
+                res <- res + ggplot2::geom_point() +
                 ggplot2::theme_minimal() +
                 ggplot2::labs(
                     x = xlab,
@@ -166,14 +241,56 @@ PlotSizeCorrelation <- function(genome.matrix,
         print(res)
         return (cl)
     } else {
-        cor.value <-
-            stats::cor(genome.matrix$nLTRs, genome.matrix$genome.size, method = cor.method)
+        
+        if (type == "count")
+            cor.value <-
+                stats::cor(genome.matrix$nLTRs, genome.matrix$genome.size, method = cor.method)
+        if (type == "norm.count")
+            cor.value <-
+                stats::cor(genome.matrix$norm.nLTRs, genome.matrix$genome.size, method = cor.method)
+        if (type == "mass")
+            cor.value <-
+                stats::cor(genome.matrix$totalMass, genome.matrix$genome.size, method = cor.method)
+        if (type == "prop.mass")
+            cor.value <-
+                stats::cor(genome.matrix$prop, genome.matrix$genome.size, method = cor.method)
         
         colnames(genome.matrix)[1] <- "organism"
         
         if (!arrow_lab) {
-            res <-
-                ggplot2::ggplot(genome.matrix, ggplot2::aes(x = nLTRs, y = genome.size)) + ggplot2::geom_point() +
+            
+            if (type == "count")
+               res <-
+                   ggplot2::ggplot(genome.matrix,
+                                ggplot2::aes(
+                                    x = nLTRs,
+                                    y = genome.size
+                                ))  
+            
+            if (type == "norm.count")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = norm.nLTRs,
+                                        y = genome.size
+                                    ))  
+            
+            if (type == "mass")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = totalMass,
+                                        y = genome.size
+                                    ))    
+            if (type == "prop.mass")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = prop * 100,
+                                        y = genome.size
+                                    )) 
+                
+                res <- res + ggplot2::geom_point() +
                 ggplot2::theme_minimal() +
                 ggplot2::labs(
                     x = xlab,
@@ -212,8 +329,35 @@ PlotSizeCorrelation <- function(genome.matrix,
         }
         
         if (arrow_lab) {
-            res <-
-                ggplot2::ggplot(genome.matrix, ggplot2::aes(x = nLTRs, y = genome.size)) + ggplot2::geom_point() +
+            if (type == "count")
+               res <-
+                ggplot2::ggplot(genome.matrix,
+                                ggplot2::aes(
+                                    x = nLTRs,
+                                    y = genome.size
+                                ))  
+            if (type == "norm.count")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = norm.nLTRs,
+                                        y = genome.size
+                                    )) 
+            if (type == "mass")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = totalMass,
+                                        y = genome.size
+                                    ))    
+            if (type == "prop.mass")
+                res <-
+                    ggplot2::ggplot(genome.matrix,
+                                    ggplot2::aes(
+                                        x = prop * 100,
+                                        y = genome.size
+                                    ))    
+                res <- res + ggplot2::geom_point() +
                 ggplot2::theme_minimal() +
                 ggplot2::labs(
                     x = xlab,
@@ -245,9 +389,7 @@ PlotSizeCorrelation <- function(genome.matrix,
                 res <- res + ggplot2::geom_smooth(method = smooth.method)
             }
         }
-        
         return (res)
-        
     }
 }
 
