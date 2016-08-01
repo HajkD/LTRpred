@@ -4,10 +4,10 @@
 \alias{PlotSizeCorrelation}
 \title{Plot Genome size vs. LTR transposon count}
 \usage{
-PlotSizeCorrelation(genome.matrix, cor.method = "spearman",
-  smooth.method = "glm", xlab = "LTR transposon Count",
+PlotSizeCorrelation(genome.matrix, type = "mass", cor.method = "spearman",
+  smooth.method = "glm", se = TRUE, xlab = "LTR transposon Abundance",
   ylab = "Genome size in Mega [bp]",
-  main = "Genome size vs. LTR transp. count", arrow_lab = FALSE,
+  main = "Genome size vs. LTR transp. abundance", arrow_lab = FALSE,
   cl.analysis = FALSE, cl.centers = NULL, cl.method = "euclidean",
   cl.nstart = 100, cl.iter.max = 10000, sim.matrix = NULL,
   text.size = 18, label.size = 3, check.overlap = TRUE)
@@ -15,11 +15,16 @@ PlotSizeCorrelation(genome.matrix, cor.method = "spearman",
 \arguments{
 \item{genome.matrix}{Genome matrix retruned by \code{\link{LTRpred.meta}}.}
 
+\item{type}{type of LTR abundance. Options are: \code{type = "mass"} (total length of all TEs in Mbp), \code{type = "prop.mass"} (proportion of TEs within entire genome in %),
+\code{type = "count"} (total number of TEs in genome), \code{type = "norm.count"} (total number of TEs in genome normalized by genome size in Mbp).}
+
 \item{cor.method}{correlation analysis method. Either \code{"pearson"}, \code{"kendall"}, or \code{"spearman"}.}
 
 \item{smooth.method}{method to add a smoothed conditional mean (see \code{ggplot2::geom_smooth()}).
 Users can choose from \code{auto}, \code{glm}, \code{lm}, or \code{loess}. If no smoothing function shall be applied,
 users can specify \code{smooth.method = 'NULL'}.}
+
+\item{se}{shall standard error of the smoothing model (grey area) be drawn or not.}
 
 \item{xlab}{x-axis label.}
 
