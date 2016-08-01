@@ -6,7 +6,8 @@
 #' @param cor.method correlation analysis method. Either \code{"pearson"}, \code{"kendall"}, or \code{"spearman"}.
 #' @param smooth.method method to add a smoothed conditional mean (see \code{ggplot2::geom_smooth()}).
 #' Users can choose from \code{auto}, \code{glm}, \code{lm}, or \code{loess}. If no smoothing function shall be applied,
-#' users can specify \code{smooth.method = 'NULL'}. 
+#' users can specify \code{smooth.method = 'NULL'}.
+#' @param se shall standard error of the smoothing model (grey area) be drawn or not. 
 #' @param xlab x-axis label.
 #' @param ylab y-axis label.
 #' @param main main text.
@@ -33,6 +34,7 @@ PlotSizeCorrelation <- function(genome.matrix,
                                 type                = "mass",
                                 cor.method          = "spearman",
                                 smooth.method       = "glm",
+                                se                  = TRUE,
                                 xlab                = "LTR transposon Abundance",
                                 ylab                = "Genome size in Mega [bp]", 
                                 main                = "Genome size vs. LTR transp. abundance",
@@ -168,7 +170,7 @@ PlotSizeCorrelation <- function(genome.matrix,
                 )
             
             if (!is.null(smooth.method)) {
-                res <- res + ggplot2::geom_smooth(method = smooth.method)
+                res <- res + ggplot2::geom_smooth(method = smooth.method, se = se)
             }
         }
         
@@ -235,7 +237,7 @@ PlotSizeCorrelation <- function(genome.matrix,
         }
         
         if (!is.null(smooth.method)) {
-            res <- res + ggplot2::geom_smooth(method = smooth.method)
+            res <- res + ggplot2::geom_smooth(method = smooth.method, se = se)
         }
         
         print(res)
@@ -324,7 +326,7 @@ PlotSizeCorrelation <- function(genome.matrix,
                 )
             
             if (!is.null(smooth.method)) {
-                res <- res + ggplot2::geom_smooth(method = smooth.method)
+                res <- res + ggplot2::geom_smooth(method = smooth.method, se = se)
             }
         }
         
@@ -386,7 +388,7 @@ PlotSizeCorrelation <- function(genome.matrix,
                 ggrepel::geom_text_repel(ggplot2::aes(label = organism),size = 3,fontface = 'bold')
             
             if (!is.null(smooth.method)) {
-                res <- res + ggplot2::geom_smooth(method = smooth.method)
+                res <- res + ggplot2::geom_smooth(method = smooth.method, se = se)
             }
         }
         return (res)
