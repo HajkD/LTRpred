@@ -103,17 +103,19 @@ In the `LTRpred` framework users can find:
 * `LTRharvest()` : Run LTRharvest to predict putative LTR Retrotransposons
 * `LTRdigest()` : Run LTRdigest to predict putative LTR Retrotransposons
 
+#### Sequence Clustering and Similarity Computations
+* `CLUSTpred()` : Cluster Sequences with VSEARCH
+* `cluster.members()` : Select members of a specific cluster
+* `clust2fasta()` : Export sequences of TEs belonging to the same cluster to fasta files
+* `AllPairwiseAlign()` : Compute all pairwise (global) alignments with VSEARCH
+* `filter.uc()` : Filter for cluster members
+* `SimMatAbundance()` : Compute histogram shape similarity between species
+
+
 #### LTR Copy Number Estimation
 
 * `ltr.cn()` : Detect solo LTR copies of predicted LTR transposons
 * `cn2bed()` : Write copy number estimation results to BED file format.
-
-#### TE Copy Number Estimation (Clustering Similar TEs)
-
-* `CLUSTpred()` : Cluster Sequences with VSEARCH
-* `cluster.members()` : Select members of a specific cluster
-* `clust2fasta()` : Export sequences of TEs belonging to the same cluster to fasta files
-
 
 #### Filter Functions
 
@@ -150,7 +152,9 @@ In the `LTRpred` framework users can find:
 * `PlotFamily()` : Visualize the Superfamily distribution of predicted LTR retrotransposons
 * `PlotProteinDomain()` : Visualize the Protein Domain distribution of predicted LTR retrotransposons
 * `PlotCopyNumber()` : Plot correlation between LTR copy number and methylation context  
-
+* `PlotCluster()` : Plot correlation between Cluster Number and any other variable
+* `PlotInterSpeciesCluster()` : Plot inter species similarity between TEs (for a specific cluster)
+* `PlotMainInterSpeciesCluster()` : Plot inter species similarity between TEs (for the top n clusters)
 
 #### Annotation and Validation:
 
