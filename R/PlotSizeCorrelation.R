@@ -69,7 +69,7 @@ PlotSizeCorrelation <- function(genome.matrix,
         
         cl <-
             amap::Kmeans(
-                x        = genome.matrix[, 2:ncol(genome.matrix)],
+                x        = SimMatAbundance(sim.matrix),
                 centers  = cl.centers,
                 nstart   = cl.nstart,
                 iter.max = cl.iter.max,
@@ -82,19 +82,19 @@ PlotSizeCorrelation <- function(genome.matrix,
         
         if (type == "count")
         cor.value <-
-            cor(genome.matrix$nLTRs, genome.matrix$genome.size, method = cor.method)
+            stats::cor(genome.matrix$nLTRs, genome.matrix$genome.size, method = cor.method)
        
          if (type == "norm.count")
             cor.value <-
-            cor(genome.matrix$norm.nLTRs, genome.matrix$genome.size, method = cor.method)
+            stats::cor(genome.matrix$norm.nLTRs, genome.matrix$genome.size, method = cor.method)
         
         if (type == "mass")
             cor.value <-
-                 cor(genome.matrix$totalMass, genome.matrix$genome.size, method = cor.method)
+            stats::cor(genome.matrix$totalMass, genome.matrix$genome.size, method = cor.method)
         
         if (type == "prop.mass")
             cor.value <-
-            cor(genome.matrix$prop, genome.matrix$genome.size, method = cor.method)
+            stats::cor(genome.matrix$prop, genome.matrix$genome.size, method = cor.method)
         
         
         colnames(genome.matrix)[1] <- "organism"
