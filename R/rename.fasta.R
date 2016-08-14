@@ -1,0 +1,21 @@
+#' @title Helper function to add species names to headers within fasta files
+#' @description Reads a fasta file and adds the defined \code{species} name to each
+#' header entry of the input fasta file.
+#' @param file input fasta file.
+#' @param species a character string specifying the species name to be added to the headers. 
+#' Format will be: \code{species_}*, where * stands for the original header.
+#' @param output a character string denoting the name of the renamed output fasta file.
+#' @author Hajk-Georg Drost
+#' @examples 
+#' # example fasta file
+#' seqs <- system.file("nt.fa",package = "LTRpred")
+#' # rename headers in file by adding species name: "Athaliana"
+#' rename.fasta(file = seqs, species = "Athaliana", output = "Athaliana.fa")
+#' @return Writes a new fasta file with renamed headers.
+#' @export
+
+rename.fasta <- function(file, species, output = "renamed_fasta.fa"){
+    fa.file <- Biostrings::readDNAStringSet(file)
+    fa.file@ranges@NAMES <- unlist(sapply(fa.file@ranges@NAMES, function(x) {stringr::str_replace(x,x,paste0(species,"_",x))}))
+    Biostrings::writeXStringSet(fa.file,output)
+}
