@@ -39,6 +39,9 @@ CLUSTpred <- function(file,
   if (is.null(output))
     output <- getwd()
   
+  if (parallel::detectCores() < cores)
+      stop ("You specified more cores than are available on this machine. Please fix...", call. = FALSE)
+  
   system(paste0("vsearch --cluster_fast ", ws.wrap.path(file), " \ ",
   "--qmask none \ ",
   "--uc ", ws.wrap.path(file.path(output,paste0(out.name,".uc"))), " \ ",
