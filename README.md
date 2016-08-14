@@ -176,6 +176,7 @@ In the `LTRpred` framework users can find:
 * `get.pred.filenames()` : Retrieve file names of files genereated by LTRpred
 * `get.seqs()` : Quickly retrieve the sequences of a 'Biostrings' object
 * `ws.wrap.path()` : Wrap whitespace in paths
+* `rename.fasta()` : rename.fasta
 
 ## Developer Version of `LTRpred`
 
