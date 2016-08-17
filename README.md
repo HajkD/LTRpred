@@ -2,7 +2,7 @@
 
 ### A meta-genomics tool explicitly designed to investigate LTR retrotransposons
 
-> Fast and accurate tool for de-novo annotation of LTR retrotransposons, prediction of potentially active retrotransposons, and comparative meta-genomic analyses.
+> Fast and accurate tool for de-novo annotation of LTR retrotransposons, prediction of potentially active retrotransposons, and comparative meta-genomic analyses of retrotransposon families.
 
 
 Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of phenotypic adaptation, diversification,
