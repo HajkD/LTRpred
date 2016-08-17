@@ -1,11 +1,9 @@
-# LTRpred
+# LTRpred(ict)
 
-### Perform _de novo_ Prediction, Annotation, Meta-Genomics, and Analytics of LTR retrotransposons with R
+### A meta-genomics tool explicitly designed to investigate LTR retrotransposons
 
+> Fast and accurate tool for de-novo annotation of LTR retrotransposons, prediction of potentially active retrotransposons, and comparative meta-genomic analyses.
 
-> Transposable genetic elements (TEs) comprise a vast array of DNA sequences, all having the ability to move to new sites in genomes either directly by a cut-and-paste mechanism (transposons) or indirectly through an RNA intermediate (retrotransposons). 
->
->  \- Nina V. Federoff, Science 2012 
 
 Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of phenotypic adaptation, diversification,
 and evolution. In particular, understanding the recognition and 
