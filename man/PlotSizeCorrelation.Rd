@@ -2,13 +2,12 @@
 % Please edit documentation in R/PlotSizeCorrelation.R
 \name{PlotSizeCorrelation}
 \alias{PlotSizeCorrelation}
-\title{Plot Genome size vs. LTR transposon count}
+\title{Genome size vs. LTR transposon content}
 \usage{
 PlotSizeCorrelation(genome.matrix, type = "mass", cor.method = "spearman",
   smooth.method = "glm", se = TRUE,
   xlab = "LTR transposon content in Mega [bp]",
-  ylab = "Genome size in Mega [bp]",
-  main = "Genome size vs. LTR transp. content", alpha = 1,
+  ylab = "Genome size in Mega [bp]", main = "", alpha = 0.3,
   arrow_lab = FALSE, cl.analysis = FALSE, cl.centers = NULL,
   cl.method = "euclidean", cl.nstart = 100, cl.iter.max = 10000,
   sim.matrix = NULL, text.size = 18, label.size = 3,
@@ -34,7 +33,7 @@ users can specify \code{smooth.method = 'NULL'}.}
 
 \item{main}{main text.}
 
-\item{alpha}{transparency of smoothing function: between \[ 0,1 \].}
+\item{alpha}{transparency of confidence interval of the smoothing function: between \[ 0,1 \].}
 
 \item{arrow_lab}{whether or not data points shall be labelled with arrows (ggrepel).}
 
@@ -57,7 +56,12 @@ users can specify \code{smooth.method = 'NULL'}.}
 \item{check.overlap}{shall overlaps of labels be avoided or not.}
 }
 \description{
-Genome size vs. LTR transposon count.
+Compute and visualize the correlation between genome size vs. LTR transposon content.
+}
+\details{
+In the first step, users should have generated LTR retrotransposon annotations for several species using the
+\code{\link{LTRpred.meta}} function. The output of \code{\link{LTRpred.meta}} is a folder storing the annotation files
+for all species of input species. In addition, \code{\link{LTRpred.meta}} generates two files: \code{*_SimilarityMatrix} and \code{*_GenomeInfo} .
 }
 \examples{
 GenomeMatrix <- read.csv(system.file("GenomeMatrix.csv",package = "LTRpred"), sep = ";")
