@@ -11,6 +11,7 @@
 #' @param xlab x-axis label.
 #' @param ylab y-axis label.
 #' @param main main text.
+#' @param alpha transparency of smoothing function: between \[ 0,1 \].
 #' @param arrow_lab whether or not data points shall be labelled with arrows (ggrepel). 
 #' @param cl.analysis logical value indicating whether or not cluster analysis of the \code{sim.matrix} returned by \code{\link{LTRpred.meta}} shall be performed (see Details sections).
 #' @param cl.centers number of expected clusters or a set of initial (distinct) cluster centres.
@@ -35,9 +36,10 @@ PlotSizeCorrelation <- function(genome.matrix,
                                 cor.method          = "spearman",
                                 smooth.method       = "glm",
                                 se                  = TRUE,
-                                xlab                = "LTR transposon Abundance",
+                                xlab                = "LTR transposon content in Mega [bp]",
                                 ylab                = "Genome size in Mega [bp]", 
-                                main                = "Genome size vs. LTR transp. abundance",
+                                main                = "",
+                                alpha               = 1,
                                 arrow_lab           = FALSE,
                                 cl.analysis         = FALSE,
                                 cl.centers          = NULL,
@@ -170,7 +172,7 @@ PlotSizeCorrelation <- function(genome.matrix,
                 )
             
             if (!is.null(smooth.method)) {
-                res <- res + ggplot2::geom_smooth(method = smooth.method, se = se)
+                res <- res + ggplot2::geom_smooth(method = smooth.method, se = se, alpha = alpha)
             }
         }
         
@@ -237,7 +239,7 @@ PlotSizeCorrelation <- function(genome.matrix,
         }
         
         if (!is.null(smooth.method)) {
-            res <- res + ggplot2::geom_smooth(method = smooth.method, se = se)
+            res <- res + ggplot2::geom_smooth(method = smooth.method, se = se, alpha = alpha)
         }
         
         print(res)
@@ -326,7 +328,7 @@ PlotSizeCorrelation <- function(genome.matrix,
                 )
             
             if (!is.null(smooth.method)) {
-                res <- res + ggplot2::geom_smooth(method = smooth.method, se = se)
+                res <- res + ggplot2::geom_smooth(method = smooth.method, se = se, alpha = alpha)
             }
         }
         
@@ -388,7 +390,7 @@ PlotSizeCorrelation <- function(genome.matrix,
                 ggrepel::geom_text_repel(ggplot2::aes(label = organism),size = 3,fontface = 'bold')
             
             if (!is.null(smooth.method)) {
-                res <- res + ggplot2::geom_smooth(method = smooth.method, se = se)
+                res <- res + ggplot2::geom_smooth(method = smooth.method, se = se, alpha = alpha)
             }
         }
         return (res)
