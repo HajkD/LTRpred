@@ -1,5 +1,5 @@
-#' @title Plot Genome size vs. LTR transposon count
-#' @description Genome size vs. LTR transposon count.
+#' @title Genome size vs. LTR transposon content
+#' @description Compute and visualize the correlation between genome size vs. LTR transposon content.
 #' @param genome.matrix Genome matrix retruned by \code{\link{LTRpred.meta}}.
 #' @param type type of LTR abundance. Options are: \code{type = "mass"} (total length of all TEs in Mbp), \code{type = "prop.mass"} (proportion of TEs within entire genome in %),
 #' \code{type = "count"} (total number of TEs in genome), \code{type = "norm.count"} (total number of TEs in genome normalized by genome size in Mbp).
@@ -11,7 +11,7 @@
 #' @param xlab x-axis label.
 #' @param ylab y-axis label.
 #' @param main main text.
-#' @param alpha transparency of smoothing function: between \[ 0,1 \].
+#' @param alpha transparency of confidence interval of the smoothing function: between \[ 0,1 \].
 #' @param arrow_lab whether or not data points shall be labelled with arrows (ggrepel). 
 #' @param cl.analysis logical value indicating whether or not cluster analysis of the \code{sim.matrix} returned by \code{\link{LTRpred.meta}} shall be performed (see Details sections).
 #' @param cl.centers number of expected clusters or a set of initial (distinct) cluster centres.
@@ -23,6 +23,10 @@
 #' @param label.size size of the dot-labels.
 #' @param check.overlap shall overlaps of labels be avoided or not.
 #' @author Hajk-Georg Drost
+#' @details 
+#' In the first step, users should have generated LTR retrotransposon annotations for several species using the
+#' \code{\link{LTRpred.meta}} function. The output of \code{\link{LTRpred.meta}} is a folder storing the annotation files
+#' for all species of input species. In addition, \code{\link{LTRpred.meta}} generates two files: \code{*_SimilarityMatrix} and \code{*_GenomeInfo} .
 #' @examples 
 #' GenomeMatrix <- read.csv(system.file("GenomeMatrix.csv",package = "LTRpred"), sep = ";")
 #' GenomeMatrix[ , 1] <- sapply(GenomeMatrix[ , 1], 
@@ -39,7 +43,7 @@ PlotSizeCorrelation <- function(genome.matrix,
                                 xlab                = "LTR transposon content in Mega [bp]",
                                 ylab                = "Genome size in Mega [bp]", 
                                 main                = "",
-                                alpha               = 1,
+                                alpha               = 0.3,
                                 arrow_lab           = FALSE,
                                 cl.analysis         = FALSE,
                                 cl.centers          = NULL,
