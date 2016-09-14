@@ -5,12 +5,14 @@
 \title{Plot Genome size vs. LTR transposon count}
 \usage{
 PlotSizeCorrelation(genome.matrix, type = "mass", cor.method = "spearman",
-  smooth.method = "glm", se = TRUE, xlab = "LTR transposon Abundance",
+  smooth.method = "glm", se = TRUE,
+  xlab = "LTR transposon content in Mega [bp]",
   ylab = "Genome size in Mega [bp]",
-  main = "Genome size vs. LTR transp. abundance", arrow_lab = FALSE,
-  cl.analysis = FALSE, cl.centers = NULL, cl.method = "euclidean",
-  cl.nstart = 100, cl.iter.max = 10000, sim.matrix = NULL,
-  text.size = 18, label.size = 3, check.overlap = TRUE)
+  main = "Genome size vs. LTR transp. content", alpha = 1,
+  arrow_lab = FALSE, cl.analysis = FALSE, cl.centers = NULL,
+  cl.method = "euclidean", cl.nstart = 100, cl.iter.max = 10000,
+  sim.matrix = NULL, text.size = 18, label.size = 3,
+  check.overlap = TRUE)
 }
 \arguments{
 \item{genome.matrix}{Genome matrix retruned by \code{\link{LTRpred.meta}}.}
@@ -31,6 +33,8 @@ users can specify \code{smooth.method = 'NULL'}.}
 \item{ylab}{y-axis label.}
 
 \item{main}{main text.}
+
+\item{alpha}{transparency of smoothing function: between \[ 0,1 \].}
 
 \item{arrow_lab}{whether or not data points shall be labelled with arrows (ggrepel).}
 
