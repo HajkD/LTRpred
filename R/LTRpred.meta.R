@@ -170,6 +170,10 @@ LTRpred.meta <- function(genome.folder       = NULL,
                     cat("No quality filter has been applied. Threshold: sim = ",sim,"%.")
                 }
                 
+                if (length(rev(seq(100, sim, -cut.range))) == 1L)
+                    stop("Please specify a 'cut.range' value that is compatible with the 'sim' threshold. ",
+                         "The input 'cut.range = ",cut.range,"', whereas the similarity bin is between: [",sim,",100].")
+                
                 binned.similarities <- cut(
                     pred$ltr_similarity,
                     rev(seq(100, sim, -cut.range)),
