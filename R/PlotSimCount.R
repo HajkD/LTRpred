@@ -37,7 +37,7 @@
 
 PlotSimCount <- function(sim.matrix,
                          genome.matrix       = NULL,
-                         type                = "absolute",
+                         type                = "normalized",
                          cl.analysis         = FALSE,
                          cl.centers          = NULL,
                          cl.method           = "euclidean",
@@ -45,89 +45,122 @@ PlotSimCount <- function(sim.matrix,
                          cl.iter.max         = 10000,
                          min.sim             = 70,
                          similarity.bin      = 2,
-                         xlab                = "LTR % Similarity", 
-                         ylab                = "Count", 
-                         main                = "LTR % Similarity vs. Count",
+                         xlab                = "% Similarity between 5' and 3' LTRs", 
+                         ylab                = "LTR retrotransposon content in Mega [bp]", 
+                         main                = "",
                          text.size           = 18){
   
   
-  if (!is.element(type, c("absolute", "normalized")))
-    stop("Please choose a valid type: either 'absolute' or 'normalized'.", call. = FALSE)
-  
-  if ((type == "normalized") && (is.null(genome.matrix)))
-    stop("Please specify the 'genome.matrix' argument when using type = 'normalized'.")
-  
-  similarity <- count <- NULL
-  
-  if (type == "normalized") {
+    if (!is.element(type, c("absolute", "normalized")))
+        stop("Please choose a valid type: either 'absolute' or 'normalized'.",
+             call. = FALSE)
     
-    sim.matrix[ , 2:ncol(sim.matrix)] <- sim.matrix[ , 2:ncol(sim.matrix)] / genome.matrix$genome.size
+    if ((type == "normalized") && (is.null(genome.matrix)))
+        stop("Please specify the 'genome.matrix' argument when using type = 'normalized'.")
     
-  }
-  
-  names(sim.matrix) <- c("organism",levels(cut(100,rev(seq(100,min.sim,-similarity.bin)),
-                                              include.lowest = TRUE,right = TRUE)))
-  
-  if (cl.analysis){
+    similarity <- count <- NULL
     
-    cl <- amap::Kmeans(x        = sim.matrix[ , 2:ncol(sim.matrix)], 
-                       centers  = cl.centers,
-                       nstart   = cl.nstart, 
-                       iter.max = cl.iter.max, 
-                       method   = cl.method)
-    
-    colnames(sim.matrix)[1] <- "organism"
-    reshaped.sim.matrix <- reshape2::melt(sim.matrix, id.vars = "organism")
-    colnames(reshaped.sim.matrix) <- c("organism", "similarity","count")
-    
-    colors <- bcolor(max(cl$cluster))
-    sim.matrix <- dplyr::mutate(sim.matrix,
-                                cluster   = cl$cluster, 
-                                cl.colors = colors[cl$cluster])
-    
-  } else {
-    if (nrow(sim.matrix) > 30){
-      cat("There are ",nrow(sim.matrix), " elements in the dataset.. \nA z.test is applied to compute pairwise distribution differences.")
-      cat("\n")
-      pvals <- pairwise.z.test(sim.matrix)
+    if (type == "normalized") {
+        sim.matrix[, 2:ncol(sim.matrix)] <-
+            sim.matrix[, 2:ncol(sim.matrix)] / genome.matrix$genome.size
+        
     }
     
-    if (nrow(sim.matrix) < 30){
-      cat("There are ", nrow(sim.matrix), " elements in the dataset.. \nA wilcox.test is applied to compute pairwise distribution differences.")
-      cat("\n")
-      pvals <- pairwise.wilcox.test(sim.matrix)
-    }
+    names(sim.matrix) <- c("organism", levels(cut(
+        100, rev(seq(100, min.sim, -similarity.bin)),
+        include.lowest = TRUE, right = TRUE
+    )))
     
-    pvals.name <- rep("",ncol(sim.matrix)-1)
-    pvals.name[which(pvals <= 0.05)] <- "*"
-    pvals.name[which(pvals <= 0.005)] <- "**"
-    pvals.name[which(pvals <= 0.0005)] <- "***"
-    pvals.name[which(is.na(pvals))] <- ""
-    
-    colnames(sim.matrix)[1] <- "organism"
-    reshaped.sim.matrix <- reshape2::melt(sim.matrix, id.vars = "organism")
-    colnames(reshaped.sim.matrix) <- c("organism", "similarity","count")
-    
-    # df <- data.frame(sim = names(sim.matrix)[2:ncol(sim.matrix)],pvals = pvals.name)
-    
-    res <- ggplot2::ggplot(reshaped.sim.matrix, ggplot2::aes(x = similarity, y = count), order = FALSE) +
-      ggplot2::geom_violin(scale = "width", ggplot2::aes(fill = similarity)) + 
-      ggplot2::geom_jitter(width = 0.75, height = 0) + 
-      ggplot2::theme_minimal() + ggplot2::labs(x = xlab, y = ylab, title = main) + 
-      ggplot2::theme(legend.text = ggplot2::element_text(size = text.size)) + 
-      ggplot2::theme(axis.title       = ggplot2::element_text(size = text.size,face = "bold"),
-                     axis.text.y      = ggplot2::element_text(size = text.size,face = "bold"),
-                     axis.text.x      = ggplot2::element_text(size = text.size,face = "bold"),
-                     panel.background = ggplot2::element_blank(), 
-                     plot.title       = ggplot2::element_text(size = text.size, colour = "black", face = "bold")) 
-    # + ggplot2::geom_text(data = df, label = pvals)
-    
-    cat("Pairwise comparisons:")
-    cat("\n")
-    pvals.res <- paste0("p = ",round(pvals,digits = 2)," (",pvals.name,")")
-    names(pvals.res) <- names(pvals)
-    print(pvals.res)
-    return (res)
+    if (cl.analysis) {
+        cl <- amap::Kmeans(
+            x        = sim.matrix[, 2:ncol(sim.matrix)],
+            centers  = cl.centers,
+            nstart   = cl.nstart,
+            iter.max = cl.iter.max,
+            method   = cl.method
+        )
+        
+        colnames(sim.matrix)[1] <- "organism"
+        reshaped.sim.matrix <-
+            reshape2::melt(sim.matrix, id.vars = "organism")
+        colnames(reshaped.sim.matrix) <-
+            c("organism", "similarity", "count")
+        
+        colors <- bcolor(max(cl$cluster))
+        sim.matrix <- dplyr::mutate(sim.matrix,
+                                    cluster   = cl$cluster,
+                                    cl.colors = colors[cl$cluster])
+        
+    } else {
+        if (nrow(sim.matrix) > 30) {
+            cat(
+                "There are ",
+                nrow(sim.matrix),
+                " elements in the dataset.. \nA z.test is applied to compute pairwise distribution differences."
+            )
+            cat("\n")
+            pvals <- pairwise.z.test(sim.matrix)
+        }
+        
+        if (nrow(sim.matrix) < 30) {
+            cat(
+                "There are ",
+                nrow(sim.matrix),
+                " elements in the dataset.. \nA wilcox.test is applied to compute pairwise distribution differences."
+            )
+            cat("\n")
+            pvals <- pairwise.wilcox.test(sim.matrix)
+        }
+        
+        pvals.name <- rep("", ncol(sim.matrix) - 1)
+        pvals.name[which(pvals <= 0.05)] <- "*"
+        pvals.name[which(pvals <= 0.005)] <- "**"
+        pvals.name[which(pvals <= 0.0005)] <- "***"
+        pvals.name[which(is.na(pvals))] <- ""
+        
+        colnames(sim.matrix)[1] <- "organism"
+        reshaped.sim.matrix <-
+            reshape2::melt(sim.matrix, id.vars = "organism")
+        colnames(reshaped.sim.matrix) <-
+            c("organism", "similarity", "content")
+        
+        # df <- data.frame(sim = names(sim.matrix)[2:ncol(sim.matrix)],pvals = pvals.name)
+        
+        res <-
+            ggplot2::ggplot(reshaped.sim.matrix,
+                            ggplot2::aes(x = similarity, y = content),
+                            order = FALSE) +
+            
+            ggplot2::geom_violin(ggplot2::aes(colour = similarity), size = 2) +
+            ggplot2::theme_minimal() + ggplot2::labs(x = xlab, y = ylab, title = main) +
+            ggplot2::theme(legend.text = ggplot2::element_text(size = text.size)) +
+            ggplot2::theme(legend.text = ggplot2::element_text(size = text.size)) +
+            ggplot2::theme(
+                axis.title  = ggplot2::element_text(size = text.size, face = "bold"),
+                axis.text.y = ggplot2::element_text(size = text.size, face = "bold"),
+                axis.text.x = ggplot2::element_text(size = text.size, face = "bold"),
+                panel.background = ggplot2::element_blank(),
+                plot.title = ggplot2::element_text(
+                    size = text.size,
+                    colour = "black",
+                    face = "bold"
+                )
+            ) + ggplot2::geom_text(
+                ggplot2::aes(label = organism),
+                hjust = 0,
+                vjust = 0,
+                size = 3
+            )
+        # + ggplot2::geom_text(data = df, label = pvals)
+        
+        cat("Pairwise comparisons:")
+        cat("\n")
+        pvals.res <-
+            paste0("p = ", round(pvals, digits = 2), " (", pvals.name, ")")
+        names(pvals.res) <- names(pvals)
+        print(pvals.res)
+        return (res
+        )
   }
 }
 
