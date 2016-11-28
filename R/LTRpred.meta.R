@@ -52,6 +52,10 @@ LTRpred.meta <- function(genome.folder       = NULL,
                          ...){
   
   
+    if (length(rev(seq(100, sim, -cut.range))) == 1L)
+        stop("Please specify a 'cut.range' value that is compatible with the 'sim' threshold. ",
+             "The input 'cut.range = ",cut.range,"', whereas the similarity bin is between: [",sim,",100].", call. = FALSE)
+    
     if (!is.null(genome.folder) &&
         is.null(result.folder) &&
         !is.null(LTRpred.meta.folder)) {
@@ -81,9 +85,6 @@ LTRpred.meta <- function(genome.folder       = NULL,
         cat("\n")
         cat("\n")
         
-        if (length(rev(seq(100, sim, -cut.range))) == 1L)
-            stop("Please specify a 'cut.range' value that is compatible with the 'sim' threshold. ",
-                 "The input 'cut.range = ",cut.range,"', whereas the similarity bin is between: [",sim,",100].")
         
         result.files <- list.files(LTRpred.meta.folder)
         folders0 <-
@@ -174,6 +175,9 @@ LTRpred.meta <- function(genome.folder       = NULL,
                     cat("No quality filter has been applied. Threshold: sim = ",sim,"%.")
                 }
                 
+                dplyr::group_by(pred,similarity)
+                
+                
                 
                 binned.similarities <- cut(
                     pred$ltr_similarity,
@@ -182,10 +186,11 @@ LTRpred.meta <- function(genome.folder       = NULL,
                     right = TRUE
                 )
                 
-                SimMatrix[i] <- list(table(factor(
-                    binned.similarities,
-                    levels = levels(binned.similarities)
-                )))
+                # implement error handling here or a more dynamic approach
+                # to handle different bin ranges in different organisms 
+                #sim.mass.summary <- dplyr::summarize(dplyr::group_by(pred,similarity), mass = sum(width) / 1000000)
+                                 
+                SimMatrix[i] <- list(sim.mass.summary)
                 
                 # count the number of predicted LTR transposons
                 nLTRs[i] <- length(unique(pred$ID))
