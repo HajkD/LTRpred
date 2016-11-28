@@ -218,7 +218,7 @@ LTRpred <- function(genome.file       = NULL,
                     orf.file          = NULL,
                     annotate          = NULL,
                     Dfam.db           = NULL,
-                    dfam.eval         = 1e-5,
+                    dfam.eval         = 1e-3,
                     dfam.file         = NULL,
                     cluster           = FALSE,
                     clust.sim         = 0.9,
@@ -272,23 +272,23 @@ LTRpred <- function(genome.file       = NULL,
   
     if (!is.null(LTRharvest.folder))
         if (LTRharvest.folder != "skip")
-            stop (
+            stop(
                 "The argument 'LTRharvest.folder' can only either be 'NULL' (default) or 'skip' when LTRharvest folder movement shall be skipped.",
                 call. = FALSE
             )
     
     if (!is.null(annotate)) {
         if (!is.element(annotate, c("Repbase", "Dfam")))
-            stop ("Only Dfam or Repbase can be used to annotate predicted LTR transposons!",
+            stop("Only Dfam or Repbase can be used to annotate predicted LTR transposons!",
                   call. = FALSE)
     }
     
     if (parallel::detectCores() < cores)
-        stop ("Your system does not provide the number of cores you specified.",
+        stop("Your system does not provide the number of cores you specified.",
               call. = FALSE)
     
     if (!is.null(dfam.file) & is.null(annotate))
-        stop ("Please specify annotate = 'Dfam' when providing a dfam.file path.",
+        stop("Please specify annotate = 'Dfam' when providing a dfam.file path.",
               call. = FALSE)
     
     
@@ -352,7 +352,7 @@ LTRpred <- function(genome.file       = NULL,
     }
     
     rTSD_end <- lTSD_start <- PPT_end <- PPT_start <- PBS_end <- PBS_start <- NULL
-    ID <- chromosome <- reading_frame <- width <- orf.id <- NULL
+    ID <- chromosome <- width <- orf.id <- NULL
     
     cat("\n")
     cat("Starting LTRpred analysis...")
@@ -501,7 +501,7 @@ LTRpred <- function(genome.file       = NULL,
     
     if (!is.null(LTRdigestOutput)) {
         
-        if (nrow(LTRdigestOutput$ltr.retrotransposon) > 0){
+        if (nrow(LTRdigestOutput$ltr.retrotransposon) > 0) {
             LTRdigestOutput$ltr.retrotransposon <-
                 dplyr::mutate(LTRdigestOutput$ltr.retrotransposon,
                               orf.id = paste0(chromosome_ltrharvest, "_", start, "_", end))
@@ -671,12 +671,25 @@ LTRpred <- function(genome.file       = NULL,
                         warning("The Dfam file has not been joined with the prediction file!") 
                     }
                     
+                } else {
+                    res <- dplyr::mutate(res, dfam_target_name = rep("NA", nrow(res)),
+                                         dfam_acc = rep("NA", nrow(res)),
+                                         dfam_bits = rep("NA", nrow(res)),
+                                         dfam_e_value = rep("NA", nrow(res)),
+                                         dfam_bias = rep("NA", nrow(res)),
+                                         `dfam_hmm-st` = rep("NA", nrow(res)),
+                                         `dfam_hmm-en` = rep("NA", nrow(res)),
+                                         `dfam_env-st` = rep("NA", nrow(res)),
+                                         `dfam_env-en` = rep("NA", nrow(res)),
+                                         `dfam_modlen` = rep("NA", nrow(res)),
+                                         dfam_target_description = rep("NA", nrow(res))
+                                         )
                 }
-                if (annotate == "Repbase") {
-                    repbase.clean()
-                    repbase.query()
-                    repbase.filter()
-                }
+                # if (annotate == "Repbase") {
+                #     repbase.clean()
+                #     repbase.query()
+                #     repbase.filter()
+                # }
             }
             
             # perform transposon clustering
@@ -784,6 +797,13 @@ LTRpred <- function(genome.file       = NULL,
                 if (nrow(cluster.file) == 0) {
                     warning("CLUSTpred: The cluster file was empty and therefore has not been joined with the prediction file.", call. = FALSE)   
                 }
+            } else {
+                res <- dplyr::mutate(res, Clust_Cluster = rep("NA", nrow(res)),
+                                     Clust_Target = rep("NA", nrow(res)),
+                                     Clust_Perc_Ident = rep("NA", nrow(res)),
+                                     Clust_cn = rep("NA", nrow(res))
+                                     )
+                
             }
             
             # perform methylation mark counting
@@ -812,7 +832,7 @@ LTRpred <- function(genome.file       = NULL,
                 )
             
             if ((!file.exists(full.te.seq)) || (!file.exists(seq_3ltr)) || (!file.exists(seq_5ltr))) {
-                warning("At least ohne of the files: '",full.te.seq,"', '",seq_3ltr,"', '",seq_5ltr,"' does not exist and therefore Methylation Context Quantification is omitted!", call. = FALSE)
+                warning("At least one of the files: '",full.te.seq,"', '",seq_3ltr,"', '",seq_5ltr,"' does not exist and therefore Methylation Context Quantification is omitted!", call. = FALSE)
             } else {
                 # count CG: absolute
                 full.te.seq.CG.abs <-
@@ -1214,7 +1234,36 @@ LTRpred <- function(genome.file       = NULL,
         } else {
             warning("The LTR copy number estimation returned an empty file and therefore it has not been joined with the prediction file.", call. = FALSE)
         }
+    } else {
+        res <-
+            dplyr::mutate(res, cn_3ltr = rep("NA", nrow(res)), cn_5ltr = rep("NA", nrow(res)))
     }
+    
+    res <- dplyr::mutate(pred_tool = rep("LTRpred", nrow(res)))
+    res <-
+        dplyr::select(
+            res,
+            ID,
+            dfam_target_name,
+            ltr_similarity,
+            similarity,
+            protein_domain,
+            orfs,
+            chromosome,
+            start,
+            end,
+            strand,
+            width,
+            annotation,
+            pred_tool,
+            frame,
+            score,
+            lLTR_start:`PBS/tRNA_edist`,
+            orf.id,
+            repeat_region_length:PBS_length,
+            dfam_acc:cn_5ltr
+        )
+    
     
     pred2csv(res, file.path(
         output.path,
