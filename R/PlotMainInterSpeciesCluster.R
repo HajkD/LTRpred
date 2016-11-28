@@ -10,18 +10,36 @@
 #' @export
 
 PlotMainInterSpeciesCluster <- function(cluster.file,
+                                        top.n = 6,
+                                        decreasing = TRUE,
                                         xlab = "Species", 
                                         ylab = "% Similarity to Reference",
                                         legend.title = "Species"){
     # retrieve main clusters
-    main.clusters <- as.numeric(names(head(sort(table(cluster.file$Clust_Cluster),decreasing = TRUE))))
-    # generate PlotInterSpeciesCluster plots for the top 6 clusters
-    p1 <- PlotInterSpeciesCluster(cluster.file, main.clusters[1], xlab = xlab, ylab = ylab, legend.title = legend.title)
-    p2 <- PlotInterSpeciesCluster(cluster.file, main.clusters[2], xlab = xlab, ylab = ylab, legend.title = legend.title)
-    p3 <- PlotInterSpeciesCluster(cluster.file, main.clusters[3], xlab = xlab, ylab = ylab, legend.title = legend.title)
-    p4 <- PlotInterSpeciesCluster(cluster.file, main.clusters[4], xlab = xlab, ylab = ylab, legend.title = legend.title)
-    p5 <- PlotInterSpeciesCluster(cluster.file, main.clusters[5], xlab = xlab, ylab = ylab, legend.title = legend.title)
-    p6 <- PlotInterSpeciesCluster(cluster.file, main.clusters[6], xlab = xlab, ylab = ylab, legend.title = legend.title)
+    main.clusters <-
+        as.numeric(names(sort(
+            table(cluster.file$Clust_Cluster), decreasing = decreasing
+        )))
     
-    cowplot::plot_grid(p1, p2, p3, p4, p5, p6)
+    if (length(main.clusters) < top.n)
+        stop(
+            "Number of clusters [",
+            length(main.clusters),
+            "] is smaller than number of selected elements 'top.n = ",
+            top.n,
+            "'.",
+            call. = FALSE
+        )
+    
+    nf <- n2mfrow(top.n)
+    pl <-
+        lapply(seq_len(top.n), function(x)
+            PlotInterSpeciesCluster(
+                cluster.file,
+                main.clusters[x],
+                xlab = xlab,
+                ylab = ylab,
+                legend.title = legend.title
+            ))
+    gridExtra::marrangeGrob(pl, nrow = nf[1], ncol = nf[2])
 }
