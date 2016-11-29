@@ -22,7 +22,7 @@ dfam.query <- function(seq.file,
             "Please provide either a path to the Dfam.hmm database (file) or choose
             Dfam.db = 'download' so that Dfam.hmm is automatically loaded by this function
             (make sure that the internet connection is stabe."
-            )
+             )
     
     if (!file.exists("/usr/local/bin/dfamscan.pl"))
         stop (
