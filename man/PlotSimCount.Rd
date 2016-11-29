@@ -4,11 +4,12 @@
 \alias{PlotSimCount}
 \title{Plot LTR Similarity vs. predicted LTR count}
 \usage{
-PlotSimCount(sim.matrix, genome.matrix = NULL, type = "absolute",
+PlotSimCount(sim.matrix, genome.matrix = NULL, type = "normalized",
   cl.analysis = FALSE, cl.centers = NULL, cl.method = "euclidean",
   cl.nstart = 100, cl.iter.max = 10000, min.sim = 70,
-  similarity.bin = 2, xlab = "LTR \% Similarity", ylab = "Count",
-  main = "LTR \% Similarity vs. Count", text.size = 18)
+  similarity.bin = 2, xlab = "\% Similarity between 5' and 3' LTRs",
+  ylab = "LTR retrotransposon content in Mega [bp]", main = "",
+  text.size = 18)
 }
 \arguments{
 \item{sim.matrix}{Similarity matrix retruned by \code{\link{LTRpred.meta}}.}
