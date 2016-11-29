@@ -13,24 +13,24 @@
 #' @export
 dfam.query <- function(seq.file, 
                        Dfam.db       = NULL, 
-                       eval          = 1E-10, 
+                       eval          = 1E-3, 
                        cores         = 1, 
                        output.folder = getwd()){
   
     if (is.null(Dfam.db))
-        stop (
+        stop(
             "Please provide either a path to the Dfam.hmm database (file) or choose
             Dfam.db = 'download' so that Dfam.hmm is automatically loaded by this function
             (make sure that the internet connection is stabe."
              )
     
     if (!file.exists("/usr/local/bin/dfamscan.pl"))
-        stop (
+        stop(
             "The perl script dfamscan.pl could not be found! Please download it from Dfam and store it in /usr/local/bin ."
         )
     
     if (!file.exists(seq.file))
-        stop ("The file '",seq.file,"' does not exist! Please make sure that a correct path to the sequence file is passed to the dfam.query() function.", call. = FALSE)
+        stop("The file '",seq.file,"' does not exist! Please make sure that a correct path to the sequence file is passed to the dfam.query() function.", call. = FALSE)
     
     if (Dfam.db == "download") {
         downloader::download(
@@ -73,6 +73,9 @@ dfam.query <- function(seq.file,
         )
         cat("Finished Dfam scan!")
         cat("\n")
+        cat("A dfam query file has been generated and stored at",ws.wrap.path(file.path(
+            output.folder, paste0(basename(seq.file), "_DfamAnnotation.out"))),".")
+        cat("\n")
     } else {
         if (file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3f")) &&
             file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3i")) &&
@@ -110,6 +113,9 @@ dfam.query <- function(seq.file,
             )
         )
         cat("Finished Dfam scan!")
+        cat("\n")
+        cat("A dfam query file has been generated and stored at",ws.wrap.path(file.path(
+            output.folder, paste0(basename(seq.file), "_DfamAnnotation.out"))),".")
         cat("\n")
         cat("\n")
     }
