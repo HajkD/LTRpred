@@ -64,114 +64,6 @@ read.prediction <- function( gff.file        = NULL,
     X4 <- X5 <- X9 <- annotation <- ltr_similarity <- chromosome <- NULL
     
     if (program == "LTRharvest") {
-        if (!is.null(ltr.fasta)) {
-            LTRretrotransposon.fasta <-
-                Biostrings::readDNAStringSet(ltr.fasta, "fasta")
-            LTRretrotransposon.NAMES <-
-                LTRretrotransposon.fasta@ranges@NAMES
-            RawIntervals <-
-                do.call(rbind,
-                        sapply(LTRretrotransposon.NAMES, function(x)
-                            noquote(stringr::str_split(
-                                stringr::str_replace(
-                                    stringr::str_replace(
-                                        stringr::str_extract(x, "[?<=\\[].*?[?=\\]]"),
-                                        "\\[",
-                                        ""
-                                    ),
-                                    "\\]",
-                                    ""
-                                ),
-                                ","
-                            ))))
-            colnames(RawIntervals) <- c("start", "end")
-            ChrID <-
-                sapply(rownames(RawIntervals), function(y)
-                    stringr::str_split(y, " \\(")[[1]][1])
-            
-            LTRretrotransposon.df <-
-                data.frame(
-                    chromosome = ChrID,
-                    start = as.numeric(LTRretrotransposon.df[, "start"]),
-                    end = as.numeric(LTRretrotransposon.df[, "end"])
-                )
-            LTRretrotransposon.df <-
-                dplyr::mutate(LTRretrotransposon.df, width = (end - start) + 1)
-            
-        }
-        
-        if (!is.null(inner.seq.fasta)) {
-            BetweenLTRSeq.fasta <-
-                Biostrings::readDNAStringSet(inner.seq.fasta, "fasta")
-            BetweenLTRSeq.NAMES <- BetweenLTRSeq.fasta@ranges@NAMES
-            BetweenLTRRawIntervals <-
-                do.call(rbind,
-                        sapply(BetweenLTRSeq.NAMES, function(x)
-                            noquote(stringr::str_split(
-                                stringr::str_replace(
-                                    stringr::str_replace(
-                                        stringr::str_extract(x, "[?<=\\[].*?[?=\\]]"),
-                                        "\\[",
-                                        ""
-                                    ),
-                                    "\\]",
-                                    ""
-                                ),
-                                ","
-                            ))))
-            colnames(BetweenLTRRawIntervals) <- c("start", "end")
-            ChrID <-
-                sapply(rownames(BetweenLTRRawIntervals), function(y)
-                    stringr::str_split(y, " \\(")[[1]][1])
-            
-            BetweenLTRSeq.df <-
-                data.frame(
-                    chromosome = ChrID,
-                    start = as.numeric(LTRretrotransposon.df[, "start"]),
-                    end = as.numeric(LTRretrotransposon.df[, "end"])
-                )
-            BetweenLTRSeq.df <-
-                dplyr::mutate(LTRretrotransposon.df, width = (end - start) + 1)
-            
-        }
-        
-        if (!is.null(gff.file)) {
-            # check whether or not comment lines are included in the
-            # gtf file : '#!'
-            CommentCheck <-
-                readLines(gff.file, n = 1000, warn = FALSE)
-            FoundCommentLines <-
-                sapply(CommentCheck, function(x)
-                    stringr::str_detect(x, "#."))
-            if (any(FoundCommentLines)) {
-                RemoveFirstNLines <- max(which(FoundCommentLines))
-                
-                # Extract header information
-                #CommentCheck[2:RemoveFirstNLines]
-                
-            } else {
-                RemoveFirstNLines <- 0
-            }
-            
-            # read gff file content: comment = "###"
-            AnnotationFile <-
-                readr::read_tsv(
-                    gff.file,
-                    col_names = FALSE,
-                    skip = 0,
-                    comment = "#"
-                )
-            cat("\n")
-            cat("Input: ",
-                gff.file,
-                " -> Row Number: ",
-                nrow(AnnotationFile))
-            cat("\n")
-            AnnotationFile <- na.omit(AnnotationFile)
-            cat("Remove 'NA' -> New Row Number: ", nrow(AnnotationFile))
-            cat("\n")
-        }
-        
         
         if (!is.null(data))
             AnnotationFile <- data
@@ -490,6 +382,16 @@ read.prediction <- function( gff.file        = NULL,
         AnnotationFile <-
             readr::read_tsv(gff.file,
                             col_names = FALSE,
+                            col_types = readr::cols(
+                            "X1" = readr::col_character(),    
+                            "X2" = readr::col_character(),
+                            "X3" = readr::col_character(),
+                            "X4" = readr::col_integer(),
+                            "X5" = readr::col_integer(),
+                            "X6" = readr::col_character(),
+                            "X7" = readr::col_character(),
+                            "X8" = readr::col_character()
+                            ),
                             skip = 0,
                             comment = "#")
         cat("\n")
