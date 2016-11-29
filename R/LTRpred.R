@@ -325,7 +325,7 @@ LTRpred <- function(genome.file       = NULL,
         
         if (dir.exists(output.path)) {
             cat("\n")
-            cat("Folder '",output.path,"' exists already, so existing files will be overwritten...")
+            cat("Folder '",output.path,"' exists already...")
             cat("\n")
             #unlink(output.path, recursive = TRUE)
             #dir.create(output.path)
@@ -341,7 +341,7 @@ LTRpred <- function(genome.file       = NULL,
         cat("Check if folder '",output.path,"' exists already..")
         cat("\n")
         if (dir.exists(output.path)) {
-            cat("Folder '",output.path,"' exists already, so existing files will be overwritten...")
+            cat("Folder '",output.path,"' exists already...")
             #unlink(output.path, recursive = TRUE)
             #dir.create(output.path)
         } else {
@@ -671,26 +671,30 @@ LTRpred <- function(genome.file       = NULL,
                         warning("The Dfam file has not been joined with the prediction file!") 
                     }
                     
-                } else {
-                    res <- dplyr::mutate(res, dfam_target_name = rep("NA", nrow(res)),
-                                         dfam_acc = rep("NA", nrow(res)),
-                                         dfam_bits = rep("NA", nrow(res)),
-                                         dfam_e_value = rep("NA", nrow(res)),
-                                         dfam_bias = rep("NA", nrow(res)),
-                                         `dfam_hmm-st` = rep("NA", nrow(res)),
-                                         `dfam_hmm-en` = rep("NA", nrow(res)),
-                                         `dfam_env-st` = rep("NA", nrow(res)),
-                                         `dfam_env-en` = rep("NA", nrow(res)),
-                                         `dfam_modlen` = rep("NA", nrow(res)),
-                                         dfam_target_description = rep("NA", nrow(res))
-                                         )
                 }
+            }
+            if (is.null(annotate)) {
+                res <- dplyr::mutate(
+                    res,
+                    dfam_target_name = rep("NA", nrow(res)),
+                    dfam_acc = rep("NA", nrow(res)),
+                    dfam_bits = rep("NA", nrow(res)),
+                    dfam_e_value = rep("NA", nrow(res)),
+                    dfam_bias = rep("NA", nrow(res)),
+                    `dfam_hmm-st` = rep("NA", nrow(res)),
+                    `dfam_hmm-en` = rep("NA", nrow(res)),
+                    `dfam_env-st` = rep("NA", nrow(res)),
+                    `dfam_env-en` = rep("NA", nrow(res)),
+                    `dfam_modlen` = rep("NA", nrow(res)),
+                    dfam_target_description = rep("NA", nrow(res))
+                )
+            }
                 # if (annotate == "Repbase") {
                 #     repbase.clean()
                 #     repbase.query()
                 #     repbase.filter()
                 # }
-            }
+            
             
             # perform transposon clustering
             if (!cluster &&
@@ -1239,7 +1243,7 @@ LTRpred <- function(genome.file       = NULL,
             dplyr::mutate(res, cn_3ltr = rep("NA", nrow(res)), cn_5ltr = rep("NA", nrow(res)))
     }
     
-    res <- dplyr::mutate(pred_tool = rep("LTRpred", nrow(res)))
+    res <- dplyr::mutate(res, pred_tool = rep("LTRpred", nrow(res)))
     res <-
         dplyr::select(
             res,
@@ -1271,6 +1275,7 @@ LTRpred <- function(genome.file       = NULL,
     ))
     cat("\n")
     cat("LTRpred analysis finished properly.")
+    cat("\n")
     cat("\n")
 }
 
