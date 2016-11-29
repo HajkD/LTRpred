@@ -15,10 +15,50 @@
 read.tabout <- function(tabout.file){
     
     LTRdigest.tabout.header <- readr::read_lines(tabout.file, n_max = 1)
+    LTRdigest.tabout.header.names <-
+        stringr::str_replace_all(unlist(stringr::str_split(LTRdigest.tabout.header, "\t")), " ", "_")
     
-    LTRdigest.tabout.header.names <- stringr::str_replace_all(unlist(stringr::str_split(LTRdigest.tabout.header,"\t"))," ","_")
-    LTRdigest.tabout <- readr::read_tsv(tabout.file, skip = 1, col_names = FALSE)
-    colnames(LTRdigest.tabout) <- c(LTRdigest.tabout.header.names,"protein_domain")
+    LTRdigest.tabout <-
+        readr::read_tsv(
+            tabout.file,
+            skip = 1,
+            col_names = FALSE,
+            col_types = readr::cols(
+                "X1" = readr::col_integer(),
+                "X2" = readr::col_integer(),
+                "X3" = readr::col_integer(),
+                "X4" = readr::col_character(),
+                "X5" = readr::col_integer(),
+                "X6" = readr::col_integer(),
+                "X7" = readr::col_integer(),
+                "X8" = readr::col_integer(),
+                "X9" = readr::col_integer(),
+                "X10" = readr::col_integer(),
+                "X11" = readr::col_integer(),
+                "X12" = readr::col_integer(),
+                "X13" = readr::col_character(),
+                "X14" = readr::col_integer(),
+                "X15" = readr::col_integer(),
+                "X16" = readr::col_character(),
+                "X17" = readr::col_integer(),
+                "X18" = readr::col_integer(),
+                "X19" = readr::col_character(),
+                "X20" = readr::col_character(),
+                "X21" = readr::col_integer(),
+                "X22" = readr::col_integer(),
+                "X23" = readr::col_integer(),
+                "X24" = readr::col_character(),
+                "X25" = readr::col_character(),
+                "X26" = readr::col_character(),
+                "X27" = readr::col_integer(),
+                "X28" = readr::col_integer(),
+                "X29" = readr::col_integer(),
+                "X30" = readr::col_character()
+            )
+        )
     
-    return (LTRdigest.tabout)
+    colnames(LTRdigest.tabout) <-
+        c(LTRdigest.tabout.header.names, "protein_domain")
+    
+    return(LTRdigest.tabout)
 }
