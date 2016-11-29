@@ -114,7 +114,7 @@ read.ltrpred <- function(data.sheet){
         "N_5ltr_abs" = readr::col_integer(),
         "cn_3ltr" = readr::col_integer(),
         "cn_5ltr" = readr::col_integer()
-    ), delim = ";")
+    ), delim = "\t")
     
     return(pred)
 }
