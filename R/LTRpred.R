@@ -683,6 +683,9 @@ LTRpred <- function(genome.file       = NULL,
                     dfam_bias = rep("NA", nrow(res)),
                     `dfam_hmm-st` = rep("NA", nrow(res)),
                     `dfam_hmm-en` = rep("NA", nrow(res)),
+                    `dfam_strand` = rep("NA", nrow(res)),
+                    `dfam_ali-st` = rep("NA", nrow(res)),
+                    `dfam_ali-en` = rep("NA", nrow(res)),
                     `dfam_env-st` = rep("NA", nrow(res)),
                     `dfam_env-en` = rep("NA", nrow(res)),
                     `dfam_modlen` = rep("NA", nrow(res)),
@@ -1244,9 +1247,14 @@ LTRpred <- function(genome.file       = NULL,
     }
     
     res <- dplyr::mutate(res, pred_tool = rep("LTRpred", nrow(res)))
+    res <- dplyr::mutate(res, species = rep(chopped.foldername, nrow(res)))
+    res <- dplyr::mutate(res, ID = paste0(chopped.foldername,"_",ID))
+    res <- dplyr::mutate(res, orfs = ifelse(is.na(orfs), 0, orfs))
+    
     res <-
         dplyr::select(
             res,
+            species,
             ID,
             dfam_target_name,
             ltr_similarity,
