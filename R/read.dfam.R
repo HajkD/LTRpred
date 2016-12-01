@@ -23,7 +23,7 @@ read.dfam <- function(dfam.file){
             stringr::str_detect(x, "\\#")))]
     
     
-    if (nrow(annoFile) > 0) {
+    if (length(annoFile) > 0) {
         # parse dfam query output to data.frame
         annoFile.processed <-
             as.data.frame(do.call(rbind, lapply(annoFile, function(x) {
