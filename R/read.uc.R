@@ -37,15 +37,39 @@
 read.uc <- function(uc.file){
     
   if (!file.exists(uc.file))
-      stop ("Import *.uc file: The file '",uc.file,"' could not be found! Please check the path to the input *.uc file.")
+      stop("Import *.uc file: The file '",uc.file,"' could not be found! Please check the path to the input *.uc file.")
     
-  uc.df <- readr::read_tsv(uc.file, col_names = FALSE)
-  colnames(uc.df) <- c("Type","Cluster","Size","Perc_Ident",
-                       "Strand","Qlo","Tlo","Alignment",
-                       "Query","Target")
-  
-  Qlo <- Tlo <- Alignment <- NULL
-  res <- dplyr::select(uc.df, -Qlo, -Tlo, -Alignment)
-  return (res)
+    uc.df <- readr::read_tsv(
+        uc.file,
+        col_names = FALSE,
+        readr::cols(
+            "X1" = readr::col_character(),
+            "X2" = readr::col_integer(),
+            "X3" = readr::col_integer(),
+            "X4" = readr::col_character(),
+            "X5" = readr::col_character(),
+            "X6" = readr::col_character(),
+            "X7" = readr::col_character(),
+            "X8" = readr::col_character(),
+            "X9" = readr::col_character(),
+            "X10" = readr::col_character()
+        )
+    )
+    colnames(uc.df) <- c(
+        "Type",
+        "Cluster",
+        "Size",
+        "Perc_Ident",
+        "Strand",
+        "Qlo",
+        "Tlo",
+        "Alignment",
+        "Query",
+        "Target"
+    )
+    
+    Qlo <- Tlo <- Alignment <- NULL
+    res <- dplyr::select(uc.df, -Qlo, -Tlo, -Alignment)
+    return(res)
 }
 
