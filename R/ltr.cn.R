@@ -17,12 +17,6 @@
 #' @param eval e-value threshold for BLAST hit detection. Default is \code{eval = 1E-10}.
 #' @param cores number of cores for parallel computations.
 #' @author Hajk-Georg Drost
-#' @details 
-#' The
-#' @examples 
-#' \dontrun{
-#' 
-#' }
 #' @references  
 #' Altschul, S.F., Gish, W., Miller, W., Myers, E.W. & Lipman, D.J. (1990) "Basic local alignment search tool." J. Mol. Biol. 215:403-410.
 #' 
@@ -47,22 +41,33 @@ ltr.cn <- function(data.sheet,
                    eval              = 1E-10,
                    cores             = 1){
   
-    ltr_similarity <- NULL
+    ltr_similarity <- s_len <- alig_length <- scope <- perc_identity <- NULL
+    s_start <- s_end <- s_start_new <- s_end_new <- subject_id <- chromosome <- query_id <- NULL
+    q_len <- strand <- bit_score <- evalue <- NULL
+    
     
     if (!file.exists(data.sheet)) {
-        stop ("ltr.cn: The file '",data.sheet,"' has not been found. Please check the path.")
+        stop("ltr.cn: The file '",
+              data.sheet,
+              "' has not been found. Please check the path.")
     }
     
     if (!file.exists(LTR.fasta_3ltr)) {
-        stop ("ltr.cn: The file '",LTR.fasta_3ltr,"' has not been found. Please check the path.")
+        stop("ltr.cn: The file '",
+              LTR.fasta_3ltr,
+              "' has not been found. Please check the path.")
     }
     
     if (!file.exists(LTR.fasta_5ltr)) {
-        stop ("ltr.cn: The file '",LTR.fasta_5ltr,"' has not been found. Please check the path.")
+        stop("ltr.cn: The file '",
+              LTR.fasta_5ltr,
+              "' has not been found. Please check the path.")
     }
     
     if (!file.exists(genome)) {
-        stop ("ltr.cn: The file '",genome,"' has not been found. Please check the path.")
+        stop("ltr.cn: The file '",
+              genome,
+              "' has not been found. Please check the path.")
     }
     
     if (is.null(output)) {
@@ -94,18 +99,18 @@ ltr.cn <- function(data.sheet,
     LTR.filtered.fasta_5ltr <-
         file.path(tempdir(),
                   paste0(folder.name, "-ltrdigest_5ltr_", ltr.similarity, ".fas"))
-
-        pred2fasta(
-            LTRpred.tbl     = dplyr::filter(LTRpred.tbl, ltr_similarity >= ltr.similarity),
-            prediction.file = LTR.fasta_3ltr,
-            output          = LTR.filtered.fasta_3ltr
-        )
-        
-        pred2fasta(
-            LTRpred.tbl     = dplyr::filter(LTRpred.tbl, ltr_similarity >= ltr.similarity),
-            prediction.file = LTR.fasta_5ltr,
-            output          = LTR.filtered.fasta_5ltr
-        )
+    
+    pred2fasta(
+        LTRpred.tbl     = dplyr::filter(LTRpred.tbl, ltr_similarity >= ltr.similarity),
+        prediction.file = LTR.fasta_3ltr,
+        output          = LTR.filtered.fasta_3ltr
+    )
+    
+    pred2fasta(
+        LTRpred.tbl     = dplyr::filter(LTRpred.tbl, ltr_similarity >= ltr.similarity),
+        prediction.file = LTR.fasta_5ltr,
+        output          = LTR.filtered.fasta_5ltr
+    )
     
     if (!file.exists(LTR.filtered.fasta_3ltr) ||
         !file.exists(LTR.filtered.fasta_5ltr)) {
@@ -144,7 +149,7 @@ ltr.cn <- function(data.sheet,
             cores,
             " -dust no -outfmt '6 qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen sstart send slen evalue bitscore score'"
         )
-        )
+    )
     
     # BLAST putative LTRs against genome file for 5 prime LTR
     system(
@@ -164,7 +169,7 @@ ltr.cn <- function(data.sheet,
             cores,
             " -dust no -outfmt '6 qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen sstart send slen evalue bitscore score'"
         )
-        )
+    )
     
     # Define the column names of the BLAST output
     BLASTColNames <- c(
@@ -194,7 +199,7 @@ ltr.cn <- function(data.sheet,
         readr::read_tsv(output_3ltr, col_names = FALSE)
     BLASTOutput_5ltr <-
         readr::read_tsv(output_5ltr, col_names = FALSE)
-
+    
     colnames(BLASTOutput_3ltr) <- BLASTColNames
     colnames(BLASTOutput_5ltr) <- BLASTColNames
     
@@ -240,7 +245,7 @@ ltr.cn <- function(data.sheet,
         dplyr::mutate(BLASTOutput_3ltr, subject_id = as.character(subject_id))
     BLASTOutput_5ltr <-
         dplyr::mutate(BLASTOutput_5ltr, subject_id = as.character(subject_id))
-   
+    
     # here match Chromosomes....
     BLASTOutput_3ltr <-
         dplyr::mutate(BLASTOutput_3ltr,
@@ -248,7 +253,7 @@ ltr.cn <- function(data.sheet,
     BLASTOutput_5ltr <-
         dplyr::mutate(BLASTOutput_5ltr,
                       subject_id = as.character(subject_id))
-
+    
     ## remove non-matching chromosomes or mitochondria or chloroplast (sequences)
     # test whether or not 3ltr and 5 ltr loci overlap with predicted full ltr transposon locus
     full.te.chr <- names(table(LTRpred.tbl$chromosome))
@@ -256,9 +261,12 @@ ltr.cn <- function(data.sheet,
     # setdiff is not symmetrical so setdiff(A,B) != setdiff(B,A)
     setdiff.full.te <- Biostrings::setdiff(full.te.chr, ltr_chr)
     setdiff.ltr <- Biostrings::setdiff(ltr_chr, full.te.chr)
-    LTR.fasta_full.te <- dplyr::filter(LTRpred.tbl, !is.element(chromosome, setdiff.full.te))
-    BLASTOutput_3ltr <- dplyr::filter(BLASTOutput_3ltr, !is.element(subject_id, setdiff.ltr))
-    BLASTOutput_5ltr <- dplyr::filter(BLASTOutput_5ltr, !is.element(subject_id, setdiff.ltr))
+    LTR.fasta_full.te <-
+        dplyr::filter(LTRpred.tbl, !is.element(chromosome, setdiff.full.te))
+    BLASTOutput_3ltr <-
+        dplyr::filter(BLASTOutput_3ltr, !is.element(subject_id, setdiff.ltr))
+    BLASTOutput_5ltr <-
+        dplyr::filter(BLASTOutput_5ltr, !is.element(subject_id, setdiff.ltr))
     
     # test again after removal of different chromosomes if chromosomes in both tables match
     full.te.chr <- names(table(LTR.fasta_full.te$chromosome))
@@ -333,11 +341,11 @@ ltr.cn <- function(data.sheet,
             (length(ir.5ltr_ov_ir.full.te) > 0)) {
             # exclude overlaps between 3ltr locus and full ltr transposon locus and keep equal overlaps between 3ltr locus and 5ltr locus
             BLASTOutput_3ltr_chr <-
-                BLASTOutput_3ltr_chr[-ir.3ltr_ov_ir.full.te@queryHits,]
+                BLASTOutput_3ltr_chr[-ir.3ltr_ov_ir.full.te@queryHits, ]
             # exclude overlaps between 5ltr locus and full ltr transposon locus and remove equal overlaps between 3ltr locus and 5ltr locus
             BLASTOutput_5ltr_chr <-
                 BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@queryHits,
-                                        ir.5ltr_ov_ir.3ltr@queryHits),]
+                                        ir.5ltr_ov_ir.3ltr@queryHits), ]
         }
         
         if ((length(ir.3ltr_ov_ir.full.te) > 0) &
@@ -345,10 +353,10 @@ ltr.cn <- function(data.sheet,
             (length(ir.5ltr_ov_ir.full.te) > 0)) {
             # exclude overlaps between 3ltr locus and full ltr transposon locus
             BLASTOutput_3ltr_chr <-
-                BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@queryHits),]
+                BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@queryHits), ]
             # exclude overlaps between 5ltr locus and full ltr transposon locus
             BLASTOutput_5ltr_chr <-
-                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@queryHits),]
+                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@queryHits), ]
         }
         
         if ((length(ir.3ltr_ov_ir.full.te) == 0) &
@@ -356,7 +364,7 @@ ltr.cn <- function(data.sheet,
             (length(ir.5ltr_ov_ir.full.te) > 0)) {
             # exclude overlaps between 5ltr locus and full ltr transposon locus
             BLASTOutput_5ltr_chr <-
-                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@queryHits),]
+                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@queryHits), ]
         }
         
         if ((length(ir.3ltr_ov_ir.full.te) > 0) &
@@ -364,7 +372,7 @@ ltr.cn <- function(data.sheet,
             (length(ir.5ltr_ov_ir.full.te) == 0)) {
             # exclude overlaps between 3ltr locus and full ltr transposon locus and overlaps between 3ltr locus and 5ltr locus
             BLASTOutput_3ltr_chr <-
-                BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@queryHits),]
+                BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@queryHits), ]
         }
         #[ ,c("query_id","q_len","subject_id","s_start","s_end","scope","strand", "alig_length", "perc_identity", "bit_score", "evalue")]
         BLAST.ir.3ltr.list[i] <-
