@@ -21,16 +21,16 @@ PlotRanges <- function(x,
     
     bins <- IRanges::disjointBins(IRanges::IRanges(IRanges::start(x), IRanges::end(x) + 1))
     
-    plot.new()
+    graphics::plot.new()
     
-    plot.window(xlim, c(0, max(bins)*(height + sep)))
+    graphics::plot.window(xlim, c(0, max(bins)*(height + sep)))
     
     ybottom <- bins * (sep + height) - height
     
-    rect(IRanges::start(x)-0.5, ybottom, IRanges::end(x) + 0.5, ybottom + height, col = col, ...)
+    graphics::rect(IRanges::start(x)-0.5, ybottom, IRanges::end(x) + 0.5, ybottom + height, col = col, ...)
     
-    title(main)
-    axis(1) 
+    graphics::title(main)
+    graphics::axis(1) 
 }
 
 
@@ -38,21 +38,21 @@ PlotRanges <- function(x,
 PlotRanges2 <- function(x, xlim = x, main = deparse(substitute(x)), col = "black", sep = 0.5, ...){
     height <- 1
     
-    if (is(xlim, "Ranges"))
+    if (methods::is(xlim, "Ranges"))
         xlim <- c(min(IRanges::start(xlim)), max(IRanges::end(xlim)))
     
     bins <- IRanges::disjointBins(IRanges::IRanges(IRanges::start(x), IRanges::end(x) + 1))
     
-    plot.new()
+    graphics::plot.new()
     
-    plot.window(xlim, c(0, max(bins)*(height + sep)))
+    graphics::plot.window(xlim, c(0, max(bins)*(height + sep)))
     
     ybottom <- bins * (sep + height) - height
     
-    rect(IRanges::start(x)-0.5, ybottom, IRanges::end(x) + 0.5, ybottom + height, col = col, ...)
+    graphics::rect(IRanges::start(x)-0.5, ybottom, IRanges::end(x) + 0.5, ybottom + height, col = col, ...)
     
-    title(main)
-    axis(1) 
+    graphics::title(main)
+    graphics::axis(1) 
 }
 
 
