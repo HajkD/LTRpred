@@ -13,7 +13,7 @@ cn2bed <- function(cn.pred, type = "solo", filename = "copy_number_est", sep = "
     
     if (!is.element(type, c("solo", "te")))
         stop("Please choose either 'solo' or 'te' as type.")
-    # query_id q_len           subject_id  s_start    s_end     scope strand alig_length perc_identity bit_score evalue
+    query_id <- subject_id <- s_start <- s_end <- strand <- bit_score <- chromosome <- start <- end <- ID <- bit_score <- strand <- NULL
     
     cn.pred <- dplyr::mutate(
         cn.pred,
@@ -25,7 +25,7 @@ cn2bed <- function(cn.pred, type = "solo", filename = "copy_number_est", sep = "
     
     if (type == "solo") {
         if (is.null(output))
-            write.table(
+            utils::write.table(
                 dplyr::select(
                     cn.pred,
                     chromosome,
