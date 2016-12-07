@@ -1,5 +1,5 @@
 #' @title Visualize the Protein Domain distribution of predicted LTR retrotransposons
-#' @details Plot the Superfamily distribution of predicted LTR retrotransposons of
+#' @description Plot the Superfamily distribution of predicted LTR retrotransposons of
 #' annotations generated via Dfam or Repbase query. 
 #' @param LTRpred.tbl \code{data.frame} returned by \code{\link{LTRpred}}.
 #' @param xlab label of the x-axis.
@@ -25,7 +25,9 @@ PlotProteinDomain <- function(LTRpred.tbl,
                        main = "Protein Domain distribution of predicted LTR retrotransposons",
                        legend.title = "Protein Domains") {
 
-    
+        
+        protein_domain <- NULL
+         
         LTRpred.tbl <- dplyr::mutate(LTRpred.tbl, protein_domain = ifelse(is.na(protein_domain),"none",protein_domain))
         p <-
             ggplot2::ggplot(LTRpred.tbl, ggplot2::aes(x = protein_domain, fill = factor(protein_domain))) + 
