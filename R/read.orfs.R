@@ -16,12 +16,13 @@
 #' @export
 read.orfs <- function(input.file){
   
-  seq.id <- chromosome <- start <- end <- orfs <- NULL
+  seq.id <- orfs <- NULL
   
   ReadSeqFile <- Biostrings::readDNAStringSet(input.file)
-  SeqFile.table <- table(sapply(ReadSeqFile@ranges@NAMES, 
-                                function(x) unlist(stringr::str_split(x, "[|]"))[1]))
-  ORFCount.df <- dplyr::data_frame(seq.id = names(SeqFile.table), 
+  SeqFile.table <- table(sapply(ReadSeqFile@ranges@NAMES,
+                                function(x)
+                                    unlist(stringr::str_split(x, "[|]"))[1]))
+  ORFCount.df <- dplyr::data_frame(seq.id = names(SeqFile.table),
                                    orfs = as.numeric(SeqFile.table))
   
 #   GenomicLocus <- as.data.frame(do.call(rbind, sapply(ORFCount.df$seq.id, function(x){
@@ -38,7 +39,7 @@ read.orfs <- function(input.file){
 #   ORFCount.df <- dplyr::mutate(ORFCount.df, chromosome = paste0(unlist(stringr::str_split(seq.id, "__"))[1],"_"))
   #ORFCount.df <- dplyr::select(ORFCount.df,chromosome,seq.id,start,end,orfs)
   ORFCount.df <- dplyr::select(ORFCount.df,seq.id,orfs)
-  return (ORFCount.df) 
+  return(ORFCount.df) 
 }
 
 
