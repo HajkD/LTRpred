@@ -20,6 +20,8 @@ PlotInterSpeciesCluster <- function(cluster.file,
     if (!is.element(cluster,main.clusters))
         stop("Cluster '",cluster,"' cannot be found in the cluster.file!", call. = FALSE)
     
+    Clust_Cluster <- Species <- Clust_Perc_Ident <- n <- NULL
+    
     # select all elements that belong to the same specific cluster
     cl <- dplyr::filter(cluster.file, Clust_Cluster == cluster)
     # define the species origin of the elements within this cluster
@@ -28,7 +30,7 @@ PlotInterSpeciesCluster <- function(cluster.file,
             unlist(stringr::str_split(x, "_"))[1])))
     # count the total number elements for each species
     count <-
-        as.data.frame(dplyr::summarise(dplyr::group_by(cl, Species), n = n()))
+        as.data.frame(dplyr::summarise(dplyr::group_by(cl, Species), n = dplyr::n()))
     
     res <-
         ggplot2::ggplot(cl, ggplot2::aes(Species, Clust_Perc_Ident)) +
