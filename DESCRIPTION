@@ -1,13 +1,13 @@
 Package: LTRpred
 Type: Package
-Title: De Novo LTR Transposon Prediction and Annotation with R
+Title: LTR Retrotransposon Prediction and Annotation with R
 Version: 0.0.1
 Date: 2016-01-13
 Authors@R: as.person(c(
     "Hajk-Georg Drost <hgd23@cam.ac.uk> [aut, cre]"
     ))
 Maintainer: Hajk-Georg Drost <hgd23@cam.ac.uk>
-Description: Perform de novo LTR transposon predictions and analysis in R.
+Description: A meta-genomics tool explicitly designed to investigate LTR retrotransposons in a comparative manner.
 License: GPL-3
 SystemRequirements: C++
 VignetteBuilder: knitr
@@ -29,7 +29,9 @@ Imports:
     amap,
     ggrepel,
     ggbio,
-    reshape2
+    reshape2,
+    gridExtra,
+    methods
 Suggests:
     knitr (>= 1.6),
     rmarkdown (>= 0.3.3),
