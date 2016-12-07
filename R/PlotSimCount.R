@@ -58,13 +58,13 @@ PlotSimCount <- function(sim.matrix,
     if ((type == "normalized") && (is.null(genome.matrix)))
         stop("Please specify the 'genome.matrix' argument when using type = 'normalized'.")
     
-    similarity <- count <- NULL
-    
     if (type == "normalized") {
         sim.matrix[, 2:ncol(sim.matrix)] <-
             sim.matrix[, 2:ncol(sim.matrix)] / genome.matrix$genome.size
         
     }
+    
+    content <- organism <- similarity <- NULL
     
     names(sim.matrix) <- c("organism", levels(cut(
         100, rev(seq(100, min.sim, -similarity.bin)),
