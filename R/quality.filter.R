@@ -20,6 +20,7 @@
 quality.filter <- function(pred, sim, n.orfs){
     # try to reduce false positives by filtering for PBS and ORFs
     cat("\n")
+    ltr_similarity <- PBS_start <- protein_domain <- orfs <- NULL
     filtered.res <- dplyr::filter(pred,
                           ltr_similarity >= sim,
                           (!is.na(PBS_start)) |
