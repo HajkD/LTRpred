@@ -44,6 +44,8 @@ meta.summarize <- function(result.folder,
                            quality.filter = TRUE,
                            n.orfs         = 0){
   
+    PBS_start <- protein_domain <- orfs <- NULL
+    
     result.files <- list.files(result.folder)
     folders0 <-
         result.files[stringr::str_detect(result.files, "ltrpred")]
