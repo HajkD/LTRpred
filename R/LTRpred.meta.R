@@ -29,6 +29,11 @@
 #'  Site or a protein match of at least one protein (Gag, Pol, Rve, ...) between their LTRs. All TEs not matching this criteria are discarded.
 #' }
 #' 
+#' @return 
+#' \itemize{
+#' \item a file \code{*_SimilarityMatrix.csv} is generated and stored in the working directory.
+#' \item a file \code{*_GenomeInfo.csv} is generated and stored in the working directory.
+#' }
 #' 
 #' @examples 
 #' \dontrun{
@@ -60,7 +65,9 @@ LTRpred.meta <- function(genome.folder       = NULL,
         is.null(result.folder) &&
         !is.null(LTRpred.meta.folder)) {
         if (!file.exists(genome.folder))
-            stop ("The folder ' ", genome.folder, " ' could not be found.")
+            stop("The folder ' ", genome.folder, " ' could not be found.")
+        
+        ltr_similarity <- similarity <- mass <- PBS_start <- protein_domain <- orfs <- NULL
         
         cat("\n")
         cat("Starting LTRpred meta analysis on the following files: ")
@@ -188,7 +195,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 
                 # implement error handling here or a more dynamic approach
                 # to handle different bin ranges in different organisms 
-                #sim.mass.summary <- dplyr::summarize(dplyr::group_by(pred,similarity), mass = sum(width) / 1000000)
+                sim.mass.summary <- dplyr::summarize(dplyr::group_by(pred,similarity), mass = sum(width) / 1000000)
                                  
                 SimMatrix[i] <- list(sim.mass.summary)
                 
@@ -228,7 +235,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         
         if (!is.null(file.name)) {
             # store results in working directory
-            write.table(
+            utils::write.table(
                 SimMatrix,
                 paste0(file.name, "_SimilarityMatrix.csv"),
                 sep       = ";",
@@ -237,7 +244,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 row.names = FALSE
             )
             
-            write.table(
+            utils::write.table(
                 GenomeInfo,
                 paste0(file.name, "_GenomeInfo.csv"),
                 sep       = ";",
