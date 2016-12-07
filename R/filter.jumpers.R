@@ -35,7 +35,7 @@ filter.jumpers <- function(LTRpred.tbl, ltr.similarity = 95, strategy = "conserv
     stop ("Please choose a filter strategy implemented in this function.")
   
   ID <- chromosome <- strand <- repeat_region_length <- ltr_similarity <- lTSD_motif <- rTSD_motif <- PPT_motif <- NULL
-  width <- `orf.id` <- lLTR_start <- PBS_length <- similarity <- PPT_motif <- orfs <- protein_domain <- NULL
+  width <- `orf.id` <- lLTR_start <- PBS_length <- similarity <- PPT_motif <- tRNA_motif <- orfs <- protein_domain <- NULL
   
   if (strategy == "conservative"){
     
