@@ -35,24 +35,25 @@ PlotCluster <-
         if (chop.names && (color.by != "fam"))
             stop("When specifying 'chop.names = FALSE' please also specify 'color.by = 'dfam_target_name'.'")
         
+        ltr_similarity <- PBS_start <- protein_domain <- orfs <- dfam_target_name <- Clust_Cluster <- NULL 
         
         # chop superfamily names
         fam_replace <- function(x){
             
-            if (stringr::str_detect(x,"Copia")){
+            if (stringr::str_detect(x,"Copia")) {
                 return(stringr::str_replace(x,x,"Copia"))
             }
-            if (stringr::str_detect(x,"Gypsy")){
+            if (stringr::str_detect(x,"Gypsy")) {
                 return(stringr::str_replace(x,x,"Gypsy"))
             }
-            if (stringr::str_detect(x,"DNA")){
+            if (stringr::str_detect(x,"DNA")) {
                 return(stringr::str_replace(x,x,"DNA"))
             }
             
             return(x)
         }
         
-        if (quality.filter){
+        if (quality.filter) {
             LTRpred.tbl <- dplyr::filter(LTRpred.tbl,
                                          ltr_similarity >= sim,
                                          (!is.na(PBS_start)) |
