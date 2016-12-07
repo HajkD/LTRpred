@@ -34,6 +34,7 @@
 #' }
 #' 
 #' @export
+
 read.uc <- function(uc.file){
     
   if (!file.exists(uc.file))
