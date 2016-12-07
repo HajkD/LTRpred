@@ -1,5 +1,5 @@
 #' @title Visualize the Superfamily distribution of predicted LTR retrotransposons
-#' @details Plot the Superfamily distribution of predicted LTR retrotransposons of
+#' @description Plot the Superfamily distribution of predicted LTR retrotransposons of
 #' annotations generated via Dfam or Repbase query. 
 #' @param LTRpred.tbl \code{data.frame} returned by \code{\link{LTRpred}}.
 #' @param xlab label of the x-axis.
@@ -29,6 +29,8 @@ PlotFamily <- function(LTRpred.tbl,
     
     if (!is.element(annotation,c("Dfam","Repbase")))
         stop("Please choose either 'Dfam' or 'Repbase' as annotation specification.")
+    
+    dfam_target_name <- NULL
     
     if (annotation == "Dfam") {
         p <-
