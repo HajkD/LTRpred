@@ -56,18 +56,18 @@ PlotSizeCorrelation <- function(genome.matrix,
                                 check.overlap       = TRUE){
   
   
-    nLTRs <- genome.size <- cl.colors <- organism <- NULL
+    nLTRs <- genome.size <- totalMass <- cl.colors <- prop <- organism <- norm.nLTRs <- NULL
     
     if (!is.element(type, c("mass", "prop.mass", "count", "norm.count")))
-        stop ("Please specify: type = 'mass' for total length of all TEs in Mbp; type = 'prop.mass' for proportion of TEs within entire genome in %; type = 'count' for total number of TEs in genome; type = 'norm.count' for total number of TEs in genome normalized by genome size in Mbp.")
+        stop("Please specify: type = 'mass' for total length of all TEs in Mbp; type = 'prop.mass' for proportion of TEs within entire genome in %; type = 'count' for total number of TEs in genome; type = 'norm.count' for total number of TEs in genome normalized by genome size in Mbp.")
     
     if (cl.analysis) {
         if (is.null(sim.matrix))
-            stop ("Please specify the 'sim.matrix' argument to be able to perform cluster analysis.")
+            stop("Please specify the 'sim.matrix' argument to be able to perform cluster analysis.")
         
         if (!is.null(smooth.method)) {
             if (!is.element(smooth.method, c("auto", "glm", "lm", "loess")))
-                stop (
+                stop(
                     "Please specify a smooth.method that is supported by this function: 'auto', 'glm', 'lm', or 'loess'.",
                     call. = FALSE
                 )
