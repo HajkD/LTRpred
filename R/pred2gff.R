@@ -157,7 +157,7 @@ pred2gff <- function(LTR.data,
                                                                   "repeat_region_length=",repeat_region_length)),attribute)))
   }
   
-  write.table(res,output, sep = "\t", quote = FALSE, col.names = FALSE, row.names = FALSE)
+  utils::write.table(res,output, sep = "\t", quote = FALSE, col.names = FALSE, row.names = FALSE)
 }
 
 
