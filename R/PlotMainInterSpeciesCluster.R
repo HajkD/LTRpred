@@ -1,8 +1,9 @@
 #' @title Plot inter species similarity between TEs (for the top 6 clusters)
 #' @description After clustering TE sequences across different species with \code{\link{CLUSTpred}}
 #' the similarity of TEs from different species for the top 6 clusters is being visualized.
-#' @param cluster.file a cluster file in \code{*.uc} format (imported with e.g. \code{\link{filter.uc}} and \code{\link{read.uc}}). 
-#' @param cluster numeric value denoting the cluster number of interest.
+#' @param cluster.file a cluster file in \code{*.uc} format (imported with e.g. \code{\link{filter.uc}} and \code{\link{read.uc}}).
+#' @param top.n number of top clustern that shall be visualized.
+#' @param decreasing shall clusters be shown by size in decreasing order? 
 #' @param xlab x-axis label.
 #' @param ylab y-axis label.
 #' @param legend.title legend title text.
@@ -31,7 +32,7 @@ PlotMainInterSpeciesCluster <- function(cluster.file,
             call. = FALSE
         )
     
-    nf <- n2mfrow(top.n)
+    nf <- grDevices::n2mfrow(top.n)
     pl <-
         lapply(seq_len(top.n), function(x)
             PlotInterSpeciesCluster(
