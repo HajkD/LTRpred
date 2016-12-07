@@ -12,7 +12,7 @@ SimMatAbundance <- function(sim.matrix){
     
     for (i in 1:nrow(sim.matrix)) {
         for (j in 1:nrow(sim.matrix)) {
-         res.mat[i,j] <- 1 - cor(unlist(sim.matrix[i, 2:nc]),unlist(sim.matrix[j, 2:nc]))    
+         res.mat[i,j] <- 1 - stats::cor(unlist(sim.matrix[i, 2:nc]),unlist(sim.matrix[j, 2:nc]))    
         }
     }
     rownames(res.mat) <- unlist(sim.matrix[ , "organism"])
