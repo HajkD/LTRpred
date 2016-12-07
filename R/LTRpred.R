@@ -1015,7 +1015,7 @@ LTRpred <- function(genome.file       = NULL,
             
             if (file.exists(file.path(
                 folder_path,
-                paste0(chopped.foldername, "_ltrharvest")
+                paste0(chopped.foldername, "_ltrdigest")
             ))) {
             file.move(file.path(
                 folder_path,
@@ -1098,7 +1098,7 @@ LTRpred <- function(genome.file       = NULL,
                     }
                 }
                 if (!is.null(dfam.file)) {
-                    if (file.exists(dfam.file)){
+                    if (file.exists(dfam.file)) {
                         file.move(dfam.file,
                                   file.path(
                                       output.path,
