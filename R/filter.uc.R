@@ -6,6 +6,7 @@
 
 filter.uc <- function(cluster.file){
      
+    Type <- Cluster <- Query <- Target <- Perc_Ident <- NULL
      if (nrow(cluster.file) > 0) {
          cluster.file.type.H <-
              dplyr::filter(cluster.file, Type == "H")
