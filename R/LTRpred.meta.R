@@ -67,7 +67,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         if (!file.exists(genome.folder))
             stop("The folder ' ", genome.folder, " ' could not be found.")
         
-        ltr_similarity <- similarity <- mass <- PBS_start <- protein_domain <- orfs <- NULL
+        ltr_similarity <- similarity <- PBS_start <- protein_domain <- orfs <- width <- NULL
         
         cat("\n")
         cat("Starting LTRpred meta analysis on the following files: ")
@@ -256,7 +256,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         
         if (is.null(file.name)) {
             # store results in working directory
-            write.table(
+            utils::write.table(
                 SimMatrix,
                 paste0(
                     basename(LTRpred.meta.folder),
@@ -268,7 +268,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 row.names = FALSE
             )
             
-            write.table(
+            utils::write.table(
                 GenomeInfo,
                 paste0(basename(LTRpred.meta.folder), "_GenomeInfo.csv"),
                 sep       = ";",
@@ -411,7 +411,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         
         if (!is.null(file.name)) {
             # store results in working directory
-            write.table(
+            utils::write.table(
                 SimMatrix,
                 paste0(file.name, "_SimilarityMatrix.csv"),
                 sep       = ";",
@@ -420,7 +420,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 row.names = FALSE
             )
             
-            write.table(
+            utils::write.table(
                 GenomeInfo,
                 paste0(file.name, "_GenomeInfo.csv"),
                 sep       = ";",
@@ -432,7 +432,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         
         if (is.null(file.name)) {
             # store results in working directory
-            write.table(
+            utils::write.table(
                 SimMatrix,
                 paste0(basename(result.folder), "_SimilarityMatrix.csv"),
                 sep       = ";",
@@ -441,7 +441,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 row.names = FALSE
             )
             
-            write.table(
+            utils::write.table(
                 GenomeInfo,
                 paste0(basename(result.folder), "_GenomeInfo.csv"),
                 sep       = ";",
