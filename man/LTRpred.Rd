@@ -270,6 +270,7 @@ This function provides the main pipeline to perform \code{de novo} LTR transposo
 predictions.
 }
 \examples{
+
 \dontrun{
 # generate de novo LTR transposon prediction
 LTRpred(genome.file = "TAIR10_chr_all.fas",
@@ -284,6 +285,7 @@ LTRpred(LTRdigest.gff = genome,
         tabout.file   = tabout,
         orf.file      = orf.pred)
 }
+
 }
 \author{
 Hajk-Georg Drost
