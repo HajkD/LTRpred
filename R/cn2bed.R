@@ -6,7 +6,7 @@
 #' @param sep column separator.
 #' @param output path in which the output file shall be stored.
 #' @author Hajk-Georg Drost
-#' @seealso \code{\link{ltr.cn}}, \code{\link{te.cn}}, \code{\link{LTRpred}}
+#' @seealso \code{\link{ltr.cn}}, \code{\link{LTRpred}}
 #' @export
 
 cn2bed <- function(cn.pred, type = "solo", filename = "copy_number_est", sep = "\t", output = NULL) {
@@ -42,7 +42,7 @@ cn2bed <- function(cn.pred, type = "solo", filename = "copy_number_est", sep = "
             )
         
         if (!is.null(output))
-            write.table(
+            utils::write.table(
                 dplyr::select(
                     cn.pred,
                     chromosome,
