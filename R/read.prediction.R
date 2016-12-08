@@ -397,7 +397,7 @@ read.prediction <- function( gff.file        = NULL,
         cat("\n")
         cat("Input: ", gff.file, " -> Row Number: ", nrow(AnnotationFile))
         cat("\n")
-        AnnotationFile <- na.omit(AnnotationFile)
+        AnnotationFile <- stats::na.omit(AnnotationFile)
         cat("Remove 'NA' -> New Row Number: ", nrow(AnnotationFile))
         cat("\n")
         
