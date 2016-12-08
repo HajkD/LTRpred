@@ -390,7 +390,8 @@ read.prediction <- function( gff.file        = NULL,
                             "X5" = readr::col_integer(),
                             "X6" = readr::col_character(),
                             "X7" = readr::col_character(),
-                            "X8" = readr::col_character()
+                            "X8" = readr::col_character(),
+                            "X9" = readr::col_character()
                             ),
                             skip = 0,
                             comment = "#")
