@@ -7,7 +7,7 @@
 read.blast6out(blast6out.file)
 }
 \arguments{
-\item{path}{to blast6out file (\code{*.blast6out} extension).}
+\item{blast6out.file}{to blast6out file (\code{*.blast6out} extension).}
 }
 \value{
 A dataframe storing the following columns:
