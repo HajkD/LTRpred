@@ -23,7 +23,7 @@ PlotFamily(LTRpred.tbl, xlab = "\\nAnnotated Superfamily Name",
 \item{annotation}{which database has been used to generate annotation queries when running \code{\link{LTRpred}}? 
 Either \code{annotation = "Dfam"} or \code{annotation = "Repbase"}.}
 }
-\details{
+\description{
 Plot the Superfamily distribution of predicted LTR retrotransposons of
 annotations generated via Dfam or Repbase query.
 }
