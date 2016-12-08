@@ -6,6 +6,12 @@
 
 tidy.datasheet <- function(LTRpred.tbl){
     
+    ID <- chromosome <- start <- end <- strand <- dfam_target_name <- dfam_acc <- width <- NULL
+    ltr_similarity <- orfs <- protein_domain <- Clust_Cluster <- Clust_Target <- Clust_Perc_Ident <- NULL
+    Clust_cn <- cn_3ltr <- cn_5ltr <- lLTR_start <- `PBS/tRNA_edist` <- PPT_length <- PBS_length <- dfam_target_description <- NULL
+    orf.id <- TE_CG_abs <- N_5ltr_abs <- NULL
+    
+    
     return(
         dplyr::select(
             LTRpred.tbl,
