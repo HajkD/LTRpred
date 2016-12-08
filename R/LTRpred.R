@@ -187,6 +187,7 @@
 #' }  
 #'       
 #' @examples 
+#' 
 #' \dontrun{
 #' # generate de novo LTR transposon prediction
 #' LTRpred(genome.file = "TAIR10_chr_all.fas",
@@ -201,6 +202,7 @@
 #'         tabout.file   = tabout,
 #'         orf.file      = orf.pred)
 #'}
+#'
 #' @references 
 #' R Edgar. Search and clustering orders of magnitude faster than BLAST. Bioinformatics (2010) 26 (19): 2460-2461.
 #' 
@@ -208,6 +210,7 @@
 #' 
 #' S Steinbiss et al. Fine-grained annotation and classification of de novo predicted LTR retrotransposons. Nucl. Acids Res. (2009) 37 (21): 7002-7013.
 #' @export
+
 LTRpred <- function(genome.file       = NULL,
                     index.file.harvest = NULL,
                     index.file.digest = NULL,
@@ -309,7 +312,7 @@ LTRpred <- function(genome.file       = NULL,
     query_id <- cn_3ltr <- cn_5ltr <- orfs <- species <- ltr_similarity <- similarity <- NULL
     protein_domain <- strand <- annotation <- pred_tool <- frame <- score <- NULL
     lLTR_start <- `PBS/tRNA_edist` <- repeat_region_length <- PBS_length <- dfam_acc <- NULL
-    
+    Query <- Target <- NULL
     
     if (is.null(output.path)) {
         if (!is.null(genome.file)) {
