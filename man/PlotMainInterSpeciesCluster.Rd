@@ -11,13 +11,15 @@ PlotMainInterSpeciesCluster(cluster.file, top.n = 6, decreasing = TRUE,
 \arguments{
 \item{cluster.file}{a cluster file in \code{*.uc} format (imported with e.g. \code{\link{filter.uc}} and \code{\link{read.uc}}).}
 
+\item{top.n}{number of top clustern that shall be visualized.}
+
+\item{decreasing}{shall clusters be shown by size in decreasing order?}
+
 \item{xlab}{x-axis label.}
 
 \item{ylab}{y-axis label.}
 
 \item{legend.title}{legend title text.}
-
-\item{cluster}{numeric value denoting the cluster number of interest.}
 }
 \description{
 After clustering TE sequences across different species with \code{\link{CLUSTpred}}
