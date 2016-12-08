@@ -8,7 +8,7 @@ PlotLTRRange <- function(LTRpred.tbl){
     
     chromosome <- NULL
     chromosomes <- names(table(LTRpred.tbl[ , "chromosome"]))
-    par(mfrow = grDevices::n2mfrow(length(chromosomes)))
+    graphics::par(mfrow = grDevices::n2mfrow(length(chromosomes)))
     sapply(chromosomes, function(chr){
         
         ltr.ranges <- dplyr::filter(LTRpred.tbl, chromosome == chr)
