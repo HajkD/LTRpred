@@ -15,6 +15,8 @@ PlotLTRAge(LTRpred.tbl, type = "hist", stack.fill = "protein_domain",
 \item{type}{type of histogram. Either normal histogram (\code{type = "hist"}) or stacked histogram (\code{type = "stack"}, see also \code{stack.fill}).
 If \code{type = "stack"} is specified then}
 
+\item{stack.fill}{a character string specifying the variable by which the bar plot shall be stacked.}
+
 \item{similarity.bin}{resolution of similarity binning. E.g. binning 98\%-100\% into 0.5\% intervals would be \code{similarity.bin = 0.5}.
 Default is \code{similarity.bin = 0.5}.}
 
