@@ -11,7 +11,7 @@ cluster.members(LTRpred.tbl, cluster = NULL)
 
 \item{cluster}{name of the cluster that shall be searched for.}
 }
-\details{
+\description{
 This function allows users to select all members of a specific cluster.
 }
 \examples{
