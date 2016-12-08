@@ -21,7 +21,7 @@ PlotProteinDomain(LTRpred.tbl, xlab = "\\nDetected Protein Domains",
 \item{legend.title}{text of the legend title.
 Either \code{annotation = "Dfam"} or \code{annotation = "Repbase"}.}
 }
-\details{
+\description{
 Plot the Superfamily distribution of predicted LTR retrotransposons of
 annotations generated via Dfam or Repbase query.
 }
