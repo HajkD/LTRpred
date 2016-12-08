@@ -16,7 +16,7 @@ PlotRanges <- function(x,
                        sep  = 0.5, ...){
     height <- 1
     
-    if (is(xlim, "Ranges"))
+    if (methods::is(xlim, "Ranges"))
         xlim <- c(0, max(IRanges::end(xlim)))
     
     bins <- IRanges::disjointBins(IRanges::IRanges(IRanges::start(x), IRanges::end(x) + 1))
