@@ -48,12 +48,12 @@ repbase.filter <- function(query.output, scope.value = 0.7, verbose = TRUE){
     
     query_id <- bit_score <- q_len <- evalue <- scope <- NULL
   
-    if (verbose){
+    if (verbose) {
         cat("Number of hits found by querying Repbase: ",nrow(query.output))
         cat("\n")
         cat("Number of duplicated hits found in Repbase: ",length(which(duplicated(query.output[ , "query_id"]))))
         cat("\n")
-        cat("Cumulative distribution of scope: ", paste0("[ ",paste0(seq(0,1,.1) * 100, "% : "),format(quantile(unlist(query.output[ , "scope"]),probs = seq(0,1,.1)),digits = 3)," ]"))
+        cat("Cumulative distribution of scope: ", paste0("[ ",paste0(seq(0,1,.1) * 100, "% : "),format(stats::quantile(unlist(query.output[ , "scope"]),probs = seq(0,1,.1)),digits = 3)," ]"))
         cat("\n")
         cat("Selecting hit with highest bit score...")
         HighestBitScoringHit <- dplyr::select(dplyr::filter(dplyr::group_by(query.output,query_id), (bit_score == max(bit_score))),query_id:q_len,evalue,bit_score,scope)
@@ -63,7 +63,7 @@ repbase.filter <- function(query.output, scope.value = 0.7, verbose = TRUE){
         cat("Filter for hits having a scope of >= ",scope.value)
         cat("\n")
         HighestBitScoringHit <- dplyr::filter(HighestBitScoringHit, scope >= scope.value)
-        cat("Cumulative distribution of scope after filtering: ", paste0("[ ",paste0(seq(0,1,.1) * 100, "% : "),format(quantile(unlist(HighestBitScoringHit[ , "scope"]),probs = seq(0,1,.1)),digits = 3)," ]"))
+        cat("Cumulative distribution of scope after filtering: ", paste0("[ ",paste0(seq(0,1,.1) * 100, "% : "),format(stats::quantile(unlist(HighestBitScoringHit[ , "scope"]),probs = seq(0,1,.1)),digits = 3)," ]"))
         cat("\n")
         cat("Number of remaining hits after filtering: ",nrow(HighestBitScoringHit))
     } else {
