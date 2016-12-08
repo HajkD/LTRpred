@@ -9,9 +9,10 @@
 read.seqs <- function(seq.file, program = "LTRharvest"){
     
     if (!is.element(program, c("LTRharvest","LTRdigest","LTRpred")))
-      stop ("Please select a prediction program that is supported by this function.")
+      stop("Please select a prediction program that is supported by this function.")
   
-    if (program == "LTRharvest"){
+    end <- start <- NULL
+    if (program == "LTRharvest") {
       PredictedLTRSeqs <- Biostrings::readDNAStringSet(seq.file,"fasta")
       HeaderInformation <- PredictedLTRSeqs@ranges@NAMES
       SeqInformation <- do.call(rbind,sapply(HeaderInformation, function(x) noquote(stringr::str_split(stringr::str_replace(stringr::str_replace(stringr::str_extract(x,"[?<=\\[].*?[?=\\]]"),"\\[",""),"\\]",""),","))))
