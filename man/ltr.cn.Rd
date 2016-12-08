@@ -39,14 +39,6 @@ Default is \code{max.hits = 65000}.}
 \description{
 Detect solo LTR copies and genomic locations of predicted LTR transposons using a BLAST search strategy.
 }
-\details{
-The
-}
-\examples{
-\dontrun{
-
-}
-}
 \author{
 Hajk-Georg Drost
 }
