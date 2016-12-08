@@ -29,6 +29,12 @@ See \code{Description} for details.}
 
 \item{\dots}{all parameters of \code{\link{LTRpred}}.}
 }
+\value{
+\itemize{
+\item a file \code{*_SimilarityMatrix.csv} is generated and stored in the working directory.
+\item a file \code{*_GenomeInfo.csv} is generated and stored in the working directory.
+}
+}
 \description{
 Run \code{\link{LTRpred}} on several genomes (sequentially) that are stored in a given folder.
 }
