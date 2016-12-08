@@ -25,6 +25,6 @@ Format copy number estimation output to BED file format.
 Hajk-Georg Drost
 }
 \seealso{
-\code{\link{ltr.cn}}, \code{\link{te.cn}}, \code{\link{LTRpred}}
+\code{\link{ltr.cn}}, \code{\link{LTRpred}}
 }
 
