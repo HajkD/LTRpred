@@ -791,7 +791,7 @@ LTRpred <- function(genome.file       = NULL,
                     # compute copy number of clustered elements
                     Clust.cn <-
                         dplyr::filter(
-                            dplyr::summarise(dplyr::group_by(res, Clust_Cluster), Clust_cn = dplyr::n()),
+                            dplyr::summarise(dplyr::group_by(res, Clust_Cluster), Clust_cn = n()),
                             Clust_Cluster != "unique"
                         )
                     
@@ -808,7 +808,7 @@ LTRpred <- function(genome.file       = NULL,
                     cat("\n")
                     
                     res <-
-                        dplyr::mutate(res, Clust_cn = ifelse(is.na(Clust_cn), 1, as.numeric(Clust_cn)))
+                        dplyr::mutate(res, Clust_cn = ifelse(is.na(Clust_cn), 1, as.numeric(Clust_cn) + 1))
                 }
                 
                 if (nrow(cluster.file) == 0) {
@@ -1223,13 +1223,13 @@ LTRpred <- function(genome.file       = NULL,
         
         # quantify copy number of LTRs for 3 prime LTR and 5 prime LTR separately
         
-        if ((nrow(solo.ltr.cn$pred_3ltr) > 0) & (nrow(solo.ltr.cn$pred_5ltr) > 0)) {
+        if ((nrow(solo.ltr.cn$pred_3ltr) > 0) && (nrow(solo.ltr.cn$pred_5ltr) > 0)) {
             solo.ltr.cn.n_3ltr <-
                 dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_3ltr, query_id),
-                                 cn_3ltr = dplyr::n())
+                                 cn_3ltr = n())
             solo.ltr.cn.n_5ltr <-
                 dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_5ltr, query_id),
-                                 cn_5ltr = dplyr::n())
+                                 cn_5ltr = n())
             
             names(solo.ltr.cn.n_3ltr)[1] <- "orf.id"
             names(solo.ltr.cn.n_5ltr)[1] <- "orf.id"
@@ -1243,13 +1243,18 @@ LTRpred <- function(genome.file       = NULL,
             cat("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
             cat("\n")
             
+            
+            
             res <-
                 dplyr::mutate(res, cn_3ltr = ifelse(is.na(cn_3ltr), 0, as.numeric(cn_3ltr)))
             suppressWarnings(res <- dplyr::full_join(res, solo.ltr.cn.n_5ltr, by = "orf.id"))
             res <-
                 dplyr::mutate(res, cn_5ltr = ifelse(is.na(cn_5ltr), 0, as.numeric(cn_5ltr)))
+            
         } else {
             warning("The LTR copy number estimation returned an empty file and therefore it has not been joined with the prediction file.", call. = FALSE)
+            res <-
+                dplyr::mutate(res, cn_3ltr = rep(NA, nrow(res)), cn_5ltr = rep(NA, nrow(res)))
         }
     } else {
         res <-
