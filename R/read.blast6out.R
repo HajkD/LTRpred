@@ -32,6 +32,8 @@
 
 read.blast6out <- function(blast6out.file){
   
+    file.check(blast6out.file)
+    
     blast6out.df <- readr::read_tsv(blast6out.file, col_names = FALSE,
                                     col_types = readr::cols(
                                         "X1" = readr::col_character(),
