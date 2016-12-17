@@ -34,38 +34,63 @@ filter.jumpers <- function(LTRpred.tbl, ltr.similarity = 95, strategy = "conserv
   if (!is.element(strategy, c("conservative", "liberal", "between")))
     stop ("Please choose a filter strategy implemented in this function.")
   
-  ID <- chromosome <- strand <- repeat_region_length <- ltr_similarity <- lTSD_motif <- rTSD_motif <- PPT_motif <- NULL
-  width <- `orf.id` <- lLTR_start <- PBS_length <- similarity <- PPT_motif <- tRNA_motif <- orfs <- protein_domain <- NULL
-  
-  if (strategy == "conservative"){
+    ID <-
+        chromosome <-
+        strand <-
+        repeat_region_length <-
+        ltr_similarity <- lTSD_motif <- rTSD_motif <- PPT_motif <- NULL
+    width <-
+        `orf.id` <-
+        lLTR_start <-
+        PBS_length <-
+        similarity <-
+        PPT_motif <- tRNA_motif <- orfs <- protein_domain <- NULL
     
-    res <- dplyr::filter(LTRpred.tbl, (ltr_similarity >= ltr.similarity) &
-                                      (!is.na(lTSD_motif)) & (!is.na(rTSD_motif)) &
-                                      (!is.na(PPT_motif)) & (orfs >= 1) &
-                                      (!is.na(protein_domain)) & !is.na(tRNA_motif))
+    if (strategy == "conservative") {
+        res <-
+            dplyr::filter(
+                LTRpred.tbl,
+                (ltr_similarity >= ltr.similarity) &
+                    (!is.na(lTSD_motif)) &
+                    (!is.na(rTSD_motif)) &
+                    (!is.na(PPT_motif)) &
+                    (orfs >= 1) &
+                    (!is.na(protein_domain)) &
+                    !is.na(tRNA_motif)
+            )
+        
+    }
     
-  }
-  
-  if (strategy == "between"){
+    if (strategy == "between") {
+        res <-
+            dplyr::filter(
+                LTRpred.tbl,
+                (ltr_similarity >= ltr.similarity) &
+                    ((!is.na(lTSD_motif)) &
+                         (!is.na(rTSD_motif))) |
+                    (!is.na(PPT_motif)) | (orfs >= 1) |
+                    (!is.na(protein_domain)) |
+                    !is.na(tRNA_motif)
+            )
+        
+    }
     
-    res <- dplyr::filter(LTRpred.tbl, (ltr_similarity >= ltr.similarity) &
-                           ((!is.na(lTSD_motif)) & (!is.na(rTSD_motif))) |
-                           (!is.na(PPT_motif)) | (orfs >= 1) |
-                           (!is.na(protein_domain)) | !is.na(tRNA_motif))
+    if (strategy == "liberal") {
+        res <-
+            dplyr::filter(
+                LTRpred.tbl,
+                (ltr_similarity >= ltr.similarity) &
+                    ((!is.na(lTSD_motif)) &
+                         (!is.na(rTSD_motif))) | (orfs >= 1) |
+                    (!is.na(protein_domain)) |
+                    !is.na(tRNA_motif)
+            )
+        
+    }
     
-  }
-  
-  if (strategy == "liberal"){
-    
-    res <- dplyr::filter(LTRpred.tbl, (ltr_similarity >= ltr.similarity) &
-                           ((!is.na(lTSD_motif)) & (!is.na(rTSD_motif))) | (orfs >= 1) |
-                           (!is.na(protein_domain)) | !is.na(tRNA_motif))
-    
-  }
-  
-  # res <- dplyr::select(res,ID, chromosome, start, end, strand, width,
-  #                      ltr_similarity, similarity,orfs, lLTR_start:`orf.id`,repeat_region_length:PBS_length)
-  return (res[order(unlist(res[ , "ltr_similarity"]), decreasing = TRUE), ])
+    # res <- dplyr::select(res,ID, chromosome, start, end, strand, width,
+    #                      ltr_similarity, similarity,orfs, lLTR_start:`orf.id`,repeat_region_length:PBS_length)
+    return (res[order(unlist(res[, "ltr_similarity"]), decreasing = TRUE),])
 
   #return ( res )
 }
