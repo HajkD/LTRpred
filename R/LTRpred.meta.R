@@ -161,15 +161,14 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 ))
                 cat("\n")
             } else {
-                pred <- readr::read_delim(file.path(
+                pred <- read.ltrpred(file.path(
                     LTRpred.meta.folder,
                     folders0[i],
                     paste0(
                         paste0(choppedFolder[-length(choppedFolder)], collapse = "_"),
                         "_LTRpred_DataSheet.csv"
                     )
-                ),
-                delim = ";")
+                ))
                 
                 if (quality.filter) {
                     # try to reduce false positives by filtering for PBS and ORFs
@@ -182,10 +181,8 @@ LTRpred.meta <- function(genome.folder       = NULL,
                     cat("No quality filter has been applied. Threshold: sim = ",sim,"%.")
                 }
                 
-                dplyr::group_by(pred,similarity)
-                
-                
-                
+                #dplyr::group_by(pred,similarity)
+              
                 binned.similarities <- cut(
                     pred$ltr_similarity,
                     rev(seq(100, sim, -cut.range)),
@@ -195,9 +192,15 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 
                 # implement error handling here or a more dynamic approach
                 # to handle different bin ranges in different organisms 
-                sim.mass.summary <- dplyr::summarize(dplyr::group_by(pred,similarity), mass = sum(width) / 1000000)
-                                 
-                SimMatrix[i] <- list(sim.mass.summary)
+                # sim.mass.summary <- dplyr::summarize(dplyr::group_by(pred,similarity), mass = sum(width) / 1000000)
+                #                  
+                # SimMatrix[i] <- list(sim.mass.summary)
+                # 
+                
+                SimMatrix[i] <- list(table(factor(
+                  binned.similarities,
+                  levels = levels(binned.similarities)
+                )))
                 
                 # count the number of predicted LTR transposons
                 nLTRs[i] <- length(unique(pred$ID))
@@ -341,14 +344,14 @@ LTRpred.meta <- function(genome.folder       = NULL,
         
         for (i in 1:length(folders0)) {
             choppedFolder <- unlist(stringr::str_split(folders0[i], "_"))
-            pred <- readr::read_delim(file.path(
+            pred <- read.ltrpred(file.path(
                 result.folder,
                 folders0[i],
                 paste0(
                     paste0(choppedFolder[-length(choppedFolder)], collapse = "_"),
                     "_LTRpred_DataSheet.csv"
                 )
-            ), delim = ";")
+            ))
             
             if (quality.filter) {
                 # try to reduce false positives by filtering for PBS and ORFs
@@ -370,6 +373,11 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 include.lowest = TRUE,
                 right = TRUE
             )
+            
+            # implement error handling here or a more dynamic approach
+            # to handle different bin ranges in different organisms 
+            # sim.mass.summary <- dplyr::summarize(dplyr::group_by(pred,similarity), mass = sum(width) / 1000000)
+            # SimMatrix[i] <- list(sim.mass.summary)
             
             SimMatrix[i] <- list(table(factor(
                 binned.similarities,
