@@ -53,6 +53,7 @@ The result will be saved on in the \code{result.folder} and can be analysed with
   LTRs. All TEs not matching this criteria are discarded.
  \item \code{PBS or Protein Match}: elements must either have a predicted Primer Binding
  Site or a protein match of at least one protein (Gag, Pol, Rve, ...) between their LTRs. All TEs not matching this criteria are discarded.
+ \item The relative number of N's (= nucleotide not known) in TE <= 0.1. The relative number of N's is computed as follows: absolute number of N's in TE / width of TE.
 }
 }
 \examples{
