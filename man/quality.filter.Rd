@@ -33,6 +33,6 @@ pred <- quality.filter(pred, sim = 70, n.orfs = 1)
 Hajk-Georg Drost
 }
 \seealso{
-\code{\link{LTRpred}}, \code{\link{read.ltrpred}}
+\code{\link{LTRpred}}, \code{\link{LTRpred.meta}}, \code{\link{read.ltrpred}}
 }
 
