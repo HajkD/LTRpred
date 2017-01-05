@@ -27,6 +27,7 @@
 #'   LTRs. All TEs not matching this criteria are discarded.
 #'  \item \code{PBS or Protein Match}: elements must either have a predicted Primer Binding
 #'  Site or a protein match of at least one protein (Gag, Pol, Rve, ...) between their LTRs. All TEs not matching this criteria are discarded.
+#'  \item The relative number of N's (= nucleotide not known) in TE <= 0.1. The relative number of N's is computed as follows: absolute number of N's in TE / width of TE.
 #' }
 #' 
 #' @return 
@@ -83,7 +84,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 sim,
                 "% ] ; [ PBS or Protein Match ] ; [ #ORFs >= ",
                 n.orfs,
-                "]"
+                "] ; [rel #N's in TE <= 0.1]"
             )
         
         if (!quality.filter)
@@ -124,6 +125,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         gs <- vector("numeric", length(folders0))
         total.LTR.mass <- vector("numeric", length(folders0))
         LTR.prop <- vector("numeric", length(folders0))
+        genome.quality <- vector("numeric", length(folders0))
         
         cat("Processing file:")
         cat("\n")
@@ -171,7 +173,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 ))
                 
                 if (quality.filter) {
-                    # try to reduce false positives by filtering for PBS and ORFs
+                    # try to reduce false positives by filtering for PBS and ORFs and rel #N's in TE <= 0.1
                     pred <- quality.filter(pred, sim = sim, n.orfs = n.orfs)
                 }
                 
@@ -217,6 +219,9 @@ LTRpred.meta <- function(genome.folder       = NULL,
                     as.numeric(length(unique(pred$ID)) / gs[i])
                 # compute the proportion of LTR retrotransposons with the entire genome
                 LTR.prop[i] <- total.LTR.mass[i] / gs[i]
+                
+                # compute relative frequency of N's in genome: abs N / genome length
+                genome.quality[i] <- sum(Biostrings::vcountPattern("N", genome.size)) / sum(as.numeric(genome.size@ranges@width))
             }
         }
         
@@ -230,7 +235,8 @@ LTRpred.meta <- function(genome.folder       = NULL,
             totalMass   = total.LTR.mass,
             prop        = LTR.prop,
             norm.nLTRs  = nLTRs.normalized,
-            genome.size = gs
+            genome.size = gs,
+            genome.quality = genome.quality
         )
         
         SimMatrix <- do.call(rbind, SimMatrix)
@@ -302,7 +308,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 sim,
                 "% ] ; [ PBS or Protein Match ] ; [ #ORFs >= ",
                 n.orfs,
-                "]"
+                "] ; [rel #N's in TE <= 0.1]"
             )
         
         if (!quality.filter)
@@ -339,7 +345,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         gs <- vector("numeric", length(folders0))
         total.LTR.mass <- vector("numeric", length(folders0))
         LTR.prop <- vector("numeric", length(folders0))
-        
+        genome.quality <- vector("numeric", length(folders0))
     
         
         for (i in 1:length(folders0)) {
@@ -354,9 +360,9 @@ LTRpred.meta <- function(genome.folder       = NULL,
             ))
             
             if (quality.filter) {
-                # try to reduce false positives by filtering for PBS and ORFs
+                # try to reduce false positives by filtering for PBS and ORFs and rel #N's in TE <= 0.1
                 pred <- dplyr::filter(pred,
-                                      ltr_similarity >= sim,
+                                      ltr_similarity >= sim, (TE_N_abs / width) <= 0.1,
                                       (!is.na(PBS_start)) |
                                           (!is.na(protein_domain)),
                                       orfs >= n.orfs)
@@ -399,6 +405,9 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 as.numeric(length(unique(pred$ID)) / gs[i])
             # compute the proportion of LTR retrotransposons with the entire genome
             LTR.prop[i] <- total.LTR.mass[i] / gs[i]
+            
+            # compute relative frequency of N's in genome: abs N / genome length
+            genome.quality[i] <- sum(Biostrings::vcountPattern("N", genome.size)) / sum(as.numeric(genome.size@ranges@width))
         }
         
         names(nLTRs) <- folders0
@@ -411,7 +420,8 @@ LTRpred.meta <- function(genome.folder       = NULL,
             totalMass   = total.LTR.mass,
             prop        = LTR.prop,
             norm.nLTRs  = nLTRs.normalized,
-            genome.size = gs
+            genome.size = gs,
+            genome.quality = genome.quality
         )
         
         SimMatrix <- do.call(rbind, SimMatrix)
