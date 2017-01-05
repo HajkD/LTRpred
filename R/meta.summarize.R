@@ -79,13 +79,7 @@ meta.summarize <- function(result.folder,
         
         if (nrow(pred.filtered) > 0) {
             org.list[i] <-
-                list(data.frame(
-                    organism = rep(
-                        stringr::str_replace(folders0[i], "_ltrpred", ""),
-                        nrow(pred.filtered)
-                    ),
-                    as.data.frame(pred.filtered)
-                ))
+                list(as.data.frame(pred.filtered))
         } else {
             warning("When filtering sim = ",ltr.similarity," in ",stringr::str_replace(folders0[i], "_ltrpred", ""),", no entries could be found anymore.")
         }
