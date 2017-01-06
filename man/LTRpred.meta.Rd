@@ -31,8 +31,22 @@ See \code{Description} for details.}
 }
 \value{
 \itemize{
-\item a file \code{*_SimilarityMatrix.csv} is generated and stored in the working directory.
+\item a file \code{*_SimilarityMatrix.csv} is generated and stored in the working directory. It contains the following columns:
+ \itemize{
+ \item \code{organism} : name of the species.
+ \item binned similarity columns.
+ }
 \item a file \code{*_GenomeInfo.csv} is generated and stored in the working directory.
+It contains the following columns:
+ \itemize{
+ \item \code{organism} : name of the species.
+ \item \code{nLTRs} : absolute number of de novo predicted LTR retrotransposons.
+ \item \code{totalMass} : total length of all de novo predicted LTR retrotransposons combined.
+ \item \code{prop} : totalMass / genome.size.
+ \item \code{norm.LTRs} : absolute number of de novo predicted LTR retrotransposons divided by genome size in mega bp.
+ \item \code{genome.size} : in mega bp.
+ \item \code{genome.quality} : absolute number of N's in genome / total nucleotides in genome.
+  }
 }
 }
 \description{
