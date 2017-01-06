@@ -122,6 +122,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         
         available.genomes <-
             match(ltrpred.folder.files.chopped, genomes.chopped)
+        
         genomes <- genomes[available.genomes]
         
         if (length(folders0) != length(genomes))
@@ -244,7 +245,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         names(gs) <- folders0
         
         GenomeInfo <- data.frame(
-            organism    = genomes,
+            organism    = genomes.chopped[available.genomes],
             nLTRs       = nLTRs,
             totalMass   = total.LTR.mass,
             prop        = LTR.prop,
@@ -254,7 +255,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         )
         
         SimMatrix <- do.call(rbind, SimMatrix)
-        SimMatrix <- data.frame(organism = genomes , SimMatrix)
+        SimMatrix <- data.frame(organism = genomes.chopped[available.genomes], SimMatrix)
         
         if (!is.null(file.name)) {
             # store results in working directory
