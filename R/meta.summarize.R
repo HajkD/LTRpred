@@ -65,11 +65,7 @@ meta.summarize <- function(result.folder,
         
         if (quality.filter) {
             pred.filtered <-
-                dplyr::filter(pred,
-                              ltr_similarity >= ltr.similarity,
-                              (!is.na(PBS_start)) |
-                                  (!is.na(protein_domain)),
-                              orfs >= n.orfs)
+              quality.filter(pred, sim = ltr.similarity, n.orfs = n.orfs)
         }
         
         if (!quality.filter) {
