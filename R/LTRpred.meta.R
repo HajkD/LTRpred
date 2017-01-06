@@ -351,7 +351,12 @@ LTRpred.meta <- function(genome.folder       = NULL,
             )
         }
         
-        result.files <- list.files(result.folder)
+        if (!is.null(result.folder))
+          result.files <- list.files(result.folder)
+        
+        if (is.null(result.folder))
+          result.files <- list.files(getwd())
+        
         folders0 <-
             result.files[stringr::str_detect(result.files, "ltrpred")]
         SimMatrix <- vector("list", length(folders0))
