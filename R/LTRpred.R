@@ -135,7 +135,7 @@
 #' @details This function provides the main pipeline to perform \code{de novo} LTR transposon
 #' predictions.
 #' 
-#' @seealso \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{PlotLTRAge}}, \code{\link{PlotLTRWidth}}, \code{\link{PlotLTRRange}},
+#' @seealso \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, 
 #' \code{\link{read.prediction}}, \code{\link{read.tabout}}, \code{\link{read.seqs}},
 #' \code{\link{pred2fasta}}, \code{\link{pred2gff}}
 #' @importFrom magrittr %>%
@@ -312,7 +312,7 @@ LTRpred <- function(genome.file       = NULL,
     query_id <- cn_3ltr <- cn_5ltr <- orfs <- species <- ltr_similarity <- similarity <- NULL
     protein_domain <- strand <- annotation <- pred_tool <- frame <- score <- NULL
     lLTR_start <- `PBS/tRNA_edist` <- repeat_region_length <- PBS_length <- dfam_acc <- NULL
-    Query <- Target <- NULL
+    Query <- Target <- n <- TE_N_abs <- NULL
     
     if (is.null(output.path)) {
         if (!is.null(genome.file)) {
