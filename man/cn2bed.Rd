@@ -8,9 +8,9 @@ cn2bed(cn.pred, type = "solo", filename = "copy_number_est", sep = "\\t",
   output = NULL)
 }
 \arguments{
-\item{cn.pred}{\code{data.frame} object returned by \code{\link{ltr.cn}} (if \code{type = "solo"}) or \code{\link{te.cn}} (if \code{type = "te"}).}
+\item{cn.pred}{\code{data.frame} object returned by \code{\link{ltr.cn}} (if \code{type = "solo"}).}
 
-\item{type}{type of copy number estimation: \code{\link{ltr.cn}} (if \code{type = "solo"}) or \code{\link{te.cn}} (if \code{type = "te"}).}
+\item{type}{type of copy number estimation: \code{\link{ltr.cn}} (if \code{type = "solo"}).}
 
 \item{filename}{name of the output file (will be extended by "*.csv").}
 
