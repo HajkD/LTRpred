@@ -16,7 +16,11 @@
 #' @export
 
 rename.fasta <- function(file, species, output = "renamed_fasta.fa", append = FALSE){
-    fa.file <- Biostrings::readDNAStringSet(file)
-    fa.file@ranges@NAMES <- unlist(sapply(fa.file@ranges@NAMES, function(x) {stringr::str_replace(x,x,paste0(species,"_",x))}))
-    Biostrings::writeXStringSet(fa.file,output, append = append)
+  
+  fa.file <- Biostrings::readDNAStringSet(file)
+  fa.file@ranges@NAMES <-
+    unlist(sapply(fa.file@ranges@NAMES, function(x) {
+      stringr::str_replace(x, x, paste0(species, "_", x))
+    }))
+  Biostrings::writeXStringSet(fa.file, output, append = append)
 }
