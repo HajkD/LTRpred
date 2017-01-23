@@ -130,10 +130,25 @@
 #' @param output.path a path/folder to store all results returned by \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, and \code{LTRpred}. 
 #' If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
 #' will be generated in the current working directory of R and all results are then stored in this folder.
+#' @param quality.filter shall false positives be filtered out as much as possible or not. 
+#' See \code{Description} for details.
+#' @param n.orfs minimum number of Open Reading Frames that must be found between the LTRs (if \code{quality.filter = TRUE}). See \code{Details} for further information on quality control.
 #' @param verbose shall further information be printed on the console or not. 
 #' @author Hajk-Georg Drost
 #' @details This function provides the main pipeline to perform \code{de novo} LTR transposon
 #' predictions.
+#' 
+#' \strong{Quality Control}
+#' 
+#' \itemize{
+#' \item \code{ltr.similarity}: Minimum similarity between LTRs. All TEs not matching this
+#'  criteria are discarded.
+#'  \item \code{n.orfs}: minimum number of Open Reading Frames that must be found between the
+#'   LTRs. All TEs not matching this criteria are discarded.
+#'  \item \code{PBS or Protein Match}: elements must either have a predicted Primer Binding
+#'  Site or a protein match of at least one protein (Gag, Pol, Rve, ...) between their LTRs. All TEs not matching this criteria are discarded.
+#'  \item The relative number of N's (= nucleotide not known) in TE <= 0.1. The relative number of N's is computed as follows: absolute number of N's in TE / width of TE.
+#' }
 #' 
 #' @seealso \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, 
 #' \code{\link{read.prediction}}, \code{\link{read.tabout}}, \code{\link{read.seqs}},
@@ -271,6 +286,8 @@ LTRpred <- function(genome.file       = NULL,
                     min.codons        = 200,
                     trans.seqs        = FALSE,
                     output.path       = NULL,
+                    quality.filter    = FALSE,
+                    n.orfs            = 0,
                     verbose           = TRUE){
   
     if (!is.null(LTRharvest.folder))
@@ -1291,10 +1308,18 @@ LTRpred <- function(genome.file       = NULL,
             dfam_acc:cn_5ltr
         )
     
+    if (quality.filter) {
+        res <- quality.filter(res, sim = similar, n.orfs = n.orfs)
+    }
     
-    pred2csv(res, file.path(
+    if (!quality.filter) {
+        cat("No quality filter was applied...")
+        cat("\n")
+    }
+        
+    pred2tsv(res, file.path(
         output.path,
-        paste0(chopped.foldername, "_LTRpred_DataSheet.csv")
+        paste0(chopped.foldername, "_LTRpred_DataSheet.tsv")
     ))
     cat("\n")
     cat("LTRpred analysis finished properly.")
