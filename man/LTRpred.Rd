@@ -20,7 +20,8 @@ LTRpred(genome.file = NULL, index.file.harvest = NULL,
   pbsmatchscore = 5, pbsmismatchscore = -10, pbsinsertionscore = -20,
   pbsdeletionscore = -20, pfam.ids = NULL, cores = 1, dfam.cores = NULL,
   hmm.cores = NULL, orf.style = 7, min.codons = 200, trans.seqs = FALSE,
-  output.path = NULL, verbose = TRUE)
+  output.path = NULL, quality.filter = FALSE, n.orfs = 0,
+  verbose = TRUE)
 }
 \arguments{
 \item{genome.file}{path to the genome file in \code{fasta} format.}
@@ -212,6 +213,11 @@ shall be translated and the corresponding protein sequences stored in the output
 If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
 will be generated in the current working directory of R and all results are then stored in this folder.}
 
+\item{quality.filter}{shall false positives be filtered out as much as possible or not. 
+See \code{Description} for details.}
+
+\item{n.orfs}{minimum number of Open Reading Frames that must be found between the LTRs (if \code{quality.filter = TRUE}). See \code{Details} for further information on quality control.}
+
 \item{verbose}{shall further information be printed on the console or not.}
 }
 \value{
@@ -268,6 +274,18 @@ sufficient LTR retrotransposon predictions for any genome of interest.
 \details{
 This function provides the main pipeline to perform \code{de novo} LTR transposon
 predictions.
+
+\strong{Quality Control}
+
+\itemize{
+\item \code{ltr.similarity}: Minimum similarity between LTRs. All TEs not matching this
+ criteria are discarded.
+ \item \code{n.orfs}: minimum number of Open Reading Frames that must be found between the
+  LTRs. All TEs not matching this criteria are discarded.
+ \item \code{PBS or Protein Match}: elements must either have a predicted Primer Binding
+ Site or a protein match of at least one protein (Gag, Pol, Rve, ...) between their LTRs. All TEs not matching this criteria are discarded.
+ \item The relative number of N's (= nucleotide not known) in TE <= 0.1. The relative number of N's is computed as follows: absolute number of N's in TE / width of TE.
+}
 }
 \examples{
 
