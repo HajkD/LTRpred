@@ -18,7 +18,7 @@
 #' @return the \code{LTR.data} table in csv format saved to the hard drive.
 #' @export
 pred2csv <- function(LTR.data, output = "output.csv"){
-    utils::write.table(LTR.data,output, sep = "\t", quote = FALSE, col.names = TRUE, row.names = FALSE)
+    utils::write.table(LTR.data,output, sep = ";", quote = FALSE, col.names = TRUE, row.names = FALSE)
 }
 
 
