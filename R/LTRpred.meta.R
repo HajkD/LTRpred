@@ -236,7 +236,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 LTR.prop[i] <- total.LTR.mass[i] / gs[i]
                 
                 # compute relative frequency of N's in genome: abs N / genome length
-                genome.quality[i] <- sum(Biostrings::vcountPattern("N", genome.size)) / sum(as.numeric(genome.size@ranges@width))
+                genome.quality[i] <- sum(as.numeric(Biostrings::vcountPattern("N", genome.size))) / sum(as.numeric(genome.size@ranges@width))
             }
         }
         
@@ -427,7 +427,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
             LTR.prop[i] <- total.LTR.mass[i] / gs[i]
             
             # compute relative frequency of N's in genome: abs N / genome length
-            genome.quality[i] <- sum(Biostrings::vcountPattern("N", genome.size)) / sum(as.numeric(genome.size@ranges@width))
+            genome.quality[i] <- sum(as.numeric(Biostrings::vcountPattern("N", genome.size))) / sum(as.numeric(genome.size@ranges@width))
         }
         
         names(nLTRs) <- folders0
