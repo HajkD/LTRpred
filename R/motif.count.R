@@ -32,11 +32,11 @@ motif.count <- function(seq.file, motif, as.ratio = FALSE){
             
             seq_lengths <-  Biostrings::nchar(seqs)
             res.CA <-
-                Biostrings::vcountPattern("CA", seqs) / seq_lengths
+                as.numeric(Biostrings::vcountPattern("CA", seqs)) / seq_lengths
             res.CC <-
-                Biostrings::vcountPattern("CC", seqs) / seq_lengths
+                as.numeric(Biostrings::vcountPattern("CC", seqs)) / seq_lengths
             res.CT <-
-                Biostrings::vcountPattern("CT", seqs) / seq_lengths
+                as.numeric(Biostrings::vcountPattern("CT", seqs)) / seq_lengths
             res <- res.CA + res.CC + res.CT
         }
         
@@ -49,11 +49,11 @@ motif.count <- function(seq.file, motif, as.ratio = FALSE){
             res <- vector("numeric", length(seqs))
             
             res.CAG <-
-                Biostrings::vcountPattern("CAG", seqs) / seq_lengths
+                as.numeric(Biostrings::vcountPattern("CAG", seqs)) / seq_lengths
             res.CCG <-
-                Biostrings::vcountPattern("CCG", seqs) / seq_lengths
+                as.numeric(Biostrings::vcountPattern("CCG", seqs)) / seq_lengths
             res.CTG <-
-                Biostrings::vcountPattern("CTG", seqs) / seq_lengths
+                as.numeric(Biostrings::vcountPattern("CTG", seqs)) / seq_lengths
             res <- res.CAG + res.CCG + res.CTG
         }
         
@@ -69,7 +69,7 @@ motif.count <- function(seq.file, motif, as.ratio = FALSE){
                 )), 1, stringr::str_c, collapse = "")
             rel.count <-
                 function(x)
-                    Biostrings::vcountPattern(x, seqs)
+                    as.numeric(Biostrings::vcountPattern(x, seqs))
             res <-
                 rowSums(sapply(CHH.comb, rel.count)) / seq_lengths
         }
@@ -80,7 +80,7 @@ motif.count <- function(seq.file, motif, as.ratio = FALSE){
             res <- vector("numeric", length(seqs))
             
             res <-
-                Biostrings::vcountPattern(motif, seqs) / seq_lengths
+                as.numeric(Biostrings::vcountPattern(motif, seqs)) / seq_lengths
         }
         
         names(res) <- seqs@ranges@NAMES
@@ -94,13 +94,13 @@ motif.count <- function(seq.file, motif, as.ratio = FALSE){
             res.CT <- vector("numeric", length(seqs))
             res <- vector("numeric", length(seqs))
             
-            seq_lengths <-  Biostrings::nchar(seqs)
+            seq_lengths <-  as.numeric(Biostrings::nchar(seqs))
             res.CA <-
-                Biostrings::vcountPattern("CA", seqs)
+                as.numeric(Biostrings::vcountPattern("CA", seqs))
             res.CC <-
-                Biostrings::vcountPattern("CC", seqs)
+                as.numeric(Biostrings::vcountPattern("CC", seqs))
             res.CT <-
-                Biostrings::vcountPattern("CT", seqs)
+                as.numeric(Biostrings::vcountPattern("CT", seqs))
             res <- res.CA + res.CC + res.CT
         }
         
@@ -110,9 +110,9 @@ motif.count <- function(seq.file, motif, as.ratio = FALSE){
             res.CTG <- vector("numeric", length(seqs))
             res <- vector("numeric", length(seqs))
             
-            res.CAG <- Biostrings::vcountPattern("CAG", seqs)
-            res.CCG <- Biostrings::vcountPattern("CCG", seqs)
-            res.CTG <- Biostrings::vcountPattern("CTG", seqs)
+            res.CAG <- as.numeric(Biostrings::vcountPattern("CAG", seqs))
+            res.CCG <- as.numeric(Biostrings::vcountPattern("CCG", seqs))
+            res.CTG <- as.numeric(Biostrings::vcountPattern("CTG", seqs))
             res <- res.CAG + res.CCG + res.CTG
         }
         
@@ -126,17 +126,17 @@ motif.count <- function(seq.file, motif, as.ratio = FALSE){
                 )), 1, stringr::str_c, collapse = "")
             rel.count <-
                 function(x)
-                    Biostrings::vcountPattern(x, seqs)
+                    as.numeric(Biostrings::vcountPattern(x, seqs))
             res <- rowSums(sapply(CHH.comb, rel.count))
         }
         
         if (!is.element(motif, c("CH", "CHG", "CHH"))) {
             res <- vector("numeric", length(seqs))
-            res <- Biostrings::vcountPattern(motif, seqs)
+            res <- as.numeric(Biostrings::vcountPattern(motif, seqs))
         }
     }
   
-  return (res)
+  return(res)
 }
 
 
