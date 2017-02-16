@@ -1062,7 +1062,7 @@ LTRpred <- function(genome.file       = NULL,
                 output.path,
                 paste0(chopped.foldername, "_LTRpred.bed")
             ))
-            pred2csv(res, file.path(
+            pred2tsv(res, file.path(
                 output.path,
                 paste0(chopped.foldername, "_LTRpred_DataSheet.csv")
             ))
@@ -1103,7 +1103,7 @@ LTRpred <- function(genome.file       = NULL,
             pred2bed(res, file.path(output.path, paste0(
                 basename(LTRdigest.gff), "_LTRpred.bed"
             )))
-            pred2csv(res, file.path(
+            pred2tsv(res, file.path(
                 output.path,
                 paste0(basename(LTRdigest.gff), "_LTRpred_DataSheet.csv")
             ))
@@ -1283,6 +1283,18 @@ LTRpred <- function(genome.file       = NULL,
     res <- dplyr::mutate(res, ID = paste0(chopped.foldername,"_",ID))
     res <- dplyr::mutate(res, orfs = ifelse(is.na(orfs), 0, orfs))
     
+    # generate accurate chromosome naming (sometimes chromosome names are chopped because the naming convention is violated)
+    chr.ids <- unlist(sapply(res$orf.id, function(x) {
+        
+        s <- unlist(stringr::str_split(x,"_"))
+        l <- length(s)
+        s <- s[-c(l - 1, l)]
+        
+        return(stringr::str_c(s, collapse = ""))
+    }))
+    
+    res <- dplyr::mutate(res, chromosome = chr.ids)
+
     res <-
         dplyr::select(
             res,
