@@ -25,4 +25,3 @@ head(get.seqs(input.seqs))
 \author{
 Hajk-Georg Drost
 }
-

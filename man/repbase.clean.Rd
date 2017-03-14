@@ -30,10 +30,9 @@ repbase.clean(repbase.file = "athrep.ref",
 
 }
 }
-\author{
-Hajk-Georg Drost
-}
 \references{
 http://www.girinst.org/repbase/
 }
-
+\author{
+Hajk-Georg Drost
+}

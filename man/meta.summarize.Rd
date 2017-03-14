@@ -55,4 +55,3 @@ to discard false positive LTR transposons.
 \author{
 Hajk-Georg Drost
 }
-

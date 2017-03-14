@@ -42,10 +42,9 @@ pred <- read.ltrpred(pred.file)
 # apply quality filter
 pred <- quality.filter(pred, sim = 70, n.orfs = 1)
 }
-\author{
-Hajk-Georg Drost
-}
 \seealso{
 \code{\link{LTRpred}}, \code{\link{LTRpred.meta}}, \code{\link{read.ltrpred}}
 }
-
+\author{
+Hajk-Georg Drost
+}

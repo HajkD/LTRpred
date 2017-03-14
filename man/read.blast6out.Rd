@@ -43,4 +43,3 @@ head(test.blast6out)
 \author{
 Hajk-Georg Drost
 }
-

@@ -28,10 +28,9 @@ cluster.members(pred, cluster = "cl_108")
 pred2fasta(cluster.members(pred, cluster = "cl_108"), "cl_108_seqs.fa")
 }
 }
-\author{
-Hajk-Georg Drost
-}
 \seealso{
 \code{\link{clust2fasta}}
 }
-
+\author{
+Hajk-Georg Drost
+}

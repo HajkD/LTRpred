@@ -15,4 +15,3 @@ Helper function for wrapping white spaces in folder paths.
 \author{
 Hajk-Georg Drost
 }
-

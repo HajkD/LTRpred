@@ -34,10 +34,9 @@ LTRfile <- read.prediction(gff.file,tabout.file, program = "LTRdigest")
 pred2gff(LTRfile$ltr.retrotransposon, output = "test.gff")
 
 }
-\author{
-Hajk-Georg Drost
-}
 \references{
 http://www.ensembl.org/info/website/upload/gff.html
 }
-
+\author{
+Hajk-Georg Drost
+}

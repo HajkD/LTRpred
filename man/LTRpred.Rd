@@ -305,9 +305,6 @@ LTRpred(LTRdigest.gff = genome,
 }
 
 }
-\author{
-Hajk-Georg Drost
-}
 \references{
 R Edgar. Search and clustering orders of magnitude faster than BLAST. Bioinformatics (2010) 26 (19): 2460-2461.
 
@@ -320,4 +317,6 @@ S Steinbiss et al. Fine-grained annotation and classification of de novo predict
 \code{\link{read.prediction}}, \code{\link{read.tabout}}, \code{\link{read.seqs}},
 \code{\link{pred2fasta}}, \code{\link{pred2gff}}
 }
-
+\author{
+Hajk-Georg Drost
+}

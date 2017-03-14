@@ -35,10 +35,9 @@ This function is a wrapper function to compute all pairwise (global) alignments 
 \details{
 To be able to use this function the VSEARCH command line tool needs to be installed.
 }
-\author{
-Hajk-Georg Drost
-}
 \references{
 https://github.com/torognes/vsearch
 }
-
+\author{
+Hajk-Georg Drost
+}

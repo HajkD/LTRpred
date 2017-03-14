@@ -18,4 +18,3 @@ in R easier.
 \author{
 Hajk-Georg Drost
 }
-

@@ -31,4 +31,3 @@ motif.count(seq.file = system.file("LTRseqs.fas",package = "LTRpred"),
 \author{
 Hajk-Georg Drost
 }
-

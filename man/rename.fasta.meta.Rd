@@ -17,4 +17,3 @@ Meta function for applying \code{\link{rename.fasta}} to many fasta files within
 \author{
 Hajk-Georg Drost
 }
-

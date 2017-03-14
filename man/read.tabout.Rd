@@ -24,4 +24,3 @@ head(imported.tabout)
 \author{
 Hajk-Georg Drost
 }
-

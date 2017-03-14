@@ -39,9 +39,6 @@ Default is \code{max.hits = 65000}.}
 \description{
 Detect solo LTR copies and genomic locations of predicted LTR transposons using a BLAST search strategy.
 }
-\author{
-Hajk-Georg Drost
-}
 \references{
 Altschul, S.F., Gish, W., Miller, W., Myers, E.W. & Lipman, D.J. (1990) "Basic local alignment search tool." J. Mol. Biol. 215:403-410.
 
@@ -53,4 +50,6 @@ Altschul, S.F., Madden, T.L., Schaeffer, A.A., Zhang, J., Zhang, Z., Miller, W. 
 
 Zhang Z., Schwartz S., Wagner L., & Miller W. (2000), "A greedy algorithm for aligning DNA sequences" J Comput Biol 2000; 7(1-2):203-14.
 }
-
+\author{
+Hajk-Georg Drost
+}

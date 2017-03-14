@@ -32,4 +32,3 @@ rename.fasta(file = seqs, species = "Athaliana", output = "Athaliana.fa")
 \author{
 Hajk-Georg Drost
 }
-

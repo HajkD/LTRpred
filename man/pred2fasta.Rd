@@ -41,10 +41,9 @@ pred2fasta(LTRpred.tbl = FilteredLTRTransposons,
            output                = "AthalianaPutativeLTRTransposons.fa")
 }
 }
-\author{
-Hajk-Georg Drost
-}
 \seealso{
 \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{LTRpred}}, \code{\link{read.prediction}}
 }
-
+\author{
+Hajk-Georg Drost
+}
