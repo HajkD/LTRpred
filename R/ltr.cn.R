@@ -41,10 +41,14 @@ ltr.cn <- function(data.sheet,
                    eval              = 1E-10,
                    cores             = 1){
   
-    ltr_similarity <- s_len <- alig_length <- scope <- perc_identity <- NULL
-    s_start <- s_end <- s_start_new <- s_end_new <- subject_id <- chromosome <- query_id <- NULL
-    q_len <- strand <- bit_score <- evalue <- NULL
-    
+    # ltr_similarity <-
+    #     s_len <- alig_length <- scope <- perc_identity <- NULL
+    # s_start <-
+    #     s_end <-
+    #     s_start_new <-
+    #     s_end_new <- subject_id <- chromosome <- query_id <- NULL
+    # q_len <- strand <- bit_score <- evalue <- NULL
+    # 
     
     if (!file.exists(data.sheet)) {
         stop("ltr.cn: The file '",
@@ -88,96 +92,7 @@ ltr.cn <- function(data.sheet,
     
     #ltrdigest.folder <- paste0(folder.name,"_ltrdigest")
     
-    LTRpred.tbl <- readr::read_tsv(data.sheet, col_types = readr::cols(
-        "ID" = readr::col_character(),
-        "dfam_target_name" = readr::col_character(),
-        "ltr_similarity" = readr::col_double(),
-        "similarity" = readr::col_character(),
-        "protein_domain" = readr::col_character(),
-        "orfs" = readr::col_integer(),
-        "chromosome" = readr::col_character(),
-        "start" = readr::col_integer(),
-        "end" = readr::col_integer(),
-        "strand" = readr::col_character(),
-        "width" = readr::col_integer(),
-        "annotation" = readr::col_character(),
-        "pred_tool" = readr::col_character(),
-        "frame" = readr::col_character(),
-        "score" = readr::col_character(),
-        "lLTR_start" = readr::col_integer(),
-        "lLTR_end" = readr::col_integer(),
-        "lLTR_length" = readr::col_integer(),
-        "rLTR_start" = readr::col_integer(),
-        "rLTR_end" = readr::col_integer(),
-        "rLTR_length" = readr::col_integer(),
-        "lTSD_start" = readr::col_integer(),
-        "lTSD_end" = readr::col_integer(),
-        "lTSD_motif" = readr::col_character(),
-        "rTSD_start" = readr::col_integer(),
-        "rTSD_end" = readr::col_integer(),
-        "rTSD_motif" = readr::col_character(),
-        "PPT_start" = readr::col_integer(),
-        "PPT_end" = readr::col_integer(),
-        "PPT_motif" = readr::col_character(),
-        "PPT_strand" = readr::col_character(),
-        "PPT_offset" = readr::col_integer(),
-        "PBS_start" = readr::col_integer(),
-        "PBS_end" = readr::col_integer(),
-        "PBS_strand" = readr::col_character(),
-        "tRNA" = readr::col_character(),
-        "tRNA_motif" = readr::col_character(),
-        "PBS_offset" = readr::col_integer(),
-        "tRNA_offset" = readr::col_integer(),
-        "PBS/tRNA_edist" = readr::col_integer(),
-        "orf.id" = readr::col_character(),
-        "repeat_region_length" = readr::col_integer(),
-        "PPT_length" = readr::col_integer(),
-        "PBS_length" = readr::col_integer(),
-        "dfam_acc" = readr::col_character(),
-        "dfam_bits" = readr::col_double(),
-        "dfam_e_value" = readr::col_double(),
-        "dfam_bias" = readr::col_double(),
-        "dfam_hmm-st" = readr::col_double(),
-        "dfam_hmm-en" = readr::col_double(),
-        "dfam_strand" = readr::col_character(),
-        "dfam_ali-st" = readr::col_double(),
-        "dfam_ali-en" = readr::col_double(),
-        "dfam_env-st" = readr::col_double(),
-        "dfam_env-en" = readr::col_double(),
-        "dfam_modlen" = readr::col_double(),
-        "dfam_target_description" = readr::col_character(),
-        "Clust_Cluster" = readr::col_character(),
-        "Clust_Target" = readr::col_character(),
-        "Clust_Perc_Ident" = readr::col_double(),
-        "Clust_cn" = readr::col_integer(),
-        "TE_CG_abs" = readr::col_double(),
-        "TE_CG_rel" = readr::col_double(),
-        "TE_CHG_abs" = readr::col_double(),
-        "TE_CHG_rel" = readr::col_double(),
-        "TE_CHH_abs" = readr::col_double(),
-        "TE_CHH_rel" = readr::col_double(),
-        "TE_CCG_abs" = readr::col_double(),
-        "TE_CCG_rel" = readr::col_double(),
-        "TE_N_abs" = readr::col_double(),
-        "CG_3ltr_abs" = readr::col_double(),
-        "CG_3ltr_rel" = readr::col_double(),
-        "CHG_3ltr_abs" = readr::col_double(),
-        "CHG_3ltr_rel" = readr::col_double(),
-        "CHH_3ltr_abs" = readr::col_double(),
-        "CHH_3ltr_rel" = readr::col_double(),
-        "CCG_3ltr_abs" = readr::col_double(),
-        "CCG_3ltr_rel" = readr::col_double(),
-        "N_3ltr_abs" = readr::col_double(),
-        "CG_5ltr_abs" = readr::col_double(),
-        "CG_5ltr_rel" = readr::col_double(),
-        "CHG_5ltr_abs" = readr::col_double(),
-        "CHG_5ltr_rel" = readr::col_double(),
-        "CHH_5ltr_abs" = readr::col_double(),
-        "CHH_5ltr_rel" = readr::col_double(),
-        "CCG_5ltr_abs" = readr::col_double(),
-        "CCG_5ltr_rel" = readr::col_double(),
-        "N_5ltr_abs" = readr::col_double()
-    ))
+    LTRpred.tbl <- read.ltrpred(data.sheet = data.sheet)
     
     #LTR.fasta_3ltr <- file.path(LTRpred.folder,ltrdigest.folder,paste0(folder.name,"-ltrdigest_3ltr.fas"))
     #LTR.fasta_5ltr <- file.path(LTRpred.folder,ltrdigest.folder,paste0(folder.name,"-ltrdigest_5ltr.fas"))
@@ -388,16 +303,20 @@ ltr.cn <- function(data.sheet,
     # test whether or not 3ltr and 5 ltr loci overlap with predicted full ltr transposon locus
     full.te.chr <- names(table(LTRpred.tbl$chromosome))
     ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
+    
     # setdiff is not symmetrical so setdiff(A,B) != setdiff(B,A)
     setdiff.full.te <- Biostrings::setdiff(full.te.chr, ltr_chr)
     setdiff.ltr <- Biostrings::setdiff(ltr_chr, full.te.chr)
+    
     LTR.fasta_full.te <-
         dplyr::filter(LTRpred.tbl, !is.element(chromosome, setdiff.full.te))
+    
     BLASTOutput_3ltr <-
         dplyr::filter(BLASTOutput_3ltr, !is.element(subject_id, setdiff.ltr))
     BLASTOutput_5ltr <-
         dplyr::filter(BLASTOutput_5ltr, !is.element(subject_id, setdiff.ltr))
     
+    print(BLASTOutput_5ltr)
     # test again after removal of different chromosomes if chromosomes in both tables match
     full.te.chr <- names(table(LTR.fasta_full.te$chromosome))
     ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
@@ -423,6 +342,7 @@ ltr.cn <- function(data.sheet,
             dplyr::filter(BLASTOutput_3ltr, subject_id == full.te.chr[i])
         BLASTOutput_5ltr_chr <-
             dplyr::filter(BLASTOutput_5ltr, subject_id == full.te.chr[i])
+        
         LTR.fasta_full.te_chr <-
             dplyr::filter(LTR.fasta_full.te, chromosome == full.te.chr[i])
         
@@ -442,12 +362,12 @@ ltr.cn <- function(data.sheet,
         # overlap between 3ltr locus and 5ltr locus (do they report the same solo ltr locus?)
         ir.5ltr_ov_ir.3ltr <-
             IRanges::findOverlaps(ir.5ltr, ir.3ltr, type = "equal")
-        # any overlap with itself: 3ltr locus with 3ltr locus
-        #ir.3ltr_ov_ir.3ltr <-
-            IRanges::findOverlaps(ir.3ltr, ir.3ltr, type = "within")
-        # any overlap with itself: 5ltr locus with 5ltr locus
-        #ir.5ltr_ov_ir.5ltr <-
-            IRanges::findOverlaps(ir.5ltr, ir.5ltr, type = "within")
+        # # any overlap with itself: 3ltr locus with 3ltr locus
+        # ir.3ltr_ov_ir.3ltr <-
+        #     IRanges::findOverlaps(ir.3ltr, ir.3ltr, type = "within")
+        # # any overlap with itself: 5ltr locus with 5ltr locus
+        # ir.5ltr_ov_ir.5ltr <-
+        #     IRanges::findOverlaps(ir.5ltr, ir.5ltr, type = "within")
         
         # for (j in names(table(ir.3ltr_ov_ir.3ltr@to))) {
         #     nested_3ltr_all <- which((ir.3ltr_ov_ir.3ltr@from == j) && (ir.3ltr_ov_ir.3ltr@to == j))
@@ -465,17 +385,17 @@ ltr.cn <- function(data.sheet,
         # cat("\n")
         # print(length(unique(ir.5ltr_ov_ir.5ltr@to)))
         # cat("\n")
-        
         if ((length(ir.3ltr_ov_ir.full.te) > 0) &
             (length(ir.5ltr_ov_ir.3ltr) > 0) &
             (length(ir.5ltr_ov_ir.full.te) > 0)) {
             # exclude overlaps between 3ltr locus and full ltr transposon locus and keep equal overlaps between 3ltr locus and 5ltr locus
+            
             BLASTOutput_3ltr_chr <-
-                BLASTOutput_3ltr_chr[-ir.3ltr_ov_ir.full.te@queryHits, ]
+                BLASTOutput_3ltr_chr[-ir.3ltr_ov_ir.full.te@from, ]
             # exclude overlaps between 5ltr locus and full ltr transposon locus and remove equal overlaps between 3ltr locus and 5ltr locus
             BLASTOutput_5ltr_chr <-
-                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@queryHits,
-                                        ir.5ltr_ov_ir.3ltr@queryHits), ]
+                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@from,
+                                        ir.5ltr_ov_ir.3ltr@from), ]
         }
         
         if ((length(ir.3ltr_ov_ir.full.te) > 0) &
@@ -483,10 +403,10 @@ ltr.cn <- function(data.sheet,
             (length(ir.5ltr_ov_ir.full.te) > 0)) {
             # exclude overlaps between 3ltr locus and full ltr transposon locus
             BLASTOutput_3ltr_chr <-
-                BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@queryHits), ]
+                BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@from), ]
             # exclude overlaps between 5ltr locus and full ltr transposon locus
             BLASTOutput_5ltr_chr <-
-                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@queryHits), ]
+                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@from), ]
         }
         
         if ((length(ir.3ltr_ov_ir.full.te) == 0) &
@@ -494,7 +414,7 @@ ltr.cn <- function(data.sheet,
             (length(ir.5ltr_ov_ir.full.te) > 0)) {
             # exclude overlaps between 5ltr locus and full ltr transposon locus
             BLASTOutput_5ltr_chr <-
-                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@queryHits), ]
+                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@from), ]
         }
         
         if ((length(ir.3ltr_ov_ir.full.te) > 0) &
@@ -502,7 +422,7 @@ ltr.cn <- function(data.sheet,
             (length(ir.5ltr_ov_ir.full.te) == 0)) {
             # exclude overlaps between 3ltr locus and full ltr transposon locus and overlaps between 3ltr locus and 5ltr locus
             BLASTOutput_3ltr_chr <-
-                BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@queryHits), ]
+                BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@from), ]
         }
         #[ ,c("query_id","q_len","subject_id","s_start","s_end","scope","strand", "alig_length", "perc_identity", "bit_score", "evalue")]
         BLAST.ir.3ltr.list[i] <-
@@ -539,8 +459,9 @@ ltr.cn <- function(data.sheet,
                     evalue
                 )
             )
+        
     }
-    
+
     ir.3ltr.result <- do.call(rbind, BLAST.ir.3ltr.list)
     ir.5ltr.result <- do.call(rbind, BLAST.ir.5ltr.list)
     
