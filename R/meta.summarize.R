@@ -59,7 +59,7 @@ meta.summarize <- function(result.folder,
             folders0[i],
             paste0(
                 paste0(choppedFolder[-length(choppedFolder)], collapse = "_"),
-                "_LTRpred_DataSheet.csv"
+                "_LTRpred_DataSheet.tsv"
             )
         ))
         
@@ -81,5 +81,5 @@ meta.summarize <- function(result.folder,
         }
     } 
     
-  return(do.call(rbind,org.list))
+  return(dplyr::bind_rows(org.list))
 }
