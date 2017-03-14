@@ -316,7 +316,6 @@ ltr.cn <- function(data.sheet,
     BLASTOutput_5ltr <-
         dplyr::filter(BLASTOutput_5ltr, !is.element(subject_id, setdiff.ltr))
     
-    print(BLASTOutput_5ltr)
     # test again after removal of different chromosomes if chromosomes in both tables match
     full.te.chr <- names(table(LTR.fasta_full.te$chromosome))
     ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
