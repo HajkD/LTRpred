@@ -1211,7 +1211,7 @@ LTRpred <- function(genome.file       = NULL,
             )
         
         cat("\n")
-        cat("Perform LTR Copy Number Estimation....")
+        cat("Perform solo LTR Copy Number Estimation....")
         cat("\n")
         solo.ltr.cn <- ltr.cn(
             data.sheet     = data_sheet,

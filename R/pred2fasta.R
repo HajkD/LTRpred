@@ -31,15 +31,8 @@
 #' @export 
 
 pred2fasta <- function(LTRpred.tbl, prediction.file, output = "output.fa"){
-    
-    pred.names <-
-        paste0(LTRpred.tbl$chromosome_ltrharvest,
-               "_",
-               LTRpred.tbl$start,
-               "_",
-               LTRpred.tbl$end)
     PutativeLTRSeqs <- Biostrings::readDNAStringSet(prediction.file)
-    Biostrings::writeXStringSet(PutativeLTRSeqs[match(pred.names, PutativeLTRSeqs@ranges@NAMES)], output)
+    Biostrings::writeXStringSet(PutativeLTRSeqs[match(LTRpred.tbl$orf.id, PutativeLTRSeqs@ranges@NAMES)], output)
     
 }
 
