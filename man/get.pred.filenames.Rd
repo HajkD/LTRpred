@@ -25,4 +25,3 @@ get.pred.filenames("path to/LTRpred.folder", ws.wrap = TRUE )
 \author{
 Hajk-Georg Drost
 }
-

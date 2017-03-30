@@ -55,9 +55,6 @@ barplot(sort(table(unlist(lapply(stringr::str_split(
         function(x) x[2]))), decreasing = TRUE))
 }
 }
-\author{
-Hajk-Georg Drost
-}
 \references{
 http://www.girinst.org/repbase/
 
@@ -71,4 +68,6 @@ Altschul, S.F., Madden, T.L., Schaeffer, A.A., Zhang, J., Zhang, Z., Miller, W. 
 
 Zhang Z., Schwartz S., Wagner L., & Miller W. (2000), "A greedy algorithm for aligning DNA sequences" J Comput Biol 2000; 7(1-2):203-14.
 }
-
+\author{
+Hajk-Georg Drost
+}

@@ -15,10 +15,9 @@ clust2fasta(LTRpred.tbl, seqs)
 Export sequences of TEs belonging to the same cluster to separate fasta files.
 Each cluster will be stored in an individual fasta file.
 }
-\author{
-Hajk-Georg Drost
-}
 \seealso{
 \code{\link{LTRpred}}, \code{\link{cluster.members}}
 }
-
+\author{
+Hajk-Georg Drost
+}

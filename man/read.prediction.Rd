@@ -47,4 +47,3 @@ str(LTRfile$ltr.retrotransposon)
 \author{
 Hajk-Georg Drost
 }
-

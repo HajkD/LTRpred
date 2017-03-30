@@ -53,10 +53,9 @@ AthalianaRepBaseAnnotation <- repbase.query(ltr.seqs     = "TAIR10_chr_all-ltrdi
 
 }
 }
-\author{
-Hajk-Georg Drost
-}
 \seealso{
 \code{\link{repbase.query}}, \code{\link{repbase.clean}}
 }
-
+\author{
+Hajk-Georg Drost
+}

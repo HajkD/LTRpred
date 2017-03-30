@@ -47,4 +47,3 @@ head(test.uc)
 \author{
 Hajk-Georg Drost
 }
-

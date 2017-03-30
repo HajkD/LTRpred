@@ -83,4 +83,3 @@ LTRpred.meta(genome.folder = "Genomes/",
 \author{
 Hajk-Georg Drost
 }
-

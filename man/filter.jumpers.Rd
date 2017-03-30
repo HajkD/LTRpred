@@ -39,10 +39,9 @@ pred <- LTRpred(genome.file = "TAIR10_chr_all.fas",
 filter.jumpers(pred)
 }
 }
-\author{
-Hajk-Georg Drost
-}
 \seealso{
 \code{\link{LTRpred}}
 }
-
+\author{
+Hajk-Georg Drost
+}

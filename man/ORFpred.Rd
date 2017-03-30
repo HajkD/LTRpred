@@ -24,13 +24,12 @@ This function provides a wrapper to the \code{USEARCH}
 \code{fastx_findorfs} command line tool to predict ORFs in
 a given input fasta file and read the output as \code{\link{data.frame}} object.
 }
-\author{
-Hajk-Georg Drost
-}
 \references{
 Robert Edgar. Search and clustering orders of magnitude faster than BLAST. Bioinformatics (2010) 26 (19): 2460-2461.
 }
 \seealso{
 \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{LTRpred}}
 }
-
+\author{
+Hajk-Georg Drost
+}

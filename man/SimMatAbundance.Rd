@@ -16,4 +16,3 @@ LTR age distributions is computed via \code{1 - cor(species1,species2)}.
 \author{
 Hajk-Georg Drost
 }
-

@@ -15,4 +15,3 @@ This function simply selects the most important columns of \code{LTRpred} output
 \author{
 Hajk-Georg Drost
 }
-

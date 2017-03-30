@@ -25,4 +25,3 @@ dplyr::arrange(tidy.datasheet(pred), dplyr::desc(ltr_similarity))
 \author{
 Hajk-Georg Drost
 }
-

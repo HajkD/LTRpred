@@ -31,10 +31,9 @@ LTRfile <- read.prediction(gff.file,tabout.file, program = "LTRdigest")
 pred2bed(LTRfile$ltr.retrotransposon)
 
 }
-\author{
-Hajk-Georg Drost
-}
 \references{
 http://www.ensembl.org/info/website/upload/bed.html
 }
-
+\author{
+Hajk-Georg Drost
+}

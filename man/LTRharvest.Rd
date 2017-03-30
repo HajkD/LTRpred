@@ -125,9 +125,6 @@ LTRharvest(genome.file      = "TAIR10_chr_all.fas",
            index.file       = "TAIR10_chr_all_index.fas")
 }
 }
-\author{
-Hajk-Georg Drost
-}
 \references{
 D Ellinghaus, S Kurtz and U Willhoeft. LTRharvest, an efficient and flexible software for de novo detection of LTR retrotransposons. BMC Bioinformatics (2008). 9:18.
 
@@ -138,4 +135,6 @@ Most argument specifications are adapted from the User manual of LTRharvest.
 \code{\link{read.prediction}}, \code{\link{read.seqs}},
 \code{\link{pred2fasta}}, \code{\link{pred2gff}}
 }
-
+\author{
+Hajk-Georg Drost
+}

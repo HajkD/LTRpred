@@ -139,9 +139,6 @@ LTRdigest(input.gff3  = "TAIR10_chr_all_Prediction.gff",
           hmms        = "hmm_*")
 }
 }
-\author{
-Hajk-Georg Drost
-}
 \references{
 S Steinbiss et al. Fine-grained annotation and classification of de novo predicted LTR retrotransposons. Nucl. Acids Res. (2009) 37 (21): 7002-7013.
 }
@@ -150,4 +147,6 @@ S Steinbiss et al. Fine-grained annotation and classification of de novo predict
 \code{\link{read.prediction}}, \code{\link{read.seqs}},
 \code{\link{pred2fasta}}, \code{\link{pred2fasta}}
 }
-
+\author{
+Hajk-Georg Drost
+}

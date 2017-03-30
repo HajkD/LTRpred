@@ -15,4 +15,3 @@ Filter for cluster memebers in a \code{*.uc} format table.
 \author{
 Hajk-Georg Drost
 }
-

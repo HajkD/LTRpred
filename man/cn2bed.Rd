@@ -21,10 +21,9 @@ cn2bed(cn.pred, type = "solo", filename = "copy_number_est", sep = "\\t",
 \description{
 Format copy number estimation output to BED file format.
 }
-\author{
-Hajk-Georg Drost
-}
 \seealso{
 \code{\link{ltr.cn}}, \code{\link{LTRpred}}
 }
-
+\author{
+Hajk-Georg Drost
+}

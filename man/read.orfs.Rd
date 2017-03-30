@@ -26,10 +26,9 @@ ORFPred <- read.orfs(system.file("nt.fa",package = "LTRpred"))
 
 head(ORFPred)
 }
-\author{
-Hajk-Georg Drost
-}
 \seealso{
 \code{\link{ORFpred}}, \code{\link{LTRpred}}
 }
-
+\author{
+Hajk-Georg Drost
+}
