@@ -5,6 +5,12 @@
 #' @param sim LTR similarity threshold. Only putative LTR transposons that fulfill this 
 #' LTR similarity threshold will be retained.
 #' @param n.orfs minimum number of ORFs detected in the putative LTR transposon.
+#' @param strategy quality filter strategy. Options are
+#' \itemize{
+#' \item \code{strategy = "default"} : see section \code{Quality Control} 
+#' \item \code{strategy = "stringent"} : in addition to filter criteria specified in section \code{Quality Control},
+#' the filter criteria \code{!is.na(protein_domain)) | (dfam_target_name != "unknown")} is applied
+#' }
 #' @author Hajk-Georg Drost
 #' @details 
 #' \strong{Quality Control}
@@ -29,21 +35,26 @@
 #' @seealso \code{\link{LTRpred}}, \code{\link{LTRpred.meta}}, \code{\link{read.ltrpred}} 
 #' @export 
 
-quality.filter <- function(pred, sim, n.orfs){
+quality.filter <- function(pred, sim, n.orfs, strategy = "default"){
+    
+    if (!is.element(strategy, c("default", "stringent")))
+        stop("Please choose a quality filter strategy that is supported, e.g. strategy = 'default' or strategy = 'stringent'.")
+    
     # try to reduce false positives by filtering for PBS and ORFs
-    cat("\n")
     ltr_similarity <- PBS_start <- protein_domain <- orfs <- NULL
     TE_N_abs <- width <- NULL
-    cat("The LTRpred prediction table has been filtered (default) to remove potential false positives. Predicted LTRs must have an PBS or Protein Domain and must fulfill thresholds: sim = ",sim,"%; #orfs = ",n.orfs,". Furthermore, TEs having more than 10% of N's in their sequence have also been removed.")
-    cat("\n")
-    cat("Input #TEs: ",length(unique(pred$ID)))
-    cat("\n")
+    message("The LTRpred prediction table has been filtered (default) to remove potential false positives. Predicted LTRs must have an PBS or Protein Domain and must fulfill thresholds: sim = ",sim,"%; #orfs = ",n.orfs,". Furthermore, TEs having more than 10% of N's in their sequence have also been removed.")
+    message("Input #TEs: ",length(unique(pred$ID)))
     filtered.res <- dplyr::filter(pred, (TE_N_abs / width) <= 0.1,
                           ltr_similarity >= sim,
                           (!is.na(PBS_start)) |
                               (!is.na(protein_domain)),
                           orfs >= n.orfs)
-    cat("Output #TEs: ",length(unique(filtered.res$ID)))
-    cat("\n")
+    
+    if (strategy == "stringent") {
+        filtered.res <- dplyr::filter(filtered.res, (!is.na(protein_domain)) | (dfam_target_name != "unknown"))
+    }
+    
+    message("Output #TEs: ",length(unique(filtered.res$ID)))
     return(filtered.res)   
 }
