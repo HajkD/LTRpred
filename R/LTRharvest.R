@@ -119,23 +119,25 @@ LTRharvest <- function(genome.file,
                        output.path = NULL,
                        verbose     = TRUE){
     
+  # test if GenomeTools is installed locally    
+  test_installation_gt()  
     
   if ((is.null(mintsd) & !is.null(maxtsd)) || (!is.null(mintsd) & is.null(maxtsd)))
-    stop ("Please specify a TSD length for both: min and max TSD length!")
+    stop("Please specify a TSD length for both: min and max TSD length!")
   
   if (!is.element(overlaps,c("no","best","all")))
-    stop ("Please select as LTR transposon overlap option either, 'no', 'best', or 'all'.")
+    stop("Please select as LTR transposon overlap option either, 'no', 'best', or 'all'.")
     
-    if (is.null(output.path)){
+    if (is.null(output.path)) {
         output.path <- paste0(unlist(stringr::str_split(basename(genome.file),"[.]"))[1],"_ltrharvest")
-        if (dir.exists(output.path)){
+        if (dir.exists(output.path)) {
             unlink(output.path, recursive = TRUE)
             dir.create(output.path)
         } else {
             dir.create(output.path)
         }
     } else {
-        if (dir.exists(output.path)){
+        if (dir.exists(output.path)) {
             unlink(output.path, recursive = TRUE)
             dir.create(output.path)
         } else {
@@ -146,30 +148,29 @@ LTRharvest <- function(genome.file,
     OutputFileNameIdentifier <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1] 
     IndexOutputFileName <- file.path(output.path,paste0(OutputFileNameIdentifier,"_index",".fsa"))
     
-    cat("\n")
-    cat("Run LTRharvest...")
-    cat("\n")
-    
+    message("Run LTRharvest...")
+
     # In case no index file is passed to this function
     # an index file will be generated using "gt suffixerator"
-    if (is.null(index.file)){
-        if (verbose){
-          cat("\n")
-          cat("Generating indexfile ",IndexOutputFileName," with suffixerator...")
-          cat("\n")
+    if (is.null(index.file)) {
+        if (verbose) {
+           message("LTRharvest: Generating indexfile ",IndexOutputFileName,
+                   " with gt suffixerator...")
         }
         # Genrate Suffix for LTRharvest
-        system(paste0("gt suffixerator -db ",ws.wrap.path(genome.file)," -indexname ", IndexOutputFileName," -tis -suf -lcp -des -ssp -sds -dna"))    
+        system(paste0("gt suffixerator -db ",
+                      ws.wrap.path(genome.file),
+                      " -indexname ", IndexOutputFileName,
+                      " -tis -suf -lcp -des -ssp -sds -dna"))    
     } else {
         IndexOutputFileName <- index.file
     }
     
-    if (verbose){
-      cat("Running LTRharvest and write results to ",output.path,"...")
-      cat("\n")  
+    if (verbose) {
+      message("Running LTRharvest and writing results to ",output.path,"...")
     }
       
-    if (is.null(motif)){
+    if (is.null(motif)) {
         
         # Run LTRharvest without motif
         system(paste0("gt ltrharvest -index ", ws.wrap.path(IndexOutputFileName)," \ ",
@@ -196,13 +197,13 @@ LTRharvest <- function(genome.file,
                       ">> ", file.path(output.path,paste0(OutputFileNameIdentifier,"_Details",".tsv"))," 2>&1"))
     }
     
-    if (!is.null(motif)){
+    if (!is.null(motif)) {
         
         if (!is.element(motifmis,seq_len(3)))
-            stop ("The 'motifmis' argument should be between [0,3].")
+            stop("The 'motifmis' argument should be between [0,3].")
         
         if (nchar(motif) > 4)
-            stop ("Please choose 2 nucleotides for the starting motif and 2 nucleotides for the ending motif.")
+            stop("Please choose 2 nucleotides for the starting motif and 2 nucleotides for the ending motif.")
         
         # Run LTRharvest with motif
         system(paste0("gt ltrharvest -index ", ws.wrap.path(IndexOutputFileName)," \ ",
@@ -230,9 +231,8 @@ LTRharvest <- function(genome.file,
         
     }
     
-    if (verbose){
-      cat("LTRharvest analysis finished!")
-      cat("\n")  
+    if (verbose) {
+      message("LTRharvest analysis finished!")
     }
 }
 
