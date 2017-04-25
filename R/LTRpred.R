@@ -300,16 +300,16 @@ LTRpred <- function(genome.file       = NULL,
     if (!is.null(annotate)) {
         if (!is.element(annotate, c("Repbase", "Dfam")))
             stop("Only Dfam or Repbase can be used to annotate predicted LTR transposons!",
-                  call. = FALSE)
+                 call. = FALSE)
     }
     
     if (parallel::detectCores() < cores)
         stop("Your system does not provide the number of cores you specified.",
-              call. = FALSE)
+             call. = FALSE)
     
     if (!is.null(dfam.file) & is.null(annotate))
         stop("Please specify annotate = 'Dfam' when providing a dfam.file path.",
-              call. = FALSE)
+             call. = FALSE)
     
     
     if (is.null(dfam.cores) && is.null(hmm.cores)) {
@@ -351,29 +351,22 @@ LTRpred <- function(genome.file       = NULL,
         }
         
         if (dir.exists(output.path)) {
-            cat("\n")
-            cat("Folder '",output.path,"' exists already...")
-            cat("\n")
+            message("Folder '",output.path,"' exists already and will be used...")
             #unlink(output.path, recursive = TRUE)
             #dir.create(output.path)
         } else {
-            cat("Folder '",output.path,"' does not exist yet and will be created...")
-            cat("\n")
+            message("Folder '",output.path,"' does not exist yet and will be created...")
             dir.create(output.path)
         }
     } 
     
     if (!is.null(output.path)) {
-        cat("\n")
-        cat("Check if folder '",output.path,"' exists already..")
-        cat("\n")
         if (dir.exists(output.path)) {
-            cat("Folder '",output.path,"' exists already...")
+            message("Folder '",output.path,"' exists already and will be used...")
             #unlink(output.path, recursive = TRUE)
             #dir.create(output.path)
         } else {
-            cat("Folder '",output.path,"' does not exist yet and will be created...")
-            cat("\n")
+            message("Folder '",output.path,"' does not exist yet and will be created...")
             dir.create(output.path)
         }
     }
@@ -381,9 +374,8 @@ LTRpred <- function(genome.file       = NULL,
     rTSD_end <- lTSD_start <- PPT_end <- PPT_start <- PBS_end <- PBS_start <- NULL
     ID <- chromosome <- width <- orf.id <- NULL
     
-    cat("\n")
-    cat("Starting LTRpred analysis...")
-    cat("\n")
+    message("Starting LTRpred analysis...")
+    message("Step 1:")
     
     if (!is.null(genome.file) &
         is.null(LTRdigest.gff) & is.null(tabout.file)) {
@@ -414,6 +406,9 @@ LTRpred <- function(genome.file       = NULL,
         
         chopped.foldername <-
             unlist(stringr::str_split(basename(genome.file), "[.]"))[1]
+        
+        message("Step 2:")
+        
         LTRdigest(
             input.gff3        = file.path(
                 paste0(chopped.foldername, "_ltrharvest"),
@@ -443,11 +438,9 @@ LTRpred <- function(genome.file       = NULL,
             output.path       = NULL
         )
         
-        
-        cat("\n")
-        cat("Import LTRdigest Prediction...")
-        cat("\n")
-        
+        message("Step 3:")
+        message("Import LTRdigest Predictions...")
+
         LTRdigestOutput <-
             read.prediction(
                 gff.file    = file.path(
@@ -484,9 +477,8 @@ LTRpred <- function(genome.file       = NULL,
             }
         }
         
-        cat("\n")
-        cat("Perform ORF Prediction...")
-        cat("\n")
+        message("Step 4:")
+        message("Perform ORF Prediction...")
         ORFTable <-
             ORFpred(
                 seq.file = file.path(
@@ -512,15 +504,13 @@ LTRpred <- function(genome.file       = NULL,
                 folder_path <-
                     stringr::str_c(folder_path[-exclude], collapse = .Platform$file.sep)
             }
-            cat(
+            message(
                 file.path(
                     folder_path,
                     paste0(chopped.foldername, "_ltrdigest")
                 ),
                 " is empty and therefore ORF prediction has been omitted."
             )
-            cat("\n")
-            cat("\n")
         } else {
             ORFTable <- read.orfs(input.file = orf.file)
         }
@@ -537,14 +527,10 @@ LTRpred <- function(genome.file       = NULL,
                                  ORFTable,
                                  by = c("orf.id" = "seq.id"))
             
-            cat("\n")
-            cat("Join ORF Prediction table: nrow(df) = ",nrow(LTRdigestOutput$ltr.retrotransposon), " candidates.")
-            cat("\n")
-            cat("unique(ID) = ",length(unique(LTRdigestOutput$ltr.retrotransposon$ID)), " candidates.")
-            cat("\n")
-            cat("unique(orf.id) = ",length(unique(LTRdigestOutput$ltr.retrotransposon$orf.id)), " candidates.")
-            cat("\n")
-            
+            message("Join ORF Prediction table: nrow(df) = ",nrow(LTRdigestOutput$ltr.retrotransposon), " candidates.")
+            message("unique(ID) = ",length(unique(LTRdigestOutput$ltr.retrotransposon$ID)), " candidates.")
+            message("unique(orf.id) = ",length(unique(LTRdigestOutput$ltr.retrotransposon$orf.id)), " candidates.")
+
             LTRdigestOutput$ltr.retrotransposon <-
                 dplyr::mutate(LTRdigestOutput$ltr.retrotransposon,
                               repeat_region_length = ifelse(!is.na(rTSD_end), (
@@ -632,9 +618,7 @@ LTRpred <- function(genome.file       = NULL,
                     }
                     
                     if (is.null(dfam.file)) {
-                        cat("\n")
-                        cat("Perform Dfam search....")
-                        cat("\n")
+                        message("Perform Dfam search....")
                         # perform query against the Dfam database
                         predSeqs <-
                             file.path(
@@ -677,14 +661,10 @@ LTRpred <- function(genome.file       = NULL,
                         suppressWarnings(res <-
                             dplyr::left_join(res, Dfam.tbl.grouped, by = "orf.id"))
                         
-                        cat("\n")
-                        cat("Join Dfam Annotation table: nrow(df) = ",nrow(res), " candidates.")
-                        cat("\n")
-                        cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
-                        cat("\n")
-                        cat("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
-                        cat("\n")
-                        
+                        message("Join Dfam Annotation table: nrow(df) = ",nrow(res), " candidates.")
+                        message("unique(ID) = ",length(unique(res$ID)), " candidates.")
+                        message("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
+
                         res <-
                             dplyr::mutate(res,
                                           dfam_target_name = ifelse(
@@ -733,9 +713,7 @@ LTRpred <- function(genome.file       = NULL,
                     "Please specify 'cluster = TRUE' when specifying 'clust.file'! Since 'cluster = FALSE' no clustering will be performed!"
                 )
             if (cluster) {
-                cat("\n")
-                cat("Perform Clustering of LTR transposons....")
-                cat("\n")
+                message("Perform Clustering of LTR transposons....")
                 predSeqs <-
                     file.path(
                         folder_path,
@@ -782,14 +760,10 @@ LTRpred <- function(genome.file       = NULL,
                     res <-
                         dplyr::left_join(res, cluster.file.type.H, by = "orf.id")
                     
-                    cat("\n")
-                    cat("Join Cluster table: nrow(df) = ",nrow(res), " candidates.")
-                    cat("\n")
-                    cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
-                    cat("\n")
-                    cat("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
-                    cat("\n")
-                    
+                    message("Join Cluster table: nrow(df) = ",nrow(res), " candidates.")
+                    message("unique(ID) = ",length(unique(res$ID)), " candidates.")
+                    message("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
+
                     res <-
                         dplyr::mutate(
                             res,
@@ -816,14 +790,10 @@ LTRpred <- function(genome.file       = NULL,
                     suppressWarnings(res <-
                         dplyr::left_join(res, Clust.cn, by = "Clust_Cluster"))
                     
-                    cat("\n")
-                    cat("Join Cluster Copy Number table: nrow(df) = ",nrow(res), " candidates.")
-                    cat("\n")
-                    cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
-                    cat("\n")
-                    cat("unique(orf.id)) = ",length(unique(res$orf.id)), " candidates.")
-                    cat("\n")
-                    
+                    message("Join Cluster Copy Number table: nrow(df) = ",nrow(res), " candidates.")
+                    message("unique(ID) = ",length(unique(res$ID)), " candidates.")
+                    message("unique(orf.id)) = ",length(unique(res$orf.id)), " candidates.")
+
                     res <-
                         dplyr::mutate(res, Clust_cn = ifelse(is.na(Clust_cn), 1, as.numeric(Clust_cn) + 1))
                 }
@@ -841,10 +811,8 @@ LTRpred <- function(genome.file       = NULL,
             }
             
             # perform methylation mark counting
-            
-            cat("Perform methylation context quantification..")
-            cat("\n")
-            
+            message("Perform methylation context quantification..")
+
             full.te.seq <-
                 file.path(
                     folder_path,
@@ -1010,18 +978,12 @@ LTRpred <- function(genome.file       = NULL,
                 
                 suppressWarnings(res <-
                     dplyr::left_join(res, dplyr::tbl_df(count.df), by = "orf.id"))
-                cat("\n")
-                cat("Join methylation context (CG, CHG, CHH, CCG) count table: nrow(df) = ",nrow(res), " candidates.")
-                cat("\n")
-                cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
-                cat("\n")
-                cat("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
-                cat("\n")
+                message("Join methylation context (CG, CHG, CHH, CCG) count table: nrow(df) = ",nrow(res), " candidates.")
+                message("unique(ID) = ",length(unique(res$ID)), " candidates.")
+                message("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
             }
             
-            cat("\n")
-            cat("Copy files to result folder '",output.path,"'.")
-            cat("\n")
+            message("Copy files to result folder '",output.path,"'.")
             # perform internal file handling
             if (is.null(LTRharvest.folder)) {
                 if (file.exists(file.path(
@@ -1079,7 +1041,7 @@ LTRpred <- function(genome.file       = NULL,
                   ))
               }
               if (!is.null(dfam.file)) {
-                if (file.exists(dfam.file)){
+                if (file.exists(dfam.file)) {
                     file.move(dfam.file,
                               file.path(
                                   output.path,
@@ -1158,7 +1120,7 @@ LTRpred <- function(genome.file       = NULL,
                 if (file.exists(file.path(
                     folder_path,
                     paste0(chopped.foldername, "_ltrharvest")
-                ))){
+                ))) {
                     file.move(file.path(
                         folder_path,
                         paste0(chopped.foldername, "_ltrharvest")
@@ -1210,9 +1172,7 @@ LTRpred <- function(genome.file       = NULL,
                 paste0(chopped.foldername, "-ltrdigest_5ltr.fas")
             )
         
-        cat("\n")
-        cat("Perform solo LTR Copy Number Estimation....")
-        cat("\n")
+        message("Perform solo LTR Copy Number Estimation....")
         solo.ltr.cn <- ltr.cn(
             data.sheet     = data_sheet,
             LTR.fasta_3ltr = seqs_3ltr,
@@ -1252,16 +1212,11 @@ LTRpred <- function(genome.file       = NULL,
             names(solo.ltr.cn.n_5ltr)[1] <- "orf.id"
             
             res <- dplyr::left_join(res, solo.ltr.cn.n_3ltr, by = "orf.id")
-            cat("\n")
-            cat("Join solo LTR Copy Number Estimation table: nrow(df) = ",nrow(res), " candidates.")
-            cat("\n")
-            cat("unique(ID) = ",length(unique(res$ID)), " candidates.")
-            cat("\n")
-            cat("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
-            cat("\n")
-            
-            
-            
+
+            message("Join solo LTR Copy Number Estimation table: nrow(df) = ",nrow(res), " candidates.")
+            message("unique(ID) = ",length(unique(res$ID)), " candidates.")
+            message("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
+
             res <-
                 dplyr::mutate(res, cn_3ltr = ifelse(is.na(cn_3ltr), 0, as.numeric(cn_3ltr)))
             suppressWarnings(res <- dplyr::full_join(res, solo.ltr.cn.n_5ltr, by = "orf.id"))
@@ -1325,18 +1280,14 @@ LTRpred <- function(genome.file       = NULL,
     }
     
     if (!quality.filter) {
-        cat("No quality filter was applied...")
-        cat("\n")
+        message("No quality filters were applied...")
     }
         
     pred2tsv(res, file.path(
         output.path,
         paste0(chopped.foldername, "_LTRpred_DataSheet.tsv")
     ))
-    cat("\n")
-    cat("LTRpred analysis finished properly.")
-    cat("\n")
-    cat("\n")
+    message("LTRpred analysis finished properly.")
 }
 
 
