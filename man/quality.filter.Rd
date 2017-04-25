@@ -4,7 +4,7 @@
 \alias{quality.filter}
 \title{Try to eliminate false positive LTRpred predictions by filter strategy}
 \usage{
-quality.filter(pred, sim, n.orfs)
+quality.filter(pred, sim, n.orfs, strategy = "default")
 }
 \arguments{
 \item{pred}{\code{LTRpred.tbl} generated with \code{\link{LTRpred}}}
@@ -13,6 +13,13 @@ quality.filter(pred, sim, n.orfs)
 LTR similarity threshold will be retained.}
 
 \item{n.orfs}{minimum number of ORFs detected in the putative LTR transposon.}
+
+\item{strategy}{quality filter strategy. Options are
+\itemize{
+\item \code{strategy = "default"} : see section \code{Quality Control} 
+\item \code{strategy = "stringent"} : in addition to filter criteria specified in section \code{Quality Control},
+the filter criteria \code{!is.na(protein_domain)) | (dfam_target_name != "unknown")} is applied
+}}
 }
 \value{
 A quality filtered \code{LTRpred.tbl}.
