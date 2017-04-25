@@ -127,21 +127,22 @@ LTRdigest <- function(input.gff3,
                       index.file        = NULL,
                       output.path       = NULL){
     
+    # test if GenomeTools is installed locally
+    test_installation_gt()
     
     if (parallel::detectCores() < cores)
-        stop ("Your system does not provide the number of cores you specified.")
+        stop("Your system does not provide the number of cores you specified.")
     
-    if (is.null(output.path)){
+    if (is.null(output.path)) {
         output.path <- paste0(unlist(stringr::str_split(basename(genome.file),"[.]"))[1],"_ltrdigest")
-        if (dir.exists(output.path)){
+        if (dir.exists(output.path)) {
             unlink(output.path, recursive = TRUE)
             dir.create(output.path)
         } else {
             dir.create(output.path)
         }
     } else {
-        
-        if (dir.exists(output.path)){
+        if (dir.exists(output.path)) {
             unlink(output.path, recursive = TRUE)
             dir.create(output.path)
         } else {
@@ -152,26 +153,23 @@ LTRdigest <- function(input.gff3,
     OutputFileNameIdentifier <- unlist(stringr::str_split(basename(genome.file),"[.]"))[1] 
     IndexOutputFileName <- file.path(output.path,paste0(OutputFileNameIdentifier,"_index_ltrdigest",".fsa"))
     
-    if (!is.null(pfam.ids)){
-        
+    if (!is.null(pfam.ids)) {
         if (!is.null(hmms))
-            stop ("Please only provide the PFAM ids and not the actual hmm files when using the 'pfam.ids' argument.")
+            stop("Please only provide the PFAM ids and not the actual hmm files when using the 'pfam.ids' argument.")
         
-        sapply(pfam.ids, function(pfamid) utils::download.file(url      = paste0("http://pfam.xfam.org/family/",pfamid,"/hmm"),
-                                                               destfile = paste0("hmm_",pfamid,".hmm"),
-                                                               quiet    = TRUE))
+        lapply(pfam.ids, function(pfamid)
+            utils::download.file(
+                url      = paste0("http://pfam.xfam.org/family/", pfamid, "/hmm"),
+                destfile = paste0("hmm_", pfamid, ".hmm"),
+                quiet    = TRUE
+            ))
         
     }
     
-    cat("\n")
-    cat("Run LTRdigest...")
-    cat("\n")
     # In case no index file is passed to this function
     # an index file will be generated using "gt suffixerator"
-    if (is.null(index.file)){
-        cat("\n")
-        cat("Generating index file ",IndexOutputFileName," with suffixerator...")
-        cat("\n")
+    if (is.null(index.file)) {
+        message("Generating index file ",IndexOutputFileName," with suffixerator...")
         # Genrate Suffix for LTRdigest
         system(paste0("gt suffixerator -tis -des -dna -ssp -db ",ws.wrap.path(genome.file)," -indexname ", ws.wrap.path(IndexOutputFileName)))    
     } else {
@@ -180,14 +178,11 @@ LTRdigest <- function(input.gff3,
     
     sorted.input.gff3 <- paste0(unlist(stringr::str_split(input.gff3,"[.]"))[1],"_sorted.gff")
     
-    cat("Sort index file...")
-    cat("\n")
+    message("LTRdigest: Sort index file...")
     system(paste0("gt gff3 -sort ",input.gff3," > ", sorted.input.gff3))
     
-    
-    cat("Running LTRdigest and write results to ",output.path,"...")
-    cat("\n")    
-    
+    message("Running LTRdigest and writing results to ",output.path,"...")
+
         # Run LTRdigest
         system(paste0("gt -j ",cores," ltrdigest "," \ ",
                       "-aaout ", aaout," \ ",
@@ -211,7 +206,6 @@ LTRdigest <- function(input.gff3,
                       ,ws.wrap.path(IndexOutputFileName), " > ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_LTRdigestPrediction",".gff")))))
         
     
-    cat("LTRdigest analysis finished!")
-    cat("\n")
-    cat("\n") 
+    message("LTRdigest analysis finished!")
+
 }
