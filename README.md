@@ -1,8 +1,8 @@
 # LTRpred(ict)
 
-### A meta-genomics tool explicitly designed to investigate LTR retrotransposons
+## A bioinformatics pipeline for comparative genomics of retrotransposons and for predicting potentially active retrotransposons from genome assemblies
 
-> Fast and accurate tool for de-novo annotation of LTR retrotransposons, prediction of potentially active retrotransposons, and comparative meta-genomic analyses of retrotransposon families.
+> A meta-genomics pipeline explicitly designed to investigate LTR retrotransposons
 
 
 Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of phenotypic adaptation, diversification,
@@ -42,10 +42,31 @@ In particular the following analyses can be performed with `LTRpred`:
 - cluster LTR retrotransposons within and between species
 - quantify the diversity space of LTR retrotransposons for entire kingdoms of life
 
-### Visualization and Analytics Framework
+## Install
 
-- visualize the properties of predicted LTR retrotransposons
-- visualize correlation between geome size and LTR retrotransposon abundance for entire kingdoms of life
+```r
+# install devtools
+install.packages("devtools")
+# install the current version of LTRpred on your system
+source("http://bioconductor.org/biocLite.R")
+biocLite("HajkD/LTRpred")
+```
+
+## Discussions and Bug Reports
+
+I would be very happy to learn more about potential improvements of the concepts and functions
+provided in this package.
+
+Furthermore, in case you find some bugs or need additional (more flexible) functionality of parts
+of this package, please let me know:
+
+https://github.com/HajkD/LTRpred/issues
+
+
+## NEWS
+
+The current status of the package as well as a detailed history of the
+functionality of each version of `LTRpred` can be found in the [NEWS](https://github.com/HajkD/LTRpred/blob/master/NEWS.md) section.
 
 ## Tutorials
 
@@ -57,37 +78,11 @@ These tutorials introduce users to `LTRpred`:
 - [Analysis and Visualization of Predicted LTRs](https://github.com/HajkD/LTRpred/blob/master/vignettes/Analysis.Rmd)
 - [Perform Meta-Genomics Studies with LTRpred]()
 
-## NEWS
-
-The current status of the package as well as a detailed history of the
-functionality of each version of `LTRpred` can be found in the [NEWS](https://github.com/HajkD/LTRpred/blob/master/NEWS.md) section.
-
-
-## Installation
-
-Users can download `LTRpred` from [CRAN](https://cran.r-project.org/web/packages/LTRpred/index.html) :
-
-```r
-# install LTRpred 0.0.1 from CRAN
-install.packages("LTRpred", dependencies = TRUE)
-```
-
-## Getting started with `LTRpred`
-
 Users can also read the tutorials within ([RStudio](http://www.rstudio.com/)) :
 
 ```r
-# source the LTRpred package
 library(LTRpred)
-
-# look for all tutorials (vignettes) available in the LTRpred package
-# this will open your web browser
 browseVignettes("LTRpred")
-
-## or as single tutorials
-
-# open tutorial: Install
- vignette("Install", package = "LTRpred")
 ```
 
 In the `LTRpred` framework users can find:
@@ -138,21 +133,9 @@ In the `LTRpred` framework users can find:
 * `pred2annotation()` : Match LTRharvest, LTRdigest, or LTRpred prediction with a given annotation file in GFF3 format
 * `pred2csv()` : Format LTR prediction data to CSV file format
 
-#### Visualization and Analytics Tools:
+#### Analytics Tools:
 
 * `ORFpred()` : Open Reading Frame prediction in putative LTR transposons
-* `PlotLTRAge()` : Plot the age distribution of predicted LTR transposons
-* `PlotLTRWidth()` : Plot the width distribution of putative LTR transposons or LTRs
-* `PlotLTRRange()` : Plot Genomic Ranges of putative LTR transposons
-* `PlotSimCount()` : Plot LTR Similarity vs. predicted LTR count
-* `PlotSizeCorrelation()` : Plot Genome size vs. LTR transposon count
-* `PlotJumperSizeCorrelation()` : Plot Genome size vs. LTR transposon count for jumpers
-* `PlotFamily()` : Visualize the Superfamily distribution of predicted LTR retrotransposons
-* `PlotProteinDomain()` : Visualize the Protein Domain distribution of predicted LTR retrotransposons
-* `PlotCopyNumber()` : Plot correlation between LTR copy number and methylation context  
-* `PlotCluster()` : Plot correlation between Cluster Number and any other variable
-* `PlotInterSpeciesCluster()` : Plot inter species similarity between TEs (for a specific cluster)
-* `PlotMainInterSpeciesCluster()` : Plot inter species similarity between TEs (for the top n clusters)
 
 #### Annotation and Validation:
 
@@ -175,47 +158,6 @@ In the `LTRpred` framework users can find:
 * `get.seqs()` : Quickly retrieve the sequences of a 'Biostrings' object
 * `ws.wrap.path()` : Wrap whitespace in paths
 * `rename.fasta()` : rename.fasta
-
-## Developer Version of `LTRpred`
-
-The developer version of `LTRpred` might include more functionality than the stable version on CRAN.
-Hence users can download the current developer version of `LTRpred` by typing:
-
-```r
-# The developer version can be installed directly from github:
-
-# install.packages("devtools")
-
-# install developer version of LTRpred
-library(devtools)
-install_github("HajkD/LTRpred", build_vignettes = TRUE, dependencies = TRUE)
-
-# On Windows, this won't work - see ?build_github_devtools
-# install_github("HajkD/LTRpred", build_vignettes = TRUE, dependencies = TRUE)
-
-# When working with Windows, first you need to install the
-# R package: rtools -> http://cran.r-project.org/bin/windows/Rtools/
-# or consult: http://www.rstudio.com/products/rpackages/devtools/
-
-# Afterwards you can install devtools -> install.packages("devtools")
-# and then you can run:
-
-devtools::install_github("HajkD/LTRpred", build_vignettes = TRUE, dependencies = TRUE)
-
-# and then call it from the library
-library("LTRpred", lib.loc = "C:/Program Files/R/R-3.1.1/library")
-
-```
-
-## Discussions and Bug Reports
-
-I would be very happy to learn more about potential improvements of the concepts and functions
-provided in this package.
-
-Furthermore, in case you find some bugs or need additional (more flexible) functionality of parts
-of this package, please let me know:
-
-https://github.com/HajkD/LTRpred/issues
 
 
 ## Acknowledgement
