@@ -1,6 +1,6 @@
 # LTRpred(ict)
 
-## A bioinformatics pipeline for large scale comparative genomics of retrotransposons and for predicting potentially active retrotransposons from genome assemblies
+## A bioinformatics pipeline for large scale comparative genomics of retrotransposons and for predicting potentially active retrotransposons _de novo_ from raw genome assemblies
 
 > A meta-genomics pipeline explicitly designed to investigate LTR retrotransposons
 
