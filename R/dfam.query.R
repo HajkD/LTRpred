@@ -17,6 +17,10 @@ dfam.query <- function(seq.file,
                        cores         = 1, 
                        output.folder = getwd()){
   
+    
+    test_installation_perl()
+    test_installation_hmmer()
+    
     if (is.null(Dfam.db))
         stop(
             "Please provide either a path to the Dfam.hmm database (file) or choose
@@ -26,7 +30,7 @@ dfam.query <- function(seq.file,
     
     if (!file.exists("/usr/local/bin/dfamscan.pl"))
         stop(
-            "The perl script dfamscan.pl could not be found! Please download it from Dfam and store it in /usr/local/bin ."
+            "The perl script 'dfamscan.pl' could not be found! Please download 'dfamscan.pl' from www.dfam.org/web_download/Current_Release/dfamscan.pl and store it in '/usr/local/bin'."
         )
     
     if (!file.exists(seq.file))
@@ -38,14 +42,14 @@ dfam.query <- function(seq.file,
             file.path(output.folder, "Dfam.hmm.gz"),
             mode = "wb"
         )
-        cat("\n")
-        cat("Prepare the Dfam.hmm database...")
-        cat("\n")
+        
+        message("Prepare the Dfam.hmm database...")
+        
         system(paste0("hmmpress ", file.path(
             ws.wrap.path(output.folder), gzfile("Dfam.hmm.gz")
         )))
-        cat("Run Dfam scan...")
-        cat("\n")
+        
+        message("Run Dfam scan...")
         # make sure that in future versions the PATH variable is set and OSX, Linux,
         # and Windows paths will be supported
         system(
@@ -71,24 +75,20 @@ dfam.query <- function(seq.file,
                 " --masking_thresh "
             )
         )
-        cat("Finished Dfam scan!")
-        cat("\n")
-        cat("A dfam query file has been generated and stored at",ws.wrap.path(file.path(
+        
+        message("Finished Dfam scan!")
+        message("A dfam query file has been generated and stored at",ws.wrap.path(file.path(
             output.folder, paste0(basename(seq.file), "_DfamAnnotation.out"))),".")
-        cat("\n")
     } else {
         if (file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3f")) &&
             file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3i")) &&
             file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3m")) &&
             file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3p"))) {
-            cat("\n")
-            cat("Prepare the Dfam.hmm database...")
-            cat("\n")
+            message("Prepare the Dfam.hmm database...")
             system(paste0("hmmpress ", file.path(Dfam.db, "Dfam.hmm")))
         }
         
-        cat("Run Dfam scan...")
-        cat("\n")
+        message("Run Dfam scan...")
         system(
             paste0(
                 "perl ",
@@ -112,11 +112,9 @@ dfam.query <- function(seq.file,
                 " --masking_thresh "
             )
         )
-        cat("Finished Dfam scan!")
-        cat("\n")
-        cat("A dfam query file has been generated and stored at",ws.wrap.path(file.path(
+        message("Finished Dfam scan!")
+        message("A dfam query file has been generated and stored at",ws.wrap.path(file.path(
             output.folder, paste0(basename(seq.file), "_DfamAnnotation.out"))),".")
-        cat("\n")
-        cat("\n")
+        
     }
 }
