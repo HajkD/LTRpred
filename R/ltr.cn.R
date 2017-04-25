@@ -50,6 +50,8 @@ ltr.cn <- function(data.sheet,
     # q_len <- strand <- bit_score <- evalue <- NULL
     # 
     
+    test_installation_blast()
+    
     if (!file.exists(data.sheet)) {
         stop("ltr.cn: The file '",
               data.sheet,
