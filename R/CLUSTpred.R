@@ -30,35 +30,62 @@ CLUSTpred <- function(file,
                       out.name   = "CLUSTpred",
                       output     = NULL){
   
-  if (!file.exists(file))
-      stop ("CLUSTpred: The file '",file,"' does not exist! Please check the path to cluster input file.", call. = FALSE)
+    test_installation_vsearch()
     
-  if (!is.element(strand, c("both","plus")))
-    stop ("Please specify either strand = 'both' or strand = 'plus'.")
-  
-  if (is.null(output))
-    output <- getwd()
-  
-  if (parallel::detectCores() < cores)
-      stop ("You specified more cores than are available on this machine. Please fix...", call. = FALSE)
-  
-  system(paste0("vsearch --cluster_fast ", ws.wrap.path(file), " \ ",
-  "--qmask none \ ",
-  "--uc ", ws.wrap.path(file.path(output,paste0(out.name,".uc"))), " \ ",
-  "--id ", similarity, " \ ",
-  "--threads ", cores, " \ ",
-  "--clusterout_sort \ ",
-  "--clusterout_id \ ",
-  "--strand ", strand, " \ ",
-  "--log ", ws.wrap.path(file.path(output,paste0(out.name,".log"))), " \ ",
-  "--blast6out ", ws.wrap.path(file.path(output,paste0(out.name,".blast6out"))), " \ ",
-  "--sizeout"))
-  
-  cat("CLUSTpred output has been stored in: ",output)
-  cat("\n")
-  cat("\n")
-  uc.file <- read.uc(uc.file = file.path(output,paste0(out.name,".uc")))
-  
-  return (uc.file)
+    if (!file.exists(file))
+        stop(
+            "CLUSTpred: The file '",
+            file,
+            "' does not exist! Please check the path to cluster input file.",
+            call. = FALSE
+        )
+    
+    if (!is.element(strand, c("both", "plus")))
+        stop("Please specify either strand = 'both' or strand = 'plus'.")
+    
+    if (is.null(output))
+        output <- getwd()
+    
+    if (parallel::detectCores() < cores)
+        stop("You specified more cores than are available on this machine. Please fix...",
+              call. = FALSE)
+    
+    system(
+        paste0(
+            "vsearch --cluster_fast ",
+            ws.wrap.path(file),
+            " \ ",
+            "--qmask none \ ",
+            "--uc ",
+            ws.wrap.path(file.path(output, paste0(out.name, ".uc"))),
+            " \ ",
+            "--id ",
+            similarity,
+            " \ ",
+            "--threads ",
+            cores,
+            " \ ",
+            "--clusterout_sort \ ",
+            "--clusterout_id \ ",
+            "--strand ",
+            strand,
+            " \ ",
+            "--log ",
+            ws.wrap.path(file.path(output, paste0(out.name, ".log"))),
+            " \ ",
+            "--blast6out ",
+            ws.wrap.path(file.path(output, paste0(
+                out.name, ".blast6out"
+            ))),
+            " \ ",
+            "--sizeout"
+        )
+    )
+    
+    message("CLUSTpred output has been stored in: ", output)
+    uc.file <-
+        read.uc(uc.file = file.path(output, paste0(out.name, ".uc")))
+    
+    return(uc.file)
 }
 
