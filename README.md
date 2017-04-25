@@ -1,6 +1,6 @@
 # LTRpred(ict)
 
-## A bioinformatics pipeline for large scale comparative genomics of retrotransposons and for predicting potentially active retrotransposons _de novo_ from raw genome assemblies
+## A bioinformatics pipeline for meta-genome scale predictions of potentially active retrotransposons from raw genome assemblies
 
 > A meta-genomics pipeline explicitly designed to investigate potentially active LTR retrotransposons
 
@@ -11,8 +11,12 @@ regulation of transposable elements by the genetic regulatory machinery will ena
 systematically identify the key players and key processes that enable niche adaptation and
 species diversification on the genetic level.
 
-The `LTRpred` package aims to provide an integrated software framework to 
-predict LTR transposons _de novo_ in any genomic sequence of interest.
+The `LTRpred` pipeline aims to provide an integrated software framework to 
+predict potentially active LTR transposons in any genomic sequence of interest. First, `LTRpred` 
+retrieves _de novo_ annotations of retrotransposons via `LTRharvest` and `LTRdigest`
+and second efficiently screens, filters and annotates those predictions for potentially 
+active elements.
+
 LTR transposons have the capacity to move to new sites in genomes
 through a copy-and-paste mechanism and by doing so are able to contribute generatively 
 to genome evolution and environmental sensing on the genetic level.
