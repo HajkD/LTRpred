@@ -2,7 +2,7 @@
 
 ## A bioinformatics pipeline for large scale comparative genomics of retrotransposons and for predicting potentially active retrotransposons _de novo_ from raw genome assemblies
 
-> A meta-genomics pipeline explicitly designed to investigate LTR retrotransposons
+> A meta-genomics pipeline explicitly designed to investigate potentially active LTR retrotransposons
 
 
 Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of phenotypic adaptation, diversification,
