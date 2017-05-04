@@ -130,7 +130,7 @@
 #' @param output.path a path/folder to store all results returned by \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, and \code{LTRpred}. 
 #' If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
 #' will be generated in the current working directory of R and all results are then stored in this folder.
-#' @param quality.filter shall false positives be filtered out as much as possible or not. 
+#' @param quality.filter shall false positives be filtered out as much as possible? Default is \code{quality.filter = TRUE}. 
 #' See \code{Description} for details.
 #' @param n.orfs minimum number of Open Reading Frames that must be found between the LTRs (if \code{quality.filter = TRUE}). See \code{Details} for further information on quality control.
 #' @param verbose shall further information be printed on the console or not. 
@@ -286,7 +286,7 @@ LTRpred <- function(genome.file       = NULL,
                     min.codons        = 200,
                     trans.seqs        = FALSE,
                     output.path       = NULL,
-                    quality.filter    = FALSE,
+                    quality.filter    = TRUE,
                     n.orfs            = 0,
                     verbose           = TRUE){
   
