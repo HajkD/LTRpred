@@ -20,8 +20,7 @@ LTRpred(genome.file = NULL, index.file.harvest = NULL,
   pbsmatchscore = 5, pbsmismatchscore = -10, pbsinsertionscore = -20,
   pbsdeletionscore = -20, pfam.ids = NULL, cores = 1, dfam.cores = NULL,
   hmm.cores = NULL, orf.style = 7, min.codons = 200, trans.seqs = FALSE,
-  output.path = NULL, quality.filter = FALSE, n.orfs = 0,
-  verbose = TRUE)
+  output.path = NULL, quality.filter = TRUE, n.orfs = 0, verbose = TRUE)
 }
 \arguments{
 \item{genome.file}{path to the genome file in \code{fasta} format.}
@@ -213,7 +212,7 @@ shall be translated and the corresponding protein sequences stored in the output
 If \code{output.path = NULL} (Default) then a folder with the name of the input genome file
 will be generated in the current working directory of R and all results are then stored in this folder.}
 
-\item{quality.filter}{shall false positives be filtered out as much as possible or not. 
+\item{quality.filter}{shall false positives be filtered out as much as possible? Default is \code{quality.filter = TRUE}. 
 See \code{Description} for details.}
 
 \item{n.orfs}{minimum number of Open Reading Frames that must be found between the LTRs (if \code{quality.filter = TRUE}). See \code{Details} for further information on quality control.}
