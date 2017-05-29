@@ -8,13 +8,14 @@ Authors@R: as.person(c(
     ))
 Maintainer: Hajk-Georg Drost <hgd23@cam.ac.uk>
 Description: A meta-genomics tool explicitly designed to investigate LTR retrotransposons in a comparative manner.
-License: GPL-3
+License: GPL-2
 SystemRequirements: C++
 VignetteBuilder: knitr
 NeedsCompilation: yes
 Depends:
     R (>= 3.1.1),
 Imports:
+    biomartr (>= 0.5.1),
     parallel (>= 3.0.2),
     dplyr (>= 0.3.0.2),
     Biostrings,
