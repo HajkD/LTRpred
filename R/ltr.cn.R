@@ -129,7 +129,8 @@ ltr.cn <- function(data.sheet,
             call. = FALSE
         )
     }
-    
+   
+    message("Run makeblastdb of the genome assembly...") 
     # generate a BLASTable database
     system(paste0(
         "makeblastdb -in ",
@@ -137,6 +138,7 @@ ltr.cn <- function(data.sheet,
         " -dbtype nucl -hash_index"
     ))
     
+    message("Perform BLAST searches of 3' prime LTRs against genome assembly...")
     # BLAST putative LTRs against genome file for 3 prime LTR
     system(
         paste0(
@@ -157,6 +159,7 @@ ltr.cn <- function(data.sheet,
         )
     )
     
+    message("Perform BLAST searches of 5' prime LTRs against genome assembly...")
     # BLAST putative LTRs against genome file for 5 prime LTR
     system(
         paste0(
@@ -200,6 +203,7 @@ ltr.cn <- function(data.sheet,
         "score_raw"
     )
     
+    message("Import BLAST results...")
     # Read the BLAST output and define the columns
     BLASTOutput_3ltr <-
         readr::read_tsv(output_3ltr, col_names = FALSE, col_types =  readr::cols(
@@ -250,6 +254,7 @@ ltr.cn <- function(data.sheet,
     colnames(BLASTOutput_3ltr) <- BLASTColNames
     colnames(BLASTOutput_5ltr) <- BLASTColNames
     
+    message("Filter hit results...")
     # generate scope variable
     BLASTOutput_3ltr <-
         dplyr::mutate(BLASTOutput_3ltr, scope = abs(s_len - alig_length) / s_len)
@@ -338,6 +343,7 @@ ltr.cn <- function(data.sheet,
     BLAST.ir.5ltr.list <- vector("list", length(full.te.chr))
     #nested_3ltr <- vector("list")
     
+    message("Estimate CNV for each LTR sequence...")
     for (i in seq_len(length(full.te.chr))) {
         BLASTOutput_3ltr_chr <-
             dplyr::filter(BLASTOutput_3ltr, subject_id == full.te.chr[i])
@@ -469,7 +475,7 @@ ltr.cn <- function(data.sheet,
     res <- vector("list", 2)
     res <-
         list(pred_3ltr = ir.3ltr.result, pred_5ltr = ir.5ltr.result)
-    
+    message("Finished LTR CNV estimation!")
     return(res)
 }
 
