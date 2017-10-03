@@ -1,6 +1,6 @@
 Package: LTRpred
 Type: Package
-Title: LTR Retrotransposon Prediction and Annotation with R
+Title: De novo annotation of LTR retrotransposons 
 Version: 0.0.1
 Date: 2016-01-13
 Authors@R: as.person(c(
