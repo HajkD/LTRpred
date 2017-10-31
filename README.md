@@ -50,6 +50,7 @@ In particular the following analyses can be performed with `LTRpred`:
 ```r
 # install the current version of LTRpred on your system
 source("http://bioconductor.org/biocLite.R")
+biocLite("devtools")
 biocLite("HajkD/LTRpred")
 ```
 
