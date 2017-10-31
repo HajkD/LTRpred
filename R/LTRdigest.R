@@ -66,13 +66,13 @@
 #' @examples 
 #' \dontrun{
 #' # Run LTRharvest for Arabidopsis thaliana using standard parameters
-#' LTRharvest(genome.file = "TAIR10_chr_all.fas")
+#' LTRharvest(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
 #' 
 #' # Run LTRdigest for Arabidopsis thaliana using standard parameters
-#' LTRdigest(input.gff3  = "TAIR10_chr_all_Prediction.gff", 
-#'           genome.file = "TAIR10_chr_all.fas",
-#'           trnas       = "plantRNA_Arabidopsis.fsa",
-#'           hmms        = "hmm_*")
+#' LTRdigest(input.gff3  = "Hsapiens_ChrY_ltrharvest/Hsapiens_ChrY_Prediction.gff", 
+#'           genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"),
+#'           trnas       = system.file("hg38-tRNAs.fa", package = "LTRpred"),
+#'           hmms        = paste0(system.file("HMMs/", package = "LTRpred"),"hmm_*"))
 #' }
 #' @return 
 #' The \code{LTRdigest} function generates the following output files:
@@ -131,7 +131,10 @@ LTRdigest <- function(input.gff3,
     test_installation_gt()
     
     if (parallel::detectCores() < cores)
-        stop("Your system does not provide the number of cores you specified.")
+        stop("Your system does not provide the number of cores you specified.", call. = FALSE)
+    
+    if (is.null(trnas))
+        stop("Please provide a tRNA library to be able to use LTRdigest().", call. = FALSE)
     
     if (is.null(output.path)) {
         output.path <- paste0(unlist(stringr::str_split(basename(genome.file),"[.]"))[1],"_ltrdigest")
