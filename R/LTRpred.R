@@ -206,9 +206,9 @@
 #' 
 #' \dontrun{
 #' # generate de novo LTR transposon prediction
-#' LTRpred(genome.file = "TAIR10_chr_all.fas",
-#'         trnas       = "plantRNA_Arabidopsis.fsa",
-#'         hmms        = "hmm_*")
+#' LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"),
+#'           trnas       = system.file("hg38-tRNAs.fa", package = "LTRpred"),
+#'           hmms        = paste0(system.file("HMMs/", package = "LTRpred"),"hmm_*"))
 #' 
 #' # run LTRpred with pre-computed predictions from LTRdigest()  
 #' genome <- system.file("TAIR10_chr_all_LTRdigestPrediction.gff",package = "LTRpred")   
@@ -292,6 +292,13 @@ LTRpred <- function(genome.file       = NULL,
                     n.orfs            = 0,
                     verbose           = TRUE){
   
+    test_installation_gt()  
+    test_installation_hmmer()
+    test_installation_usearch()
+    test_installation_vsearch()
+    test_installation_blast()
+    test_installation_perl()
+    
     if (!is.null(LTRharvest.folder))
         if (LTRharvest.folder != "skip")
             stop(
@@ -992,30 +999,39 @@ LTRpred <- function(genome.file       = NULL,
                     folder_path,
                     paste0(chopped.foldername, "_ltrharvest")
                 ))) {
-                    file.move(file.path(
-                        folder_path,
-                        paste0(chopped.foldername, "_ltrharvest")
-                    ),
-                    file.path(
+                    if (!file.exists(file.path(
                         output.path,
                         paste0(chopped.foldername, "_ltrharvest")
-                    ))
+                    ))) {
+                        file.move(file.path(
+                            folder_path,
+                            paste0(chopped.foldername, "_ltrharvest")
+                        ),
+                        file.path(
+                            output.path,
+                            paste0(chopped.foldername, "_ltrharvest")
+                        ))   
+                    }
                 }
-                
             }
             
             if (file.exists(file.path(
                 folder_path,
                 paste0(chopped.foldername, "_ltrdigest")
             ))) {
-            file.move(file.path(
-                folder_path,
-                paste0(chopped.foldername, "_ltrdigest")
-            ),
-            file.path(
-                output.path,
-                paste0(chopped.foldername, "_ltrdigest")
-            ))
+                if (!file.exists(file.path(
+                    output.path,
+                    paste0(chopped.foldername, "_ltrdigest")
+                ))) {
+                    file.move(file.path(
+                        folder_path,
+                        paste0(chopped.foldername, "_ltrdigest")
+                    ),
+                    file.path(
+                        output.path,
+                        paste0(chopped.foldername, "_ltrdigest")
+                    ))   
+                }
             }
             
             pred2gff(res, file.path(
@@ -1149,84 +1165,6 @@ LTRpred <- function(genome.file       = NULL,
         }
     }
     
-    # perform copy number estimation analysis
-    if (copy.number.est) {
-        data_sheet <-
-            file.path(output.path,
-                      paste0(chopped.foldername, "_LTRpred_DataSheet.csv"))
-        seqs_3ltr <-
-            file.path(
-                output.path,
-                paste0(chopped.foldername, "_ltrdigest"),
-                paste0(chopped.foldername, "-ltrdigest_3ltr.fas")
-            )
-        seqs_5ltr <-
-            file.path(
-                output.path,
-                paste0(chopped.foldername, "_ltrdigest"),
-                paste0(chopped.foldername, "-ltrdigest_5ltr.fas")
-            )
-        
-        message("Perform solo LTR Copy Number Estimation....")
-        solo.ltr.cn <- ltr.cn(
-            data.sheet     = data_sheet,
-            LTR.fasta_3ltr = seqs_3ltr,
-            LTR.fasta_5ltr = seqs_5ltr,
-            genome         = genome.file,
-            ltr.similarity = similar,
-            eval           = cn.eval,
-            cores          = cores
-        )
-        
-        # write estimated solo LTR loci to LTRpred output folder
-        cn2bed(
-            solo.ltr.cn$pred_3ltr,
-            type = "solo",
-            filename = paste0(chopped.foldername,"_soloLTRs_3ltr"),
-            output = output.path
-        )
-        
-        cn2bed(
-            solo.ltr.cn$pred_5ltr,
-            type = "solo",
-            filename = paste0(chopped.foldername,"_solo_LTRs_5ltr"),
-            output = output.path
-        )
-        
-        # quantify copy number of LTRs for 3 prime LTR and 5 prime LTR separately
-        
-        if ((nrow(solo.ltr.cn$pred_3ltr) > 0) && (nrow(solo.ltr.cn$pred_5ltr) > 0)) {
-            solo.ltr.cn.n_3ltr <-
-                dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_3ltr, query_id),
-                                 cn_3ltr = n())
-            solo.ltr.cn.n_5ltr <-
-                dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_5ltr, query_id),
-                                 cn_5ltr = n())
-            
-            names(solo.ltr.cn.n_3ltr)[1] <- "orf.id"
-            names(solo.ltr.cn.n_5ltr)[1] <- "orf.id"
-            
-            res <- dplyr::left_join(res, solo.ltr.cn.n_3ltr, by = "orf.id")
-
-            message("Join solo LTR Copy Number Estimation table: nrow(df) = ",nrow(res), " candidates.")
-            message("unique(ID) = ",length(unique(res$ID)), " candidates.")
-            message("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
-
-            res <-
-                dplyr::mutate(res, cn_3ltr = ifelse(is.na(cn_3ltr), 0, as.numeric(cn_3ltr)))
-            suppressWarnings(res <- dplyr::full_join(res, solo.ltr.cn.n_5ltr, by = "orf.id"))
-            res <-
-                dplyr::mutate(res, cn_5ltr = ifelse(is.na(cn_5ltr), 0, as.numeric(cn_5ltr)))
-            
-        } else {
-            warning("The LTR copy number estimation returned an empty file and therefore it has not been joined with the prediction file.", call. = FALSE)
-            res <-
-                dplyr::mutate(res, cn_3ltr = rep(NA, nrow(res)), cn_5ltr = rep(NA, nrow(res)))
-        }
-    } else {
-        res <-
-            dplyr::mutate(res, cn_3ltr = rep(NA, nrow(res)), cn_5ltr = rep(NA, nrow(res)))
-    }
     
     res <- dplyr::mutate(res, pred_tool = rep("LTRpred", nrow(res)))
     res <- dplyr::mutate(res, species = rep(chopped.foldername, nrow(res)))
@@ -1246,6 +1184,9 @@ LTRpred <- function(genome.file       = NULL,
         
         res <- dplyr::mutate(res, chromosome = chr.ids)
     }
+    
+    res <-
+        dplyr::mutate(res, cn_3ltr = rep(NA, nrow(res)), cn_5ltr = rep(NA, nrow(res)))
     
     res <-
         dplyr::select(
@@ -1284,6 +1225,97 @@ LTRpred <- function(genome.file       = NULL,
         output.path,
         paste0(chopped.foldername, "_LTRpred_DataSheet.tsv")
     ))
+    
+    # perform copy number estimation analysis
+    if (copy.number.est) {
+        data_sheet <-
+            file.path(output.path,
+                      paste0(chopped.foldername, "_LTRpred_DataSheet.tsv"))
+        seqs_3ltr <-
+            file.path(
+                output.path,
+                paste0(chopped.foldername, "_ltrdigest"),
+                paste0(chopped.foldername, "-ltrdigest_3ltr.fas")
+            )
+        seqs_5ltr <-
+            file.path(
+                output.path,
+                paste0(chopped.foldername, "_ltrdigest"),
+                paste0(chopped.foldername, "-ltrdigest_5ltr.fas")
+            )
+        
+        message("Perform solo LTR Copy Number Estimation....")
+        solo.ltr.cn <- ltr.cn(
+            data.sheet     = data_sheet,
+            LTR.fasta_3ltr = seqs_3ltr,
+            LTR.fasta_5ltr = seqs_5ltr,
+            genome         = genome.file,
+            ltr.similarity = similar,
+            eval           = cn.eval,
+            cores          = cores
+        )
+        
+        # quantify copy number of LTRs for 3 prime LTR and 5 prime LTR separately
+        
+        if ((nrow(solo.ltr.cn$pred_3ltr) > 0) && (nrow(solo.ltr.cn$pred_5ltr) > 0) && (!is.null(solo.ltr.cn$pred_3ltr)) && (!is.null(solo.ltr.cn$pred_5ltr))) {
+            
+            # write estimated solo LTR loci to LTRpred output folder
+            cn2bed(
+                solo.ltr.cn$pred_3ltr,
+                type = "solo",
+                filename = paste0(chopped.foldername,"_soloLTRs_3ltr"),
+                output = output.path
+            )
+            
+            cn2bed(
+                solo.ltr.cn$pred_5ltr,
+                type = "solo",
+                filename = paste0(chopped.foldername,"_solo_LTRs_5ltr"),
+                output = output.path
+            )
+            
+            solo.ltr.cn.n_3ltr <-
+                dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_3ltr, query_id),
+                                 cn_3ltr = n())
+            solo.ltr.cn.n_5ltr <-
+                dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_5ltr, query_id),
+                                 cn_5ltr = n())
+            
+            names(solo.ltr.cn.n_3ltr)[1] <- "orf.id"
+            names(solo.ltr.cn.n_5ltr)[1] <- "orf.id"
+            
+            res <- dplyr::left_join(res, solo.ltr.cn.n_3ltr, by = "orf.id")
+            
+            message("Join solo LTR Copy Number Estimation table: nrow(df) = ",nrow(res), " candidates.")
+            message("unique(ID) = ",length(unique(res$ID)), " candidates.")
+            message("unique(orf.id) = ",length(unique(res$orf.id)), " candidates.")
+            
+            res <-
+                dplyr::mutate(res, cn_3ltr = ifelse(is.na(cn_3ltr), 0, as.numeric(cn_3ltr)))
+            suppressWarnings(res <- dplyr::full_join(res, solo.ltr.cn.n_5ltr, by = "orf.id"))
+            res <-
+                dplyr::mutate(res, cn_5ltr = ifelse(is.na(cn_5ltr), 0, as.numeric(cn_5ltr)))
+            
+        } else {
+            warning("The LTR copy number estimation returned an empty file. This suggests that there were no solo LTRs found in the input genome sequence. ", call. = FALSE)
+            res <-
+                dplyr::mutate(res, cn_3ltr = rep(NA, nrow(res)), cn_5ltr = rep(NA, nrow(res)))
+        }
+    } else {
+        res <-
+            dplyr::mutate(res, cn_3ltr = rep(NA, nrow(res)), cn_5ltr = rep(NA, nrow(res)))
+    }
+    
+    unlink(file.path(
+        output.path,
+        paste0(chopped.foldername, "_LTRpred_DataSheet.tsv")
+    ))
+    
+    pred2tsv(res, file.path(
+        output.path,
+        paste0(chopped.foldername, "_LTRpred_DataSheet.tsv")
+    ))
+    
     message("LTRpred analysis finished properly.")
 }
 
