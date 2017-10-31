@@ -67,14 +67,8 @@
 #' @examples 
 #' \dontrun{
 #' 
-#' # Run LTRharvest for Arabidopsis thaliana using standard parameters
-#' LTRharvest(genome.file = "TAIR10_chr_all.fas")
-#' 
-#' # Run LTRharvest for Arabidopsis thaliana using standard parameters
-#' # and use an existing (already computed) suffixarray index file of 
-#' # the A. thaliana genome
-#' LTRharvest(genome.file      = "TAIR10_chr_all.fas", 
-#'            index.file       = "TAIR10_chr_all_index.fas")
+#' # Run LTRharvest for H sapines partial Y chromosome using standard parameters
+#' LTRharvest(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
 #' }
 #' @references 
 #' D Ellinghaus, S Kurtz and U Willhoeft. LTRharvest, an efficient and flexible software for de novo detection of LTR retrotransposons. BMC Bioinformatics (2008). 9:18.
