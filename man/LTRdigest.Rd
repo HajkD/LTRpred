@@ -130,13 +130,13 @@ call the \code{LTRdigest} command line tool from R.
 \examples{
 \dontrun{
 # Run LTRharvest for Arabidopsis thaliana using standard parameters
-LTRharvest(genome.file = "TAIR10_chr_all.fas")
+LTRharvest(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
 
 # Run LTRdigest for Arabidopsis thaliana using standard parameters
-LTRdigest(input.gff3  = "TAIR10_chr_all_Prediction.gff", 
-          genome.file = "TAIR10_chr_all.fas",
-          trnas       = "plantRNA_Arabidopsis.fsa",
-          hmms        = "hmm_*")
+LTRdigest(input.gff3  = "Hsapiens_ChrY_ltrharvest/Hsapiens_ChrY_Prediction.gff", 
+          genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"),
+          trnas       = system.file("hg38-tRNAs.fa", package = "LTRpred"),
+          hmms        = paste0(system.file("HMMs/", package = "LTRpred"),"hmm_*"))
 }
 }
 \references{
