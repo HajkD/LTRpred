@@ -28,20 +28,19 @@ In particular the following analyses can be performed with `LTRpred`:
 
 ### _De novo_ prediction and annotation
 
-- _de novo_ prediction of LTR retrotransposons (nested, overlapping, or pure template)
+- _de novo_ prediction of LTR retrotransposons (nested, overlapping, or pure template) using [LTRharvest](http://www.zbh.uni-hamburg.de/forschung/arbeitsgruppe-genominformatik/software/ltrharvest.html) and [LTRdigest](http://www.zbh.uni-hamburg.de/forschung/gi/software/ltrdigest.html)
 - annotation of predicted LTR retrotransposons using [Dfam](http://dfam.org/) or [Repbase](http://www.girinst.org/repbase/) as reference
-- solo LTR prediction
-- copy number estimation of LTR elements and LTR retrotransposons
-- open reading frame prediction in LTR retrotransposons
-- LTR retrotransposon clustering based on DNA sequence
-- age estimation of predicted LTR retrotransposons in Mya
-- Methylation mark quantification in predicted LTR retrotransposons (CHH, CHG, CG, ... content)
+- solo LTR prediction based on specialized [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download) searches
+- LTR retrotransposons family clustering using [vsearch](https://github.com/torognes/vsearch)
+- open reading frame prediction in LTR retrotransposons using [usearch](https://www.drive5.com/usearch/)
+- age estimation of predicted LTR retrotransposons in Mya (not implemented yet, but soon to come..)
+- CHH, CHG, CG, ... content quantification in predicted LTR retrotransposons
 - filtering for (potentially) active LTR retrotransposons  
 - quality assesment of input genomes used to predict LTR retrotransposons
 
 ### Meta-Genomics Analyses
 
-- run `LTRpred` on entire kingdoms of life
+- run `LTRpred` on entire kingdoms of life using only one command (see `?LTRpred.meta`)
 - perform meta genomics studies customized for LTR retrotransposons
 - cluster LTR retrotransposons within and between species
 - quantify the diversity space of LTR retrotransposons for entire kingdoms of life
@@ -49,8 +48,6 @@ In particular the following analyses can be performed with `LTRpred`:
 ## Install
 
 ```r
-# install devtools
-install.packages("devtools")
 # install the current version of LTRpred on your system
 source("http://bioconductor.org/biocLite.R")
 biocLite("HajkD/LTRpred")
