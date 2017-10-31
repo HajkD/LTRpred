@@ -7,10 +7,8 @@ test_installation_vsearch <- function() {
             system("vsearch -v", intern = TRUE)
     }, error = function(e)
         stop(
-            "It seems like you don't have VSEARCH installed locally on your machine
-            or the PATH variable to the VSEARCH program is not set correctly.",
-            "Please consult the Installation vignette or https://github.com/torognes/vsearch 
-            for details on how to install VSEARCH.",
+            "It seems like you don't have VSEARCH installed locally on your machine or the PATH variable to the VSEARCH program is not set correctly. ",
+            "Please consult the Installation vignette or https://github.com/torognes/vsearch ufor details on how to install VSEARCH.",
             call. = FALSE
         ))
     
