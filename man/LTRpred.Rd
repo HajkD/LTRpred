@@ -293,9 +293,9 @@ predictions.
 
 \dontrun{
 # generate de novo LTR transposon prediction
-LTRpred(genome.file = "TAIR10_chr_all.fas",
-        trnas       = "plantRNA_Arabidopsis.fsa",
-        hmms        = "hmm_*")
+LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"),
+          trnas       = system.file("hg38-tRNAs.fa", package = "LTRpred"),
+          hmms        = paste0(system.file("HMMs/", package = "LTRpred"),"hmm_*"))
 
 # run LTRpred with pre-computed predictions from LTRdigest()  
 genome <- system.file("TAIR10_chr_all_LTRdigestPrediction.gff",package = "LTRpred")   
