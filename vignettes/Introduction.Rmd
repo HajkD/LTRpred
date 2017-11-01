@@ -9,10 +9,10 @@ vignette: >
 ---
 
 # Table of Contents
-1. [Introduction](#Introduction)
-2. [Getting Started](#Getting-Started)
-3. [Quick Start](#Quick-Start)
-4. [Detailed LTRpred run](#Detailed-LTRpred-run)
+1. [Introduction](#introduction)
+2. [Getting Started](#getting-gtarted)
+3. [Quick Start](#quick-start)
+4. [Detailed LTRpred run](#detailed-ltrpred-run)
 
 
 # Introduction
