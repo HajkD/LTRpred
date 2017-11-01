@@ -8,6 +8,13 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
+# Table of Contents
+1. [Introduction](#Introduction)
+2. [Getting Started](#Getting-Started)
+3. [Quick Start](#Quick-Start)
+4. [Detailed LTRpred run](#Detailed-LTRpred-run)
+
+
 # Introduction
 
 The `LTRpred` package implements a pipeline and provides an integrated software framework to screen for potentially active LTR transposons _de novo_ in any genomic sequence of interest. For this purpose, this package provides a rich set of analytics tools to allow researchers to quickly 
@@ -18,7 +25,7 @@ The _de novo_ prediction of LTR transposons in `LTRpred` is based on the command
 modules to filter the search space of putative LTR transposons for biologically meaningful candidates.
 
 Please make sure that all command line tools are installed properly before running any `LTRpred` function. Users can find a detailed documentation on how to install all
-pre-requisite tools in the [Installation Vignette]().
+pre-requisite tools in the [Installation Vignette](https://github.com/HajkD/LTRpred/blob/master/vignettes/Installation.Rmd).
 
 # Getting Started
 
@@ -239,4 +246,4 @@ tidy format:
 - `CHH_5ltr_rel` :
 - `N_5ltr_abs` :
 
-
+# Detailed LTRpred run
