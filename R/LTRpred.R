@@ -732,7 +732,7 @@ LTRpred <- function(genome.file       = NULL,
                 
                 if (is.null(clust.file)) {
                     cluster.file <- CLUSTpred(
-                                            file       = ws.wrap.path(predSeqs),
+                                            file       = predSeqs,
                                             similarity = clust.sim,
                                             cores      = cores,
                                             output     = output.path
