@@ -10,23 +10,25 @@ vignette: >
 
 # Introduction
 
-The `LTRpred` package aims to provide an integrated software framework to predict LTR transposons _de novo_ in any genomic sequence of interest. For this purpose, this package provides a rich set of analytics tools to allow researchers to quickly 
+The `LTRpred` package implements a pipeline and provides an integrated software framework to screen for potentially active LTR transposons _de novo_ in any genomic sequence of interest. For this purpose, this package provides a rich set of analytics tools to allow researchers to quickly 
 start annotating and explore their own genomes.
 
-The `de novo` prediction of LTR transposons in `LTRpred` is based on the command line tools 
+The _de novo_ prediction of LTR transposons in `LTRpred` is based on the command line tools 
 [LTRharvest](http://www.zbh.uni-hamburg.de/?id=206) and [LTRdigest](http://www.zbh.uni-hamburg.de/forschung/arbeitsgruppe-genominformatik/software/ltrdigest.html) and extends these search strategies by additional analytics
 modules to filter the search space of putative LTR transposons for biologically meaningful candidates.
 
-Please make sure that all command line tools are installed properly before running any `LTRpred` function. Researchers can find a detailed documentation on how to install all
+Please make sure that all command line tools are installed properly before running any `LTRpred` function. Users can find a detailed documentation on how to install all
 pre-requisite tools in the [Installation Vignette]().
 
 # Getting Started
 
-The rational for implementing `LTRpred` was to extend the best state-of-the art LTR transposon
-inference tools by a powerful analytics and extended annotation framework. Hence, _LTRpred_
+The rational for implementing `LTRpred` was to implement an R based pipeline combining the most
+sensitive, accurate, and conservative state-of-the art LTR retrotransposon
+annotation tools and extend their inference by additional analyses and quality filtering steps to
+screen for high confidence potentially active elements. Hence, _LTRpred_
 aims to provide a high-level _de novo_ prediction infrastructure to generate high quality annotations
-of intact LTR retrotransposons. The focus of _LTRpred_ lies on detecting potentially active of recently active
-LTR retrotransposons and therefore, most functions are optimized for this purpose. However, I implemented
+of potentially intact LTR retrotransposons. The focus of _LTRpred_ lies on detecting potentially active or recently active
+LTR retrotransposons. Therefore, instead of aiming to annotate as much loci in the genome as possible, most functions are optimized to screen for high quality and structurally intact elements that can be studied in transposon mobilization experiments. However, I implemented
 all functions generic so that parameters can be changed to detect any form of LTR retrotransposon in any genome.
 
 Internally, _LTRpred_ is based on the `de novo` annotation tools `LTRharvest` and `LTRdigest` which use prior knowledge
@@ -48,26 +50,117 @@ __Figure 1__ in mind will help researchers to modify structural parameters in a 
 
 The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after [installing](Install.Rmd) all prerequisite command line tools) is to use the
 `LTRpred()` function and relying on the default parameters. In the following example,
-a LTR transposon prediction is performed for the `Arabidopsis thaliana` genome.
-
-First users can download the genome of `A. thaliana` as follows:
+a LTR transposon prediction is performed for parts of the Human Y chromosome.
 
 ```r
-
+# load LTRpred package
+library(LTRpred)
+# de novo LTR transposon prediction for the Human Y chromosome
+LTRpred(
+    genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"),
+    trnas       = system.file("hg38-tRNAs.fa", package = "LTRpred"),
+    hmms        = paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*"),
+    cluster     = TRUE
+)
 ```
 
-In the next step this genome can be used to predict putative LTR transposons that
-fulfill the structural parameters set by the `LTRpred()` function. `LTRpred()` is the
-main pipeline function of the `LTRpred` package and implements all functionality
-to generate high quality annotations for any genome of interest.
+```
+Folder 'Hsapiens_ChrY_ltrpred' exists already and will be used...
+Starting LTRpred analysis...
+Step 1:
+Run LTRharvest...
+LTRharvest: Generating indexfile Hsapiens_ChrY_ltrharvest/Hsapiens_ChrY_index.fsa with gt suffixerator...
+Running LTRharvest and writing results to Hsapiens_ChrY_ltrharvest...
+LTRharvest analysis finished!
+Step 2:
+Generating index file Hsapiens_ChrY_ltrdigest/Hsapiens_ChrY_index_ltrdigest.fsa with suffixerator...
+LTRdigest: Sort index file...
+Running LTRdigest and writing results to Hsapiens_ChrY_ltrdigest...
+LTRdigest analysis finished!
+Step 3:
+Import LTRdigest Predictions...
+
+Input:  Hsapiens_ChrY_ltrdigest/Hsapiens_ChrY_LTRdigestPrediction.gff  -> Row Number:  168
+Remove 'NA' -> New Row Number:  168
+(1/8) Filtering for repeat regions has been finished.
+(2/8) Filtering for LTR retrotransposons has been finished.
+(3/8) Filtering for inverted repeats has been finished.
+(4/8) Filtering for LTRs has been finished.
+(5/8) Filtering for target site duplication has been finished.
+(6/8) Filtering for primer binding site has been finished.
+(7/8) Filtering for protein match has been finished.
+(8/8) Filtering for RR tract has been finished.
+Step 4:
+Perform ORF Prediction...
+00:00 2.0Mb   100.0% Working
+
+WARNING: Input has lower-case masked sequences
+
+Join ORF Prediction table: nrow(df) = 24 candidates.
+unique(ID) = 24 candidates.
+unique(orf.id) = 24 candidates.
+Perform Clustering of LTR transposons....
+Reading file Hsapiens_ChrY_ltrdigest/Hsapiens_ChrY-ltrdigest_complete.fas 100%
+340259 nt in 24 seqs, min 5016, max 24131, avg 14177
+Sorting by length 100%
+Counting unique k-mers 100%
+Clustering 100%
+Sorting clusters 100%
+Writing clusters 100%
+Clusters: 24 Size min 1, max 1, avg 1.0
+Singletons: 24, 100.0% of seqs, 100.0% of clusters
+Sorting clusters by abundance 100%
+vsearch v1.11.1_osx_x86_64, 32.0GB RAM, 8 cores
+https://github.com/torognes/vsearch
+
+CLUSTpred output has been stored in: Hsapiens_ChrY_ltrpred
+Join Cluster table: nrow(df) = 24 candidates.
+unique(ID) = 24 candidates.
+unique(orf.id) = 24 candidates.
+Join Cluster Copy Number table: nrow(df) = 24 candidates.
+unique(ID) = 24 candidates.
+unique(orf.id)) = 24 candidates.
+Perform methylation context quantification..
+Join methylation context (CG, CHG, CHH, CCG) count table: nrow(df) = 24 candidates.
+unique(ID) = 24 candidates.
+unique(orf.id) = 24 candidates.
+Copy files to result folder 'Hsapiens_ChrY_ltrpred'.
+The LTRpred prediction table has been filtered (default) to remove potential false positives. Predicted LTRs must have an PBS or Protein Domain and must fulfill thresholds: sim = 70%; #orfs = 0. Furthermore, TEs having more than 10% of N's in their sequence have also been removed.
+Input #TEs: 24
+Output #TEs: 14
+Perform solo LTR Copy Number Estimation....
+Run makeblastdb of the genome assembly...
+
+
+Building a new DB, current time: 11/01/2017 14:15:19
+New DB name:   /Library/Frameworks/R.framework/Versions/3.3/Resources/library/LTRpred/Hsapiens_ChrY.fa
+New DB title:  /Library/Frameworks/R.framework/Versions/3.3/Resources/library/LTRpred/Hsapiens_ChrY.fa
+Sequence type: Nucleotide
+Keep MBits: T
+Maximum file size: 1000000000B
+Adding sequences from FASTA; added 1 sequences in 0.0813279 seconds.
+Perform BLAST searches of 3' prime LTRs against genome assembly...
+Perform BLAST searches of 5' prime LTRs against genome assembly...
+Import BLAST results...
+Filter hit results...
+Estimate CNV for each LTR sequence...
+Finished LTR CNV estimation!
+LTRpred analysis finished properly.
+Warning message:
+The LTR copy number estimation returned an empty file. This suggests that there were no solo LTRs found in the input genome sequence.
+```
+
+The `LTRpred()` function internally generates a folder named `*_ltrpred` which
+stores all output annotation and sequence files.
+
+The `LTRpred()` output table is in [tidy](http://vita.had.co.nz/papers/tidy-data.html) format and can then be imported using `read.ltrpred()`.
+The `tidy` output format is designed to work seamlessly with the [tidyverse](https://www.tidyverse.org/) and [R data science](http://r4ds.had.co.nz/) framework.
 
 ```r
-# de novo LTR transposon prediction for the A. thaliana genome
-Ath.Prediction <- LTRpred(genome.file = "TAIR10_chr_all.fas",
-                          trnas       = "plantRNA_Arabidopsis.fsa",
-                          hmms        = "hmm_*")
-# looking at the results
-lapply(Ath.Prediction,head,2)
+# import LTRpred prediction output
+Hsapiens_chrY <- read.ltrpred("Hsapiens_ChrY_ltrpred/Hsapiens_ChrY_LTRpred_DataSheet.tsv")
+# look at some results
+dplyr::select(Hsapiens_chrY, ltr_similarity:end, tRNA_motif, Clust_cn)
 ```
 
 
