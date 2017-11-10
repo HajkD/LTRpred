@@ -7,7 +7,7 @@ tryCatch({
         system("blastp -version", intern = TRUE)
 }, error = function(e)
     stop(
-        "It seems like you don't have BLAST installed locally on your machine or the PATH variable to the BLAST program is not set correctly.",
+        "It seems like you don't have BLAST installed locally on your machine or the PATH variable to the BLAST program is not set correctly. Please go to https://www.ncbi.nlm.nih.gov/books/NBK279671/ and install BLAST on your machine.",
         call. = FALSE
     ))
 
