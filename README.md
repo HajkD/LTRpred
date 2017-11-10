@@ -1,9 +1,6 @@
 # LTRpred(ict)
 
-## A bioinformatics pipeline for meta-genome scale predictions of potentially active retrotransposons
-
-> A meta-genomics pipeline explicitly designed to investigate potentially active LTR retrotransposons
-
+## A bioinformatics pipeline for meta-genome scale predictions of potentially functional retrotransposons
 
 Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of phenotypic adaptation, diversification,
 and evolution. In particular, understanding the recognition and 
@@ -12,10 +9,10 @@ systematically identify the key players and key processes that enable niche adap
 species diversification on the genetic level.
 
 The `LTRpred` pipeline aims to provide an integrated software framework to 
-predict potentially active LTR transposons in any genomic sequence of interest. First, `LTRpred` 
+predict potentially functional LTR transposons in any genomic sequence of interest. First, `LTRpred` 
 retrieves _de novo_ annotations of retrotransposons via `LTRharvest` and `LTRdigest`
 and second efficiently screens, filters and annotates those predictions for potentially 
-active elements.
+functional elements.
 
 LTR transposons have the capacity to move to new sites in genomes
 through a copy-and-paste mechanism and by doing so are able to contribute generatively 
@@ -35,7 +32,7 @@ In particular the following analyses can be performed with `LTRpred`:
 - open reading frame prediction in LTR retrotransposons using [usearch](https://www.drive5.com/usearch/)
 - age estimation of predicted LTR retrotransposons in Mya (not implemented yet, but soon to come..)
 - CHH, CHG, CG, ... content quantification in predicted LTR retrotransposons
-- filtering for (potentially) active LTR retrotransposons  
+- filtering for (potentially) functional LTR retrotransposons  
 - quality assesment of input genomes used to predict LTR retrotransposons
 
 ### Meta-Genomics Analyses
