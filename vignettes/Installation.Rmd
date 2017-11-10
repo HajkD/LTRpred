@@ -7,3 +7,14 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
+
+# Install prerequisite command line tools
+
+For the `LTRpred::LTRpred()` function to run properly, please make sure that the following command line tools are installed on your system:
+
+- [GenomeTools](https://github.com/genometools/genometools)
+- [HMMER](http://hmmer.org/download.html)
+- [USEARCH](http://drive5.com/usearch/download.html)
+- [VSEARCH](https://github.com/torognes/vsearch)
+- [BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279671/)
+- [Perl](https://www.perl.org/)
