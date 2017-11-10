@@ -1,7 +1,7 @@
 Package: LTRpred
 Type: Package
-Title: De novo annotation of LTR retrotransposons 
-Version: 0.0.1
+Title: De novo annotation of potentially active LTR retrotransposons 
+Version: 1.0.0
 Date: 2016-01-13
 Authors@R: as.person(c(
     "Hajk-Georg Drost <hgd23@cam.ac.uk> [aut, cre]"
