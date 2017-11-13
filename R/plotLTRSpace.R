@@ -26,12 +26,6 @@
 #' In the first step, users should have generated LTR retrotransposon annotations for several species using the
 #' \code{\link[LTRpred]{LTRpred.meta}} function. The output of \code{\link[LTRpred]{LTRpred.meta}} is a folder storing the annotation files
 #' for all species of input species. In addition, \code{\link[LTRpred]{LTRpred.meta}} generates two files: \code{*_SimilarityMatrix} and \code{*_GenomeInfo} .
-#' @examples
-#' GenomeMatrix <- read.csv(system.file("GenomeMatrix.csv",package = "LTRpred"), sep = ";")
-#' GenomeMatrix[ , 1] <- sapply(GenomeMatrix[ , 1],
-#'                              function(x) unlist(stringr::str_split(x,"_"))[1])
-#'
-#' plotSize(GenomeMatrix)
 #' @export
 
 plotLTRSpace <- function(genome.matrix,
@@ -70,7 +64,8 @@ plotLTRSpace <- function(genome.matrix,
                 )
         }
         
-        
+      LTRSpaceMbp <- organism <- NULL
+      
         cor.value <-
             stats::cor(genome.matrix$LTRSpaceMbp,
                        genome.matrix$genome.size,
