@@ -54,7 +54,7 @@ plotProteinSpace <- function(genome.matrix,
                             label.size          = 3,
                             check.overlap       = TRUE) {
     
-        genome.size <- NULL
+        genome.size <- ProtSpaceMbp <- organism <- RepeatSpaceMbp <- NULL
     
     if (cl.analysis) {
         if (is.null(sim.matrix))
