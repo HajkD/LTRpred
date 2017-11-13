@@ -23,6 +23,8 @@ gridPlotAssemblyVersions <-
            y.ticks = 6,
            sim = 70,
            n.orfs = 0) {
+    
+    similarity <- NULL
     p <-
       ggplot2::ggplot(data, ggplot2::aes(
         x = factor(similarity, levels = unique(as.character(
