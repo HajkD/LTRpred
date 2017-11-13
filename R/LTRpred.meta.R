@@ -82,7 +82,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         if (!file.exists(genome.folder))
             stop("The folder ' ", genome.folder, " ' could not be found.")
         
-        ltr_similarity <- similarity <- PBS_start <- protein_domain <- orfs <- width <- NULL
+        ltr_similarity <- similarity <- PBS_start <- protein_domain <- orfs <- width <- TE_N_abs <- NULL
         
         cat("\n")
         cat("Starting LTRpred meta analysis on the following files: ")
