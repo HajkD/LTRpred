@@ -35,7 +35,7 @@
 #' PlotLTRAge(Ath.Pred)
 #' }
 #' @seealso \code{\link[LTRpred]{LTRpred}}, \code{\link[LTRpred]{LTRharvest}}, \code{\link[LTRpred]{LTRdigest}},
-#' \code{\link{plotLTRWidth}}, \code{\link{plotRanges}}
+#' \code{\link{plotRanges}}
 #' @export
 
 plotLTRSim <- function(data,
