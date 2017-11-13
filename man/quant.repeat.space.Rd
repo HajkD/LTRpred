@@ -14,8 +14,7 @@ Quantification of the repeat space (= total length of
 all Repeat Masker annotated repeats) within a given genome of interest.
 }
 \seealso{
-\code{\link{quant.protein.space}}, \code{\link{quant.cds.space}},
-\code{\link{quant.meta.space}}
+\code{\link{quant.protein.space}}, \code{\link{quant.cds.space}}
 }
 \author{
 Hajk-Georg Drost
