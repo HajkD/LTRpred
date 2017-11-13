@@ -14,8 +14,7 @@ Quantification of the cds space (= total length of
 all annotated coding sequences) within a given genome of interest.
 }
 \seealso{
-\code{\link{quant.protein.space}}, \code{\link{quant.repeat.space}},
-\code{\link{quant.meta.space}}
+\code{\link{quant.protein.space}}, \code{\link{quant.repeat.space}}
 }
 \author{
 Hajk-Georg Drost
