@@ -3,8 +3,7 @@
 #' all annotated coding sequences) within a given genome of interest.
 #' @param file file path to a fasta file storing the cds sequences.
 #' @author Hajk-Georg Drost
-#' @seealso \code{\link{quant.protein.space}}, \code{\link{quant.repeat.space}},
-#' \code{\link{quant.meta.space}}
+#' @seealso \code{\link{quant.protein.space}}, \code{\link{quant.repeat.space}}
 #' @export
 quant.cds.space <- function(file) {
     cds_seqs <- biomartr::read_cds(file = file)
