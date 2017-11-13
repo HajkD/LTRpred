@@ -148,6 +148,26 @@ In the `LTRpred` framework users can find:
 
 * `motif.count()` : Low level function to detect motifs in strings
 
+#### Visualization Framework
+
+* `plot_ltrsim_individual()` : Plot the age distribution of predicted LTR transposons
+* `plot.ltrwidth_individual()` : Plot the width distribution of putative LTR transposons or LTRs for individual species
+* `plot.ltrwidth_species()` : Plot the width distribution of putative LTR transposons or LTRs for all species
+* `plot.ltrwidth_kingdom()` : Plot the width distribution of putative LTR transposons or LTRs for all kingdoms
+* `plot.copynumber_individual()` : Plot the copy number distribution of putative LTR transposons or LTRs for individual species
+* `plot.copynumber_species()` : Plot the copy number distribution of putative LTR transposons or LTRs for all species
+* `plot.copynumber_kingdom()` : Plot the copy number distribution of putative LTR transposons or LTRs for all kingdoms
+* `plot.ltr.range()` : Plot Genomic Ranges of putative LTR transposons
+* `PlotSimCount()` : Plot LTR Similarity vs. predicted LTR count
+* `plot.size()` : Plot Genome size vs. LTR transposon count
+* `plot.size.jumpers()` : Plot Genome size vs. LTR transposon count for jumpers
+* `plot.family()` : Visualize the Superfamily distribution of predicted LTR retrotransposons
+* `plot.domain()` : Visualize the Protein Domain distribution of predicted LTR retrotransposons
+* `plot.cn()` : Plot correlation between LTR copy number and methylation context  
+* `plot.cluster()` : Plot correlation between Cluster Number and any other variable
+* `PlotInterSpeciesCluster()` : Plot inter species similarity between TEs (for a specific cluster)
+* `PlotMainInterSpeciesCluster()` : Plot inter species similarity between TEs (for the top n clusters)
+
 
 #### Minor helper functions
 
