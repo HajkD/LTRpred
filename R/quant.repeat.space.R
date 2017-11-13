@@ -3,8 +3,7 @@
 #' all Repeat Masker annotated repeats) within a given genome of interest.
 #' @param file file path to a fasta file storing the Repeat Masker annotation file.
 #' @author Hajk-Georg Drost
-#' @seealso \code{\link{quant.protein.space}}, \code{\link{quant.cds.space}},
-#' \code{\link{quant.meta.space}}
+#' @seealso \code{\link{quant.protein.space}}, \code{\link{quant.cds.space}}
 #' @export
 quant.repeat.space <- function(file) {
     repeat_file <- biomartr::read_rm(file = file)
