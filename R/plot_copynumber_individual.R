@@ -50,7 +50,7 @@ plot_copynumber_individual <- function(data,
     if (!is.element(element.type, c("full_retrotransposon", "ltr_element")))
         stop("Please choose either element.type = 'full_retrotransposon' or element.type = 'ltr_element'.", call. = FALSE)
     
-    similarity <- Clust_cn <- cn_3ltr <- ltr_similarity <- NULL
+    similarity <- Clust_cn <- Clust_Cluster <- n  <- ID <- quantile <- cn_3ltr <- ltr_similarity <- NULL
     
     if (quality.filter)
         data <- LTRpred::quality.filter(data, sim = min.sim, n.orfs = n.orfs)
