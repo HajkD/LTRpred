@@ -54,7 +54,7 @@ plotRepeatSpace <- function(genome.matrix,
                              label.size          = 3,
                              check.overlap       = TRUE) {
     
-    genome.size <- NULL
+    genome.size <- organism <- NULL
     
     if (cl.analysis) {
         if (is.null(sim.matrix))
