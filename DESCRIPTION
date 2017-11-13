@@ -32,7 +32,9 @@ Imports:
     ggbio,
     reshape2,
     gridExtra,
-    methods
+    methods,
+    tibble,
+    scales
 Suggests:
     knitr (>= 1.6),
     rmarkdown (>= 0.3.3),
