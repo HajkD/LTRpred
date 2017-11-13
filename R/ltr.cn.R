@@ -52,6 +52,11 @@ ltr.cn <- function(data.sheet,
     
     test_installation_blast()
     
+  ltr_similarity <- s_len <- alig_length <- scope <- perc_identity <- s_start <- NULL
+  s_end <- s_start_new <- s_end_new <- subject_id <- chromosome <- query_id <- NULL
+  q_len <- strand <- bit_score <- evalue <- NULL
+  
+  
     if (!file.exists(data.sheet)) {
         stop("ltr.cn: The file '",
               data.sheet,
