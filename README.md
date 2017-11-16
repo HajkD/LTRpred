@@ -1,6 +1,6 @@
 # LTRpred(ict)
 
-## A bioinformatics pipeline for meta-genome scale predictions of potentially functional retrotransposons
+## A bioinformatics pipeline for meta-genome scale de novo annotation of functional LTR retrotransposons
 
 Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of phenotypic adaptation, diversification,
 and evolution. In particular, understanding the recognition and 
