@@ -29,7 +29,6 @@ Imports:
     BSDA,
     amap,
     ggrepel,
-    ggbio,
     reshape2,
     gridExtra,
     methods,
