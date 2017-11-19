@@ -8,13 +8,120 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
-# Install prerequisite command line tools
+## Install prerequisite command line tools
 
 For the `LTRpred::LTRpred()` function to run properly, please make sure that the following command line tools are installed on your system:
 
-- [GenomeTools](https://github.com/genometools/genometools)
-- [HMMER](http://hmmer.org/download.html)
-- [USEARCH](http://drive5.com/usearch/download.html)
-- [VSEARCH](https://github.com/torognes/vsearch)
-- [BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279671/)
+## Install [GenomeTools](https://github.com/genometools/genometools)
+
+For linux systems:
+
+```bash
+wget http://genometools.org/pub/genometools-1.5.7.tar.gz
+tar -xf genometools-1.5.7.tar.gz
+cd genometools-1.5.7
+make with-hmmer=yes cairo=no 
+make cairo=no test
+make cairo=no install
+```
+
+For macOS systems:
+
+```bash
+# Go to: http://brew.sh/
+# Install Homebrew: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+$ brew install caskroom/cask/brew-cask
+$ brew cask install xquartz
+$ brew install cairo
+$ brew install pango
+```
+
+```bash
+# install genometools
+# download from http://genometools.org/pub/genometools-1.5.7.tar.gz
+tar -xf genometools-1.5.7.tar.gz
+cd genometools-1.5.7
+make with-hmmer=yes cairo=no 
+make cairo=no test
+make cairo=no install
+```
+
+## Install [HMMER](http://hmmer.org/download.html)
+
+For unix systems:
+
+```bash
+wget ftp://selab.janelia.org/pub/software/hmmer3/3.1b2/hmmer-3.1b2.tar.gz
+tar xf hmmer-3.1b2.tar.gz
+cd hmmer-3.1b2
+ ./configure
+ make
+ make check
+ sudo make install
+```
+
+## Install [USEARCH](http://drive5.com/usearch/download.html)
+
+Example for macOS (analogous for linux systems):
+
+```bash
+# register and download operating system specific usearch from
+# http://drive5.com/usearch/download.html
+chmod +x usearch10.0.240_i86osx32
+sudo cp usearch10.0.240_i86osx32 /usr/local/bin/
+sudo mv /usr/local/bin/usearch10.0.240_i86osx32 /usr/local/bin/usearch
+```
+
+## Install [VSEARCH](https://github.com/torognes/vsearch)
+
+Example for unix systems:
+
+```bash
+sudo git clone https://github.com/torognes/vsearch.git
+cd vsearch
+sudo ./configure
+sudo make
+sudo make install
+```
+
+## [BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279671/)
+
+For example for Linux systems open the Terminal application and run:
+
+```bash
+# download BLAST+ version 2.2.31
+wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.31/ncbi-blast-2.2.31+-x64-linux.tar.gz
+
+# extract the compiled version of BLAST
+tar zxvpf ncbi-blast+2.2.31+-x64-linux.tar.gz
+
+# copy BLAST files to `usr/local/bin`
+cp ncbi-blast-2.2.31+/bin/* usr/local/bin
+```
+
+Alternatively users can set the system call to the BLAST programs by specifying the PATH variable (this is useful, because it allows an easier update of BLAST versions instead of deleting all BLAST programs from usr/local/bin):
+
+```bash
+# open vim text editor
+vi .bash_profile
+
+# type 'Shift' then I to edit the file .bash_profile
+# and specify the export PATH
+export PATH=${PATH}:/path/to/downloaded/blast/folder/ncbi-blast-2.2.31+/bin
+
+# type 'ESC' then ':' then 'w' then 'q' to save and quit the .bash_profile file 
+# log out from your server with
+exit
+
+# log in again and type
+blastp -version
+```
+
+Now users should see the BLAST command line options.
+
+
 - [Perl](https://www.perl.org/)
+
+
+- [dfamscan.pl](http://www.dfam.org/web_download/Current_Release/dfamscan.pl) needs to be stored at `/usr/local/bin/dfamscan.pl` and executabe via `perl /usr/local/bin/dfamscan.pl -help`
