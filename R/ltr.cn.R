@@ -139,7 +139,7 @@ ltr.cn <- function(data.sheet,
     # generate a BLASTable database
     system(paste0(
         "makeblastdb -in ",
-        ws.wrap.path(genome),
+        ws.wrap.path(gzfile(genome)),
         " -dbtype nucl -hash_index"
     ))
     
@@ -150,7 +150,7 @@ ltr.cn <- function(data.sheet,
             "blastn -query ",
             ws.wrap.path(LTR.filtered.fasta_3ltr),
             " -db ",
-            ws.wrap.path(genome),
+            ws.wrap.path(gzfile(genome)),
             " -out ",
             ws.wrap.path(output_3ltr) ,
             " ",
@@ -171,7 +171,7 @@ ltr.cn <- function(data.sheet,
             "blastn -query ",
             ws.wrap.path(LTR.filtered.fasta_5ltr),
             " -db ",
-            ws.wrap.path(genome),
+            ws.wrap.path(gzfile(genome)),
             " -out ",
             ws.wrap.path(output_5ltr) ,
             " ",
