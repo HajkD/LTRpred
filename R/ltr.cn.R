@@ -101,92 +101,101 @@ ltr.cn <- function(data.sheet,
     
     LTRpred.tbl <- read.ltrpred(data.sheet = data.sheet)
     
-    #LTR.fasta_3ltr <- file.path(LTRpred.folder,ltrdigest.folder,paste0(folder.name,"-ltrdigest_3ltr.fas"))
-    #LTR.fasta_5ltr <- file.path(LTRpred.folder,ltrdigest.folder,paste0(folder.name,"-ltrdigest_5ltr.fas"))
-    
-    LTR.filtered.fasta_3ltr <-
+    if (nrow(LTRpred.tbl) < 2) {
+      message("Only one element has been found... so LTR copy number estimation is omitted!")
+    } else {
+      #LTR.fasta_3ltr <- file.path(LTRpred.folder,ltrdigest.folder,paste0(folder.name,"-ltrdigest_3ltr.fas"))
+      #LTR.fasta_5ltr <- file.path(LTRpred.folder,ltrdigest.folder,paste0(folder.name,"-ltrdigest_5ltr.fas"))
+      
+      LTR.filtered.fasta_3ltr <-
         file.path(tempdir(),
                   paste0(folder.name, "-ltrdigest_3ltr_", ltr.similarity, ".fas"))
-    LTR.filtered.fasta_5ltr <-
+      LTR.filtered.fasta_5ltr <-
         file.path(tempdir(),
                   paste0(folder.name, "-ltrdigest_5ltr_", ltr.similarity, ".fas"))
-    
-    pred2fasta(
+      
+      pred2fasta(
         LTRpred.tbl     = dplyr::filter(LTRpred.tbl, ltr_similarity >= ltr.similarity),
         prediction.file = LTR.fasta_3ltr,
         output          = LTR.filtered.fasta_3ltr
-    )
-    
-    pred2fasta(
+      )
+      
+      pred2fasta(
         LTRpred.tbl     = dplyr::filter(LTRpred.tbl, ltr_similarity >= ltr.similarity),
         prediction.file = LTR.fasta_5ltr,
         output          = LTR.filtered.fasta_5ltr
-    )
-    
-    if (!file.exists(LTR.filtered.fasta_3ltr) ||
-        !file.exists(LTR.filtered.fasta_5ltr)) {
+      )
+      
+      if (!file.exists(LTR.filtered.fasta_3ltr) ||
+          !file.exists(LTR.filtered.fasta_5ltr)) {
         stop(
-            "Something went wrong with the solo LTR prediction! Files '",
-            LTR.filtered.fasta_3ltr,
-            "' and/or '",
-            LTR.filtered.fasta_5ltr,
-            "' could not be found or gnerated.",
-            call. = FALSE
+          "Something went wrong with the solo LTR prediction! Files '",
+          LTR.filtered.fasta_3ltr,
+          "' and/or '",
+          LTR.filtered.fasta_5ltr,
+          "' could not be found or gnerated.",
+          call. = FALSE
         )
-    }
-   
-    message("Run makeblastdb of the genome assembly...") 
-    # generate a BLASTable database
-    system(paste0(
+      }
+      
+      message("Run makeblastdb of the genome assembly...") 
+      if (stringr::str_detect(genome, "[.]gz")) {
+        system(paste0("gunzip ", ws.wrap.path(genome)))
+        genome <- stringr::str_replace(genome, "[.]gz","")
+      }
+      
+      
+      # generate a BLASTable database
+      system(paste0(
         "makeblastdb -in ",
-        ws.wrap.path(gzfile(genome)),
+        ws.wrap.path(genome),
         " -dbtype nucl -hash_index"
-    ))
-    
-    message("Perform BLAST searches of 3' prime LTRs against genome assembly...")
-    # BLAST putative LTRs against genome file for 3 prime LTR
-    system(
+      ))
+      
+      message("Perform BLAST searches of 3' prime LTRs against genome assembly...")
+      # BLAST putative LTRs against genome file for 3 prime LTR
+      system(
         paste0(
-            "blastn -query ",
-            ws.wrap.path(LTR.filtered.fasta_3ltr),
-            " -db ",
-            ws.wrap.path(gzfile(genome)),
-            " -out ",
-            ws.wrap.path(output_3ltr) ,
-            " ",
-            "-evalue ",
-            eval,
-            " -max_target_seqs ",
-            max.hits,
-            " -num_threads ",
-            cores,
-            " -dust no -outfmt '6 qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen sstart send slen evalue bitscore score'"
+          "blastn -query ",
+          ws.wrap.path(LTR.filtered.fasta_3ltr),
+          " -db ",
+          ws.wrap.path(gzfile(genome)),
+          " -out ",
+          ws.wrap.path(output_3ltr) ,
+          " ",
+          "-evalue ",
+          eval,
+          " -max_target_seqs ",
+          max.hits,
+          " -num_threads ",
+          cores,
+          " -dust no -outfmt '6 qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen sstart send slen evalue bitscore score'"
         )
-    )
-    
-    message("Perform BLAST searches of 5' prime LTRs against genome assembly...")
-    # BLAST putative LTRs against genome file for 5 prime LTR
-    system(
+      )
+      
+      message("Perform BLAST searches of 5' prime LTRs against genome assembly...")
+      # BLAST putative LTRs against genome file for 5 prime LTR
+      system(
         paste0(
-            "blastn -query ",
-            ws.wrap.path(LTR.filtered.fasta_5ltr),
-            " -db ",
-            ws.wrap.path(gzfile(genome)),
-            " -out ",
-            ws.wrap.path(output_5ltr) ,
-            " ",
-            "-evalue ",
-            eval,
-            " -max_target_seqs ",
-            max.hits,
-            " -num_threads ",
-            cores,
-            " -dust no -outfmt '6 qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen sstart send slen evalue bitscore score'"
+          "blastn -query ",
+          ws.wrap.path(LTR.filtered.fasta_5ltr),
+          " -db ",
+          ws.wrap.path(gzfile(genome)),
+          " -out ",
+          ws.wrap.path(output_5ltr) ,
+          " ",
+          "-evalue ",
+          eval,
+          " -max_target_seqs ",
+          max.hits,
+          " -num_threads ",
+          cores,
+          " -dust no -outfmt '6 qseqid sseqid pident nident length mismatch gapopen gaps positive ppos qstart qend qlen sstart send slen evalue bitscore score'"
         )
-    )
-    
-    # Define the column names of the BLAST output
-    BLASTColNames <- c(
+      )
+      
+      # Define the column names of the BLAST output
+      BLASTColNames <- c(
         "query_id",
         "subject_id",
         "perc_identity",
@@ -206,174 +215,174 @@ ltr.cn <- function(data.sheet,
         "evalue",
         "bit_score",
         "score_raw"
-    )
-    
-    message("Import BLAST results...")
-    # Read the BLAST output and define the columns
-    BLASTOutput_3ltr <-
+      )
+      
+      message("Import BLAST results...")
+      # Read the BLAST output and define the columns
+      BLASTOutput_3ltr <-
         readr::read_tsv(output_3ltr, col_names = FALSE, col_types =  readr::cols(
-            "X1" = readr::col_character(),
-            "X2" = readr::col_character(),
-            "X3" = readr::col_double(),
-            "X4" = readr::col_integer(),
-            "X5" = readr::col_integer(),
-            "X6" = readr::col_integer(),
-            "X7" = readr::col_integer(),
-            "X8" = readr::col_integer(),
-            "X9" = readr::col_integer(),
-            "X10" = readr::col_double(),
-            "X11" = readr::col_integer(),
-            "X12" = readr::col_integer(),
-            "X13" = readr::col_integer(),
-            "X14" = readr::col_integer(),
-            "X15" = readr::col_integer(),
-            "X16" = readr::col_integer(),
-            "X17" = readr::col_double(),
-            "X18" = readr::col_double(),
-            "X19" = readr::col_double()
+          "X1" = readr::col_character(),
+          "X2" = readr::col_character(),
+          "X3" = readr::col_double(),
+          "X4" = readr::col_integer(),
+          "X5" = readr::col_integer(),
+          "X6" = readr::col_integer(),
+          "X7" = readr::col_integer(),
+          "X8" = readr::col_integer(),
+          "X9" = readr::col_integer(),
+          "X10" = readr::col_double(),
+          "X11" = readr::col_integer(),
+          "X12" = readr::col_integer(),
+          "X13" = readr::col_integer(),
+          "X14" = readr::col_integer(),
+          "X15" = readr::col_integer(),
+          "X16" = readr::col_integer(),
+          "X17" = readr::col_double(),
+          "X18" = readr::col_double(),
+          "X19" = readr::col_double()
         ))
-    
-    BLASTOutput_5ltr <-
+      
+      BLASTOutput_5ltr <-
         readr::read_tsv(output_5ltr, col_names = FALSE, col_types =  readr::cols(
-            "X1" = readr::col_character(),
-            "X2" = readr::col_character(),
-            "X3" = readr::col_double(),
-            "X4" = readr::col_integer(),
-            "X5" = readr::col_integer(),
-            "X6" = readr::col_integer(),
-            "X7" = readr::col_integer(),
-            "X8" = readr::col_integer(),
-            "X9" = readr::col_integer(),
-            "X10" = readr::col_double(),
-            "X11" = readr::col_integer(),
-            "X12" = readr::col_integer(),
-            "X13" = readr::col_integer(),
-            "X14" = readr::col_integer(),
-            "X15" = readr::col_integer(),
-            "X16" = readr::col_integer(),
-            "X17" = readr::col_double(),
-            "X18" = readr::col_double(),
-            "X19" = readr::col_double()
+          "X1" = readr::col_character(),
+          "X2" = readr::col_character(),
+          "X3" = readr::col_double(),
+          "X4" = readr::col_integer(),
+          "X5" = readr::col_integer(),
+          "X6" = readr::col_integer(),
+          "X7" = readr::col_integer(),
+          "X8" = readr::col_integer(),
+          "X9" = readr::col_integer(),
+          "X10" = readr::col_double(),
+          "X11" = readr::col_integer(),
+          "X12" = readr::col_integer(),
+          "X13" = readr::col_integer(),
+          "X14" = readr::col_integer(),
+          "X15" = readr::col_integer(),
+          "X16" = readr::col_integer(),
+          "X17" = readr::col_double(),
+          "X18" = readr::col_double(),
+          "X19" = readr::col_double()
         ))
-    
-    colnames(BLASTOutput_3ltr) <- BLASTColNames
-    colnames(BLASTOutput_5ltr) <- BLASTColNames
-    
-    message("Filter hit results...")
-    # generate scope variable
-    BLASTOutput_3ltr <-
+      
+      colnames(BLASTOutput_3ltr) <- BLASTColNames
+      colnames(BLASTOutput_5ltr) <- BLASTColNames
+      
+      message("Filter hit results...")
+      # generate scope variable
+      BLASTOutput_3ltr <-
         dplyr::mutate(BLASTOutput_3ltr, scope = abs(s_len - alig_length) / s_len)
-    BLASTOutput_5ltr <-
+      BLASTOutput_5ltr <-
         dplyr::mutate(BLASTOutput_5ltr, scope = abs(s_len - alig_length) / s_len)
-    # filter for potentially (biologically meaningful) solo LTR hits
-    BLASTOutput_3ltr <-
+      # filter for potentially (biologically meaningful) solo LTR hits
+      BLASTOutput_3ltr <-
         dplyr::filter(BLASTOutput_3ltr,
                       scope >= scope.cutoff,
                       perc_identity >= perc.ident.cutoff)
-    BLASTOutput_5ltr <-
+      BLASTOutput_5ltr <-
         dplyr::filter(BLASTOutput_5ltr,
                       scope >= scope.cutoff,
                       perc_identity >= perc.ident.cutoff)
-    # assign strand information
-    BLASTOutput_3ltr <-
+      # assign strand information
+      BLASTOutput_3ltr <-
         dplyr::mutate(BLASTOutput_3ltr, strand = ifelse(s_start < s_end, "+", "-"))
-    BLASTOutput_5ltr <-
+      BLASTOutput_5ltr <-
         dplyr::mutate(BLASTOutput_5ltr, strand = ifelse(s_start < s_end, "+", "-"))
-    
-    # swap start and end positions for "-" strand
-    BLASTOutput_3ltr <-
+      
+      # swap start and end positions for "-" strand
+      BLASTOutput_3ltr <-
         dplyr::mutate(
-            BLASTOutput_3ltr,
-            s_start_new = ifelse(s_start < s_end, s_start, s_end),
-            s_end_new = ifelse(s_start < s_end, s_end, s_start)
+          BLASTOutput_3ltr,
+          s_start_new = ifelse(s_start < s_end, s_start, s_end),
+          s_end_new = ifelse(s_start < s_end, s_end, s_start)
         )
-    BLASTOutput_5ltr <-
+      BLASTOutput_5ltr <-
         dplyr::mutate(
-            BLASTOutput_5ltr,
-            s_start_new = ifelse(s_start < s_end, s_start, s_end),
-            s_end_new = ifelse(s_start < s_end, s_end, s_start)
+          BLASTOutput_5ltr,
+          s_start_new = ifelse(s_start < s_end, s_start, s_end),
+          s_end_new = ifelse(s_start < s_end, s_end, s_start)
         )
-    BLASTOutput_3ltr <-
+      BLASTOutput_3ltr <-
         dplyr::mutate(BLASTOutput_3ltr, s_start = s_start_new, s_end = s_end_new)
-    BLASTOutput_5ltr <-
+      BLASTOutput_5ltr <-
         dplyr::mutate(BLASTOutput_5ltr, s_start = s_start_new, s_end = s_end_new)
-    
-    BLASTOutput_3ltr <-
+      
+      BLASTOutput_3ltr <-
         dplyr::mutate(BLASTOutput_3ltr, subject_id = as.character(subject_id))
-    BLASTOutput_5ltr <-
+      BLASTOutput_5ltr <-
         dplyr::mutate(BLASTOutput_5ltr, subject_id = as.character(subject_id))
-    
-    # here match Chromosomes....
-    BLASTOutput_3ltr <-
+      
+      # here match Chromosomes....
+      BLASTOutput_3ltr <-
         dplyr::mutate(BLASTOutput_3ltr,
                       subject_id = as.character(subject_id))
-    BLASTOutput_5ltr <-
+      BLASTOutput_5ltr <-
         dplyr::mutate(BLASTOutput_5ltr,
                       subject_id = as.character(subject_id))
-    
-    ## remove non-matching chromosomes or mitochondria or chloroplast (sequences)
-    # test whether or not 3ltr and 5 ltr loci overlap with predicted full ltr transposon locus
-    full.te.chr <- names(table(LTRpred.tbl$chromosome))
-    ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
-    
-    # setdiff is not symmetrical so setdiff(A,B) != setdiff(B,A)
-    setdiff.full.te <- Biostrings::setdiff(full.te.chr, ltr_chr)
-    setdiff.ltr <- Biostrings::setdiff(ltr_chr, full.te.chr)
-    
-    LTR.fasta_full.te <-
+      
+      ## remove non-matching chromosomes or mitochondria or chloroplast (sequences)
+      # test whether or not 3ltr and 5 ltr loci overlap with predicted full ltr transposon locus
+      full.te.chr <- names(table(LTRpred.tbl$chromosome))
+      ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
+      
+      # setdiff is not symmetrical so setdiff(A,B) != setdiff(B,A)
+      setdiff.full.te <- Biostrings::setdiff(full.te.chr, ltr_chr)
+      setdiff.ltr <- Biostrings::setdiff(ltr_chr, full.te.chr)
+      
+      LTR.fasta_full.te <-
         dplyr::filter(LTRpred.tbl, !is.element(chromosome, setdiff.full.te))
-    
-    BLASTOutput_3ltr <-
+      
+      BLASTOutput_3ltr <-
         dplyr::filter(BLASTOutput_3ltr, !is.element(subject_id, setdiff.ltr))
-    BLASTOutput_5ltr <-
+      BLASTOutput_5ltr <-
         dplyr::filter(BLASTOutput_5ltr, !is.element(subject_id, setdiff.ltr))
-    
-    # test again after removal of different chromosomes if chromosomes in both tables match
-    full.te.chr <- names(table(LTR.fasta_full.te$chromosome))
-    ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
-    
-    if (!identical(full.te.chr, ltr_chr))
+      
+      # test again after removal of different chromosomes if chromosomes in both tables match
+      full.te.chr <- names(table(LTR.fasta_full.te$chromosome))
+      ltr_chr <- names(table(BLASTOutput_3ltr$subject_id))
+      
+      if (!identical(full.te.chr, ltr_chr))
         stop(
-            "Chromosome names in full LTR transposon sequence file and LTR element blast file do not match!",
-            "\n",
-            "TE name = ",
-            full.te.chr[1],
-            " and LTR blast name = ",
-            ltr_chr[1],
-            ". Maybe there are mitochondira or chloroplasts in your FASTA file. Please fix...",
-            call. = FALSE
+          "Chromosome names in full LTR transposon sequence file and LTR element blast file do not match!",
+          "\n",
+          "TE name = ",
+          full.te.chr[1],
+          " and LTR blast name = ",
+          ltr_chr[1],
+          ". Maybe there are mitochondira or chloroplasts in your FASTA file. Please fix...",
+          call. = FALSE
         )
-    
-    BLAST.ir.3ltr.list <- vector("list", length(full.te.chr))
-    BLAST.ir.5ltr.list <- vector("list", length(full.te.chr))
-    #nested_3ltr <- vector("list")
-    
-    message("Estimate CNV for each LTR sequence...")
-    for (i in seq_len(length(full.te.chr))) {
+      
+      BLAST.ir.3ltr.list <- vector("list", length(full.te.chr))
+      BLAST.ir.5ltr.list <- vector("list", length(full.te.chr))
+      #nested_3ltr <- vector("list")
+      
+      message("Estimate CNV for each LTR sequence...")
+      for (i in seq_len(length(full.te.chr))) {
         BLASTOutput_3ltr_chr <-
-            dplyr::filter(BLASTOutput_3ltr, subject_id == full.te.chr[i])
+          dplyr::filter(BLASTOutput_3ltr, subject_id == full.te.chr[i])
         BLASTOutput_5ltr_chr <-
-            dplyr::filter(BLASTOutput_5ltr, subject_id == full.te.chr[i])
+          dplyr::filter(BLASTOutput_5ltr, subject_id == full.te.chr[i])
         
         LTR.fasta_full.te_chr <-
-            dplyr::filter(LTR.fasta_full.te, chromosome == full.te.chr[i])
+          dplyr::filter(LTR.fasta_full.te, chromosome == full.te.chr[i])
         
         ir.3ltr <-
-            IRanges::IRanges(start = BLASTOutput_3ltr_chr$s_start, end = BLASTOutput_3ltr_chr$s_end)
+          IRanges::IRanges(start = BLASTOutput_3ltr_chr$s_start, end = BLASTOutput_3ltr_chr$s_end)
         ir.5ltr <-
-            IRanges::IRanges(start = BLASTOutput_5ltr_chr$s_start, end = BLASTOutput_5ltr_chr$s_end)
+          IRanges::IRanges(start = BLASTOutput_5ltr_chr$s_start, end = BLASTOutput_5ltr_chr$s_end)
         ir.full.te <-
-            IRanges::IRanges(start = LTR.fasta_full.te_chr$start, end = LTR.fasta_full.te_chr$end)
+          IRanges::IRanges(start = LTR.fasta_full.te_chr$start, end = LTR.fasta_full.te_chr$end)
         
         # overlap between 3ltr locus and full ltr transposon locus
         ir.3ltr_ov_ir.full.te <-
-            IRanges::findOverlaps(ir.3ltr, ir.full.te, type = "any")
+          IRanges::findOverlaps(ir.3ltr, ir.full.te, type = "any")
         # overlap between 5ltr locus and full ltr transposon locus
         ir.5ltr_ov_ir.full.te <-
-            IRanges::findOverlaps(ir.5ltr, ir.full.te, type = "any")
+          IRanges::findOverlaps(ir.5ltr, ir.full.te, type = "any")
         # overlap between 3ltr locus and 5ltr locus (do they report the same solo ltr locus?)
         ir.5ltr_ov_ir.3ltr <-
-            IRanges::findOverlaps(ir.5ltr, ir.3ltr, type = "equal")
+          IRanges::findOverlaps(ir.5ltr, ir.3ltr, type = "equal")
         # # any overlap with itself: 3ltr locus with 3ltr locus
         # ir.3ltr_ov_ir.3ltr <-
         #     IRanges::findOverlaps(ir.3ltr, ir.3ltr, type = "within")
@@ -400,88 +409,90 @@ ltr.cn <- function(data.sheet,
         if ((length(ir.3ltr_ov_ir.full.te) > 0) &
             (length(ir.5ltr_ov_ir.3ltr) > 0) &
             (length(ir.5ltr_ov_ir.full.te) > 0)) {
-            # exclude overlaps between 3ltr locus and full ltr transposon locus and keep equal overlaps between 3ltr locus and 5ltr locus
-            
-            BLASTOutput_3ltr_chr <-
-                BLASTOutput_3ltr_chr[-ir.3ltr_ov_ir.full.te@from, ]
-            # exclude overlaps between 5ltr locus and full ltr transposon locus and remove equal overlaps between 3ltr locus and 5ltr locus
-            BLASTOutput_5ltr_chr <-
-                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@from,
-                                        ir.5ltr_ov_ir.3ltr@from), ]
+          # exclude overlaps between 3ltr locus and full ltr transposon locus and keep equal overlaps between 3ltr locus and 5ltr locus
+          
+          BLASTOutput_3ltr_chr <-
+            BLASTOutput_3ltr_chr[-ir.3ltr_ov_ir.full.te@from, ]
+          # exclude overlaps between 5ltr locus and full ltr transposon locus and remove equal overlaps between 3ltr locus and 5ltr locus
+          BLASTOutput_5ltr_chr <-
+            BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@from,
+                                    ir.5ltr_ov_ir.3ltr@from), ]
         }
         
         if ((length(ir.3ltr_ov_ir.full.te) > 0) &
             (length(ir.5ltr_ov_ir.3ltr) == 0) &
             (length(ir.5ltr_ov_ir.full.te) > 0)) {
-            # exclude overlaps between 3ltr locus and full ltr transposon locus
-            BLASTOutput_3ltr_chr <-
-                BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@from), ]
-            # exclude overlaps between 5ltr locus and full ltr transposon locus
-            BLASTOutput_5ltr_chr <-
-                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@from), ]
+          # exclude overlaps between 3ltr locus and full ltr transposon locus
+          BLASTOutput_3ltr_chr <-
+            BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@from), ]
+          # exclude overlaps between 5ltr locus and full ltr transposon locus
+          BLASTOutput_5ltr_chr <-
+            BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@from), ]
         }
         
         if ((length(ir.3ltr_ov_ir.full.te) == 0) &
             (length(ir.5ltr_ov_ir.3ltr) == 0) &
             (length(ir.5ltr_ov_ir.full.te) > 0)) {
-            # exclude overlaps between 5ltr locus and full ltr transposon locus
-            BLASTOutput_5ltr_chr <-
-                BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@from), ]
+          # exclude overlaps between 5ltr locus and full ltr transposon locus
+          BLASTOutput_5ltr_chr <-
+            BLASTOutput_5ltr_chr[-c(ir.5ltr_ov_ir.full.te@from), ]
         }
         
         if ((length(ir.3ltr_ov_ir.full.te) > 0) &
             (length(ir.5ltr_ov_ir.3ltr) == 0) &
             (length(ir.5ltr_ov_ir.full.te) == 0)) {
-            # exclude overlaps between 3ltr locus and full ltr transposon locus and overlaps between 3ltr locus and 5ltr locus
-            BLASTOutput_3ltr_chr <-
-                BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@from), ]
+          # exclude overlaps between 3ltr locus and full ltr transposon locus and overlaps between 3ltr locus and 5ltr locus
+          BLASTOutput_3ltr_chr <-
+            BLASTOutput_3ltr_chr[-c(ir.3ltr_ov_ir.full.te@from), ]
         }
         #[ ,c("query_id","q_len","subject_id","s_start","s_end","scope","strand", "alig_length", "perc_identity", "bit_score", "evalue")]
         BLAST.ir.3ltr.list[i] <-
-            list(
-                dplyr::select(
-                    BLASTOutput_3ltr_chr,
-                    query_id,
-                    q_len,
-                    subject_id,
-                    s_start,
-                    s_end,
-                    scope,
-                    strand,
-                    alig_length,
-                    perc_identity,
-                    bit_score,
-                    evalue
-                )
+          list(
+            dplyr::select(
+              BLASTOutput_3ltr_chr,
+              query_id,
+              q_len,
+              subject_id,
+              s_start,
+              s_end,
+              scope,
+              strand,
+              alig_length,
+              perc_identity,
+              bit_score,
+              evalue
             )
+          )
         BLAST.ir.5ltr.list[i] <-
-            list(
-                dplyr::select(
-                    BLASTOutput_5ltr_chr,
-                    query_id,
-                    q_len,
-                    subject_id,
-                    s_start,
-                    s_end,
-                    scope,
-                    strand,
-                    alig_length,
-                    perc_identity,
-                    bit_score,
-                    evalue
-                )
+          list(
+            dplyr::select(
+              BLASTOutput_5ltr_chr,
+              query_id,
+              q_len,
+              subject_id,
+              s_start,
+              s_end,
+              scope,
+              strand,
+              alig_length,
+              perc_identity,
+              bit_score,
+              evalue
             )
+          )
         
-    }
-
-    ir.3ltr.result <- do.call(rbind, BLAST.ir.3ltr.list)
-    ir.5ltr.result <- do.call(rbind, BLAST.ir.5ltr.list)
-    
-    res <- vector("list", 2)
-    res <-
+      }
+      
+      ir.3ltr.result <- do.call(rbind, BLAST.ir.3ltr.list)
+      ir.5ltr.result <- do.call(rbind, BLAST.ir.5ltr.list)
+      
+      res <- vector("list", 2)
+      res <-
         list(pred_3ltr = ir.3ltr.result, pred_5ltr = ir.5ltr.result)
-    message("Finished LTR CNV estimation!")
-    return(res)
+      message("Finished LTR CNV estimation!")
+      return(res) 
+    }
+    
 }
 
 
