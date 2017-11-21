@@ -486,6 +486,9 @@ LTRpred <- function(genome.file       = NULL,
             }
         }
         
+        if (is.na(LTRdigestOutput))
+          return(paste0("No prediction for ", genome.file))
+        
         message("Step 4:")
         message("Perform ORF Prediction...")
         ORFTable <-
