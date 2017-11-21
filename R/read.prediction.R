@@ -378,6 +378,17 @@ read.prediction <- function( gff.file        = NULL,
     
     
     if (program == "LTRdigest") {
+      
+        if (!file.exists(gff.file)) {
+          message(
+            "The file '",
+            gff.file ,
+            "' does not exist! Please check the correct path or the correct output of LTRharvest() or LTRdigest(). This organism has been omitted!",
+            call. = FALSE
+          )
+          return(NA)
+        }
+          
         # read gff file content: comment = "###"
         AnnotationFile <-
             readr::read_tsv(gff.file,
