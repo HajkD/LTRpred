@@ -8,6 +8,36 @@ vignette: >
   %\usepackage[utf8]{inputenc}
 ---
 
+## Install LTRpred and prerequisite R packages
+
+__Note: please be aware that LTRpred is designed for Linux and unix based systems such as macOS. Hence, although LTRpred itself can be installed on Windows machines, most of the command line tools LTRpred depends on cannot be installed on Windows machines.__
+
+Please make sure that [Bioconductor](https://www.bioconductor.org/install/) and all package dependencies are installed on the
+system on which you would like to run `LTRpred`.
+
+```r
+# install Bioconductor
+## try https:// if http:// URLs are not supported
+source("http://bioconductor.org/biocLite.R")
+biocLite()
+```
+
+Then install prerequisite Bioconductor packages:
+
+```r
+biocLite(c("GenomicFeatures","IRanges", "AnnotationDbi", "Biostrings"))
+```
+
+Now users may install `LTRpred` as follows:
+
+```r
+source("http://bioconductor.org/biocLite.R")
+biocLite("devtools")
+biocLite("HajkD/LTRpred")
+```
+
+
+
 ## Install prerequisite command line tools
 
 For the `LTRpred::LTRpred()` function to run properly, please make sure that the following command line tools are installed on your system:
@@ -121,7 +151,35 @@ blastp -version
 Now users should see the BLAST command line options.
 
 
-- [Perl](https://www.perl.org/)
+### Install [Perl](https://www.perl.org/)
+
+Please follow the instructions at https://learn.perl.org/installing/.
+
+After installation, you should be able to execute the following command on the terminal:
+
+```bash
+perl -v
+```
+
+```
+This is perl 5, version 18, subversion 2 (v5.18.2) built for darwin-thread-multi-2level
+(with 2 registered patches, see perl -V for more detail)
+
+Copyright 1987-2013, Larry Wall
+
+Perl may be copied only under the terms of either the Artistic License or the
+GNU General Public License, which may be found in the Perl 5 source kit.
+
+Complete documentation for Perl, including FAQ lists, should be found on
+this system using "man perl" or "perldoc perl".  If you have access to the
+Internet, point your browser at http://www.perl.org/, the Perl Home Page.
+```
+
+### Install [dfamscan.pl](http://www.dfam.org/web_download/Current_Release/dfamscan.pl)
+
+[dfamscan.pl](http://www.dfam.org/web_download/Current_Release/dfamscan.pl) needs to be stored at `/usr/local/bin/dfamscan.pl` and executabe via `perl /usr/local/bin/dfamscan.pl -help`. This is important to be able to run the hmmer search against the Dfam database.
 
 
-- [dfamscan.pl](http://www.dfam.org/web_download/Current_Release/dfamscan.pl) needs to be stored at `/usr/local/bin/dfamscan.pl` and executabe via `perl /usr/local/bin/dfamscan.pl -help`
+
+
+
