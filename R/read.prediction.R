@@ -867,11 +867,63 @@ read.prediction <- function( gff.file        = NULL,
         #         FilteredAnnotationFile.repeat_region <- dplyr::select(FilteredAnnotationFile.repeat_region, -sequence)
         #
         
-        if (nrow(LTR_retrotransposonPredictionFeatures) > 0) {
+        if ((nrow(LTR_retrotransposonPredictionFeatures) > 0))
+        {
+          
+          if (!all(is.element(
+            c(
+              "chromosome",
+              "pred_tool",
+              "annotation",
+              "start",
+              "end",
+              "score",
+              "strand",
+              "frame",
+              "width",
+              "ID",
+              "repeat_region",
+              "ltr_similarity",
+              "seq_number",
+              "similarity",
+              "element_length",
+              "sequence",
+              "lLTR_start",
+              "lLTR_end",
+              "lLTR_length",
+              "rLTR_start",
+              "rLTR_end",
+              "rLTR_length",
+              "lTSD_start",
+              "lTSD_end",
+              "lTSD_motif",
+              "rTSD_start",
+              "rTSD_end",
+              "rTSD_motif",
+              "PPT_start",
+              "PPT_end",
+              "PPT_motif",
+              "PPT_strand",
+              "PPT_offset",
+              "PBS_start",
+              "PBS_end",
+              "PBS_strand",
+              "tRNA",
+              "tRNA_motif",
+              "PBS_offset",
+              "tRNA_offset",
+              "PBS/tRNA_edist",
+              "protein_domain"
+            ), names(LTR_retrotransposonPredictionFeatures)
+          ))) {
+            message("LTRdigest prediction file could not be read properly... it seems that there weren't enough predicted loci. Species prediction has been omitted!")
+            return(NA)
+          }
+          
             LTR_retrotransposonPredictionFeatures <-
-                dplyr::mutate(LTR_retrotransposonPredictionFeatures, seq_number =  chromosome)
+                dplyr::mutate(LTR_retrotransposonPredictionFeatures, seq_number = chromosome)
             LTR_retrotransposonPredictionFeatures <-
-                dplyr::mutate(LTR_retrotransposonPredictionFeatures, chromosome =  sequence)
+                dplyr::mutate(LTR_retrotransposonPredictionFeatures, chromosome = sequence)
             LTR_retrotransposonPredictionFeatures <-
                 dplyr::select(LTR_retrotransposonPredictionFeatures, -sequence)
 
@@ -880,10 +932,12 @@ read.prediction <- function( gff.file        = NULL,
                 function(x)
                     as.character(unlist(sapply(x, function(y)
                         unlist(stringr::str_split(y, "_"))[1])))
+            
             LTR_retrotransposonPredictionFeatures <-
                 dplyr::mutate(
                     LTR_retrotransposonPredictionFeatures,
                     chromosome_ltrharvest = chromosome)
+            
             LTR_retrotransposonPredictionFeatures <-
                 dplyr::mutate(
                     LTR_retrotransposonPredictionFeatures,
