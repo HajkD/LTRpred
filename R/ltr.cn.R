@@ -138,7 +138,6 @@ ltr.cn <- function(data.sheet,
         )
       }
       
-      message("Run makeblastdb of the genome assembly...") 
       if (stringr::str_detect(genome, "[.]gz")) {
         system(paste0("gunzip ", ws.wrap.path(genome)))
         genome <- stringr::str_replace(genome, "[.]gz","")
@@ -146,9 +145,10 @@ ltr.cn <- function(data.sheet,
       
       
       # generate a BLASTable database
+      message("Run makeblastdb of the genome assembly...") 
       system(paste0(
         "makeblastdb -in ",
-        ws.wrap.path(genome),
+        genome,
         " -dbtype nucl -hash_index"
       ))
       
@@ -159,7 +159,7 @@ ltr.cn <- function(data.sheet,
           "blastn -query ",
           ws.wrap.path(LTR.filtered.fasta_3ltr),
           " -db ",
-          ws.wrap.path(gzfile(genome)),
+          ws.wrap.path(genome),
           " -out ",
           ws.wrap.path(output_3ltr) ,
           " ",
@@ -180,7 +180,7 @@ ltr.cn <- function(data.sheet,
           "blastn -query ",
           ws.wrap.path(LTR.filtered.fasta_5ltr),
           " -db ",
-          ws.wrap.path(gzfile(genome)),
+          ws.wrap.path(genome),
           " -out ",
           ws.wrap.path(output_5ltr) ,
           " ",
