@@ -947,7 +947,7 @@ The plant genomes are now stored in a folder named `plant`.
 
 ```r
 # run LTRpred on all plant genomes
-LTRpred::LTRpred.meta(
+LTRpred.meta(
       genome.folder = "plant",
       trnas       = paste0(system.file("tRNAs/", package = "LTRpred"),"plants-tRNA_cat.fa"),
       cluster     = TRUE,
