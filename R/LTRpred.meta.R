@@ -87,6 +87,9 @@ LTRpred.meta <- function(genome.folder       = NULL,
         cat("\n")
         cat("Starting LTRpred meta analysis on the following files: ")
         genomes <- list.files(genome.folder)
+        genomes <- genomes[!stringr::str_detect(genomes, "doc_")]
+        genomes <- genomes[!stringr::str_detect(genomes, "md5cheksum")]
+        
         cat("\n")
         cat("\n")
         cat(paste(list.files(LTRpred.meta.folder), collapse = ", "))
