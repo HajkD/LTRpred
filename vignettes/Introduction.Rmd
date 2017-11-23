@@ -419,7 +419,7 @@ Scerevisiae_genome
 ```
 
 Next, we run `LTRpred` to generate functional annotation for `S. cerevisiae` LTR retrotransposons. In general, the `LTRpred()` function takes the path to a genome file in `fasta` format (compressed files can be used as well) as input to the `genome.file` argument. The `trnas` argument takes a file path to a `fasta` file storing tRNA sequences.
-In this case, for example reasons only, we use the human tRNA file `hg38-tRNAs.fa` that comes with the `LTRpred` package. In addition, users can find tRNA files at http://gtrnadb.ucsc.edu/ or http://gtrnadb2009.ucsc.edu/. The `hmms` argument takes a path to a folder storing the HMM models of the gag and pol protein domains. Protein domains
+In this case, for example reasons only, we use the tRNA file `sacCer3-tRNAs.fa` that comes with the `LTRpred` package. In addition, users can find tRNA files at http://gtrnadb.ucsc.edu/ or http://gtrnadb2009.ucsc.edu/. The `hmms` argument takes a path to a folder storing the HMM models of the gag and pol protein domains. Protein domains
 can be found at http://pfam.xfam.org/ . When renaming the protein domains using the specification `hmm_*` users can specify `hmm_*` which indicates that all files in the folder starting with `hmm_` shall be used. The `LTRpred` package already stores the most prominent gag and pol protein domains and can be used by specifying the path `paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*")`. In detail, the following HMM models are stored in `LTRpred`:
 
 #### HMM Models:
@@ -439,7 +439,7 @@ library(LTRpred)
 # de novo LTR transposon prediction of 'D. simulans'
 LTRpred(
     genome.file = Scerevisiae_genome,
-    trnas       = system.file("hg38-tRNAs.fa", package = "LTRpred"),
+    trnas       = paste0(system.file("tRNAs/", package = "LTRpred"),"sacCer3-tRNAs.fa"),
     hmms        = paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*"),
     cluster     = TRUE,
     clust.sim   = 0.9,
@@ -447,6 +447,100 @@ LTRpred(
     cores = 4
 )
 ```
+
+```
+Folder 'Saccharomyces_cerevisiae_genomic_refseq_ltrpred' exists already and will be used...
+Folder 'Saccharomyces_cerevisiae_genomic_refseq_ltrpred' exists already and will be used...
+Starting LTRpred analysis...
+Step 1:
+Run LTRharvest...
+LTRharvest: Generating indexfile Saccharomyces_cerevisiae_genomic_refseq_ltrharvest/Saccharomyces_cerevisiae_genomic_refseq_index.fsa with gt suffixerator...
+Running LTRharvest and writing results to Saccharomyces_cerevisiae_genomic_refseq_ltrharvest...
+LTRharvest analysis finished!
+Step 2:
+Generating index file Saccharomyces_cerevisiae_genomic_refseq_ltrdigest/Saccharomyces_cerevisiae_genomic_refseq_index_ltrdigest.fsa with suffixerator...
+LTRdigest: Sort index file...
+Running LTRdigest and writing results to Saccharomyces_cerevisiae_genomic_refseq_ltrdigest...
+LTRdigest analysis finished!
+Step 3:
+Import LTRdigest Predictions...
+
+Input:  Saccharomyces_cerevisiae_genomic_refseq_ltrdigest/Saccharomyces_cerevisiae_genomic_refseq_LTRdigestPrediction.gff  -> Row Number:  283
+Remove 'NA' -> New Row Number:  283
+(1/8) Filtering for repeat regions has been finished.
+(2/8) Filtering for LTR retrotransposons has been finished.
+(3/8) Filtering for inverted repeats has been finished.
+(4/8) Filtering for LTRs has been finished.
+(5/8) Filtering for target site duplication has been finished.
+(6/8) Filtering for primer binding site has been finished.
+(7/8) Filtering for protein match has been finished.
+(8/8) Filtering for RR tract has been finished.
+Step 4:
+Perform ORF Prediction...
+usearch v8.1.1861_i86osx32, 4.0Gb RAM (17.2Gb total), 8 cores
+(C) Copyright 2013-15 Robert C. Edgar, all rights reserved.
+http://drive5.com/usearch
+
+Licensed to: Hajk-Georg.Drost@slcu.cam.ac.uk
+
+00:00 1.6Mb    0.1% Working00:00 2.3Mb  100.0% Working
+Join ORF Prediction table: nrow(df) = 36 candidates.
+unique(ID) = 36 candidates.
+unique(orf.id) = 36 candidates.
+Perform Clustering of LTR transposons....
+Reading file /Users/h-gd/Desktop/Projekte/R Packages/Packages/LTRpred/Saccharomyces_cerevisiae_genomic_refseq_ltrdigest/Saccharomyces_cerevisiae_genomic_refseq-ltrdigest_complete.fas 100%
+248182 nt in 36 seqs, min 5189, max 24168, avg 6894
+Sorting by length 100%
+Counting unique k-mers 100%
+Clustering 100%
+Sorting clusters 100%
+Writing clusters 100%
+Clusters: 10 Size min 1, max 19, avg 3.6
+Singletons: 7, 19.4% of seqs, 70.0% of clusters
+Sorting clusters by abundance 100%
+vsearch v1.10.2_osx_x86_64, 16.0GB RAM, 8 cores
+https://github.com/torognes/vsearch
+
+CLUSTpred output has been stored in: Saccharomyces_cerevisiae_genomic_refseq_ltrpred
+Join Cluster table: nrow(df) = 36 candidates.
+unique(ID) = 36 candidates.
+unique(orf.id) = 36 candidates.
+Join Cluster Copy Number table: nrow(df) = 36 candidates.
+unique(ID) = 36 candidates.
+unique(orf.id)) = 36 candidates.
+Perform methylation context quantification..
+Join methylation context (CG, CHG, CHH, CCG) count table: nrow(df) = 36 candidates.
+unique(ID) = 36 candidates.
+unique(orf.id) = 36 candidates.
+Copy files to result folder 'Saccharomyces_cerevisiae_genomic_refseq_ltrpred'.
+The LTRpred prediction table has been filtered (default) to remove potential false positives. Predicted LTRs must have an PBS or Protein Domain and must fulfill thresholds: sim = 70%; #orfs = 0. Furthermore, TEs having more than 10% of N's in their sequence have also been removed.
+Input #TEs: 36
+Output #TEs: 31
+Perform solo LTR Copy Number Estimation....
+Run makeblastdb of the genome assembly...
+
+
+Building a new DB, current time: 11/23/2017 16:31:06
+New DB name:   _ncbi_downloads/genomes/Saccharomyces_cerevisiae_genomic_refseq.fna
+New DB title:  _ncbi_downloads/genomes/Saccharomyces_cerevisiae_genomic_refseq.fna
+Sequence type: Nucleotide
+Deleted existing BLAST database with identical name.
+Keep Linkouts: T
+Keep MBits: T
+Maximum file size: 1000000000B
+Adding sequences from FASTA; added 17 sequences in 0.116858 seconds.
+Perform BLAST searches of 3' prime LTRs against genome assembly...
+Perform BLAST searches of 5' prime LTRs against genome assembly...
+Import BLAST results...
+Filter hit results...
+Estimate CNV for each LTR sequence...
+Finished LTR CNV estimation!
+LTRpred analysis finished properly.
+Warning message:
+The LTR copy number estimation returned an empty file. This suggests that there were no solo LTRs found in the input genome sequence. 
+```
+
+
 
 The output can then be imported using:
 
@@ -677,7 +771,7 @@ data formats using the `pred2*()` functions. Options are:
 - `pred2gff()`:	Format LTR prediction data to GFF3 file format
 - `pred2tsv()`:	Format LTR prediction data to TSV file format
 
-In this example we will store the functional annotation results in `Scerevisiae_functional` as `gff` file.
+In this example we will store the functional annotation results `Scerevisiae_functional` as `gff` file.
 
 ```r
 pred2gff(LTR.data = Scerevisiae_functional,
@@ -695,6 +789,8 @@ using a default parameter configuration. However, as the figure shown below demo
 the user's specifications and interests.
 
 ![](LTRfeatures.png)
+
+Users can adjust and run `LTRpred` with the following parameter options:
 
 ```r
 LTRpred(
@@ -765,28 +861,26 @@ LTRpred(
 )
 ```
 
-- `genome.file`:	path to the genome file in fasta format.
-- `index.file.harvest`:	specify the name of the enhanced suffix array index file that is computed by suffixerator for the use of LTRharvest. This opten can be used in case the suffix file was previously generated, e.g. during a previous call of this function. In this case the suffix array index file does not need to be re-computed for new analyses. This is particularly useful when running LTRpred with different parameter settings.
-- `index.file.digest`: specify the name of the enhanced suffix array index file that is computed by suffixerator for the use of LTRdigest. This opten can be used in case the suffix file was previously generated, e.g. during a previous call of this function. In this case the suffix array index file does not need to be re-computed for new analyses. This is particularly useful when running LTRpred with different parameter settings.
-- `LTRdigest.gff`:	path to the LTRdigest generated GFF file, in case LTRdigest files were pre-computed previously.
-- `tabout.file`: path to the LTRdigest generated tabout file file, in case LTRdigest files were pre-computed previously.
-- `LTRharvest.folder`:	either `LTRharvest.folder = NULL` (default) or `LTRharvest.folder = "skip"` to skip moving a LTRharvest folder if it is not present.
-- LTRpred.folder: name/path of/to an existing LTRpred folder.
-- `orf.file`: path to the file generated by ORFpred, in case the orf prediction file was generated previously.
-- `annotate`: annotation database that shall be queried to annotate predicted LTR transposons. Default is `annotate = NULL` indicating that no annotation query is being performed. Possible options are: 
-    - `annotate = "Dfam"` (here the Dfam database must be stored locally and a nhammer search is performed against the Dfam database) or 
-    - `annotate = "Repbase"` (here the Repbase database must be stored locally and a blastn search is performed against the Repbase database). 
-Please consult the vignettes for details.
-- `Dfam.db`: folder path to the local Dfam database or Dfam.db = "download" in case the Dfam database shall be automatically downloaded before performing query analyses.
+- `genome.file`:	path to the genome assembly file in fasta format.
+- `index.file.harvest`:	in case users have already computed index files they can specify the name of the enhanced suffix array index file that was computed by `suffixerator` for the use of `LTRharvest`. This option can be used in case the suffix file was previously generated, e.g. during a previous call of this function. In this case the suffix array index file does not need to be re-computed for new analyses. This is particularly useful when running `LTRpred` with different parameter settings.
+- `index.file.digest`: specify the name of the enhanced suffix array index file that is computed by `suffixerator` for the use of `LTRdigest`. This option can be used in case the suffix file was previously generated, e.g. during a previous call of this function. In this case the suffix array index file does not need to be re-computed for new analyses. This is particularly useful when running `LTRpred` with different parameter settings.
+- `LTRdigest.gff`:	path to the LTRdigest generated GFF file `*_LTRdigestPrediction.gff`, in case `LTRdigest` files were computed previously.
+- `tabout.file`: path to the LTRdigest generated tabout file file `*-ltrdigest_tabout.csv`, in case `LTRdigest` files were computed previously.
+- `LTRharvest.folder`:	either `LTRharvest.folder = NULL` (default) or `LTRharvest.folder = "skip"` to skip a LTRharvest folder if it is not present.
+- `LTRpred.folder`: name/path of/to an existing LTRpred folder. All pre-computed files in this folder will then be used and only steps of the `LTRpred` pipeline that haven't been computed yet will be run.
+- `orf.file`: path to the file generated by `ORFpred`, in case the orf prediction file was generated previously. See `?ORFpred` for details.
+- `annotate`: annotation database that shall be queried to annotate predicted LTR transposons. Default is `annotate = NULL` indicating that no annotation query is performed. Possible options are: 
+    - `annotate = "Dfam"` (here the Dfam database must be stored locally and a `nhammer` search is performed against the Dfam database)
+- `Dfam.db`: folder path to the local Dfam database or `Dfam.db = "download"` in case the `Dfam` database shall be automatically downloaded before performing query analyses.
 - `dfam.eval`: E-value threshhold to perform HMMer search against the Dfam database.
-- `dfam.file`: path to pre-computed dfam.query output file. Can only be used in combination with annotate = "Dfam".
-- `cluster`: shall predicted transposons be clustered with CLUSTpred.
-- `clust.sim`: cluster reject if sequence similarity is lower than this threshold when performing clustering with CLUSTpred.
-- `clust.file`: file path to pre-computed clustering file generated by CLUSTpred.
-- `copy.number.est`: shall copy number estimation (including solo LTR prediction) be performed? Default is copy.number.est = TRUE.
-- `fix.chr.name`:	shall chromosome names be fixed?
-- `cn.eval`: 	evalue for copy number estimation (BLAST hit threshold).
-- `range`: define the genomic interval in which predicted LTR transposons shall be reported . In case `range[1] = 1000` and `range[2] = 10000` then candidates are only reported if they start after position 1000 and end before position 10000 in their respective sequence coordinates. If `range[1] = 0` and `range[2] = 0`, so `range = c(0,0)` (default) then the entire genome is being scanned.
+- `dfam.file`: path to pre-computed `dfam.query` output file. Can only be used in combination with `annotate = "Dfam"`. Please consult `?dfam.query` for details.
+- `cluster`: shall predicted transposons be clustered with `CLUSTpred` to determine retrotransposon family relationships?
+- `clust.sim`: cluster reject if sequence similarity is lower than this threshold when performing clustering with `CLUSTpred`. In other words, what is the minimum sequence similarity between family members. Default is `clust.sim = 0.9` (= 90%).
+- `clust.file`: file path to pre-computed clustering file generated by `CLUSTpred` in case clustering has been done before. See `?CLUSTpred` for details.
+- `copy.number.est`: shall copy number estimation of 3' and 5' LTRs in the genome be performed? In case `copy.number.est = TRUE` for each  3' and 5' LTR of a predicted LTR retrotransposon a stringent BLAST search is performed against the genome to determine the number of copies (solo LTR copies) of that element within the genome. Default is `copy.number.est = FALSE`.
+- `fix.chr.name`:	sometimes chromosome names have unwanted characters such as "_" etc in them. Shall `LTRpred` try to fix chromosome names as good as possible?
+- `cn.eval`: 	BLAST evalue for copy number estimation (`copy.number.est`) (BLAST hit threshold). Default is `cn.eval = 1e-5`.
+- `range`: define the genomic interval within the genome assembly in which predicted LTR transposons shall be detected. In case `range[1] = 1000` and `range[2] = 10000` then candidates are only reported if they start after 1000 numcleotides in the genome assembly and end before position 10000 in their respective sequence coordinates. If `range[1] = 0` and `range[2] = 0`, so `range = c(0,0)` (default) then the entire genome is being scanned.
 - `seed`:	the minimum length for the exact maximal repeats. Only repeats with the specified minimum length are considered in all subsequent analyses. Default is `seed = 30`.
 - `minlenltr`:	minimum LTR length. Default is `minlenltr = 100`.
 - `maxlenltr`:	maximum LTR length. Default is `maxlenltr = 3500`.
@@ -823,9 +917,9 @@ Please consult the vignettes for details.
 specify the insertion score used in the PBS/tRNA Smith-Waterman alignment. Default is `pbsinsertionscore = -20`.
 - `pbsdeletionscore`:	specify the deletion score used in the PBS/tRNA Smith-Waterman alignment. Default is `pbsdeletionscore = -20`.
 - `pfam.ids`: a character vector storing the Pfam IDs from http://pfam.xfam.org/ that shall be downloaded and used to perform protein domain searches within the sequences between the predicted LTRs.
-- `cores`:	number of cores to be used for multicore processing.
+- `cores`:	the number of cores that shall be used for multicore processing. In case `dfam.cores` and `hmm.cores` are not specified then the value of `core` is used for those arguments.  
 - `dfam.cores`:	number of cores to be used for multicore processing when running Dfam query (in case `annotate = "Dfam"`).
-- `hmm.cores`: number of cores to be used for multicore processing when performing hmmer protein search with LTRdigest.
+- `hmm.cores`: number of cores to be used for multicore processing when performing hmmer protein search with `LTRdigest`.
 - `orf.style`: type of predicting open reading frames (see documentation of USEARCH).
 - `min.codons`:	minimum number of codons in the predicted open reading frame.
 - `trans.seqs`:	logical value indicating wheter or not predicted open reading frames shall be translated and the corresponding protein sequences stored in the output folder.
@@ -837,8 +931,46 @@ specify the insertion score used in the PBS/tRNA Smith-Waterman alignment. Defau
 ## Metagenome scale annotations
 
 `LTRpred` allows users to perform annotations not only for single genomes
-but for multiple genomes (metagenomes) using only one pipeline function (`LTRpred.meta()`).
+but for multiple genomes (metagenomes) using only one pipeline function named `LTRpred.meta()`. 
 
+__Please be aware that `LTRpred` annotations for multiple genomes especailly for entire kingdoms of life is a computationally hard task and requires large server or high performance computer access. Computations for hundreds of genomes even using tens to hundreds of cores might take several weeks to terminate. Please make sure that you have the right computational infrastructure to run these processes.__
+
+
+In the following example we will run `LTRpred.meta()` on all genomes of the plant kingdom stored in NCBI RefSeq:
+
+```r
+# download all plant genomes
+biomartr::meta.retrieval(kingdom = "plant", db = "refseq", type = "genome")
+```
+
+The plant genomes are now stored in a folder named `plant`.
+
+```r
+# run LTRpred on all plant genomes
+LTRpred::LTRpred.meta(
+      genome.folder = "plant",
+      trnas       = paste0(system.file("tRNAs/", package = "LTRpred"),"plants-tRNA_cat.fa"),
+      cluster     = TRUE,
+      cores       = 4,
+      hmms        = paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*"),
+      minlenltr   = 100,
+      maxlenltr   = 5000,
+      mindistltr  = 4000,
+      maxdistltr  = 30000,
+      mintsd      = 3,
+      maxtsd      = 20,
+      vic         = 80,
+      overlaps    = "no",
+      xdrop        = 7,
+      motifmis    = 1,
+      pbsradius   = 60,
+      pbsalilen   = c(8,40),
+      pbsoffset   = c(0,10),
+      quality.filter = TRUE,
+      n.orfs      = 0,
+      output.path = "LTRpred_plants"
+      )
+```
 
 
 
