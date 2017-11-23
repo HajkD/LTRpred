@@ -84,19 +84,17 @@ LTRpred.meta <- function(genome.folder       = NULL,
         
         ltr_similarity <- similarity <- PBS_start <- protein_domain <- orfs <- width <- TE_N_abs <- NULL
         
-        cat("\n")
-        cat("Starting LTRpred meta analysis on the following files: ")
+        message("\n")
+        message("Starting LTRpred meta analysis on the following files: ")
         genomes <- list.files(genome.folder)
         genomes <- genomes[!stringr::str_detect(genomes, "doc_")]
         genomes <- genomes[!stringr::str_detect(genomes, "md5cheksum")]
         
-        cat("\n")
-        cat("\n")
-        cat(paste(list.files(LTRpred.meta.folder), collapse = ", "))
-        cat("\n")
-        cat("\n")
+        message("\n")
+        message(paste(list.files(LTRpred.meta.folder), collapse = ", "))
+        message("\n")
         if (quality.filter)
-            cat(
+            message(
                 "Apply filters: [ similarity >= ",
                 sim,
                 "% ] ; [ PBS or Protein Match ] ; [ #ORFs >= ",
@@ -105,11 +103,10 @@ LTRpred.meta <- function(genome.folder       = NULL,
             )
         
         if (!quality.filter)
-            cat("No quality filter was applied...")
+            message("No quality filter was applied...")
         
-        cat("\n")
-        cat("\n")
-        
+        message("\n")
+
         
         result.files <- list.files(LTRpred.meta.folder)
         folders0 <-
@@ -198,7 +195,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
                 if (!quality.filter) {
                     # keep all predicted LTR transposons including false positives
                     pred <- dplyr::filter(pred, ltr_similarity >= sim)
-                    cat("No quality filter has been applied. Threshold: sim = ",sim,"%.")
+                    message("No quality filter has been applied. Threshold: sim = ",sim,"%.")
                 }
                 
                 #dplyr::group_by(pred,similarity)
@@ -314,6 +311,9 @@ LTRpred.meta <- function(genome.folder       = NULL,
         cat("\n")
         cat("Starting LTRpred meta analysis on the following genomes: ")
         genomes <- list.files(genome.folder)
+        genomes <- genomes[!stringr::str_detect(genomes, "doc_")]
+        genomes <- genomes[!stringr::str_detect(genomes, "md5cheksum")]
+        
         cat("\n")
         cat("\n")
         cat(paste(genomes, collapse = ", "))
