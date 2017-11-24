@@ -1,6 +1,6 @@
 # LTRpred(ict)
 
-## A bioinformatics pipeline for meta-genome scale de novo annotation of functional LTR retrotransposons
+## A bioinformatics pipeline for meta-genome scale functional de novo annotation of LTR retrotransposons
 
 Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of phenotypic adaptation, diversification,
 and evolution. In particular, understanding the recognition and 
@@ -69,13 +69,9 @@ functionality of each version of `LTRpred` can be found in the [NEWS](https://gi
 
 ## Tutorials
 
-These tutorials introduce users to `LTRpred`:
+This tutorial introduces users to `LTRpred`:
 
-- [Install Prerequisite Tools](https://github.com/HajkD/LTRpred/blob/master/vignettes/Installation.Rmd)
 - [Introduction to LTRpred](https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd)
-- [De Novo Annotation with LTRpred](https://github.com/HajkD/LTRpred/blob/master/vignettes/Annotation.Rmd)
-- [Analysis and Visualization of Predicted LTRs](https://github.com/HajkD/LTRpred/blob/master/vignettes/Analysis.Rmd)
-- [Perform Meta-Genomics Studies with LTRpred]()
 
 Users can also read the tutorials within ([RStudio](http://www.rstudio.com/)) :
 
