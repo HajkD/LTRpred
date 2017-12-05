@@ -32,7 +32,7 @@
 
 pred2fasta <- function(LTRpred.tbl, prediction.file, output = "output.fa"){
     PutativeLTRSeqs <- Biostrings::readDNAStringSet(prediction.file)
-    Biostrings::writeXStringSet(PutativeLTRSeqs[match(LTRpred.tbl$orf.id, PutativeLTRSeqs@ranges@NAMES)], output)
+    Biostrings::writeXStringSet(PutativeLTRSeqs[na.omit(match(LTRpred.tbl$orf.id, PutativeLTRSeqs@ranges@NAMES))], output)
     
 }
 
