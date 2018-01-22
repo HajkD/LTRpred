@@ -2,7 +2,7 @@
 % Please edit documentation in R/quality.filter.R
 \name{quality.filter}
 \alias{quality.filter}
-\title{Try to eliminate false positive LTRpred predictions by filter strategy}
+\title{Pipeline to eliminate false positive predictions of retrotransposons}
 \usage{
 quality.filter(pred, sim, n.orfs, strategy = "default")
 }
@@ -50,7 +50,7 @@ pred <- read.ltrpred(pred.file)
 pred <- quality.filter(pred, sim = 70, n.orfs = 1)
 }
 \seealso{
-\code{\link{LTRpred}}, \code{\link{LTRpred.meta}}, \code{\link{read.ltrpred}}
+\code{\link{LTRpred}}, \code{\link{LTRpred.meta}}, \code{\link{read.ltrpred}}, \code{\link{quality.filter.meta}}
 }
 \author{
 Hajk-Georg Drost
