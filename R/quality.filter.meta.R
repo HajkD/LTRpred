@@ -5,6 +5,7 @@
 #' @param ltrpred.meta.folder path to folder storing the \code{\link{LTRpred.meta}} output files.
 #' @param sim LTR similarity threshold. Only putative LTR transposons that fulfill this 
 #' LTR similarity threshold will be retained.
+#' @param cut.range a numeric number indicating the interval size for binning LTR similarities.
 #' @param n.orfs minimum number of ORFs detected in the putative LTR transposon.
 #' @param strategy quality filter strategy. Options are
 #' \itemize{
@@ -31,7 +32,7 @@
 #'   \item \code{sim_file} (similarity file)
 #'          \itemize{
 #'          This \code{data.frame} stores the information 
-#'                   \item
+#'                   \item 
 #'                   }
 #'    \item \code{gm_file} (genome metrics file)
 #'          \itemize{
@@ -47,39 +48,54 @@ quality.filter.meta <-
            genome.folder,
            ltrpred.meta.folder,
            sim,
+           cut.range = 2,
            n.orfs,
            strategy,
            update = FALSE) {
     
     
-    sim_file <- paste0(kingdom, "_", sim, "_SimilarityMatrix.csv")
-    gm_file <- paste0(kingdom, "_", sim, "_GenomeInfo.csv")
+    sim_file <- paste0(kingdom, "_SimilarityMatrix.csv")
+    gm_file <- paste0(kingdom, "_GenomeInfo.csv")
     
     if (!(file.exists(sim_file) & file.exists(gm_file) & (!update))) {
-      LTRpred::LTRpred.meta(
+      genome.summary(
         genome.folder       = genome.folder, # path to folder storing genome assemblies of species
-        LTRpred.meta.folder = ltrpred.meta.folder, # path to result folder 
+        ltrpred.meta.folder = ltrpred.meta.folder, # path to result folder 
         quality.filter      = TRUE, # apply filter to reduce false positives ->
         sim                 = sim, # LTR retrotransposons should have >= 70% seq. similarity between their LTRs
+        cut.range           = cut.range,
         n.orfs              = n.orfs, # LTR retrotransposons should have >= 0 Open Reading Frame
         strategy            = strategy,
         file.name           = kingdom
       )
     } else {
+      message("\n")
       message("The files '",sim_file,"' and '",gm_file,"' were already found in the current working directory and will be used for further processing. If you wish to re-run the quality filtering and generate new '",sim_file,"' and '",gm_file,"' files please specify the argument 'update = TRUE'.")
     }
   
-    sim_file_import <-
-      readr::read_delim(sim_file, delim = ";")
+    suppressMessages(sim_file_import <-
+      readr::read_delim(sim_file, delim = ";"))
+    
     gm_file_import <-
-      readr::read_delim(gm_file, delim = ";")
+      readr::read_delim(gm_file, delim = ";", col_types = readr::cols(
+          organism = readr::col_character(),
+          n_ltrs = readr::col_integer(),
+          total_ltrs_nucl_mbp = readr::col_double(),
+          total_ltrs_nucl_freq = readr::col_double(),
+          n_ltrs_freq = readr::col_double(),
+          genome_size_nucl_mbp = readr::col_double(),
+          NNN_freq = readr::col_double()
+      ))
     
     sim_file_import <- dplyr::mutate(sim_file_import, kingdom = rep(kingdom, nrow(sim_file_import)))
+    sim_file_import <- dplyr::select(sim_file_import, kingdom, 1:(ncol(sim_file_import) - 1))
     gm_file_import <- dplyr::mutate(gm_file_import, kingdom = rep(kingdom, nrow(gm_file_import)))
+    gm_file_import <- dplyr::select(gm_file_import, kingdom, 1:(ncol(gm_file_import) - 1))
+    
     
     res <- list(sim_file = sim_file_import, gm_file = gm_file_import) 
     
-    return (res)
+    return(res)
    }
 
 
