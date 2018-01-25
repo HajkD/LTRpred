@@ -122,15 +122,15 @@ LTRpred.meta <- function(genome.folder       = NULL,
     available.genomes <-
       match(ltrpred.folder.files.chopped, genomes.chopped)
     
-    genomes <- genomes[available.genomes]
-    
-    if (length(folders0) != length(genomes))
-      stop (
-        "Please make sure that the number of your genome files matches with your LTRpred folders."
-      )
+    genomes <- genomes[na.omit(available.genomes)]
+    # 
+    # if (length(folders0) != length(genomes))
+    #   stop (
+    #     "Please make sure that the number of your genome files matches with your LTRpred folders.", call. = FALSE
+    #   )
     
     if (length(folders0) < 1) {
-      stop ("No folders to be processed...")
+      stop ("No folders to be processed...", call. = FALSE)
     }
     
     SimMatrix <- vector("list", length(folders0))
@@ -143,7 +143,22 @@ LTRpred.meta <- function(genome.folder       = NULL,
     
     cat("Processing file:")
     cat("\n")
-    for (i in 1:length(folders0)) {
+    
+    folders0_new <- unlist(sapply(folders0, function(x) {
+        unlist(stringr::str_split(x, "_"))[1]
+    }))
+    
+    for (i in 1:length(genomes)) {
+        
+        genome_name_check <- unlist(stringr::str_split(genomes, "[.]"))[1]
+        
+        print(genome_name_check[i])
+        cat("\n")
+        print(folders0_new[i])
+        
+        if (genome_name_check != folders0_new[i])
+            stop("Something went wrong with the genomes and folders ... Please check if genome names and folder names match!", call. = FALSE)
+        
       choppedFolder <- unlist(stringr::str_split(folders0[i], "_"))
       print(file.path(
         LTRpred.meta.folder,
@@ -315,7 +330,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
     
   } else {
     if (!file.exists(genome.folder))
-      stop ("The folder ' ", genome.folder, " ' could not be found.")
+      stop ("The folder ' ", genome.folder, " ' could not be found.", call. = FALSE)
     
     cat("\n")
     cat("Starting LTRpred meta analysis on the following genomes: ")
@@ -388,7 +403,7 @@ LTRpred.meta <- function(genome.folder       = NULL,
         folders0[i],
         paste0(
           paste0(choppedFolder[-length(choppedFolder)], collapse = "_"),
-          "_LTRpred_DataSheet.csv"
+          "_LTRpred_DataSheet.tsv"
         )
       ))
       
