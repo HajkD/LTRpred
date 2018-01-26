@@ -2,7 +2,7 @@
 % Please edit documentation in R/clust2fasta.R
 \name{clust2fasta}
 \alias{clust2fasta}
-\title{Export sequences of TEs belonging to the same cluster to fasta files}
+\title{Export sequences of TEs belonging to the same cluster}
 \usage{
 clust2fasta(LTRpred.tbl, seqs)
 }
