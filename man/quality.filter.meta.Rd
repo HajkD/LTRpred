@@ -4,8 +4,8 @@
 \alias{quality.filter.meta}
 \title{Pipeline to eliminate false positive predictions of retrotransposons at a metagenomic scale}
 \usage{
-quality.filter.meta(kingdom, genome.folder, ltrpred.meta.folder, sim, n.orfs,
-  strategy, update = FALSE)
+quality.filter.meta(kingdom, genome.folder, ltrpred.meta.folder, sim,
+  cut.range = 2, n.orfs, strategy, update = FALSE)
 }
 \arguments{
 \item{kingdom}{a character string specifying the kingdom of life to which genomes annotated with \code{\link{LTRpred.meta}} belong to. E.g. \code{kingdom = "Plants"}. If annotates of a variety of kingdoms have been done users can for example specify \code{kingdom = "Various"}.}
@@ -16,6 +16,8 @@ quality.filter.meta(kingdom, genome.folder, ltrpred.meta.folder, sim, n.orfs,
 
 \item{sim}{LTR similarity threshold. Only putative LTR transposons that fulfill this 
 LTR similarity threshold will be retained.}
+
+\item{cut.range}{a numeric number indicating the interval size for binning LTR similarities.}
 
 \item{n.orfs}{minimum number of ORFs detected in the putative LTR transposon.}
 
@@ -34,7 +36,7 @@ A list with to list elements \code{sim_file} and \code{gm_file}. Each list eleme
   \item \code{sim_file} (similarity file)
          \itemize{
          This \code{data.frame} stores the information 
-                  \item
+                  \item 
                   }
    \item \code{gm_file} (genome metrics file)
          \itemize{
