@@ -31,9 +31,10 @@
 #' @export
 
 plotSize <- function(genome.summary,
-                     type                = "mass",
+                     type                = "total_ltrs_nucl_mbp",
                      cor.method          = "spearman",
                      label.organism      = TRUE,
+                     colour              = "black",
                      smooth.method       = "glm",
                      se                  = TRUE,
                      xlab                = "LTR retrotransposon content in Mega [bp]",
@@ -46,7 +47,7 @@ plotSize <- function(genome.summary,
                      check.overlap       = TRUE) {
     
     if (!is.element(type, c("total_ltrs_nucl_mbp", "n_ltrs_freq", "n_ltrs", "total_ltrs_nucl_freq")))
-        stop("Please specify: type = 'total_ltrs_nucl_mbp' for total length of all TEs in Mbp; type = 'total_ltrs_nucl_freq' for proportion of TEs within entire genome in %; type = 'n_ltrs' for total number of TEs in genome; type = 'n_ltrs_freq' for total number of TEs in genome normalized by genome size in Mbp.")
+        stop("Please specify: type = 'total_ltrs_nucl_mbp' for total length of all TEs in Mbp; type = 'total_ltrs_nucl_freq' for proportion of TEs within entire genome in %; type = 'n_ltrs' for total number of TEs in genome; type = 'n_ltrs_freq' for total number of TEs in genome normalized by genome size in Mbp.", call. = FALSE)
     
         if (type == "n_ltrs")
         cor.value <-
@@ -91,7 +92,7 @@ plotSize <- function(genome.summary,
                                  y = genome_size_nucl_mbp)
                 )
         
-        res <- res + ggplot2::geom_point(size = 5) +
+        res <- res + ggplot2::geom_point(size = 5, colour = colour) +
             ggplot2::theme_minimal() +
             ggplot2::labs(
                 x = xlab,
@@ -146,10 +147,12 @@ plotSize <- function(genome.summary,
             res <-
                 res + ggplot2::geom_smooth(method = smooth.method,
                                            se = se,
-                                           alpha = alpha)
+                                           alpha = alpha,
+                                           colour = "black",
+                                           size = 2)
         }
         
-        return(res)
+        print(res)
     }
 
 
