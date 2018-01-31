@@ -152,7 +152,7 @@ plotSize <- function(genome.summary,
                                            size = 2)
         }
         
-        print(res)
+        return(res)
     }
 
 
