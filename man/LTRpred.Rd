@@ -21,7 +21,8 @@ LTRpred(genome.file = NULL, index.file.harvest = NULL,
   pbsmismatchscore = -10, pbsinsertionscore = -20, pbsdeletionscore = -20,
   pfam.ids = NULL, cores = 1, dfam.cores = NULL, hmm.cores = NULL,
   orf.style = 7, min.codons = 200, trans.seqs = FALSE,
-  output.path = NULL, quality.filter = TRUE, n.orfs = 0, verbose = TRUE)
+  output.path = NULL, quality.filter = TRUE, n.orfs = 0, job_num = 1,
+  verbose = TRUE)
 }
 \arguments{
 \item{genome.file}{path to the genome file in \code{fasta} format.}
@@ -219,6 +220,8 @@ will be generated in the current working directory of R and all results are then
 See \code{Description} for details.}
 
 \item{n.orfs}{minimum number of Open Reading Frames that must be found between the LTRs (if \code{quality.filter = TRUE}). See \code{Details} for further information on quality control.}
+
+\item{job_num}{a job number in case this function is run in parallel mode in \code{\link{LTRpred.meta}}.}
 
 \item{verbose}{shall further information be printed on the console or not.}
 }
