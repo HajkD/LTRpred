@@ -17,7 +17,7 @@ meta.apply <- function(result.folder, FUN){
     # folders <- internal.file[stringr::str_detect(internal.file, "ltrdigest")]
     # folders <- folders[1]
     choppedFolder <- unlist(stringr::str_split(folders0[i],"_"))
-    pred <- readr::read_delim(file.path(result.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.csv")), delim = ";")
+    pred <- readr::read_delim(file.path(result.folder,folders0[i],paste0(paste0(choppedFolder[-length(choppedFolder)],collapse = "_"),"_LTRpred_DataSheet.tsv")), delim = ";")
     
     func(pred)
   }
