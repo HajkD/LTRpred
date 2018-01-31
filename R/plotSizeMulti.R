@@ -136,6 +136,6 @@ plotSizeMulti <-
                                  size = 2)
   }
   
-  print(res)
+  return(res)
 
 }
