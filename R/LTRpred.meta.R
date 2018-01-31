@@ -47,6 +47,7 @@ LTRpred.meta <- function(genome.folder,
     LTRpred(genome.file = file.path(genome.folder, assembly_files[i]),
             cores = 1,
             job_num = i,
+            output.path = output.folder,
             ...)
     
   })
