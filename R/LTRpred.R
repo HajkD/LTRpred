@@ -134,6 +134,7 @@
 #' @param quality.filter shall false positives be filtered out as much as possible? Default is \code{quality.filter = TRUE}. 
 #' See \code{Description} for details.
 #' @param n.orfs minimum number of Open Reading Frames that must be found between the LTRs (if \code{quality.filter = TRUE}). See \code{Details} for further information on quality control.
+#' @param job_num a job number in case this function is run in parallel mode in \code{\link{LTRpred.meta}}.
 #' @param verbose shall further information be printed on the console or not. 
 #' @author Hajk-Georg Drost
 #' @details This function provides the main pipeline to perform \code{de novo} LTR transposon
@@ -290,7 +291,8 @@ LTRpred <- function(genome.file       = NULL,
                     output.path       = NULL,
                     quality.filter    = TRUE,
                     n.orfs            = 0,
-                    verbose           = TRUE){
+                    job_num           = 1,
+                    verbose           = TRUE) {
   
     test_installation_gt()  
     test_installation_hmmer()
@@ -1320,7 +1322,10 @@ LTRpred <- function(genome.file       = NULL,
     ))
     
     message("LTRpred analysis finished properly.")
+    
+    return(paste0("Successful job ", job_num," ."))
 }
+
 
 
 
