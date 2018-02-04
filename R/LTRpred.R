@@ -537,7 +537,7 @@ LTRpred <- function(genome.file       = NULL,
                 dplyr::mutate(LTRdigestOutput$ltr.retrotransposon,
                               orf.id = paste0(chromosome_ltrharvest, "_", start, "_", end))
             
-            if (!is.na(ORFTable)) {
+            if (!all(is.na(ORFTable))) {
               LTRdigestOutput$ltr.retrotransposon <-
                 dplyr::full_join(LTRdigestOutput$ltr.retrotransposon,
                                  ORFTable,
