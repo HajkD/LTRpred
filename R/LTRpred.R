@@ -536,15 +536,24 @@ LTRpred <- function(genome.file       = NULL,
             LTRdigestOutput$ltr.retrotransposon <-
                 dplyr::mutate(LTRdigestOutput$ltr.retrotransposon,
                               orf.id = paste0(chromosome_ltrharvest, "_", start, "_", end))
-            LTRdigestOutput$ltr.retrotransposon <-
+            
+            if (!is.na(ORFTable)) {
+              LTRdigestOutput$ltr.retrotransposon <-
                 dplyr::full_join(LTRdigestOutput$ltr.retrotransposon,
                                  ORFTable,
                                  by = c("orf.id" = "seq.id"))
+              
+              message(
+                "Join ORF Prediction table: nrow(df) = ",
+                nrow(LTRdigestOutput$ltr.retrotransposon),
+                " candidates."
+              )
+              message("unique(ID) = ", length(unique(LTRdigestOutput$ltr.retrotransposon$ID)), " candidates.")
+              message("unique(orf.id) = ", length(unique(
+                LTRdigestOutput$ltr.retrotransposon$orf.id
+              )), " candidates.")
+            }
             
-            message("Join ORF Prediction table: nrow(df) = ",nrow(LTRdigestOutput$ltr.retrotransposon), " candidates.")
-            message("unique(ID) = ",length(unique(LTRdigestOutput$ltr.retrotransposon$ID)), " candidates.")
-            message("unique(orf.id) = ",length(unique(LTRdigestOutput$ltr.retrotransposon$orf.id)), " candidates.")
-
             LTRdigestOutput$ltr.retrotransposon <-
                 dplyr::mutate(LTRdigestOutput$ltr.retrotransposon,
                               repeat_region_length = ifelse(!is.na(rTSD_end), (
@@ -1174,18 +1183,32 @@ LTRpred <- function(genome.file       = NULL,
     res <- dplyr::mutate(res, pred_tool = rep("LTRpred", nrow(res)))
     res <- dplyr::mutate(res, species = rep(chopped.foldername, nrow(res)))
     res <- dplyr::mutate(res, ID = paste0(chopped.foldername,"_",ID))
-    res <- dplyr::mutate(res, orfs = ifelse(is.na(orfs), 0, orfs))
     
+    if (is.element("orfs", names(res))) {
+      res <- dplyr::mutate(res, orfs = ifelse(is.na(orfs), 0, orfs))
+    } else {
+      res <- dplyr::mutate(res, orfs = rep(0, nrow(res)))
+    }
+  
     if (fix.chr.name) {
         # generate accurate chromosome naming (sometimes chromosome names are chopped because the naming convention is violated)
-        chr.ids <- unlist(sapply(res$orf.id, function(x) {
+      message("Chromosome names are being fixed ...")
+        chr.ids <- unlist(lapply(res$orf.id, function(x) {
             
             s <- unlist(stringr::str_split(x,"_"))
             l <- length(s)
-            s <- s[-c(l - 1, l)]
             
-            return(stringr::str_c(s, collapse = ""))
+            if (l >= 3) {
+              s <- s[-c(l - 1, l)]
+            }
+            
+            final_s <- ifelse(!is.na(stringr::str_c(s, collapse = "")), stringr::str_c(s, collapse = ""), "none")
+            
+            return(final_s)
         }))
+        
+        if (nrow(res) != length(chr.ids))
+          stop("Something went wrong when trying to fix chromosome names!", call. = FALSE)
         
         res <- dplyr::mutate(res, chromosome = chr.ids)
     }
