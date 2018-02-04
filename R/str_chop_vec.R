@@ -1,3 +1,4 @@
+#' @export
 str_chop_vec <- function(x, pattern) {
     return(unlist(lapply(x, function(y) {
         
