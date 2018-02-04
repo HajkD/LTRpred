@@ -4,10 +4,16 @@
 \alias{LTRpred.meta}
 \title{Perform Meta-Analyses with LTRpred}
 \usage{
-LTRpred.meta(genome.folder, output.name, cores = 1, ...)
+LTRpred.meta(genome.folder, output.folder, cores = 1, ...)
 }
 \arguments{
-\item{\dots}{}
+\item{genome.folder}{file path to folder storing genome assembly files in \code{fasta} format.}
+
+\item{output.folder}{path to the output folder storing \code{LTRpred.meta} results that will be generated.}
+
+\item{cores}{number of cores that shall be used for parallel processing.}
+
+\item{\dots}{arguments that shall be passed to \code{\link{LTRpred}}.}
 }
 \description{
 Run \code{\link{LTRpred}} on several genomes (sequentially) that are stored in a given folder.
