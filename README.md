@@ -1,6 +1,4 @@
-# LTRpred(ict)
-
-## A bioinformatics pipeline for meta-genome scale functional de novo annotation of LTR retrotransposons
+## LTRpred(ict): a pipeline for automated annotation of LTR retrotransposons for comparative genomics studies
 
 Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of phenotypic adaptation, diversification,
 and evolution. In particular, understanding the recognition and 
