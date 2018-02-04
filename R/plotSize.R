@@ -92,6 +92,8 @@ plotSize <- function(genome.summary,
                                  y = genome_size_nucl_mbp)
                 )
         
+        message("corr (", cor.method,") = ", cor.value)
+        
         res <- res + ggplot2::geom_point(size = 5, colour = colour) +
             ggplot2::theme_minimal() +
             ggplot2::labs(

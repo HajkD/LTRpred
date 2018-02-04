@@ -41,7 +41,6 @@ plotSizeMulti <-
   if (!is.element(type, c("total_ltrs_nucl_mbp", "n_ltrs_freq", "n_ltrs", "total_ltrs_nucl_freq")))
     stop("Please specify: type = 'total_ltrs_nucl_mbp' for total length of all TEs in Mbp; type = 'total_ltrs_nucl_freq' for proportion of TEs within entire genome in %; type = 'n_ltrs' for total number of TEs in genome; type = 'n_ltrs_freq' for total number of TEs in genome normalized by genome size in Mbp.", call. = FALSE)
   
-  
   if (type == "n_ltrs") {
     res <-
       ggplot2::ggplot(genome.summary$gm_file,
