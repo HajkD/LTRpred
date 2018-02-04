@@ -928,21 +928,21 @@ read.prediction <- function( gff.file        = NULL,
                 dplyr::select(LTR_retrotransposonPredictionFeatures, -sequence)
 
             # # rename chromosomes
-            # ChrNameSplitFunc <-
-            #     function(x)
-            #         as.character(unlist(sapply(x, function(y)
-            #             unlist(stringr::str_split(y, "_"))[1])))
-            # 
-            # LTR_retrotransposonPredictionFeatures <-
-            #     dplyr::mutate(
-            #         LTR_retrotransposonPredictionFeatures,
-            #         chromosome_ltrharvest = chromosome)
-            # 
-            # LTR_retrotransposonPredictionFeatures <-
-            #     dplyr::mutate(
-            #         LTR_retrotransposonPredictionFeatures,
-            #         chromosome = ChrNameSplitFunc(LTR_retrotransposonPredictionFeatures$chromosome)
-            #     )
+            ChrNameSplitFunc <-
+                function(x)
+                    as.character(unlist(sapply(x, function(y)
+                        unlist(stringr::str_split(y, "_"))[1])))
+
+            LTR_retrotransposonPredictionFeatures <-
+                dplyr::mutate(
+                    LTR_retrotransposonPredictionFeatures,
+                    chromosome_ltrharvest = chromosome)
+
+            LTR_retrotransposonPredictionFeatures <-
+                dplyr::mutate(
+                    LTR_retrotransposonPredictionFeatures,
+                    chromosome = ChrNameSplitFunc(LTR_retrotransposonPredictionFeatures$chromosome)
+                )
         }
         
         #         FilteredAnnotationFile.long_terminal_repeat <- dplyr::mutate(FilteredAnnotationFile.long_terminal_repeat, seq_number =  chromosome)
