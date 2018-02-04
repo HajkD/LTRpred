@@ -19,6 +19,12 @@ read.orfs <- function(input.file){
   seq.id <- orfs <- NULL
   
   ReadSeqFile <- Biostrings::readDNAStringSet(input.file)
+  
+  if (length(ReadSeqFile) == 0){
+    message("The ORF prediction file was empty ... Therefore, no ORFs are added to the result table.")
+    return(NA)
+  }
+  
   SeqFile.table <- table(sapply(ReadSeqFile@ranges@NAMES,
                                 function(x)
                                     unlist(stringr::str_split(x, "[|]"))[1]))
