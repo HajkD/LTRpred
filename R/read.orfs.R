@@ -22,7 +22,8 @@ read.orfs <- function(input.file){
   
   if (length(ReadSeqFile) == 0){
     message("The ORF prediction file was empty ... Therefore, no ORFs are added to the result table.")
-    return(NA)
+    return(dplyr::data_frame(seq.id = NULL,
+                             orfs = NULL))
   }
   
   SeqFile.table <- table(sapply(ReadSeqFile@ranges@NAMES,

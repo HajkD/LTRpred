@@ -537,7 +537,7 @@ LTRpred <- function(genome.file       = NULL,
                 dplyr::mutate(LTRdigestOutput$ltr.retrotransposon,
                               orf.id = paste0(chromosome_ltrharvest, "_", start, "_", end))
             
-            if (!all(is.na(ORFTable))) {
+            if (nrow(ORFTable) > 0) {
               LTRdigestOutput$ltr.retrotransposon <-
                 dplyr::full_join(LTRdigestOutput$ltr.retrotransposon,
                                  ORFTable,
@@ -1184,7 +1184,7 @@ LTRpred <- function(genome.file       = NULL,
     res <- dplyr::mutate(res, species = rep(chopped.foldername, nrow(res)))
     res <- dplyr::mutate(res, ID = paste0(chopped.foldername,"_",ID))
     
-    if (is.element("orfs", names(res))) {
+    if (nrow(ORFTable) > 0) {
       res <- dplyr::mutate(res, orfs = ifelse(is.na(orfs), 0, orfs))
     } else {
       res <- dplyr::mutate(res, orfs = rep(0, nrow(res)))
