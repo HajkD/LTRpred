@@ -6,6 +6,12 @@
 #' @param ltr.similarity only count elements that have an LTR similarity >= this threshold.
 #' @param quality.filter optimize search to remove potential false positives (e.g. duplicated genes, etc.). See \code{Details} for further information on the filter criteria.
 #' @param n.orfs minimum number of Open Reading Frames that must be found between the LTRs (if \code{quality.filter = TRUE}). See \code{Details} for further information on quality control.
+#' @param strategy quality filter strategy. Options are
+#' \itemize{
+#' \item \code{strategy = "default"} : see section \code{Quality Control} 
+#' \item \code{strategy = "stringent"} : in addition to filter criteria specified in section \code{Quality Control},
+#' the filter criteria \code{!is.na(protein_domain)) | (dfam_target_name != "unknown")} is applied
+#' }
 #' @author Hajk-Georg Drost
 #' @details
 #' This function crawls through each genome stored in the meta result folder
@@ -42,10 +48,9 @@
 meta.summarize <- function(result.folder, 
                            ltr.similarity = 70, 
                            quality.filter = TRUE,
-                           n.orfs         = 0){
+                           n.orfs         = 0,
+                           strategy = "default"){
   
-    PBS_start <- protein_domain <- orfs <- NULL
-    
     result.files <- list.files(result.folder)
     folders0 <-
         result.files[stringr::str_detect(result.files, "ltrpred")]
@@ -65,10 +70,14 @@ meta.summarize <- function(result.folder,
         
         if (quality.filter) {
             pred.filtered <-
-              quality.filter(pred, sim = ltr.similarity, n.orfs = n.orfs)
+              quality.filter(pred, 
+                             sim = ltr.similarity, 
+                             n.orfs = n.orfs,
+                             strategy = strategy)
         }
         
         if (!quality.filter) {
+            message("No quality filter was applied ...")
             pred.filtered <-
                 dplyr::filter(pred, ltr_similarity >= ltr.similarity)
         }

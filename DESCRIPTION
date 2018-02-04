@@ -33,7 +33,8 @@ Imports:
     gridExtra,
     methods,
     tibble,
-    scales
+    scales,
+    ggsci
 Suggests:
     knitr (>= 1.6),
     rmarkdown (>= 0.3.3),
