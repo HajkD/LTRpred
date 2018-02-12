@@ -43,7 +43,7 @@ plotSizeMulti <-
   
   if (type == "n_ltrs") {
     res <-
-      ggplot2::ggplot(genome.summary$gm_file,
+      ggplot2::ggplot(gm_files_combined,
                       ggplot2::aes(x = n_ltrs,
                                    y = genome_size_nucl_mbp,
                                    colour = kingdom)) + 
@@ -53,7 +53,7 @@ plotSizeMulti <-
   
   if (type == "n_ltrs_freq") {
     res <-
-      ggplot2::ggplot(genome.summary$gm_file,
+      ggplot2::ggplot(gm_files_combined,
                       ggplot2::aes(x = n_ltrs_freq,
                                    y = genome_size_nucl_mbp,
                                    colour = kingdom)) + 
@@ -75,7 +75,7 @@ plotSizeMulti <-
   if (type == "total_ltrs_nucl_freq") {
     res <-
       ggplot2::ggplot(
-        genome.summary$gm_file,
+        gm_files_combined,
         ggplot2::aes(x = total_ltrs_nucl_freq * 100,
                      y = genome_size_nucl_mbp,
                      colour = kingdom)
