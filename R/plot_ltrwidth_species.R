@@ -7,6 +7,12 @@
 #' choose \code{element.type = "full_retrotransposon"} or \code{element.type = "ltr_element"}. 
 #' In case \code{element.type = "ltr_element"} is chosen then the width of the left LTR element is 
 #' used to visualize width vs. seq. similarity between the LTRs.
+#' @param summary.type summary statistic to quantify total LTR length or LTR element length.
+#' Options are:
+#' \itemize{
+#'  \item \code{summary.type = "median"} - for quantifying the median length of all elements
+#'  \item \code{summary.type = "sum"} - for quantifying the total length (= sum) of all elements
+#' }
 #' @param plot.type type of visualization: either \code{plot.type = "boxplot"} or \code{plot.type = "violin"}.
 #' @param similarity.bin resolution of similarity binning. E.g. binning 98\%-100\% into 0.5\% intervals would be \code{similarity.bin = 0.5}. 
 #' @param min.sim minimum similarity between LTRs that can shall be considered for visualization.
@@ -30,6 +36,7 @@
 
 plot_ltrwidth_species <- function(data,
                                   element.type   = "full_retrotransposon",
+                                  summary.type   = "median",
                                   plot.type      = "boxplot", 
                                   similarity.bin = 2, 
                                   min.sim        = 70,
@@ -48,12 +55,16 @@ plot_ltrwidth_species <- function(data,
     if (!is.element(element.type, c("full_retrotransposon", "ltr_element")))
         stop("Please choose either element.type = 'full_retrotransposon' or element.type = 'ltr_element'.", call. = FALSE)
     
-    similarity <- width <- lLTR_length <- ltr_similarity <- NULL
+    if (!is.element(summary.type, c("median", "sum")))
+      stop("Please choose either summary.type = 'median' or summary.type = 'sum'.")
+  
+  
+    similarity <- width <- lLTR_length <- ltr_similarity <- species <- median_width <- sum_width_mbp <-  NULL
     
     if (quality.filter)
         data <- LTRpred::quality.filter(data, sim = min.sim, n.orfs = n.orfs)
     if (!quality.filter) {
-        message("No quality filter has been applied.")
+        message("No additional quality filter has been applied.")
     }
     
     if (!is.null(similarity.bin) & !is.null(min.sim)) {
@@ -69,45 +80,103 @@ plot_ltrwidth_species <- function(data,
     }
     
     # group by species and similarity and compute the median LTR/Retrotransposon width for each species
-    pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(data, species, similarity), median_width = median(width))
-    pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(data, species, similarity), median_width = median(lLTR_length))
+    pred_median_sim_retrotrans <-
+      dplyr::summarise(
+        dplyr::group_by(data, species, similarity),
+        median_width = median(width) / 1000000,
+        sum_width_mbp = sum(width) / 1000000,
+        width_quantile = quantile(width, seq(0, 1, 0.005))[197]
+      )
+    pred_median_sim_ltr_only <-
+      dplyr::summarise(
+        dplyr::group_by(data, species, similarity),
+        median_width = median(lLTR_length) / 1000000,
+        sum_width = sum(lLTR_length) / 1000000,
+        lLTR_length_quantile = quantile(lLTR_length, seq(0, 1, 0.005))[197]
+      )
     
     #max.width <- max(data$ltr.retrotransposon[ , "ltr_similarity"])
     if (element.type == "full_retrotransposon") {
+      if (summary.type == "median") {
         res <-
-            ggplot2::ggplot(pred_median_sim_retrotrans, ggplot2::aes(similarity, median_width))
+          ggplot2::ggplot(pred_median_sim_retrotrans, ggplot2::aes(similarity, median_width))
+      }
+      if (summary.type == "sum") {
+        res <-
+          ggplot2::ggplot(pred_median_sim_retrotrans, ggplot2::aes(similarity, sum_width_mbp))
+      }   
     }
     
     if (element.type == "ltr_element") {
+      if (summary.type == "median") {
         res <-
             ggplot2::ggplot(pred_median_sim_ltr_only, ggplot2::aes(similarity, median_width))
+      }
+      if (summary.type == "sum") {
+        res <-
+          ggplot2::ggplot(pred_median_sim_ltr_only, ggplot2::aes(similarity, sum_width_mbp))
+      }
     }
     
     if (plot.type == "boxplot") {
         if (element.type == "full_retrotransposon") {
             res <-
                 res + ggplot2::geom_boxplot( size = 1.5) + 
-                ggplot2::geom_point(ggplot2::aes(colour = species)) +
-                ggplot2::geom_jitter(data = dplyr::filter(
-                    pred_median_sim_retrotrans,
-                    median_width < quantile(data$width,seq(0,1,0.005))[197] # don't jitter upper 1.5%
-                ), ggplot2::aes(colour = species), position = ggplot2::position_jitter(0.2))
+                ggplot2::geom_point(ggplot2::aes(colour = species))
+            
+            if (summary.type == "median") {
+              res <- res + ggplot2::geom_jitter(
+                data = dplyr::filter(
+                  pred_median_sim_retrotrans,
+                  median_width < width_quantile # don't jitter upper 1.5%
+                ),
+                ggplot2::aes(colour = species),
+                position = ggplot2::position_jitter(0.2)
+              )
+            }
+            if (summary.type == "sum") {
+              res <- res + ggplot2::geom_jitter(
+                data = dplyr::filter(
+                  pred_median_sim_retrotrans,
+                  sum_width_mbp < width_quantile # don't jitter upper 1.5%
+                ),
+                ggplot2::aes(colour = species),
+                position = ggplot2::position_jitter(0.2)
+              )
+            }    
         }
         
         if (element.type == "ltr_element") {
             res <-
                 res + ggplot2::geom_boxplot( size = 1.5) + 
-                ggplot2::geom_point(ggplot2::aes(colour = species)) +
-                ggplot2::geom_jitter(data = dplyr::filter(
-                    pred_median_sim_ltr_only,
-                    median_width < quantile(data$lLTR_length,seq(0,1,0.005))[197] # don't jitter upper 1.5%
-                ),  ggplot2::aes(colour = species), position = ggplot2::position_jitter(0.2))
+                ggplot2::geom_point(ggplot2::aes(colour = species))
+            
+            if (summary.type == "median") {
+              res <- res + ggplot2::geom_jitter(
+                data = dplyr::filter(
+                  pred_median_sim_ltr_only,
+                  median_width < lLTR_length_quantile # don't jitter upper 1.5%
+                ),
+                ggplot2::aes(colour = species),
+                position = ggplot2::position_jitter(0.2)
+              )
+            }
+            if (summary.type == "sum") {
+              res <- res + ggplot2::geom_jitter(
+                data = dplyr::filter(
+                  pred_median_sim_ltr_only,
+                  sum_width_mbp < lLTR_length_quantile # don't jitter upper 1.5%
+                ),
+                ggplot2::aes(colour = species),
+                position = ggplot2::position_jitter(0.2)
+              )
+            }
         }
     }
     
     if (plot.type == "violin") {
         res <-
-            res + ggplot2::geom_violin( size = 1.5) + 
+            res + ggplot2::geom_violin(size = 1.5) + 
             ggplot2::geom_point(ggplot2::aes(colour = species)) + 
             ggplot2::geom_jitter(ggplot2::aes(colour = species), position = ggplot2::position_jitter(0.3))
     }
@@ -140,26 +209,56 @@ plot_ltrwidth_species <- function(data,
     
     if (arrow_lab) {
         if (element.type == "full_retrotransposon") {
+          if (summary.type == "median") {
             res <-
-                res +  ggrepel::geom_text_repel(data = dplyr::filter(
-                    pred_median_sim_retrotrans,
-                    median_width < quantile(data$width,seq(0,1,0.005))[197] # label only upper 1.5%
-                ),
-                ggplot2::aes(label = species),
-                size = 3.5,
-                fontface = 'bold'
-                )
+              res +  ggrepel::geom_text_repel(data = dplyr::filter(
+                pred_median_sim_retrotrans,
+                median_width < width_quantile # label only upper 1.5%
+              ),
+              ggplot2::aes(label = species),
+              size = 3.5,
+              fontface = 'bold'
+              )
+          }
+          if (summary.type == "sum") {
+            res <-
+              res +  ggrepel::geom_text_repel(data = dplyr::filter(
+                pred_median_sim_retrotrans,
+                sum_width_mbp < width_quantile # label only upper 1.5%
+              ),
+              ggplot2::aes(label = species),
+              size = 3.5,
+              fontface = 'bold'
+              )
+          }
+            
         }
         if (element.type == "ltr_element") {
+          if (summary.type == "median") {
             res <-
-                res +  ggrepel::geom_text_repel(data = dplyr::filter(
-                    pred_median_sim_ltr_only,
-                    median_width < quantile(data$lLTR_length,seq(0,1,0.005))[197] # label only upper 1.5%
+              res +  ggrepel::geom_text_repel(
+                data = dplyr::filter(
+                  pred_median_sim_ltr_only,
+                  median_width < lLTR_length_quantile # label only upper 1.5%
                 ),
                 ggplot2::aes(label = species),
                 size = 3.5,
                 fontface = 'bold'
-                )
+              )
+          }
+          if (summary.type == "sum") {
+            res <-
+              res +  ggrepel::geom_text_repel(
+                data = dplyr::filter(
+                  pred_median_sim_ltr_only,
+                  sum_width_mbp < lLTR_length_quantile # label only upper 1.5%
+                ),
+                ggplot2::aes(label = species),
+                size = 3.5,
+                fontface = 'bold'
+              )
+          }
+            
         }
     }
     
