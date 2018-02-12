@@ -58,7 +58,7 @@ __Figure 1__ in mind will help researchers to modify structural parameters in a 
 
 ## Installation
 
-__Note: please be aware that LTRpred is designed for Linux and unix based systems such as macOS. Hence, although LTRpred itself can be installed on Windows machines, most of the command line tools LTRpred depends on cannot be installed on Windows machines.__
+__Note: please be aware that LTRpred is designed for Linux and Unix based systems such as macOS. Hence, although LTRpred itself can be installed on Windows machines, most of the command line tools LTRpred depends on cannot be installed on Windows machines.__
 
 Please make sure that [Bioconductor](https://www.bioconductor.org/install/) and all package dependencies are installed on the
 system on which you would like to run `LTRpred`.
@@ -88,7 +88,7 @@ biocLite("HajkD/LTRpred")
 
 ## Install prerequisite command line tools
 
-For the `LTRpred::LTRpred()` function to run properly, please make sure that the following command line tools are installed on your system:
+__For the `LTRpred::LTRpred()` function to run properly, please make sure that the following command line tools are installed on your system__:
 
 ## Install [GenomeTools](https://github.com/genometools/genometools)
 
