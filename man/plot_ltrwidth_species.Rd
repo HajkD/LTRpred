@@ -5,8 +5,9 @@
 \title{Plot the median width distribution of putative LTR transposons for several species}
 \usage{
 plot_ltrwidth_species(data, element.type = "full_retrotransposon",
-  plot.type = "boxplot", similarity.bin = 2, min.sim = 70,
-  quality.filter = FALSE, n.orfs = 0, xlab = "LTR \% Similarity",
+  summary.type = "median", plot.type = "boxplot", similarity.bin = 2,
+  min.sim = 70, quality.filter = FALSE, n.orfs = 0,
+  xlab = "LTR \% Similarity",
   ylab = "Median LTR Retrotransposon length in bp", main = "",
   legend.title = "Similarity between LTRs", arrow_lab = FALSE,
   y.ticks = 10)
@@ -18,6 +19,13 @@ plot_ltrwidth_species(data, element.type = "full_retrotransposon",
 choose \code{element.type = "full_retrotransposon"} or \code{element.type = "ltr_element"}. 
 In case \code{element.type = "ltr_element"} is chosen then the width of the left LTR element is 
 used to visualize width vs. seq. similarity between the LTRs.}
+
+\item{summary.type}{summary statistic to quantify total LTR length or LTR element length.
+Options are:
+\itemize{
+ \item \code{summary.type = "median"} - for quantifying the median length of all elements
+ \item \code{summary.type = "sum"} - for quantifying the total length (= sum) of all elements
+}}
 
 \item{plot.type}{type of visualization: either \code{plot.type = "boxplot"} or \code{plot.type = "violin"}.}
 
