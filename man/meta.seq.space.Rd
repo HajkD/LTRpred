@@ -5,7 +5,7 @@
 \title{Quantification of the repeat space for multiple \code{Repeat Masker} files}
 \usage{
 meta.seq.space(rm.folder, type = "rm", repeat.type = "all",
-  rename = FALSE)
+  rename = FALSE, save.file = TRUE)
 }
 \arguments{
 \item{rm.folder}{file path to the \code{Repeat Masker} files.}
@@ -24,6 +24,8 @@ Options are:
 }}
 
 \item{rename}{logical value indicating whether or not long file names shall be transformed to short scientific names.}
+
+\item{save.file}{logical value indicating whether or not the result \code{tibble} shall be stored locally.}
 }
 \description{
 The repeat space for multiple \code{Repeat Masker} files is quantified and
