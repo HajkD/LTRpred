@@ -28,13 +28,13 @@ LTRpred(genome.file = NULL, index.file.harvest = NULL,
 \item{genome.file}{path to the genome file in \code{fasta} format.}
 
 \item{index.file.harvest}{specify the name of the enhanced suffix array index file that is computed
-by \code{suffixerator} for the use of \code{LTRharvest}. This opten can be used in case the suffix file was previously 
+by \code{suffixerator} for the use of \code{LTRharvest}. This often can be used in case the suffix file was previously 
 generated, e.g. during a previous call of this function. In this case the suffix array index
 file does not need to be re-computed for new analyses. This is particularly useful when 
 running \code{LTRpred} with different parameter settings.}
 
 \item{index.file.digest}{specify the name of the enhanced suffix array index file that is computed
-by \code{suffixerator} for the use of \code{LTRdigest}. This opten can be used in case the suffix file was previously 
+by \code{suffixerator} for the use of \code{LTRdigest}. This often can be used in case the suffix file was previously 
 generated, e.g. during a previous call of this function. In this case the suffix array index
 file does not need to be re-computed for new analyses. This is particularly useful when 
 running \code{LTRpred} with different parameter settings.}
