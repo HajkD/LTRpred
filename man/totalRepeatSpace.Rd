@@ -4,18 +4,21 @@
 \alias{totalRepeatSpace}
 \title{Quantify the total repeat space from Repeat Masker output in Mbp}
 \usage{
-totalRepeatSpace(file, type = "LTR")
+totalRepeatSpace(file, repeat.type = "LTR")
 }
 \arguments{
 \item{file}{path to Repeat Masker output file.}
 
-\item{type}{type of element for which total repeat space shall be quantified.
+\item{repeat.type}{type of element for which total repeat space shall be quantified.
 Options are:
 
 \itemize{
- \item \code{type = "all"} include all types of repeats.
- \item \code{type = "LTR"} include only LTR retrotransposons.
+ \item \code{repeat.type = "all"} include all types of repeats.
+ \item \code{repeat.type = "LTR"} include only LTR retrotransposons.
 }}
+}
+\seealso{
+\code{\link{meta.seq.space}}
 }
 \author{
 Hajk-Georg Drost
