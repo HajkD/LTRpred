@@ -14,11 +14,18 @@
 #'  \item \code{repeat.type = "LTR"} include only LTR retrotransposons.
 #' }
 #' @param rename logical value indicating whether or not long file names shall be transformed to short scientific names.
+#' @param save.file logical value indicating whether or not the result \code{tibble} shall be stored locally.
 #' @author Hajk-Georg Drost
 #' @export
 
-meta.seq.space <- function(rm.folder, type = "rm", repeat.type = "all", rename = FALSE) {
-  
+meta.seq.space <-
+  function(rm.folder,
+           type = "rm",
+           repeat.type = "all",
+           rename = FALSE,
+           save.file = TRUE
+           ) {
+    
   if (!is.element(type, c("rm")))
     stop(
       "Please select a sequence type for which a sequence space can",
@@ -55,6 +62,11 @@ meta.seq.space <- function(rm.folder, type = "rm", repeat.type = "all", rename =
     if (rename)
       res <- assign.short.sci.name(res)
     
+    if (save.file) {
+      message("The file '",paste0(basename(rm.folder), "_", names(res)[2],".csv"),"' has been generated and stored in the current working directory at '", getwd(),"'.")
+      readr::write_delim(res, path = paste0(basename(rm.folder), "_", names(res)[2],".csv"), delim = ";")
+    }
+
     return(res)
   }
 }
