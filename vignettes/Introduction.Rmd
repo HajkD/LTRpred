@@ -60,6 +60,18 @@ __Figure 1__ in mind will help researchers to modify structural parameters in a 
 
 __Note: please be aware that LTRpred is designed for Linux and Unix based systems such as macOS. Hence, although LTRpred itself can be installed on Windows machines, most of the command line tools LTRpred depends on cannot be installed on Windows machines.__
 
+### Programming Languages
+
+Please make sure that the following programming languages are installed on your system:
+
+- Perl
+- Ruby
+- Python
+- C/C++
+- R
+
+### Dependency R packages
+
 Please make sure that [Bioconductor](https://www.bioconductor.org/install/) and all package dependencies are installed on the
 system on which you would like to run `LTRpred`.
 
@@ -90,49 +102,18 @@ biocLite("HajkD/LTRpred")
 
 __For the `LTRpred::LTRpred()` function to run properly, please make sure that the following command line tools are installed on your system__:
 
-## Install [GenomeTools](https://github.com/genometools/genometools)
+__We show examplified for macOS Sierra 10.12.6 how to install the individual tools. Please consult the installation documentation of the individual tools when you wish to install the command line tools for a different operating system than macOS Sierra. Please also make sure that you have sudo rights on the system you wish to install the following tools.__ 
 
-For linux systems:
-
-```bash
-wget http://genometools.org/pub/genometools-1.5.7.tar.gz
-tar -xf genometools-1.5.7.tar.gz
-cd genometools-1.5.7
-make with-hmmer=yes cairo=no 
-make cairo=no test
-make cairo=no install
-```
-
-For macOS systems:
-
-```bash
-# Go to: http://brew.sh/
-# Install Homebrew: ruby -e "$(curl -fsSL
-# https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-$ brew install caskroom/cask/brew-cask
-$ brew cask install xquartz
-$ brew install cairo
-$ brew install pango
-```
-
-```bash
-# install genometools
-# download from http://genometools.org/pub/genometools-1.5.7.tar.gz
-tar -xf genometools-1.5.7.tar.gz
-cd genometools-1.5.7
-make with-hmmer=yes cairo=no 
-make cairo=no test
-make cairo=no install
-```
 
 ## Install [HMMER](http://hmmer.org/download.html)
 
-For unix systems:
+A detailed description of how to install `HMMER` for several operating systems 
+can be found [here](http://hmmer.org/download.html).
+
+### For `Linux` systems:
 
 ```bash
-wget 
-ftp://selab.janelia.org/pub/software/hmmer3/3.1b2/hmmer-3.1b2.tar.gz
+wget ftp://selab.janelia.org/pub/software/hmmer3/3.1b2/hmmer-3.1b2.tar.gz
 tar xf hmmer-3.1b2.tar.gz
 cd hmmer-3.1b2
  ./configure
@@ -141,44 +122,183 @@ cd hmmer-3.1b2
  sudo make install
 ```
 
+### For `macOS` systems:
+
+First install [Homebrew](http://brew.sh/) by running the command:
+
+```bash
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+Then users can install the following dependencies:
+
+```bash
+brew install wget
+```
+
+In case you have troubles installing `Homebrew` or some dependencies,
+please consult the [Common issues](https://docs.brew.sh/Common-Issues.html)
+section of the `Homebrew` documentation.
+
+```bash
+# download HMMER binary
+wget http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-macosx-intel.tar.gz
+tar xf hmmer-3.1b2-macosx-intel.tar.gz
+cd hmmer-3.1b2-macosx-intel
+ ./configure
+ make
+ make check
+ sudo make install
+```
+
+## Install [GenomeTools](https://github.com/genometools/genometools)
+
+A detailed description of how to install `GenomeTools` for several operating systems 
+can be found [here](https://github.com/genometools/genometools/blob/master/INSTALL).
+
+Examplified for Linux or macOS users can run the following procedures:
+
+### For `Linux` systems
+
+```bash
+wget http://genometools.org/pub/genometools-1.5.7.tar.gz
+tar -xf genometools-1.5.7.tar.gz
+cd genometools-1.5.7
+make with-hmmer=yes cairo=no 
+make cairo=no test
+sudo make cairo=no install
+```
+
+### For `macOS` systems
+
+First install [Homebrew](http://brew.sh/) by running the command:
+
+```bash
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+Then users can install the following dependencies:
+
+```bash
+# install dependencies
+brew tap caskroom/cask
+brew cask install xquartz
+brew install cairo
+brew install pango
+brew install wget
+```
+
+In case you have troubles installing `Homebrew` or some dependencies,
+please consult the [Common issues](https://docs.brew.sh/Common-Issues.html)
+section of the `Homebrew` documentation.
+
+```bash
+# install genometools
+# download from http://genometools.org/pub/genometools-1.5.7.tar.gz
+wget http://genometools.org/pub/genometools-1.5.7.tar.gz
+tar -xf genometools-1.5.7.tar.gz
+cd genometools-1.5.7
+make with-hmmer=yes cairo=no 
+make cairo=no test
+sudo make cairo=no install
+```
+
+In case you have problems or issues installing `GenomeTools` please
+consult the [installation](https://github.com/genometools/genometools/blob/master/INSTALL)
+documentation.
+
+
 ## Install [USEARCH](http://drive5.com/usearch/download.html)
 
-Example for macOS (analogous for linux systems):
+A detailed description of how to install `USEARCH` for several operating systems 
+can be found [here](http://drive5.com/usearch/download.html).
+
+First, users will need to register and download USEARCH for their operating system
+from http://drive5.com/usearch/download.html .
+
+### Example for macOS:
 
 ```bash
 # register and download operating system specific usearch from
 # http://drive5.com/usearch/download.html
+# After download run:
 chmod +x usearch10.0.240_i86osx32
 sudo cp usearch10.0.240_i86osx32 /usr/local/bin/
 sudo mv /usr/local/bin/usearch10.0.240_i86osx32 /usr/local/bin/usearch
 ```
 
+In case you have problems or issues installing `USEARCH` please
+consult the [USEARCH documentation](http://drive5.com/usearch/)
+documentation.
+
 ## Install [VSEARCH](https://github.com/torognes/vsearch)
 
-Example for unix systems:
+A detailed description of how to install `VSEARCH` for several operating systems 
+can be found [here](https://github.com/torognes/vsearch).
+
+Please [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) before running the following commands.
+
+
+### Example for Linux systems:
+
+```bash
+sudo apt-get install git autotools-dev
+```
 
 ```bash
 sudo git clone https://github.com/torognes/vsearch.git
 cd vsearch
+sudo ./autogen.sh
 sudo ./configure
 sudo make
 sudo make install
 ```
 
+### Example for macOS systems:
+
+First install [Homebrew](http://brew.sh/) by running the command:
+
+```bash
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+```bash
+brew install autoconf
+brew install automake
+```
+
+```bash
+sudo git clone https://github.com/torognes/vsearch.git
+cd vsearch
+sudo ./autogen.sh
+sudo ./configure
+sudo make
+sudo make install
+```
+
+In case you have problems or issues installing `VSEARCH` please
+consult the [VSEARCH documentation](https://github.com/Pas-Kapli/tutorials/wiki/vsearch)
+documentation.
+
+
 ## [BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279671/)
 
-For example for Linux systems open the Terminal application and run:
+A detailed description of how to install `BLAST` for several operating systems 
+can be found [here](https://www.ncbi.nlm.nih.gov/books/NBK279671/).
+
+
+### Linux Example
 
 ```bash
 # download BLAST+ version 2.2.31
 wget 
-ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.31/ncbi-blast-2.2.31+-x64-linux.tar.gz
+ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.7.1/ncbi-blast-2.7.1+-x64-linux.tar.gz
 
 # extract the compiled version of BLAST
-tar zxvpf ncbi-blast+2.2.31+-x64-linux.tar.gz
+tar zxvpf ncbi-blast-2.7.1+-x64-linux.tar.gz
 
 # copy BLAST files to `usr/local/bin`
-cp ncbi-blast-2.2.31+/bin/* usr/local/bin
+cp ncbi-blast-2.7.1+/bin/* usr/local/bin
 ```
 
 Alternatively users can set the system call to the BLAST programs by specifying the PATH variable (this is useful, because it allows an easier update of BLAST versions instead of deleting all BLAST programs from usr/local/bin):
@@ -189,7 +309,7 @@ vi .bash_profile
 
 # type 'Shift' then I to edit the file .bash_profile
 # and specify the export PATH
-export PATH=${PATH}:/path/to/downloaded/blast/folder/ncbi-blast-2.2.31+/bin
+export PATH=${PATH}:/path/to/downloaded/blast/folder/ncbi-blast-2.7.1+/bin
 
 # type 'ESC' then ':' then 'w' then 'q' to save and quit the .bash_profile file 
 # log out from your server with
@@ -200,6 +320,13 @@ blastp -version
 ```
 
 Now users should see the BLAST command line options.
+
+
+### macOS Example
+
+Download the file `ncbi-blast-2.7.1+.dmg` from ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.7.1/
+and run the excecutable.
+
 
 
 ### Install [Perl](https://www.perl.org/)
