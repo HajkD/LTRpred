@@ -290,7 +290,7 @@ can be found [here](https://www.ncbi.nlm.nih.gov/books/NBK279671/).
 ### Linux Example
 
 ```bash
-# download BLAST+ version 2.2.31
+# download BLAST+ version 2.7.1
 wget 
 ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.7.1/ncbi-blast-2.7.1+-x64-linux.tar.gz
 
