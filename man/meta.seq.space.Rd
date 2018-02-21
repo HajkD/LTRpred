@@ -20,7 +20,7 @@ Options are:
 
 \itemize{
  \item \code{repeat.type = "all"} include all types of repeats.
- \item \code{repeat.type = "LTR"} include only LTR retrotransposons.
+ \item \code{repeat.type = "ltr"} include only LTR retrotransposons.
 }}
 
 \item{rename}{logical value indicating whether or not long file names shall be transformed to short scientific names.}
