@@ -53,7 +53,7 @@ meta.seq.space <-
                        total_repeat_space_mbp = repeat_space_all)
     }
     
-    if (repeat.type == "LTR") {
+    if (repeat.type == "ltr") {
       res <-
         tibble::tibble(organism = basename(get_files),
                        ltr_retro_space_mbp = repeat_space_all)
