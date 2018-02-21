@@ -4,7 +4,7 @@
 \alias{totalRepeatSpace}
 \title{Quantify the total repeat space from Repeat Masker output in Mbp}
 \usage{
-totalRepeatSpace(file, repeat.type = "LTR")
+totalRepeatSpace(file, repeat.type = "all")
 }
 \arguments{
 \item{file}{path to Repeat Masker output file.}
@@ -14,8 +14,12 @@ Options are:
 
 \itemize{
  \item \code{repeat.type = "all"} include all types of repeats.
- \item \code{repeat.type = "LTR"} include only LTR retrotransposons.
+ \item \code{repeat.type = "ltr"} include only LTR retrotransposons.
 }}
+}
+\description{
+Given a \code{Repeat Masker} annotation file this function quantifies
+the total repeat space in mega base pairs (Mbp).
 }
 \seealso{
 \code{\link{meta.seq.space}}
