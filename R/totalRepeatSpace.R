@@ -1,20 +1,21 @@
 #' @title Quantify the total repeat space from Repeat Masker output in Mbp
-#' @description 
+#' @description Given a \code{Repeat Masker} annotation file this function quantifies
+#' the total repeat space in mega base pairs (Mbp).
 #' @param file path to Repeat Masker output file.
 #' @param repeat.type type of element for which total repeat space shall be quantified.
 #' Options are:
 #' 
 #' \itemize{
 #'  \item \code{repeat.type = "all"} include all types of repeats.
-#'  \item \code{repeat.type = "LTR"} include only LTR retrotransposons.
+#'  \item \code{repeat.type = "ltr"} include only LTR retrotransposons.
 #' }
 #' @seealso \code{\link{meta.seq.space}}
 #' @author Hajk-Georg Drost
 #' @export
 
-totalRepeatSpace <- function(file, repeat.type = "LTR") {
+totalRepeatSpace <- function(file, repeat.type = "all") {
   
-  if (!is.element(repeat.type, c("LTR", "all")))
+  if (!is.element(repeat.type, c("ltr", "all")))
     stop("Please specify a type argument that is supported by this function.", call. = FALSE)
   
   if (!file.exists(file))
@@ -24,7 +25,7 @@ totalRepeatSpace <- function(file, repeat.type = "LTR") {
   message("Importing Repeat Masker Annotation from '",file,"' ...")
   repeat_file <- biomartr::read_rm(file = file)
   
-  if (repeat.type == "LTR") {
+  if (repeat.type == "ltr") {
     message("Selecting only LTR retrotransposon associated repeats ...")
     matching_class <- NULL
     repeat_file <- dplyr::filter(repeat_file, stringr::str_detect(matching_class, "LTR"))
