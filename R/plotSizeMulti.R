@@ -42,6 +42,53 @@ plotSizeMulti <-
     stop("Please specify: type = 'total_ltrs_nucl_mbp' for total length of all TEs in Mbp; type = 'total_ltrs_nucl_freq' for proportion of TEs within entire genome in %; type = 'n_ltrs' for total number of TEs in genome; type = 'n_ltrs_freq' for total number of TEs in genome normalized by genome size in Mbp.", call. = FALSE)
   
   if (type == "n_ltrs") {
+    n_ltrs <- NULL
+    n_row_before <- nrow(gm_files_combined)
+    gm_files_combined <- dplyr::filter(gm_files_combined, n_ltrs > 0)
+    n_row_after <- nrow(gm_files_combined)
+    
+    if ((n_row_before - n_row_after) > 0)
+      message(n_row_before - n_row_after, " species were removed, because they had 0 LTR retrotransposons.")
+    
+    message(
+      "R_pearson(n_ltrs, genome_size_nucl_mbp) = ",
+      cor(
+        gm_files_combined$n_ltrs,
+        gm_files_combined$genome_size_nucl_mbp,
+        method = "pearson"
+      ),
+      "; p-val = ",
+      cor.test(gm_files_combined$n_ltrs,
+               gm_files_combined$genome_size_nucl_mbp,
+               method = "pearson")
+    )
+    
+    message(
+      "R_spearman(n_ltrs, genome_size_nucl_mbp) = ",
+      cor(
+        gm_files_combined$n_ltrs,
+        gm_files_combined$genome_size_nucl_mbp,
+        method = "spearman"
+      ),
+      "; p-val = ",
+      cor.test(gm_files_combined$n_ltrs,
+               gm_files_combined$genome_size_nucl_mbp,
+               method = "spearman")
+    )
+    
+    message(
+      "R_kendall(n_ltrs, genome_size_nucl_mbp) = ",
+      cor(
+        gm_files_combined$n_ltrs,
+        gm_files_combined$genome_size_nucl_mbp,
+        method = "kendall"
+      ),
+      "; p-val = ",
+      cor.test(gm_files_combined$n_ltrs,
+               gm_files_combined$genome_size_nucl_mbp,
+               method = "kendall")
+    )
+    
     res <-
       ggplot2::ggplot(gm_files_combined,
                       ggplot2::aes(x = n_ltrs,
@@ -52,6 +99,56 @@ plotSizeMulti <-
     
   
   if (type == "n_ltrs_freq") {
+    
+    n_ltrs_freq <- NULL
+    n_row_before <- nrow(gm_files_combined)
+    gm_files_combined <- dplyr::filter(gm_files_combined, n_ltrs_freq > 0)
+    n_row_after <- nrow(gm_files_combined)
+    
+    if ((n_row_before - n_row_after) > 0)
+      message(n_row_before - n_row_after, " species were removed, because they had 0 LTR retrotransposons.")
+    
+    
+    message(
+      "R_pearson(n_ltrs_freq, genome_size_nucl_mbp) = ",
+      cor(
+        gm_files_combined$n_ltrs_freq,
+        gm_files_combined$genome_size_nucl_mbp,
+        method = "pearson"
+      ),
+      "; p-val = ",
+      cor.test(gm_files_combined$n_ltrs_freq,
+               gm_files_combined$genome_size_nucl_mbp,
+               method = "pearson")
+    )
+    
+    
+    message(
+      "R_spearman(n_ltrs_freq, genome_size_nucl_mbp) = ",
+      cor(
+        gm_files_combined$n_ltrs_freq,
+        gm_files_combined$genome_size_nucl_mbp,
+        method = "spearman"
+      ),
+      "; p-val = ",
+      cor.test(gm_files_combined$n_ltrs_freq,
+               gm_files_combined$genome_size_nucl_mbp,
+               method = "spearman")
+    )
+    
+    message(
+      "R_kendall(n_ltrs_freq, genome_size_nucl_mbp) = ",
+      cor(
+        gm_files_combined$n_ltrs_freq,
+        gm_files_combined$genome_size_nucl_mbp,
+        method = "kendall"
+      ),
+      "; p-val = ",
+      cor.test(gm_files_combined$n_ltrs_freq,
+               gm_files_combined$genome_size_nucl_mbp,
+               method = "kendall")
+    )
+    
     res <-
       ggplot2::ggplot(gm_files_combined,
                       ggplot2::aes(x = n_ltrs_freq,
@@ -62,6 +159,47 @@ plotSizeMulti <-
     
   
   if (type == "total_ltrs_nucl_mbp") {
+    total_ltrs_nucl_mbp <- NULL
+    n_row_before <- nrow(gm_files_combined)
+    gm_files_combined <- dplyr::filter(gm_files_combined, total_ltrs_nucl_mbp > 0)
+    n_row_after <- nrow(gm_files_combined)
+    
+    if ((n_row_before - n_row_after) > 0)
+      message(n_row_before - n_row_after, " species were removed, because they had 0 LTR retrotransposons.")
+    
+    print(dplyr::summarise(dplyr::group_by(gm_files_combined, kingdom), 
+      R_pearson = round(cor(
+      total_ltrs_nucl_mbp,
+      genome_size_nucl_mbp,
+      method = "pearson"
+    ), 3),
+    p_val_pearson = cor.test(
+      total_ltrs_nucl_mbp,
+      genome_size_nucl_mbp,
+      method = "pearson"
+    )$p.value,
+    R_spearman = round(cor(
+      total_ltrs_nucl_mbp,
+      genome_size_nucl_mbp,
+      method = "spearman"
+    ), 3),
+    p_val_spearman = cor.test(
+      total_ltrs_nucl_mbp,
+      genome_size_nucl_mbp,
+      method = "spearman"
+    )$p.value,
+    R_kendall = round(cor(
+      total_ltrs_nucl_mbp,
+      genome_size_nucl_mbp,
+      method = "kendall"
+    ), 3),
+    p_val_kendall = cor.test(
+      total_ltrs_nucl_mbp,
+      genome_size_nucl_mbp,
+      method = "kendall"
+    )$p.value
+    ))
+    
     res <-
       ggplot2::ggplot(
         gm_files_combined,
@@ -73,6 +211,41 @@ plotSizeMulti <-
     
   
   if (type == "total_ltrs_nucl_freq") {
+    total_ltrs_nucl_freq <- NULL
+    n_row_before <- nrow(gm_files_combined)
+    gm_files_combined <- dplyr::filter(gm_files_combined, total_ltrs_nucl_freq > 0)
+    n_row_after <- nrow(gm_files_combined)
+    
+    if ((n_row_before - n_row_after) > 0)
+      message(n_row_before - n_row_after, " species were removed, because they had 0 LTR retrotransposons.")
+    
+    message(
+      "R_spearman(total_ltrs_nucl_freq, genome_size_nucl_mbp) = ",
+      cor(
+        gm_files_combined$total_ltrs_nucl_freq,
+        gm_files_combined$genome_size_nucl_mbp,
+        method = "spearman"
+      ),
+      "; p-val = ",
+      cor.test(m_files_combined$total_ltrs_nucl_freq,
+               gm_files_combined$genome_size_nucl_mbp,
+               method = "spearman")
+    )
+    
+    message(
+      "R_kendall(total_ltrs_nucl_freq, genome_size_nucl_mbp) = ",
+      cor(
+        gm_files_combined$total_ltrs_nucl_freq,
+        gm_files_combined$genome_size_nucl_mbp,
+        method = "kendall"
+      ),
+      "; p-val = ",
+      cor.test(m_files_combined$total_ltrs_nucl_freq,
+               gm_files_combined$genome_size_nucl_mbp,
+               method = "kendall")
+    )
+    
+    
     res <-
       ggplot2::ggplot(
         gm_files_combined,
