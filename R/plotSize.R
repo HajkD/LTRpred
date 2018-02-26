@@ -13,10 +13,13 @@
 #' @param ylab y-axis label.
 #' @param main main text.
 #' @param alpha transparency of confidence interval of the smoothing function: between \[ 0,1 \].
-#' @param arrow_lab whether or not data points shall be labelled with arrows (ggrepel). 
+#' @param arrow_lab whether or not data points shall be labelled with arrows (ggrepel).
+#' @param min.total.ltrs minimum number of LTR retrotransposon abundance in Mbp to label dots. 
 #' @param text.size size of the labels in ggplot2 notation.
 #' @param label.size size of the dot-labels.
+#' @param point.size size of geom_points.
 #' @param check.overlap shall overlaps of labels be avoided or not.
+#' @param remove.zero shall species with 0 retrotransposons be removed?
 #' @author Hajk-Georg Drost
 #' @details 
 #' In the first step, users should have generated LTR retrotransposon annotations for several species using the
@@ -42,59 +45,66 @@ plotSize <- function(genome.summary,
                      main                = "",
                      alpha               = 0.3,
                      arrow_lab           = FALSE,
+                     min.total.ltrs      = 15,
                      text.size           = 18,
                      label.size          = 3,
-                     check.overlap       = TRUE) {
+                     point.size          = 3.5,
+                     check.overlap       = TRUE,
+                     remove.zero         = FALSE) {
     
     if (!is.element(type, c("total_ltrs_nucl_mbp", "n_ltrs_freq", "n_ltrs", "total_ltrs_nucl_freq")))
         stop("Please specify: type = 'total_ltrs_nucl_mbp' for total length of all TEs in Mbp; type = 'total_ltrs_nucl_freq' for proportion of TEs within entire genome in %; type = 'n_ltrs' for total number of TEs in genome; type = 'n_ltrs_freq' for total number of TEs in genome normalized by genome size in Mbp.", call. = FALSE)
     
+     if (remove.zero)
+       genome.summary <- dplyr::filter(genome.summary, total_ltrs_nucl_mbp > 0)
+    
+  
         if (type == "n_ltrs")
         cor.value <-
-            stats::cor(genome.summary$gm_file$n_ltrs, genome.summary$gm_file$genome_size_nucl_mbp, method = cor.method)
+            stats::cor(genome.summary$n_ltrs, genome.summary$genome_size_nucl_mbp, method = cor.method)
        
          if (type == "n_ltrs_freq")
             cor.value <-
-            stats::cor(genome.summary$gm_file$n_ltrs_freq, genome.summary$gm_file$genome_size_nucl_mbp, method = cor.method)
+            stats::cor(genome.summary$n_ltrs_freq, genome.summary$genome_size_nucl_mbp, method = cor.method)
         
         if (type == "total_ltrs_nucl_mbp")
             cor.value <-
-            stats::cor(genome.summary$gm_file$total_ltrs_nucl_mbp, genome.summary$gm_file$genome_size_nucl_mbp, method = cor.method)
+            stats::cor(genome.summary$total_ltrs_nucl_mbp, genome.summary$genome_size_nucl_mbp, method = cor.method)
         
         if (type == "total_ltrs_nucl_freq")
             cor.value <-
-            stats::cor(genome.summary$gm_file$total_ltrs_nucl_freq, genome.summary$gm_file$genome_size_nucl_mbp, method = cor.method)
+            stats::cor(genome.summary$total_ltrs_nucl_freq, genome.summary$genome_size_nucl_mbp, method = cor.method)
         
         if (type == "n_ltrs")
             res <-
-                ggplot2::ggplot(genome.summary$gm_file,
+                ggplot2::ggplot(genome.summary,
                                 ggplot2::aes(x = n_ltrs,
                                              y = genome_size_nucl_mbp))
         
         if (type == "n_ltrs_freq")
             res <-
-                ggplot2::ggplot(genome.summary$gm_file,
+                ggplot2::ggplot(genome.summary,
                                 ggplot2::aes(x = n_ltrs_freq,
                                              y = genome_size_nucl_mbp))
         
         if (type == "total_ltrs_nucl_mbp")
             res <-
                 ggplot2::ggplot(
-                    genome.summary$gm_file,
+                    genome.summary,
                     ggplot2::aes(x = total_ltrs_nucl_mbp,
                                  y = genome_size_nucl_mbp)
                 )
         if (type == "total_ltrs_nucl_freq")
             res <-
                 ggplot2::ggplot(
-                    genome.summary$gm_file,
+                    genome.summary,
                     ggplot2::aes(x = total_ltrs_nucl_freq * 100,
                                  y = genome_size_nucl_mbp)
                 )
         
         message("corr (", cor.method,") = ", cor.value)
         
-        res <- res + ggplot2::geom_point(size = 5, colour = colour) +
+        res <- res + ggplot2::geom_point(size = point.size, colour = colour) +
             ggplot2::theme_minimal() +
             ggplot2::labs(
                 x = xlab,
@@ -124,7 +134,7 @@ plotSize <- function(genome.summary,
         if (label.organism) {
             if (!arrow_lab) {
                 res <- res + ggplot2::geom_text(
-                    ggplot2::aes(label = organism),
+                    ggplot2::aes(label = ifelse(total_ltrs_nucl_mbp > min.total.ltrs ,organism,'')),
                     hjust = 0,
                     vjust = 0,
                     size = label.size,
@@ -135,7 +145,8 @@ plotSize <- function(genome.summary,
             
             if (arrow_lab) {
                 res <-
-                    res + ggrepel::geom_text_repel(ggplot2::aes(label = organism),
+                    res + ggrepel::geom_text_repel(
+                                                   ggplot2::aes(label = ifelse(total_ltrs_nucl_mbp > min.total.ltrs, organism,'')),
                                                    size = label.size,
                                                    fontface = 'bold')
             }
