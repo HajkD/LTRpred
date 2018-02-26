@@ -42,13 +42,7 @@ plotSizeMulti <-
     stop("Please specify: type = 'total_ltrs_nucl_mbp' for total length of all TEs in Mbp; type = 'total_ltrs_nucl_freq' for proportion of TEs within entire genome in %; type = 'n_ltrs' for total number of TEs in genome; type = 'n_ltrs_freq' for total number of TEs in genome normalized by genome size in Mbp.", call. = FALSE)
   
   if (type == "n_ltrs") {
-    n_ltrs <- NULL
-    n_row_before <- nrow(gm_files_combined)
-    gm_files_combined <- dplyr::filter(gm_files_combined, n_ltrs > 0)
-    n_row_after <- nrow(gm_files_combined)
     
-    if ((n_row_before - n_row_after) > 0)
-      message(n_row_before - n_row_after, " species were removed, because they had 0 LTR retrotransposons.")
     
     message(
       "R_pearson(n_ltrs, genome_size_nucl_mbp) = ",
@@ -94,20 +88,12 @@ plotSizeMulti <-
                       ggplot2::aes(x = n_ltrs,
                                    y = genome_size_nucl_mbp,
                                    colour = kingdom)) + 
-      ggplot2::facet_grid(. ~ kingdom) + ggsci::scale_color_lancet()
+      ggplot2::facet_grid(. ~ kingdom, scales = "free_x") + ggsci::scale_color_lancet()
   }
     
   
   if (type == "n_ltrs_freq") {
-    
-    n_ltrs_freq <- NULL
-    n_row_before <- nrow(gm_files_combined)
-    gm_files_combined <- dplyr::filter(gm_files_combined, n_ltrs_freq > 0)
-    n_row_after <- nrow(gm_files_combined)
-    
-    if ((n_row_before - n_row_after) > 0)
-      message(n_row_before - n_row_after, " species were removed, because they had 0 LTR retrotransposons.")
-    
+  
     
     message(
       "R_pearson(n_ltrs_freq, genome_size_nucl_mbp) = ",
@@ -159,15 +145,8 @@ plotSizeMulti <-
     
   
   if (type == "total_ltrs_nucl_mbp") {
-    total_ltrs_nucl_mbp <- NULL
-    n_row_before <- nrow(gm_files_combined)
-    gm_files_combined <- dplyr::filter(gm_files_combined, total_ltrs_nucl_mbp > 0)
-    n_row_after <- nrow(gm_files_combined)
     
-    if ((n_row_before - n_row_after) > 0)
-      message(n_row_before - n_row_after, " species were removed, because they had 0 LTR retrotransposons.")
-    
-    print(dplyr::summarise(dplyr::group_by(gm_files_combined, kingdom), 
+    cor_data <- dplyr::summarise(dplyr::group_by(gm_files_combined, kingdom), 
       R_pearson = round(cor(
       total_ltrs_nucl_mbp,
       genome_size_nucl_mbp,
@@ -198,7 +177,17 @@ plotSizeMulti <-
       genome_size_nucl_mbp,
       method = "kendall"
     )$p.value
-    ))
+    )
+    
+    print(cor_data)
+    
+    kingdom_name <-
+      unique(unlist(lapply(unique(gm_files_combined$kingdom), function(x)
+        unlist(stringr::str_split(x, "_"))[1])))
+    
+    readr::write_excel_csv(cor_data,
+                           paste0("cor_data_", kingdom_name , ".csv"),
+                           col_names = TRUE)
     
     res <-
       ggplot2::ggplot(
@@ -206,18 +195,11 @@ plotSizeMulti <-
         ggplot2::aes(x = total_ltrs_nucl_mbp,
                      y = genome_size_nucl_mbp,
                      colour = kingdom)
-      ) + ggplot2::facet_grid(. ~ kingdom) + ggsci::scale_color_lancet()
+      ) + ggplot2::facet_grid(. ~ kingdom, scales = "free_x") + ggsci::scale_color_lancet()
   }
     
   
   if (type == "total_ltrs_nucl_freq") {
-    total_ltrs_nucl_freq <- NULL
-    n_row_before <- nrow(gm_files_combined)
-    gm_files_combined <- dplyr::filter(gm_files_combined, total_ltrs_nucl_freq > 0)
-    n_row_after <- nrow(gm_files_combined)
-    
-    if ((n_row_before - n_row_after) > 0)
-      message(n_row_before - n_row_after, " species were removed, because they had 0 LTR retrotransposons.")
     
     message(
       "R_spearman(total_ltrs_nucl_freq, genome_size_nucl_mbp) = ",
