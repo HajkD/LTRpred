@@ -4,7 +4,7 @@
 \alias{plotRepeatSpace}
 \title{Genome Size vs. Repeat Space}
 \usage{
-plotRepeatSpace(genome.matrix, cor.method = "spearman",
+plotRepeatSpace(genome.summary, cor.method = "spearman",
   label.organism = TRUE, smooth.method = "glm", se = TRUE,
   xlab = "Total repeats length in Mega [bp]",
   ylab = "Genome size in Mega [bp]", main = "", alpha = 0.3,
@@ -14,8 +14,6 @@ plotRepeatSpace(genome.matrix, cor.method = "spearman",
   check.overlap = TRUE)
 }
 \arguments{
-\item{genome.matrix}{Genome matrix retruned by \code{\link[LTRpred]{LTRpred.meta}}.}
-
 \item{cor.method}{method to correlate genome size versus protein space.}
 
 \item{label.organism}{shall organism names be drawn in the figure?}
@@ -53,6 +51,8 @@ users can specify \code{smooth.method = 'NULL'}.}
 \item{label.size}{size of the dot-labels.}
 
 \item{check.overlap}{shall overlaps of labels be avoided or not.}
+
+\item{genome.matrix}{Genome matrix retruned by \code{\link[LTRpred]{LTRpred.meta}}.}
 }
 \description{
 Compute and visualize the correlation between genome size vs. Repeat Space.
