@@ -52,7 +52,7 @@ plotSize <- function(genome.summary,
                      check.overlap       = TRUE,
                      remove.zero         = FALSE) {
     
-    if (!is.element(type, c("total_ltrs_nucl_mbp", "n_ltrs_freq", "n_ltrs", "total_ltrs_nucl_freq")))
+    if (!is.element(type, c("total_ltrs_nucl_mbp", "n_ltrs_freq", "n_ltrs", "total_ltrs_nucl_freq", "total_repeat_space_mbp", "ltr_retro_space_mbp")))
         stop("Please specify: type = 'total_ltrs_nucl_mbp' for total length of all TEs in Mbp; type = 'total_ltrs_nucl_freq' for proportion of TEs within entire genome in %; type = 'n_ltrs' for total number of TEs in genome; type = 'n_ltrs_freq' for total number of TEs in genome normalized by genome size in Mbp.", call. = FALSE)
     
      if (remove.zero)
@@ -75,6 +75,15 @@ plotSize <- function(genome.summary,
             cor.value <-
             stats::cor(genome.summary$total_ltrs_nucl_freq, genome.summary$genome_size_nucl_mbp, method = cor.method)
         
+        if (type == "ltr_retro_space_mbp")
+          cor.value <-
+            stats::cor(genome.summary$ltr_retro_space_mbp, genome.summary$genome_size_nucl_mbp, method = cor.method)
+        
+        if (type == "total_repeat_space_mbp")
+          cor.value <-
+            stats::cor(genome.summary$total_repeat_space_mbp, genome.summary$genome_size_nucl_mbp, method = cor.method)
+        
+        
         if (type == "n_ltrs")
             res <-
                 ggplot2::ggplot(genome.summary,
@@ -94,6 +103,23 @@ plotSize <- function(genome.summary,
                     ggplot2::aes(x = total_ltrs_nucl_mbp,
                                  y = genome_size_nucl_mbp)
                 )
+        
+        if (type == "ltr_retro_space_mbp")
+          res <-
+            ggplot2::ggplot(
+              genome.summary,
+              ggplot2::aes(x = ltr_retro_space_mbp,
+                           y = genome_size_nucl_mbp)
+            )
+        
+        if (type == "total_repeat_space_mbp")
+          res <-
+            ggplot2::ggplot(
+              genome.summary,
+              ggplot2::aes(x = total_repeat_space_mbp,
+                           y = genome_size_nucl_mbp)
+            )
+        
         if (type == "total_ltrs_nucl_freq")
             res <-
                 ggplot2::ggplot(
