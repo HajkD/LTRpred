@@ -279,7 +279,7 @@ plotSizeMulti <-
   
   res <- res +
     ggplot2::scale_y_continuous(breaks = scales::pretty_breaks(n = 6)) +
-    ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = 6))
+    ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = 8))
   
   if (!is.null(smooth.method)) {
     res <-
