@@ -134,15 +134,7 @@ plotSize <- function(genome.summary,
             ggplot2::theme_minimal() +
             ggplot2::labs(
                 x = xlab,
-                y = ylab,
-                title = paste0(
-                    main,
-                    " [ Corr ( ",
-                    cor.method,
-                    " ) = ",
-                    round(cor.value, digits = 2),
-                    " ]"
-                )
+                y = ylab
             ) +
             ggplot2::theme(legend.text = ggplot2::element_text(size = text.size)) +
             ggplot2::theme(
@@ -180,7 +172,7 @@ plotSize <- function(genome.summary,
         
         res <- res +
             ggplot2::scale_y_continuous(breaks = scales::pretty_breaks(n = 6)) +
-            ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = 6))
+            ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = 8))
         
         if (!is.null(smooth.method)) {
             res <-
