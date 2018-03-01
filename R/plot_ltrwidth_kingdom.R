@@ -7,6 +7,14 @@
 #' choose \code{element.type = "full_retrotransposon"} or \code{element.type = "ltr_element"}. 
 #' In case \code{element.type = "ltr_element"} is chosen then the width of the left LTR element is 
 #' used to visualize width vs. seq. similarity between the LTRs.
+#' @param summary.type summary statistic to quantify total LTR length or LTR element length.
+#' Options are:
+#' \itemize{
+#'  \item \code{summary.type = "median"} - for quantifying the median length of all elements
+#'  \item \code{summary.type = "sum"} - for quantifying the total length (= sum) of all elements
+#'  \item \code{summary.type = "mean"} - for quantifying the mean length of all elements
+#'  \item \code{summary.type = "var"} - for quantifying the variance length of all elements
+#' }
 #' @param plot.type type of visualization: either \code{plot.type = "boxplot"} or \code{plot.type = "violin"}.
 #' @param similarity.bin resolution of similarity binning. E.g. binning 98\%-100\% into 0.5\% intervals would be \code{similarity.bin = 0.5}. 
 #' @param min.sim minimum similarity between LTRs that can shall be considered for visualization.
@@ -29,6 +37,7 @@
 
 plot_ltrwidth_kingdom <- function(data,
                                   element.type   = "full_retrotransposon",
+                                  summary.type   = "median",
                                   plot.type      = "boxplot", 
                                   similarity.bin = 2, 
                                   min.sim        = 70,
@@ -67,13 +76,35 @@ plot_ltrwidth_kingdom <- function(data,
     }
     
     # group by species and similarity and compute the median LTR/Retrotransposon width for each species
-    pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity), median_width = median(width))
-    pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity), median_width = median(lLTR_length))
+    pred_median_sim_retrotrans <-
+      dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity),
+                       mean_width = mean(width),
+                       sum_width = sum(width),
+                       median_width = median(width),
+                       var_width = var(width)
+                       )
+    pred_median_sim_ltr_only <-
+      dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity),
+                       median_width = median(lLTR_length),
+                       mean_width = mean(lLTR_length),
+                       sum_width = sum(lLTR_length),
+                       var_width = var(lLTR_length)
+                       )
     
     #max.width <- max(data$ltr.retrotransposon[ , "ltr_similarity"])
     if (element.type == "full_retrotransposon") {
+      if (summary.type == "median")
         res <-
             ggplot2::ggplot(pred_median_sim_retrotrans, ggplot2::aes(similarity, median_width))
+      if (summary.type == "mean")
+        res <-
+          ggplot2::ggplot(pred_median_sim_retrotrans, ggplot2::aes(similarity, mean_width))
+      if (summary.type == "sum")
+        res <-
+          ggplot2::ggplot(pred_median_sim_retrotrans, ggplot2::aes(similarity, sum_width))
+      if (summary.type == "var")
+        res <-
+          ggplot2::ggplot(pred_median_sim_retrotrans, ggplot2::aes(similarity, var_width))
     }
     
     if (element.type == "ltr_element") {
@@ -98,6 +129,7 @@ plot_ltrwidth_kingdom <- function(data,
     res <-
         res + ggplot2::labs(x = xlab, y = ylab, title = main) +
         ggplot2::scale_fill_discrete(name = legend.title) +
+        ggplot2::labs(colour = "Domain") +
         ggplot2::theme(
             title            = ggplot2::element_text(size = 18, face = "bold"),
             legend.title     = ggplot2::element_text(size = 18, face = "bold"),
