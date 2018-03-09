@@ -15,6 +15,7 @@ rename.fasta.meta <- function(in.folder, out.file){
     LTRpred.folders <- list.files(in.folder)
     
     for (i in seq_len(length(LTRpred.folders))) {
+      message("Processing file ",LTRpred.folders[i]," ...")
         species.name <-
             stringr::str_replace(LTRpred.folders[i], "_ltrpred", "")
         rename.fasta(
