@@ -25,6 +25,7 @@
 #' @param main title label.
 #' @param legend.title title of legend.
 #' @param y.ticks number of ticks at the y-axis. Default is \code{y.ticks = 10}.
+#' @param show.legend shall legend be drawn?
 #' @author Hajk-Georg Drost
 #' @details This function visualizes the correlation between LTR transposon age
 #' (measured in LTR similarity) and the width of the corresponding LTR retrotransposon (the complete sequence) or the width of the left LTR element. Using this visualization approach, different classes of LTR retrotransposons can be detected due to their width and age correlation.
@@ -47,7 +48,8 @@ plot_ltrwidth_kingdom <- function(data,
                                   ylab           = "Median LTR Retrotransposon length in bp",
                                   main           = "",
                                   legend.title   = "Similarity between LTRs",
-                                  y.ticks        = 10){
+                                  y.ticks        = 10,
+                                  show.legend    = TRUE){
     
     if (!is.element(plot.type, c("boxplot","violin")))
         stop("Please choose either type = 'boxplot' or type = 'violin'.", call. = FALSE)
@@ -115,15 +117,15 @@ plot_ltrwidth_kingdom <- function(data,
     if (plot.type == "boxplot") {
         res <-
             res + ggplot2::facet_wrap(~kingdom) + ggplot2::geom_boxplot( size = 1.5) + 
-            ggplot2::geom_point(ggplot2::aes(colour = kingdom)) + 
-            ggplot2::geom_jitter(ggplot2::aes(colour = kingdom), position = ggplot2::position_jitter(0.3))
+            ggplot2::geom_point(ggplot2::aes(colour = kingdom), show.legend = show.legend) + 
+            ggplot2::geom_jitter(ggplot2::aes(colour = kingdom), position = ggplot2::position_jitter(0.3), show.legend = show.legend)
     }
     
     if (plot.type == "violin") {
         res <-
             res + ggplot2::facet_wrap(~kingdom) + ggplot2::geom_violin( size = 1.5) + 
-            ggplot2::geom_point(ggplot2::aes(colour = kingdom)) + 
-            ggplot2::geom_jitter(ggplot2::aes(colour = kingdom), position = ggplot2::position_jitter(0.3))
+            ggplot2::geom_point(ggplot2::aes(colour = kingdom), show.legend = show.legend) + 
+            ggplot2::geom_jitter(ggplot2::aes(colour = kingdom), position = ggplot2::position_jitter(0.3), show.legend = show.legend)
     }
     
     res <-
