@@ -20,6 +20,9 @@ rename.fasta <- function(file, species, output = "renamed_fasta.fa", append = FA
   fa.file <- Biostrings::readDNAStringSet(file)
   fa.file@ranges@NAMES <-
     unlist(sapply(fa.file@ranges@NAMES, function(x) {
+      if (stringr::str_detect(x, "\\["))
+        x <- stringr::str_replace(x, "\\[", "")
+      
       stringr::str_replace(x, x, paste0(species, "_", x))
     }))
   Biostrings::writeXStringSet(fa.file, output, append = append)
