@@ -1,25 +1,54 @@
 ## LTRpred(ict): a pipeline for automated annotation of LTR retrotransposons for comparative genomics studies
 
-Due to their enormous contribution to genome structure and genome evolution transposable elements allow us to study fundamental mechanisms of phenotypic adaptation, diversification,
-and evolution. In particular, understanding the recognition and 
-regulation of transposable elements by the genetic regulatory machinery will enable us to 
-systematically identify the key players and key processes that enable niche adaptation and
-species diversification on the genetic level.
+An easy way to annotate `LTR retrotransposons` __de novo__ from any genome assembly in `fasta` format.
 
-The `LTRpred` pipeline aims to provide an integrated software framework to 
-predict potentially functional LTR transposons in any genomic sequence of interest. First, `LTRpred` 
-retrieves _de novo_ annotations of retrotransposons via `LTRharvest` and `LTRdigest`
-and second efficiently screens, filters and annotates those predictions for potentially 
-functional elements.
+![](vignettes/LTRfeatures.png)
 
-LTR transposons have the capacity to move to new sites in genomes
-through a copy-and-paste mechanism and by doing so are able to contribute generatively 
-to genome evolution and environmental sensing on the genetic level.
-Hence, predicting the presence of LTR transposons within genomes as well as their
-capacity to perform this copy-and-paste strategy enables us to quantify the extent 
-to which transposons shape the adaptation and evolution of life in general.
+## Install
 
-In particular the following analyses can be performed with `LTRpred`:
+```r
+# install the current version of LTRpred on your system
+source("http://bioconductor.org/biocLite.R")
+biocLite("devtools")
+biocLite("HajkD/LTRpred")
+```
+## Tutorials
+
+### Quick Start
+
+The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after [installing](vignettes/Install.Rmd) all prerequisite command line tools) is to use the
+`LTRpred()` function and relying on the default parameters. In the following example,
+a LTR transposon prediction is performed for parts of the Human Y chromosome.
+
+```r
+# load LTRpred package
+library(LTRpred)
+# de novo LTR transposon prediction for the Human Y chromosome
+LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
+```
+
+This tutorial introduces users to `LTRpred`:
+
+- [Introduction to LTRpred](https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd)
+
+Users can also read the tutorials within ([RStudio](http://www.rstudio.com/)) :
+
+```r
+library(LTRpred)
+browseVignettes("LTRpred")
+```
+
+## Discussions and Bug Reports
+
+I would be very happy to learn more about potential improvements of the concepts and functions
+provided in this package.
+
+Furthermore, in case you find some bugs or need additional (more flexible) functionality of parts
+of this package, please let me know:
+
+https://github.com/HajkD/LTRpred/issues
+
+In the `LTRpred` framework users can find:
 
 ### _De novo_ prediction and annotation
 
@@ -39,46 +68,6 @@ In particular the following analyses can be performed with `LTRpred`:
 - perform meta genomics studies customized for LTR retrotransposons
 - cluster LTR retrotransposons within and between species
 - quantify the diversity space of LTR retrotransposons for entire kingdoms of life
-
-## Install
-
-```r
-# install the current version of LTRpred on your system
-source("http://bioconductor.org/biocLite.R")
-biocLite("devtools")
-biocLite("HajkD/LTRpred")
-```
-
-## Discussions and Bug Reports
-
-I would be very happy to learn more about potential improvements of the concepts and functions
-provided in this package.
-
-Furthermore, in case you find some bugs or need additional (more flexible) functionality of parts
-of this package, please let me know:
-
-https://github.com/HajkD/LTRpred/issues
-
-
-## NEWS
-
-The current status of the package as well as a detailed history of the
-functionality of each version of `LTRpred` can be found in the [NEWS](https://github.com/HajkD/LTRpred/blob/master/NEWS.md) section.
-
-## Tutorials
-
-This tutorial introduces users to `LTRpred`:
-
-- [Introduction to LTRpred](https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd)
-
-Users can also read the tutorials within ([RStudio](http://www.rstudio.com/)) :
-
-```r
-library(LTRpred)
-browseVignettes("LTRpred")
-```
-
-In the `LTRpred` framework users can find:
 
 #### De Novo Annotation Functions:
 
