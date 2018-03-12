@@ -148,7 +148,7 @@ LTRharvest <- function(genome.file,
     # an index file will be generated using "gt suffixerator"
     if (is.null(index.file)) {
         if (verbose) {
-           message("LTRharvest: Generating indexfile ",IndexOutputFileName,
+           message("LTRharvest: Generating index file ",IndexOutputFileName,
                    " with gt suffixerator...")
         }
         # Genrate Suffix for LTRharvest
