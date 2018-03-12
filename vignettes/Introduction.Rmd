@@ -369,8 +369,6 @@ library(LTRpred)
 # de novo LTR transposon prediction for the Human Y chromosome
 LTRpred(
     genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"),
-    trnas       = system.file("hg38-tRNAs.fa", package = "LTRpred"),
-    hmms        = paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*"),
     cluster     = TRUE,
     cores = 4
 )
