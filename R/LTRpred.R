@@ -335,6 +335,20 @@ LTRpred <- function(genome.file       = NULL,
         dfam.cores <- cores
     }
     
+    if (is.null(hmms)) {
+      message("No hmm files were specified, thus the internal HMM library will be used! See '",
+              paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*"),"' for details.")
+      hmms <- paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*")
+    }
+      
+      
+    if (is.null(trnas)) {
+      message("No tRNA files were specified, thus the internal tRNA library will be used! See '",
+              system.file("tRNAs/tRNA_library.fa", package = "LTRpred"),"' for details.")
+      trnas <- system.file("tRNAs/tRNA_library.fa", package = "LTRpred")
+    }
+      
+    
     chromosome_ltrharvest <- start <- end <- query_name <- bits <- dfam_target_name <- NULL
     Type <- Cluster <- Perc_Ident <- Clust_Cluster <- Clust_Target <- Clust_cn <- NULL
     query_id <- cn_3ltr <- cn_5ltr <- orfs <- species <- ltr_similarity <- similarity <- NULL
