@@ -152,7 +152,6 @@ pred2gff <- function(LTR.data,
                                                                   "tRNAoffset=",trna_offset,"; ",
                                                                   "PBS/tRNAedist=",`PBS/tRNA_edist`,"; ",
                                                                   "ProteinDomain=",protein_domain,"; ",
-                                                                  "seqid=",`seq.id`,"; ",
                                                                   "orfs=",orfs,"; ",
                                                                   "repeat_region_length=",repeat_region_length)),attribute)))
   }
