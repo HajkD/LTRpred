@@ -34,7 +34,7 @@
 #' plotSize(GenomeMatrix)
 #' @export
 
-plotRepeatSpace <- function(genome.matrix,
+plotRepeatSpace <- function(genome.summary,
                              cor.method          = "spearman",
                              label.organism      = TRUE,
                              smooth.method       = "glm",
