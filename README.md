@@ -16,7 +16,7 @@ biocLite("HajkD/LTRpred")
 
 ### Quick Start
 
-The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after [installing](vignettes/Install.Rmd) all prerequisite command line tools) is to use the
+The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after [installing](https://hajkd.github.io/LTRpred/articles/Introduction.html) all prerequisite command line tools) is to use the
 `LTRpred()` function and relying on the default parameters. In the following example,
 a LTR transposon prediction is performed for parts of the Human Y chromosome.
 
@@ -29,7 +29,7 @@ LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
 
 This tutorial introduces users to `LTRpred`:
 
-- [Introduction to LTRpred](https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd)
+- [Introduction to LTRpred](https://hajkd.github.io/LTRpred/articles/Introduction.html)
 
 Users can also read the tutorials within ([RStudio](http://www.rstudio.com/)) :
 
