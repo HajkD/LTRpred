@@ -96,14 +96,15 @@
 <div id="quick-start" class="section level3">
 <h3 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick Start</h3>
-<p>The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after <a href="vignettes/Install.Rmd">installing</a> all prerequisite command line tools) is to use the <code><a href="reference/LTRpred.html">LTRpred()</a></code> function and relying on the default parameters. In the following example, a LTR transposon prediction is performed for parts of the Human Y chromosome.</p>
+<p>The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after <a href="https://hajkd.github.io/LTRpred/articles/Introduction.html">installing</a> all prerequisite command line tools) is to use the <code><a href="reference/LTRpred.html">LTRpred()</a></code> function and relying on the default parameters. In the following example, a LTR transposon prediction is performed for parts of the Human Y chromosome.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load LTRpred package</span>
 <span class="kw">library</span>(LTRpred)
 <span class="co"># de novo LTR transposon prediction for the Human Y chromosome</span>
 <span class="kw"><a href="reference/LTRpred.html">LTRpred</a></span>(<span class="dt">genome.file =</span> <span class="kw">system.file</span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>))</code></pre></div>
+<p>When running your own genome, please specify <code>genome.file = "path/to/your/genome.fasta</code> instead of <code>system.file(..., package = "LTRpred")</code>. The command <code>system.file(..., package = "LTRpred")</code> merely references the path to the example file stored in the LTRpred package itself.</p>
 <p>This tutorial introduces users to <code>LTRpred</code>:</p>
 <ul>
-<li><a href="https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd">Introduction to LTRpred</a></li>
+<li><a href="https://hajkd.github.io/LTRpred/articles/Introduction.html">Introduction to LTRpred</a></li>
 </ul>
 <p>Users can also read the tutorials within (<a href="http://www.rstudio.com/">RStudio</a>) :</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(LTRpred)

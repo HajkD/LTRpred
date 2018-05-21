@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Plot inter species similarity between TEs (for a specific cluster) — plotInterSpeciesCluster" />
 
 <meta property="og:description" content="After clustering TE sequences across different species with CLUSTpred
@@ -39,8 +42,6 @@ the similarity of TEs from different species within one cluster can be visualize
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -107,14 +108,16 @@ the similarity of TEs from different species within one cluster can be visualize
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot inter species similarity between TEs (for a specific cluster)</h1>
-    <small>Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/plotInterSpeciesCluster.R'><code>R/plotInterSpeciesCluster.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/plotInterSpeciesCluster.R'><code>R/plotInterSpeciesCluster.R</code></a></small>
     <div class="hidden name"><code>plotInterSpeciesCluster.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>After clustering TE sequences across different species with <code><a href='CLUSTpred.html'>CLUSTpred</a></code>
 the similarity of TEs from different species within one cluster can be visualized.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plotInterSpeciesCluster</span>(<span class='no'>cluster.file</span>, <span class='no'>cluster</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Species"</span>,
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"% Similarity to Reference"</span>, <span class='kw'>legend.title</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)</pre>

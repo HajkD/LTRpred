@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Plot the median width distribution of putative LTR transposons for kingdoms of life — plot_ltrwidth_kingdom" />
 
 <meta property="og:description" content="Visualize the correlation between LTR transposon age
@@ -40,8 +43,6 @@ or the width of the left LTR element for each species stored in the input data."
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -108,15 +109,17 @@ or the width of the left LTR element for each species stored in the input data."
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot the median width distribution of putative LTR transposons for kingdoms of life</h1>
-    <small>Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/plot_ltrwidth_kingdom.R'><code>R/plot_ltrwidth_kingdom.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/plot_ltrwidth_kingdom.R'><code>R/plot_ltrwidth_kingdom.R</code></a></small>
     <div class="hidden name"><code>plot_ltrwidth_kingdom.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Visualize the correlation between LTR transposon age
 (measured in LTR similarity) and the median width of the corresponding LTR retrotransposon (the complete sequence) 
 or the width of the left LTR element for each species stored in the input <code>data</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plot_ltrwidth_kingdom</span>(<span class='no'>data</span>, <span class='kw'>element.type</span> <span class='kw'>=</span> <span class='st'>"full_retrotransposon"</span>,
   <span class='kw'>summary.type</span> <span class='kw'>=</span> <span class='st'>"median"</span>, <span class='kw'>plot.type</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>, <span class='kw'>similarity.bin</span> <span class='kw'>=</span> <span class='fl'>2</span>,

@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Filter the Repbase query output — repbase.filter" />
 
 <meta property="og:description" content="Filter the output of the repbase.query function to quantify
@@ -41,8 +44,6 @@ to a certain percentage (scope)." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -109,16 +110,18 @@ to a certain percentage (scope)." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Filter the Repbase query output</h1>
-    <small>Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/repbase.filter.R'><code>R/repbase.filter.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/repbase.filter.R'><code>R/repbase.filter.R</code></a></small>
     <div class="hidden name"><code>repbase.filter.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Filter the output of the <code><a href='repbase.query.html'>repbase.query</a></code> function to quantify
 the number of hits for each query LTR transposon (duplicates) and retain
 only hits found in Repbase that span the annotation sequence in Repbase
 to a certain percentage (<code>scope</code>).</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>repbase.filter</span>(<span class='no'>query.output</span>, <span class='kw'>scope.value</span> <span class='kw'>=</span> <span class='fl'>0.7</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     

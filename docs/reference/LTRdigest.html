@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Run LTRdigest to predict putative LTR Retrotransposons — LTRdigest" />
 
 <meta property="og:description" content="This function implements an interface between R and
@@ -39,8 +42,6 @@ the LTRdigest command line tool to predict putative LTR retrotransposons from R.
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -107,14 +108,16 @@ the LTRdigest command line tool to predict putative LTR retrotransposons from R.
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Run LTRdigest to predict putative LTR Retrotransposons</h1>
-    <small>Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/LTRdigest.R'><code>R/LTRdigest.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/LTRdigest.R'><code>R/LTRdigest.R</code></a></small>
     <div class="hidden name"><code>LTRdigest.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This function implements an interface between R and
 the LTRdigest command line tool to predict putative LTR retrotransposons from R.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>LTRdigest</span>(<span class='no'>input.gff3</span>, <span class='no'>genome.file</span>, <span class='kw'>aaout</span> <span class='kw'>=</span> <span class='st'>"yes"</span>, <span class='kw'>aliout</span> <span class='kw'>=</span> <span class='st'>"yes"</span>,
   <span class='kw'>pptlen</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>8</span>, <span class='fl'>30</span>), <span class='kw'>uboxlen</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>3</span>, <span class='fl'>30</span>), <span class='kw'>pptradius</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>trnas</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,

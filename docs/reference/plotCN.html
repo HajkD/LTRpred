@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Plot correlation between the copy number of the predicted 3' LTR and any other variable — plotCN" />
 
 <meta property="og:description" content="Visualize the correlation between the copy number of the predicted 3' LTR generated 
@@ -40,8 +43,6 @@ and color each putative LTR transposon by it's superfamily name." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -108,15 +109,17 @@ and color each putative LTR transposon by it's superfamily name." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot correlation between the copy number of the predicted 3' LTR and any other variable</h1>
-    <small>Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/plotCN.R'><code>R/plotCN.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/plotCN.R'><code>R/plotCN.R</code></a></small>
     <div class="hidden name"><code>plotCN.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Visualize the correlation between the copy number of the predicted 3' LTR generated 
 by <code><a href='LTRpred.html'>LTRpred</a></code> and any other variable 
 and color each putative LTR transposon by it's superfamily name.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>plotCN</span>(<span class='no'>data</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"CG_3ltr_rel"</span>, <span class='kw'>color.by</span> <span class='kw'>=</span> <span class='st'>"fam"</span>, <span class='kw'>quality.filter</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>sim</span> <span class='kw'>=</span> <span class='fl'>70</span>, <span class='kw'>n.orfs</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>chop.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,

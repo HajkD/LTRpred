@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Query the Dfam database to annotate putative LTRs — dfam.query" />
 
 <meta property="og:description" content="Validate or annotate putative LTR
@@ -39,8 +42,6 @@ transposons that have been predicted using LTRharvest, LTRdigest, or LTRpred." /
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -107,14 +108,16 @@ transposons that have been predicted using LTRharvest, LTRdigest, or LTRpred." /
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Query the Dfam database to annotate putative LTRs</h1>
-    <small>Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/dfam.query.R'><code>R/dfam.query.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/dfam.query.R'><code>R/dfam.query.R</code></a></small>
     <div class="hidden name"><code>dfam.query.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Validate or annotate putative LTR
 transposons that have been predicted using <code><a href='LTRharvest.html'>LTRharvest</a></code>, <code><a href='LTRdigest.html'>LTRdigest</a></code>, or <code><a href='LTRpred.html'>LTRpred</a></code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>dfam.query</span>(<span class='no'>seq.file</span>, <span class='kw'>Dfam.db</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>eval</span> <span class='kw'>=</span> <span class='fl'>0.001</span>, <span class='kw'>cores</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>output.folder</span> <span class='kw'>=</span> <span class='fu'>getwd</span>())</pre>
