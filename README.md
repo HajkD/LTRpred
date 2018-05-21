@@ -27,6 +27,9 @@ library(LTRpred)
 LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
 ```
 
+When running your own genome, please specify `genome.file = "path/to/your/genome.fasta` instead of `system.file(..., package = "LTRpred")`. The command `system.file(..., package = "LTRpred")` merely references the path to the example file stored in the LTRpred package itself.
+
+
 This tutorial introduces users to `LTRpred`:
 
 - [Introduction to LTRpred](https://hajkd.github.io/LTRpred/articles/Introduction.html)
