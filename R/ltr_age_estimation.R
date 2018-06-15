@@ -1,3 +1,13 @@
+#' @title Estimate retrotransposon insertion age in Mya based on 5' and 3' LTR homology
+#' @description This function implements diverse metrics to roughly estimate
+#' the insertion age in Mya based on 5' and 3' LTR homology.
+#' @param ltr_seqs_3_prime file path to a fasta file storing the sequences of the respective 3' LTR.
+#' @param ltr_seqs_5_prime file path to a fasta file storing the sequences of the respective 5' LTR.
+#' @param model a model as specified in \code{\link[ape]{dist.dna}}: a character string specifying the evolutionary model to be used; must be one of "raw", "N", "TS", "TV", "JC69", "K80" (the default), "F81", "K81", "F84", "BH87", "T92", "TN93", "GG95", "logdet", "paralin".
+#' @param mutation_rate a mutation rate per site per year. For retrotransposons the default is \code{mutation_rate = 1.3 * 10E-8} (Wicker and Keller, 2007).
+#' @author Hajk-Georg Drost
+#' @export
+
 ltr_age_estimation <-
   function(ltr_seqs_3_prime,
            ltr_seqs_5_prime,
@@ -56,11 +66,11 @@ ltr_age_estimation <-
     
     for (i in seq_len(length(ltr_5_prime_seqs_with_gaps_ape))) {
       # print(ltr_5_prime_seqs_with_gaps_ape[[i]])
-      # seq_5_prime <- Biostrings::DNAStringSet(ltr_5_prime_seqs_with_gaps_ape[[i]])
-      # names(seq_5_prime) <- names_5_prime_seqs[i]
+      seq_5_prime <- Biostrings::DNAStringSet(ltr_5_prime_seqs_with_gaps_ape[[i]])
+      names(seq_5_prime) <- names_5_prime_seqs[i]
       
       Biostrings::writeXStringSet(
-        Biostrings::DNAStringSet(ltr_5_prime_seqs_with_gaps_ape[[i]]),
+        Biostrings::DNAStringSet(seq_5_prime),
         file.path(tempdir(), paste0("seq_",i, ".fasta"))
       )
       
