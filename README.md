@@ -1,4 +1,4 @@
-## LTRpred(ict): a pipeline for automated functional annotation of LTR retrotransposons for comparative genomics studies  <img src="inst/LTRpred_logo.pdf" align="right" height="174" width="150" />
+## LTRpred(ict): a pipeline for automated functional annotation of LTR retrotransposons for comparative genomics studies  <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
 
 
 An easy way to perform __de novo__ functional annotation of `LTR retrotransposons` from any genome assembly in `fasta` format.
