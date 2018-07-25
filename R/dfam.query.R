@@ -22,16 +22,12 @@ dfam.query <- function(seq.file,
     test_installation_hmmer()
     
     if (is.null(Dfam.db))
-        stop(
-            "Please provide either a path to the Dfam.hmm database (file) or choose
+        stop("Please provide either a path to the Dfam.hmm database (file) or choose
             Dfam.db = 'download' so that Dfam.hmm is automatically loaded by this function
-            (make sure that the internet connection is stabe."
-             )
+            (make sure that the internet connection is stabe).", call. = FALSE)
     
     if (!file.exists("/usr/local/bin/dfamscan.pl"))
-        stop(
-            "The perl script 'dfamscan.pl' could not be found! Please download 'dfamscan.pl' from www.dfam.org/web_download/Current_Release/dfamscan.pl and store it in '/usr/local/bin'."
-        )
+        stop("The perl script 'dfamscan.pl' could not be found! Please download 'dfamscan.pl' from www.dfam.org/web_download/Current_Release/dfamscan.pl and store it in '/usr/local/bin'.", call. = FALSE)
     
     if (!file.exists(seq.file))
         stop("The file '",seq.file,"' does not exist! Please make sure that a correct path to the sequence file is passed to the dfam.query() function.", call. = FALSE)
