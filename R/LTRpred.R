@@ -1358,6 +1358,16 @@ LTRpred <- function(genome.file       = NULL,
         paste0(chopped.foldername, "_LTRpred_DataSheet.tsv")
     ))
     
+    pred2gff(res, file.path(
+      output.path,
+      paste0(chopped.foldername, "_LTRpred.gff")
+    ))
+    
+    pred2bed(res, file.path(
+      output.path,
+      paste0(chopped.foldername, "_LTRpred.bed")
+    ))
+    
     message("LTRpred analysis finished properly.")
     
     return(paste0("Successful job ", job_num," ."))
