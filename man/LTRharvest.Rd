@@ -4,11 +4,12 @@
 \alias{LTRharvest}
 \title{Run LTRharvest to predict putative LTR Retrotransposons}
 \usage{
-LTRharvest(genome.file, index.file = NULL, range = c(0, 0), seed = 30,
-  minlenltr = 100, maxlenltr = 3500, mindistltr = 4000,
-  maxdistltr = 25000, similar = 70, mintsd = 4, maxtsd = 20, vic = 60,
-  overlaps = "no", xdrop = 5, mat = 2, mis = -2, ins = -3, del = -3,
-  motif = NULL, motifmis = 0, output.path = NULL, verbose = TRUE)
+LTRharvest(genome.file, index.file = NULL, range = c(0, 0),
+  seed = 30, minlenltr = 100, maxlenltr = 3500, mindistltr = 4000,
+  maxdistltr = 25000, similar = 70, mintsd = 4, maxtsd = 20,
+  vic = 60, overlaps = "no", xdrop = 5, mat = 2, mis = -2,
+  ins = -3, del = -3, motif = NULL, motifmis = 0,
+  output.path = NULL, verbose = TRUE)
 }
 \arguments{
 \item{genome.file}{path to the genome file in \code{fasta} format.}

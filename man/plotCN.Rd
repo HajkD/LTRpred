@@ -4,8 +4,8 @@
 \alias{plotCN}
 \title{Plot correlation between the copy number of the predicted 3' LTR and any other variable}
 \usage{
-plotCN(data, y = "CG_3ltr_rel", color.by = "fam", quality.filter = TRUE,
-  sim = 70, n.orfs = 1, chop.names = TRUE,
+plotCN(data, y = "CG_3ltr_rel", color.by = "fam",
+  quality.filter = TRUE, sim = 70, n.orfs = 1, chop.names = TRUE,
   xlab = "Copy Number 3' solo LTR", ylab = "", main = "",
   legend.title = "Superfamily")
 }

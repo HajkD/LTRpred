@@ -11,6 +11,9 @@ plotSizeMulti(meta.summary.file, cor.method = "spearman",
   ylab = "Genome size in Mega [bp]", alpha = 0.3, arrow_lab = FALSE,
   text.size = 18, label.size = 4, check.overlap = TRUE)
 }
+\description{
+plotSize for \code{generate.multi.quality.filter.meta} output
+}
 \author{
 Hajk-Georg Drost
 }

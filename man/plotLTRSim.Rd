@@ -5,8 +5,8 @@
 \title{Plot the age distribution of predicted LTR transposons}
 \usage{
 plotLTRSim(data, type = "hist", stack.fill = "protein_domain",
-  similarity.bin = 2, min.sim = 70, quality.filter = TRUE, n.orfs = 1,
-  xlab = "LTR \% Similarity", ylab = "Frequency",
+  similarity.bin = 2, min.sim = 70, quality.filter = TRUE,
+  n.orfs = 1, xlab = "LTR \% Similarity", ylab = "Frequency",
   main = "LTR Age Distribution", legend.title = "LTR Similarity")
 }
 \arguments{

@@ -4,9 +4,10 @@
 \alias{plot_pbswidth_kingdom}
 \title{Plot the median PBS widths for kingdoms of life}
 \usage{
-plot_pbswidth_kingdom(data, summary.type = "median", plot.type = "boxplot",
-  similarity.bin = 2, min.sim = 70, quality.filter = FALSE, n.orfs = 0,
-  xlab = "LTR \% Similarity", ylab = "Median PBS length in bp", main = "",
+plot_pbswidth_kingdom(data, summary.type = "median",
+  plot.type = "boxplot", similarity.bin = 2, min.sim = 70,
+  quality.filter = FALSE, n.orfs = 0, xlab = "LTR \% Similarity",
+  ylab = "Median PBS length in bp", main = "",
   legend.title = "Similarity between LTRs", y.ticks = 10)
 }
 \arguments{

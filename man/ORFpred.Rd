@@ -4,8 +4,8 @@
 \alias{ORFpred}
 \title{Open Reading Frame Prediction}
 \usage{
-ORFpred(seq.file, orf.style = 7, min.codons = 200, trans.seqs = FALSE,
-  output = NULL)
+ORFpred(seq.file, orf.style = 7, min.codons = 200,
+  trans.seqs = FALSE, output = NULL)
 }
 \arguments{
 \item{seq.file}{a fasta file storing the sequences for which open reading frames shall be predicted.}

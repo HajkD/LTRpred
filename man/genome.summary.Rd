@@ -8,6 +8,9 @@ genome.summary(genome.folder, ltrpred.meta.folder, file.name, sim = 70,
   cut.range = 2, quality.filter = TRUE, n.orfs = 0,
   strategy = "default")
 }
+\description{
+Generating genome summary files for \code{LTRpred.meta} results
+}
 \details{
 ...
 }
