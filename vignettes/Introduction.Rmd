@@ -357,6 +357,8 @@ Internet, point your browser at http://www.perl.org/, the Perl Home Page.
 
 [dfamscan.pl](http://www.dfam.org/web_download/Current_Release/dfamscan.pl) needs to be stored at `/usr/local/bin/dfamscan.pl` and executabe via `perl /usr/local/bin/dfamscan.pl -help`. This is important to be able to run the hmmer search against the Dfam database.
 
+Please follow the `dfamscan.pl` installation instructions at http://www.dfam.org/web_download/Tools/README.txt .
+
 ## Quick Start
 
 The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after [installing](Install.Rmd) all prerequisite command line tools) is to use the
