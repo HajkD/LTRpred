@@ -359,6 +359,13 @@ Internet, point your browser at http://www.perl.org/, the Perl Home Page.
 
 Please follow the `dfamscan.pl` installation instructions at http://www.dfam.org/web_download/Tools/README.txt .
 
+
+Alternatively, users can use the [Bioconda](https://bioconda.github.io/) package management system to install `Dfam`. For this approach, please [install Bioconda](https://conda.io/miniconda.html) and run:
+
+```
+conda install dfam 
+```
+
 ## Quick Start
 
 The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after [installing](Install.Rmd) all prerequisite command line tools) is to use the
