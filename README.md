@@ -31,6 +31,15 @@ LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
 When running your own genome, please specify `genome.file = "path/to/your/genome.fasta` instead of `system.file(..., package = "LTRpred")`. The command `system.file(..., package = "LTRpred")` merely references the path to the example file stored in the LTRpred package itself.
 
 
+## Citation
+The `LTRpred` package is not formally published yet, but a manuscript is in preparation. For now, please cite one of the the following paper when using `LTRpred` for your own research. `LTRpred` is part of these studies and helped to predict potentially active retrotransposons that were later confirmed experimentally.
+
+> M Benoit, __HG Drost__, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski.  [__Environmental and epigenetic regulation of Rider retrotransposons in tomato__](https://doi.org/10.1101/517508). _bioRxiv_ https://doi.org/10.1101/517508 (2019). 
+
+or
+
+> J Cho, M Benoit, M Catoni, __HG Drost__, A Brestovitsky, M Oosterbeek and J Paszkowski.  [__Sensitive detection of pre-integration intermediates of LTR retrotransposons in crop plants__](https://www.nature.com/articles/s41477-018-0320-9). _Nature Plants_, 5,  26-33 (2019).
+
 This tutorial introduces users to `LTRpred`:
 
 - [Introduction to LTRpred](https://hajkd.github.io/LTRpred/articles/Introduction.html)
