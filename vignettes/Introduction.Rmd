@@ -156,6 +156,13 @@ cd hmmer-3.1b2-macosx-intel
 A detailed description of how to install `GenomeTools` for several operating systems 
 can be found [here](https://github.com/genometools/genometools/blob/master/INSTALL).
 
+__For now `LTRpred` is designed for `genome tools version 1.5.7` and might not
+run seamlessly with more recent versions. The adaptation of `LTRpred` to more recent
+`genome tools versions` is ongoing but will require a few more weeks.__
+
+You can find out which `genome tools version` you installed by typing `gt -version`
+in your terminal (after installation).
+
 Examplified for Linux or macOS users can run the following procedures:
 
 ### For `Linux` systems
@@ -211,10 +218,22 @@ documentation.
 ## Install [USEARCH](http://drive5.com/usearch/download.html)
 
 A detailed description of how to install `USEARCH` for several operating systems 
-can be found [here](http://drive5.com/usearch/download.html).
+can be found [here](http://drive5.com/usearch/manual/install.html).
 
 First, users will need to register and download USEARCH for their operating system
 from http://drive5.com/usearch/download.html .
+
+After downloading USEARCH you will need to install it as a command line tool in your `/usr/local/` directory and you should be able to execute the following command in your Terminal:
+
+```sh
+usearch -version
+```
+
+```
+usearch v8.1.1861_i86osx32
+```
+
+Otherwise, `usearch` is not properly installed on your system and `LTRpred()` will not be able to run seamlessly.
 
 ### Example for macOS:
 
