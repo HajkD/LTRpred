@@ -40,6 +40,7 @@ or
 
 > J Cho, M Benoit, M Catoni, __HG Drost__, A Brestovitsky, M Oosterbeek and J Paszkowski.  [__Sensitive detection of pre-integration intermediates of LTR retrotransposons in crop plants__](https://www.nature.com/articles/s41477-018-0320-9). _Nature Plants_, 5,  26-33 (2019).
 
+
 This tutorial introduces users to `LTRpred`:
 
 - [Introduction to LTRpred](https://hajkd.github.io/LTRpred/articles/Introduction.html)
@@ -50,6 +51,14 @@ Users can also read the tutorials within ([RStudio](http://www.rstudio.com/)) :
 library(LTRpred)
 browseVignettes("LTRpred")
 ```
+
+### Studies that successfully used `LTRpred` to annotate functional retrotransposons
+
+> - J Cho, M Benoit, M Catoni, __HG Drost__, A Brestovitsky, M Oosterbeek and J Paszkowski.  [__Sensitive detection of pre-integration intermediates of LTR retrotransposons in crop plants__](https://www.nature.com/articles/s41477-018-0320-9). __Nature Plants__, 5,  26-33 (2019).
+>
+> - M Benoit, __HG Drost__, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski. [__Environmental and epigenetic regulation of Rider retrotransposons in tomato__](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370). __PloS Genetics__ (2019) (__in press__). 
+>
+> - Nguinkal _et al._ [__The First Highly Contiguous Genome Assembly of Pikeperch (Sander lucioperca), an Emerging Aquaculture Species in Europe__](https://www.mdpi.com/2073-4425/10/9/708/htm) __Genes__, 0(9), 708 (2019).
 
 ## Discussions and Bug Reports
 
