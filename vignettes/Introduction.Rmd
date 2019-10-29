@@ -168,9 +168,9 @@ Examplified for Linux or macOS users can run the following procedures:
 ### For `Linux` systems
 
 ```bash
-wget http://genometools.org/pub/genometools-1.5.7.tar.gz
-tar -xf genometools-1.5.7.tar.gz
-cd genometools-1.5.7
+wget http://genometools.org/pub/genometools-1.5.9.tar.gz
+tar -xf genometools-1.5.9.tar.gz
+cd genometools-1.5.9
 make with-hmmer=yes cairo=no 
 make cairo=no test
 sudo make cairo=no install
@@ -201,10 +201,10 @@ section of the `Homebrew` documentation.
 
 ```bash
 # install genometools
-# download from http://genometools.org/pub/genometools-1.5.7.tar.gz
-wget http://genometools.org/pub/genometools-1.5.7.tar.gz
-tar -xf genometools-1.5.7.tar.gz
-cd genometools-1.5.7
+# download from http://genometools.org/pub/genometools-1.5.9.tar.gz
+wget http://genometools.org/pub/genometools-1.5.9.tar.gz
+tar -xf genometools-1.5.9.tar.gz
+cd genometools-1.5.9
 make with-hmmer=yes cairo=no 
 make cairo=no test
 sudo make cairo=no install
@@ -374,15 +374,21 @@ Internet, point your browser at http://www.perl.org/, the Perl Home Page.
 
 ### Install [dfamscan.pl](http://www.dfam.org/web_download/Current_Release/dfamscan.pl)
 
-[dfamscan.pl](http://www.dfam.org/web_download/Current_Release/dfamscan.pl) needs to be stored at `/usr/local/bin/dfamscan.pl` and executabe via `perl /usr/local/bin/dfamscan.pl -help`. This is important to be able to run the hmmer search against the Dfam database.
+[dfamscan.pl](https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz) needs to be stored at `/usr/local/bin/dfamscan.pl` and executabe via `perl /usr/local/bin/dfamscan.pl -help`. This is important to be able to run the hmmer search against the Dfam database.
 
-Please follow the `dfamscan.pl` installation instructions at http://www.dfam.org/web_download/Tools/README.txt .
-
-
-Alternatively, users can use the [Bioconda](https://bioconda.github.io/) package management system to install `Dfam`. For this approach, please [install Bioconda](https://conda.io/miniconda.html) and run:
-
+```sh
+wget https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz
+gunzip dfamscan.pl.gz
+sudo cp dfamscan.pl /usr/local/bin/dfamscan.pl
+# test whether it worked
+perl /usr/local/bin/dfamscan.pl -help
 ```
-conda install dfam 
+
+Users can download the [Dfam database v3.1](https://www.dfam.org/releases/Dfam_3.1/families/) by running:
+
+```sh
+wget https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz
+gunzip Dfam.hmm.gz
 ```
 
 ## Quick Start
@@ -1313,65 +1319,6 @@ specify the insertion score used in the PBS/tRNA Smith-Waterman alignment. Defau
 but for multiple genomes (metagenomes) using only one pipeline function named `LTRpred.meta()`. 
 
 __Please be aware that `LTRpred` annotations for multiple genomes especailly for entire kingdoms of life is a computationally hard task and requires large server or high performance computer access. Computations for hundreds of genomes even using tens to hundreds of cores might take several weeks to terminate. Please make sure that you have the right computational infrastructure to run these processes.__
-
-
-In the following example we will run `LTRpred.meta()` on all genomes of the plant kingdom stored in NCBI RefSeq:
-
-```r
-# download all plant genomes
-biomartr::meta.retrieval(kingdom = "plant", db = "refseq", type = "genome")
-```
-
-The plant genomes are now stored in a folder named `plant`.
-Now, `LTRpred.meta()` can be run with the same parameter configuration as `LTRpred()`.
-
-```r
-# run LTRpred on all plant genomes
-LTRpred.meta(
-   genome.folder = "plant",
-   trnas       = paste0(system.file("tRNAs/", package = "LTRpred"), "plants-tRNA_cat.fa"),
-   cluster     = TRUE,
-   cores       = 24,
-   hmms        = paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*"),
-   minlenltr   = 100,
-   maxlenltr   = 5000,
-   mindistltr  = 4000,
-   maxdistltr  = 30000,
-   mintsd      = 3,
-   maxtsd      = 20,
-   vic         = 80,
-   overlaps    = "no",
-   xdrop        = 7,
-   motifmis    = 1,
-   pbsradius   = 60,
-   pbsalilen   = c(8,40),
-   pbsoffset   = c(0,10),
-   quality.filter = TRUE,
-   n.orfs      = 0,
-   output.path = "LTRpred_plants"
-      )
-```
-
-`LTRpred.meta()` now generates the output folder `LTRpred_plants` and stores `*_ltrpred` output folders for each species. Users can now summarise the results in a tidy data.frame using the function `meta.summarize()`.
-
-```r
-ltrpred_plants <- meta.summarize(result.folder  = "LTRpred_plants",
-                                 ltr.similarity = 70,
-                                 quality.filter = TRUE,
-                                 n.orfs         = 0)
-
-readr::write_tsv(ltrpred_plants, "LTRpred_Plants_MetaTable.tsv")
-```
-
-For functional annotation, users can then again apply the function `quality.filter()`:
-
-```r
-# retrieve functional annotation for plant kingdom
-ltrpred_plants_functional <- quality.filter(ltrpred_plants, sim = 97, 
-                                 n.orfs = 1, strategy = "stringent")
-                                 
-readr::write_tsv(ltrpred_plants_functional, "LTRpred_Plants_Functional_MetaTable.tsv")
-```
 
 
 
