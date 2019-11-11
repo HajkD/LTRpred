@@ -79,7 +79,7 @@
     <div class="page-header toc-ignore">
       <h1>Introduction to LTRpred</h1>
             
-            <h4 class="date">2019-10-27</h4>
+            <h4 class="date">2019-11-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
@@ -150,16 +150,22 @@
 <h3 class="hasAnchor">
 <a href="#dependency-r-packages" class="anchor"></a>Dependency R packages</h3>
 <p>Please make sure that <a href="https://www.bioconductor.org/install/">Bioconductor</a> and all package dependencies are installed on the system on which you would like to run <code>LTRpred</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install Bioconductor</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">## try https:// if http:// URLs are not supported</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"http://bioconductor.org/biocLite.R"</span>)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">biocLite</span>()</a></code></pre></div>
-<p>Then install prerequisite Bioconductor packages:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">biocLite</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"GenomicFeatures"</span>,<span class="st">"IRanges"</span>, <span class="st">"AnnotationDbi"</span>, <span class="st">"Biostrings"</span>))</a></code></pre></div>
+<p>Install prerequisite CRAN and Bioconductor packages:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"tidyverse"</span>, <span class="st">"data.table"</span>, <span class="st">"seqinr"</span>, <span class="st">"biomartr"</span>, <span class="st">"dtplyr"</span>, <span class="st">"devtools"</span>))</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ns-load">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"BiocManager"</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">BiocManager<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>()</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">BiocManager<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"rtracklayer"</span>, <span class="st">"GenomicFeatures"</span>, <span class="st">"biomaRt"</span>))</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"HajkD/metablastr"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"BSDA"</span>, <span class="st">"ggrepel"</span>, <span class="st">"gridExtra"</span>)) </a></code></pre></div>
 <p>Now users may install <code>LTRpred</code> as follows:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"http://bioconductor.org/biocLite.R"</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">biocLite</span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">biocLite</span>(<span class="st">"HajkD/LTRpred"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/source">source</a></span>(<span class="st">"http://bioconductor.org/biocLite.R"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">biocLite</span>(<span class="st">"devtools"</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">biocLite</span>(<span class="st">"HajkD/LTRpred"</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="install-prerequisite-command-line-tools" class="section level2">
@@ -176,30 +182,30 @@
 <div id="for-linux-systems" class="section level3">
 <h3 class="hasAnchor">
 <a href="#for-linux-systems" class="anchor"></a>For <code>Linux</code> systems:</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="fu">wget</span> ftp://selab.janelia.org/pub/software/hmmer3/3.1b2/hmmer-3.1b2.tar.gz</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="fu">tar</span> xf hmmer-3.1b2.tar.gz</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="bu">cd</span> hmmer-3.1b2</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"> <span class="ex">./configure</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"> <span class="fu">make</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"> <span class="fu">make</span> check</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"> <span class="fu">sudo</span> make install</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="fu">wget</span> ftp://selab.janelia.org/pub/software/hmmer3/3.1b2/hmmer-3.1b2.tar.gz</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="fu">tar</span> xf hmmer-3.1b2.tar.gz</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="bu">cd</span> hmmer-3.1b2</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"> <span class="ex">./configure</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"> <span class="fu">make</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"> <span class="fu">make</span> check</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"> <span class="fu">sudo</span> make install</a></code></pre></div>
 </div>
 <div id="for-macos-systems" class="section level3">
 <h3 class="hasAnchor">
 <a href="#for-macos-systems" class="anchor"></a>For <code>macOS</code> systems:</h3>
 <p>First install <a href="http://brew.sh/">Homebrew</a> by running the command:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="ex">ruby</span> -e <span class="st">"</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="va">)</span><span class="st">"</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="ex">ruby</span> -e <span class="st">"</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="va">)</span><span class="st">"</span></a></code></pre></div>
 <p>Then users can install the following dependencies:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="ex">brew</span> install wget</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="ex">brew</span> install wget</a></code></pre></div>
 <p>In case you have troubles installing <code>Homebrew</code> or some dependencies, please consult the <a href="https://docs.brew.sh/Common-Issues.html">Common issues</a> section of the <code>Homebrew</code> documentation.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># download HMMER binary</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="fu">wget</span> http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-macosx-intel.tar.gz</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="fu">tar</span> xf hmmer-3.1b2-macosx-intel.tar.gz</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="bu">cd</span> hmmer-3.1b2-macosx-intel</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"> <span class="ex">./configure</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"> <span class="fu">make</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"> <span class="fu">make</span> check</a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"> <span class="fu">sudo</span> make install</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># download HMMER binary</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="fu">wget</span> http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-macosx-intel.tar.gz</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="fu">tar</span> xf hmmer-3.1b2-macosx-intel.tar.gz</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="bu">cd</span> hmmer-3.1b2-macosx-intel</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"> <span class="ex">./configure</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"> <span class="fu">make</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"> <span class="fu">make</span> check</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"> <span class="fu">sudo</span> make install</a></code></pre></div>
 </div>
 </div>
 <div id="install-genometools" class="section level2">
@@ -213,34 +219,34 @@
 <div id="for-linux-systems-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#for-linux-systems-1" class="anchor"></a>For <code>Linux</code> systems</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="fu">wget</span> http://genometools.org/pub/genometools-1.5.7.tar.gz</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="fu">tar</span> -xf genometools-1.5.7.tar.gz</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="bu">cd</span> genometools-1.5.7</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="fu">make</span> with-hmmer=yes cairo=no </a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="fu">make</span> cairo=no test</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="fu">sudo</span> make cairo=no install</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="fu">wget</span> http://genometools.org/pub/genometools-1.5.9.tar.gz</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="fu">tar</span> -xf genometools-1.5.9.tar.gz</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="bu">cd</span> genometools-1.5.9</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="fu">make</span> with-hmmer=yes cairo=no </a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="fu">make</span> cairo=no test</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="fu">sudo</span> make cairo=no install</a></code></pre></div>
 </div>
 <div id="for-macos-systems-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#for-macos-systems-1" class="anchor"></a>For <code>macOS</code> systems</h3>
 <p>First install <a href="http://brew.sh/">Homebrew</a> by running the command:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="ex">ruby</span> -e <span class="st">"</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="va">)</span><span class="st">"</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ex">ruby</span> -e <span class="st">"</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="va">)</span><span class="st">"</span></a></code></pre></div>
 <p>Then users can install the following dependencies:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># install dependencies</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="ex">brew</span> tap caskroom/cask</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="ex">brew</span> cask install xquartz</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="ex">brew</span> install cairo</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="ex">brew</span> install pango</a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="ex">brew</span> install wget</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># install dependencies</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="ex">brew</span> tap caskroom/cask</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="ex">brew</span> cask install xquartz</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="ex">brew</span> install cairo</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="ex">brew</span> install pango</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="ex">brew</span> install wget</a></code></pre></div>
 <p>In case you have troubles installing <code>Homebrew</code> or some dependencies, please consult the <a href="https://docs.brew.sh/Common-Issues.html">Common issues</a> section of the <code>Homebrew</code> documentation.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># install genometools</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co"># download from http://genometools.org/pub/genometools-1.5.7.tar.gz</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="fu">wget</span> http://genometools.org/pub/genometools-1.5.7.tar.gz</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="fu">tar</span> -xf genometools-1.5.7.tar.gz</a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="bu">cd</span> genometools-1.5.7</a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="fu">make</span> with-hmmer=yes cairo=no </a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="fu">make</span> cairo=no test</a>
-<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="fu">sudo</span> make cairo=no install</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># install genometools</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co"># download from http://genometools.org/pub/genometools-1.5.9.tar.gz</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="fu">wget</span> http://genometools.org/pub/genometools-1.5.9.tar.gz</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="fu">tar</span> -xf genometools-1.5.9.tar.gz</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="bu">cd</span> genometools-1.5.9</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="fu">make</span> with-hmmer=yes cairo=no </a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="fu">make</span> cairo=no test</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="fu">sudo</span> make cairo=no install</a></code></pre></div>
 <p>In case you have problems or issues installing <code>GenomeTools</code> please consult the <a href="https://github.com/genometools/genometools/blob/master/INSTALL">installation</a> documentation.</p>
 </div>
 </div>
@@ -251,18 +257,18 @@
 <p>A detailed description of how to install <code>USEARCH</code> for several operating systems can be found <a href="http://drive5.com/usearch/manual/install.html">here</a>.</p>
 <p>First, users will need to register and download USEARCH for their operating system from <a href="http://drive5.com/usearch/download.html" class="uri">http://drive5.com/usearch/download.html</a> .</p>
 <p>After downloading USEARCH you will need to install it as a command line tool in your <code>/usr/local/</code> directory and you should be able to execute the following command in your Terminal:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="ex">usearch</span> -version</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="ex">usearch</span> -version</a></code></pre></div>
 <pre><code>usearch v8.1.1861_i86osx32</code></pre>
 <p>Otherwise, <code>usearch</code> is not properly installed on your system and <code><a href="../reference/LTRpred.html">LTRpred()</a></code> will not be able to run seamlessly.</p>
 <div id="example-for-macos" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example-for-macos" class="anchor"></a>Example for macOS:</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># register and download operating system specific usearch from</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co"># http://drive5.com/usearch/download.html</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co"># After download run:</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="fu">chmod</span> +x usearch10.0.240_i86osx32</a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="fu">sudo</span> cp usearch10.0.240_i86osx32 /usr/local/bin/</a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="fu">sudo</span> mv /usr/local/bin/usearch10.0.240_i86osx32 /usr/local/bin/usearch</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># register and download operating system specific usearch from</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co"># http://drive5.com/usearch/download.html</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co"># After download run:</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="fu">chmod</span> +x usearch10.0.240_i86osx32</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="fu">sudo</span> cp usearch10.0.240_i86osx32 /usr/local/bin/</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="fu">sudo</span> mv /usr/local/bin/usearch10.0.240_i86osx32 /usr/local/bin/usearch</a></code></pre></div>
 <p>In case you have problems or issues installing <code>USEARCH</code> please consult the <a href="http://drive5.com/usearch/">USEARCH documentation</a> documentation.</p>
 </div>
 </div>
@@ -275,27 +281,27 @@
 <div id="example-for-linux-systems" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example-for-linux-systems" class="anchor"></a>Example for Linux systems:</h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="fu">sudo</span> apt-get install git autotools-dev</a></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="fu">sudo</span> git clone https://github.com/torognes/vsearch.git</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="bu">cd</span> vsearch</a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="fu">sudo</span> ./autogen.sh</a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="fu">sudo</span> ./configure</a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="fu">sudo</span> make</a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="fu">sudo</span> make install</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="fu">sudo</span> apt-get install git autotools-dev</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="fu">sudo</span> git clone https://github.com/torognes/vsearch.git</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="bu">cd</span> vsearch</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="fu">sudo</span> ./autogen.sh</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="fu">sudo</span> ./configure</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="fu">sudo</span> make</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="fu">sudo</span> make install</a></code></pre></div>
 </div>
 <div id="example-for-macos-systems" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example-for-macos-systems" class="anchor"></a>Example for macOS systems:</h3>
 <p>First install <a href="http://brew.sh/">Homebrew</a> by running the command:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="ex">ruby</span> -e <span class="st">"</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="va">)</span><span class="st">"</span></a></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="ex">brew</span> install autoconf</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="ex">brew</span> install automake</a></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="fu">sudo</span> git clone https://github.com/torognes/vsearch.git</a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="bu">cd</span> vsearch</a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="fu">sudo</span> ./autogen.sh</a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="fu">sudo</span> ./configure</a>
-<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="fu">sudo</span> make</a>
-<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="fu">sudo</span> make install</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="ex">ruby</span> -e <span class="st">"</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="va">)</span><span class="st">"</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="ex">brew</span> install autoconf</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="ex">brew</span> install automake</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="fu">sudo</span> git clone https://github.com/torognes/vsearch.git</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="bu">cd</span> vsearch</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="fu">sudo</span> ./autogen.sh</a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="fu">sudo</span> ./configure</a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="fu">sudo</span> make</a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="fu">sudo</span> make install</a></code></pre></div>
 <p>In case you have problems or issues installing <code>VSEARCH</code> please consult the <a href="https://github.com/Pas-Kapli/tutorials/wiki/vsearch">VSEARCH documentation</a> documentation.</p>
 </div>
 </div>
@@ -307,29 +313,29 @@
 <div id="linux-example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#linux-example" class="anchor"></a>Linux Example</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># download BLAST+ version 2.7.1</span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="fu">wget</span> </a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="ex">ftp</span>://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.7.1/ncbi-blast-2.7.1+-x64-linux.tar.gz</a>
-<a class="sourceLine" id="cb20-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co"># extract the compiled version of BLAST</span></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="fu">tar</span> zxvpf ncbi-blast-2.7.1+-x64-linux.tar.gz</a>
-<a class="sourceLine" id="cb20-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co"># copy BLAST files to `usr/local/bin`</span></a>
-<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="fu">cp</span> ncbi-blast-2.7.1+/bin/* usr/local/bin</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># download BLAST+ version 2.7.1</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="fu">wget</span> </a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="ex">ftp</span>://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.7.1/ncbi-blast-2.7.1+-x64-linux.tar.gz</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co"># extract the compiled version of BLAST</span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="fu">tar</span> zxvpf ncbi-blast-2.7.1+-x64-linux.tar.gz</a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co"># copy BLAST files to `usr/local/bin`</span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="fu">cp</span> ncbi-blast-2.7.1+/bin/* usr/local/bin</a></code></pre></div>
 <p>Alternatively users can set the system call to the BLAST programs by specifying the PATH variable (this is useful, because it allows an easier update of BLAST versions instead of deleting all BLAST programs from usr/local/bin):</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># open vim text editor</span></a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="ex">vi</span> .bash_profile</a>
-<a class="sourceLine" id="cb21-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co"># type 'Shift' then I to edit the file .bash_profile</span></a>
-<a class="sourceLine" id="cb21-5" data-line-number="5"><span class="co"># and specify the export PATH</span></a>
-<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="bu">export</span> <span class="va">PATH=${PATH}</span>:/path/to/downloaded/blast/folder/ncbi-blast-2.7.1+/bin</a>
-<a class="sourceLine" id="cb21-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb21-8" data-line-number="8"><span class="co"># type 'ESC' then ':' then 'w' then 'q' to save and quit the .bash_profile file </span></a>
-<a class="sourceLine" id="cb21-9" data-line-number="9"><span class="co"># log out from your server with</span></a>
-<a class="sourceLine" id="cb21-10" data-line-number="10"><span class="bu">exit</span></a>
-<a class="sourceLine" id="cb21-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb21-12" data-line-number="12"><span class="co"># log in again and type</span></a>
-<a class="sourceLine" id="cb21-13" data-line-number="13"><span class="ex">blastp</span> -version</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># open vim text editor</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="ex">vi</span> .bash_profile</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co"># type 'Shift' then I to edit the file .bash_profile</span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co"># and specify the export PATH</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="bu">export</span> <span class="va">PATH=${PATH}</span>:/path/to/downloaded/blast/folder/ncbi-blast-2.7.1+/bin</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co"># type 'ESC' then ':' then 'w' then 'q' to save and quit the .bash_profile file </span></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co"># log out from your server with</span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="bu">exit</span></a>
+<a class="sourceLine" id="cb20-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb20-12" data-line-number="12"><span class="co"># log in again and type</span></a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="ex">blastp</span> -version</a></code></pre></div>
 <p>Now users should see the BLAST command line options.</p>
 </div>
 <div id="macos-example" class="section level3">
@@ -343,7 +349,7 @@
 </h3>
 <p>Please follow the instructions at <a href="https://learn.perl.org/installing/" class="uri">https://learn.perl.org/installing/</a>.</p>
 <p>After installation, you should be able to execute the following command on the terminal:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="fu">perl</span> -v</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="fu">perl</span> -v</a></code></pre></div>
 <pre><code>This is perl 5, version 18, subversion 2 (v5.18.2) built for darwin-thread-multi-2level
 (with 2 registered patches, see perl -V for more detail)
 
@@ -360,10 +366,15 @@ Internet, point your browser at http://www.perl.org/, the Perl Home Page.</code>
 <h3 class="hasAnchor">
 <a href="#install-dfamscan-pl" class="anchor"></a>Install <a href="http://www.dfam.org/web_download/Current_Release/dfamscan.pl">dfamscan.pl</a>
 </h3>
-<p><a href="http://www.dfam.org/web_download/Current_Release/dfamscan.pl">dfamscan.pl</a> needs to be stored at <code>/usr/local/bin/dfamscan.pl</code> and executabe via <code>perl /usr/local/bin/dfamscan.pl -help</code>. This is important to be able to run the hmmer search against the Dfam database.</p>
-<p>Please follow the <code>dfamscan.pl</code> installation instructions at <a href="http://www.dfam.org/web_download/Tools/README.txt" class="uri">http://www.dfam.org/web_download/Tools/README.txt</a> .</p>
-<p>Alternatively, users can use the <a href="https://bioconda.github.io/">Bioconda</a> package management system to install <code>Dfam</code>. For this approach, please <a href="https://conda.io/miniconda.html">install Bioconda</a> and run:</p>
-<pre><code>conda install dfam </code></pre>
+<p><a href="https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz">dfamscan.pl</a> needs to be unzipped and stored at <code>/usr/local/bin/dfamscan.pl</code> and executabe via <code>perl /usr/local/bin/dfamscan.pl -help</code>. This is important to be able to run the hmmer search against the Dfam database.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="fu">gunzip</span> dfamscan.pl.gz</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="fu">sudo</span> cp dfamscan.pl /usr/local/bin/dfamscan.pl</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="co"># test whether it worked</span></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5"><span class="fu">perl</span> /usr/local/bin/dfamscan.pl -help</a></code></pre></div>
+<p>Users can download the <a href="https://www.dfam.org/releases/Dfam_3.1/families/">Dfam database v3.1</a> by running:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="fu">gunzip</span> Dfam.hmm.gz</a></code></pre></div>
 </div>
 </div>
 <div id="quick-start" class="section level2">
@@ -1357,47 +1368,6 @@ specify the insertion score used in the PBS/tRNA Smith-Waterman alignment. Defau
 <a href="#metagenome-scale-annotations" class="anchor"></a>Metagenome scale annotations</h2>
 <p><code>LTRpred</code> allows users to perform annotations not only for single genomes but for multiple genomes (metagenomes) using only one pipeline function named <code><a href="../reference/LTRpred.meta.html">LTRpred.meta()</a></code>.</p>
 <p><strong>Please be aware that <code>LTRpred</code> annotations for multiple genomes especailly for entire kingdoms of life is a computationally hard task and requires large server or high performance computer access. Computations for hundreds of genomes even using tens to hundreds of cores might take several weeks to terminate. Please make sure that you have the right computational infrastructure to run these processes.</strong></p>
-<p>In the following example we will run <code><a href="../reference/LTRpred.meta.html">LTRpred.meta()</a></code> on all genomes of the plant kingdom stored in NCBI RefSeq:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># download all plant genomes</span></a>
-<a class="sourceLine" id="cb40-2" data-line-number="2">biomartr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/biomartr/topics/meta.retrieval">meta.retrieval</a></span>(<span class="dt">kingdom =</span> <span class="st">"plant"</span>, <span class="dt">db =</span> <span class="st">"refseq"</span>, <span class="dt">type =</span> <span class="st">"genome"</span>)</a></code></pre></div>
-<p>The plant genomes are now stored in a folder named <code>plant</code>. Now, <code><a href="../reference/LTRpred.meta.html">LTRpred.meta()</a></code> can be run with the same parameter configuration as <code><a href="../reference/LTRpred.html">LTRpred()</a></code>.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># run LTRpred on all plant genomes</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="kw"><a href="../reference/LTRpred.meta.html">LTRpred.meta</a></span>(</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">   <span class="dt">genome.folder =</span> <span class="st">"plant"</span>,</a>
-<a class="sourceLine" id="cb41-4" data-line-number="4">   <span class="dt">trnas       =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"tRNAs/"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>), <span class="st">"plants-tRNA_cat.fa"</span>),</a>
-<a class="sourceLine" id="cb41-5" data-line-number="5">   <span class="dt">cluster     =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb41-6" data-line-number="6">   <span class="dt">cores       =</span> <span class="dv">24</span>,</a>
-<a class="sourceLine" id="cb41-7" data-line-number="7">   <span class="dt">hmms        =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"HMMs/"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>), <span class="st">"hmm_*"</span>),</a>
-<a class="sourceLine" id="cb41-8" data-line-number="8">   <span class="dt">minlenltr   =</span> <span class="dv">100</span>,</a>
-<a class="sourceLine" id="cb41-9" data-line-number="9">   <span class="dt">maxlenltr   =</span> <span class="dv">5000</span>,</a>
-<a class="sourceLine" id="cb41-10" data-line-number="10">   <span class="dt">mindistltr  =</span> <span class="dv">4000</span>,</a>
-<a class="sourceLine" id="cb41-11" data-line-number="11">   <span class="dt">maxdistltr  =</span> <span class="dv">30000</span>,</a>
-<a class="sourceLine" id="cb41-12" data-line-number="12">   <span class="dt">mintsd      =</span> <span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb41-13" data-line-number="13">   <span class="dt">maxtsd      =</span> <span class="dv">20</span>,</a>
-<a class="sourceLine" id="cb41-14" data-line-number="14">   <span class="dt">vic         =</span> <span class="dv">80</span>,</a>
-<a class="sourceLine" id="cb41-15" data-line-number="15">   <span class="dt">overlaps    =</span> <span class="st">"no"</span>,</a>
-<a class="sourceLine" id="cb41-16" data-line-number="16">   <span class="dt">xdrop        =</span> <span class="dv">7</span>,</a>
-<a class="sourceLine" id="cb41-17" data-line-number="17">   <span class="dt">motifmis    =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb41-18" data-line-number="18">   <span class="dt">pbsradius   =</span> <span class="dv">60</span>,</a>
-<a class="sourceLine" id="cb41-19" data-line-number="19">   <span class="dt">pbsalilen   =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">8</span>,<span class="dv">40</span>),</a>
-<a class="sourceLine" id="cb41-20" data-line-number="20">   <span class="dt">pbsoffset   =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">10</span>),</a>
-<a class="sourceLine" id="cb41-21" data-line-number="21">   <span class="dt">quality.filter =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb41-22" data-line-number="22">   <span class="dt">n.orfs      =</span> <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb41-23" data-line-number="23">   <span class="dt">output.path =</span> <span class="st">"LTRpred_plants"</span></a>
-<a class="sourceLine" id="cb41-24" data-line-number="24">      )</a></code></pre></div>
-<p><code><a href="../reference/LTRpred.meta.html">LTRpred.meta()</a></code> now generates the output folder <code>LTRpred_plants</code> and stores <code>*_ltrpred</code> output folders for each species. Users can now summarise the results in a tidy data.frame using the function <code><a href="../reference/meta.summarize.html">meta.summarize()</a></code>.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">ltrpred_plants &lt;-<span class="st"> </span><span class="kw"><a href="../reference/meta.summarize.html">meta.summarize</a></span>(<span class="dt">result.folder  =</span> <span class="st">"LTRpred_plants"</span>,</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">                                 <span class="dt">ltr.similarity =</span> <span class="dv">70</span>,</a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">                                 <span class="dt">quality.filter =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb42-4" data-line-number="4">                                 <span class="dt">n.orfs         =</span> <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb42-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb42-6" data-line-number="6">readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_tsv</a></span>(ltrpred_plants, <span class="st">"LTRpred_Plants_MetaTable.tsv"</span>)</a></code></pre></div>
-<p>For functional annotation, users can then again apply the function <code><a href="../reference/quality.filter.html">quality.filter()</a></code>:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># retrieve functional annotation for plant kingdom</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2">ltrpred_plants_functional &lt;-<span class="st"> </span><span class="kw"><a href="../reference/quality.filter.html">quality.filter</a></span>(ltrpred_plants, <span class="dt">sim =</span> <span class="dv">97</span>, </a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">                                 <span class="dt">n.orfs =</span> <span class="dv">1</span>, <span class="dt">strategy =</span> <span class="st">"stringent"</span>)</a>
-<a class="sourceLine" id="cb43-4" data-line-number="4">                                 </a>
-<a class="sourceLine" id="cb43-5" data-line-number="5">readr<span class="op">::</span><span class="kw"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_tsv</a></span>(ltrpred_plants_functional, <span class="st">"LTRpred_Plants_Functional_MetaTable.tsv"</span>)</a></code></pre></div>
 </div>
 </div>
   </div>
