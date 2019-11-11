@@ -75,17 +75,20 @@ Please make sure that the following programming languages are installed on your 
 Please make sure that [Bioconductor](https://www.bioconductor.org/install/) and all package dependencies are installed on the
 system on which you would like to run `LTRpred`.
 
-```r
-# install Bioconductor
-## try https:// if http:// URLs are not supported
-source("http://bioconductor.org/biocLite.R")
-biocLite()
-```
-
-Then install prerequisite Bioconductor packages:
+Install prerequisite CRAN and Bioconductor packages:
 
 ```r
-biocLite(c("GenomicFeatures","IRanges", "AnnotationDbi", "Biostrings"))
+install.packages(c("tidyverse", "data.table", "seqinr", "biomartr", "dtplyr", "devtools"))
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install()
+
+BiocManager::install(c("rtracklayer", "GenomicFeatures", "biomaRt"))
+
+devtools::install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
+
+install.packages(c("BSDA", "ggrepel", "gridExtra")) 
 ```
 
 Now users may install `LTRpred` as follows:
@@ -374,7 +377,7 @@ Internet, point your browser at http://www.perl.org/, the Perl Home Page.
 
 ### Install [dfamscan.pl](http://www.dfam.org/web_download/Current_Release/dfamscan.pl)
 
-[dfamscan.pl](https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz) needs to be stored at `/usr/local/bin/dfamscan.pl` and executabe via `perl /usr/local/bin/dfamscan.pl -help`. This is important to be able to run the hmmer search against the Dfam database.
+[dfamscan.pl](https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz) needs to be unzipped and stored at `/usr/local/bin/dfamscan.pl` and executabe via `perl /usr/local/bin/dfamscan.pl -help`. This is important to be able to run the hmmer search against the Dfam database.
 
 ```sh
 wget https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz
