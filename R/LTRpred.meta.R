@@ -11,6 +11,7 @@ LTRpred.meta <- function(genome.folder,
                          cores = 1,
                          ...) {
   
+  
   if (cores > parallel::detectCores())
     stop(
       "You sepcified more cores than are available on your machine. Please provide the correct number of cores.",
@@ -38,6 +39,8 @@ LTRpred.meta <- function(genome.folder,
   assembly_files <- list.files(genome.folder)
   assembly_files_chop <- str_chop_vec(assembly_files, pattern = "[.]")
   
+  message("Starting LTRpred meta run on ", length(assembly_files_chop), " assembly files: ", paste0(assembly_files_chop, collapse = ", "))
+  
   # Setup cluster
   clust <- parallel::makeCluster(cores)
   
@@ -54,7 +57,7 @@ LTRpred.meta <- function(genome.folder,
   
   parallel::stopCluster(clust)
   
-  message("Finished meta analysis!")
+  message("Finished LTRpred meta analysis!")
   return(res)
 }
 
