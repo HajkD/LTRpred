@@ -57,7 +57,7 @@ LTRpred.meta <- function(genome.folder,
   
   parallel::stopCluster(clust)
   
-  message("Finished LTRpred meta analysis!")
+  message("Finished LTRpred meta analysis! All results were stored in: ", output.folder)
   return(res)
 }
 
