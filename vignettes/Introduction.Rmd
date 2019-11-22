@@ -94,9 +94,8 @@ install.packages(c("BSDA", "ggrepel", "gridExtra"))
 Now users may install `LTRpred` as follows:
 
 ```r
-source("http://bioconductor.org/biocLite.R")
-biocLite("devtools")
-biocLite("HajkD/LTRpred")
+# install.packages("devtools")
+devtools::install_github("HajkD/LTRpred")
 ```
 
 
