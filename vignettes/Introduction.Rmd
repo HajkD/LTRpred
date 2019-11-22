@@ -391,6 +391,8 @@ Users can download the [Dfam database v3.1](https://www.dfam.org/releases/Dfam_3
 ```sh
 wget https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz
 gunzip Dfam.hmm.gz
+# run hmmpress
+hmmpress Dfam.hmm
 ```
 
 ## Quick Start
