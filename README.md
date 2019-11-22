@@ -7,12 +7,29 @@ An easy way to perform __de novo__ functional annotation of `LTR retrotransposon
 
 ## Install
 
+Install prerequisite CRAN and Bioconductor packages:
+
 ```r
-# install the current version of LTRpred on your system
-source("http://bioconductor.org/biocLite.R")
-biocLite("devtools")
-biocLite("HajkD/LTRpred")
+install.packages(c("tidyverse", "data.table", "seqinr", "biomartr", "dtplyr", "devtools"))
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install()
+
+BiocManager::install(c("rtracklayer", "GenomicFeatures", "biomaRt"))
+
+devtools::install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
+
+install.packages(c("BSDA", "ggrepel", "gridExtra")) 
 ```
+
+Now users may install `LTRpred` as follows:
+
+```r
+# install.packages("devtools")
+devtools::install_github("HajkD/LTRpred")
+```
+
 ## Tutorials
 
 ### Quick Start
