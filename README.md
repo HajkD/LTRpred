@@ -5,6 +5,9 @@ An easy way to perform __de novo__ functional annotation of `LTR retrotransposon
 
 ![](vignettes/LTRfeatures.png)
 
+
+Users can consult a comprehensive [Introduction](https://hajkd.github.io/LTRpred/articles/Introduction.html) to the `LTRpred` pipeline to get familiar with the tool.
+
 ## Install
 
 Install prerequisite CRAN and Bioconductor packages:
@@ -29,7 +32,6 @@ Now users may install `LTRpred` as follows:
 # install.packages("devtools")
 devtools::install_github("HajkD/LTRpred")
 ```
-
 ## Tutorials
 
 ### Quick Start
