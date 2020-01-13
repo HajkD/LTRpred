@@ -27,18 +27,25 @@ dfam.query <- function(seq.file,
             (make sure that the internet connection is stabe).", call. = FALSE)
     
     if (!file.exists("/usr/local/bin/dfamscan.pl"))
-        stop("The perl script 'dfamscan.pl' could not be found! Please download 'dfamscan.pl' from www.dfam.org/web_download/Current_Release/dfamscan.pl and store it in '/usr/local/bin'.", call. = FALSE)
+        stop("The perl script 'dfamscan.pl' could not be found! Please download 'dfamscan.pl' from 'http://www.dfam.org/web_download/Current_Release/dfamscan.pl' and store it in '/usr/local/bin'.", call. = FALSE)
     
     if (!file.exists(seq.file))
         stop("The file '",seq.file,"' does not exist! Please make sure that a correct path to the sequence file is passed to the dfam.query() function.", call. = FALSE)
     
     if (Dfam.db == "download") {
-      message("Download Dfam database from http://dfam.org/web_download/Current_Release/Dfam.hmm.gz ...")
+      message("Download Dfam database from https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz ...")
+      
+      tryCatch({
         downloader::download(
-            "http://dfam.org/web_download/Current_Release/Dfam.hmm.gz",
+            "https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz",
             file.path(output.folder, "Dfam.hmm.gz"),
-            mode = "wb"
-        )
+            mode = "wb")
+        }, error = function(e) {
+          stop(
+            "Something went wrong when trying to download the Dfam database from 'https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz'.",
+            " Can you access this file in your browser?", call. = FALSE
+          )
+        })
         message("Download completed!")
         message("Prepare the Dfam.hmm database...")
         
