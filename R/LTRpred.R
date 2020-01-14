@@ -301,7 +301,7 @@ LTRpred <- function(genome.file       = NULL,
     test_installation_blast()
     test_installation_perl()
     
-    message("Running LTRpred on genome '", genome.file, "' with ", cores, " cores and searching for retrotransposons using the overlaps option (overlaps = '", overlaps, "') ...")
+    message("Running LTRpred on genome '", genome.file, "' with ", cores, " core(s) and searching for retrotransposons using the overlaps option (overlaps = '", overlaps, "') ...")
     message("\n")
     
     if (!is.null(LTRharvest.folder))
