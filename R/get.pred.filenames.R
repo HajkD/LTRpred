@@ -20,7 +20,7 @@ get.pred.filenames <- function(LTRpred.folder, ws.wrap = FALSE){
   ltrdigest.folder <- paste0(folder.name,"_ltrdigest")
   
   pred.files <- c(
-    file.path(LTRpred.folder,paste0(folder.name,"_LTRpred_DataSheet.csv")),
+    file.path(LTRpred.folder,paste0(folder.name,"_LTRpred_DataSheet.tsv")),
     file.path(LTRpred.folder,paste0(folder.name,"_LTRpred.bed")),
     file.path(LTRpred.folder,paste0(folder.name,"_LTRpred.gff")),
     file.path(LTRpred.folder,paste0(folder.name,"_orfs_nt.fsa")),
