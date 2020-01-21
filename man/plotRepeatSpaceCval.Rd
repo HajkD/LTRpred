@@ -4,27 +4,14 @@
 \alias{plotRepeatSpaceCval}
 \title{Cvalue Genome Size vs. Repeat Space}
 \usage{
-plotRepeatSpaceCval(
-  genome.matrix,
-  cor.method = "spearman",
-  label.organism = TRUE,
-  smooth.method = "glm",
-  se = TRUE,
+plotRepeatSpaceCval(genome.matrix, cor.method = "spearman",
+  label.organism = TRUE, smooth.method = "glm", se = TRUE,
   xlab = "Total repeats length in Mega [bp]",
-  ylab = "Cvalue Genome size in Mega [bp]",
-  main = "",
-  alpha = 0.3,
-  arrow_lab = FALSE,
-  cl.analysis = FALSE,
-  cl.centers = NULL,
-  cl.method = "euclidean",
-  cl.nstart = 100,
-  cl.iter.max = 10000,
-  sim.matrix = NULL,
-  text.size = 18,
-  label.size = 3,
-  check.overlap = TRUE
-)
+  ylab = "Cvalue Genome size in Mega [bp]", main = "", alpha = 0.3,
+  arrow_lab = FALSE, cl.analysis = FALSE, cl.centers = NULL,
+  cl.method = "euclidean", cl.nstart = 100, cl.iter.max = 10000,
+  sim.matrix = NULL, text.size = 18, label.size = 3,
+  check.overlap = TRUE)
 }
 \arguments{
 \item{genome.matrix}{Genome matrix retruned by \code{\link[LTRpred]{LTRpred.meta}}.}

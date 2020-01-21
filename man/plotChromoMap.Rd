@@ -19,7 +19,7 @@ will be visualized along the chromsome.
 }
 \examples{
 test_genome <- system.file("Hsapiens_ChrY.fa", package = "LTRpred")
-test_pred <- read.ltrpred(system.file("Hsapiens_ChrY_LTRpred_DataSheet.tsv", package = "LTRpred"))
+test_pred <- LTRpred::read.ltrpred(system.file("Hsapiens_ChrY_LTRpred_DataSheet.tsv", package = "LTRpred"))
 test_centromere_starts <- 55000
 # generate visualization
 LTRpred::plotChromoMap(test_pred, test_genome, test_centromere_starts)

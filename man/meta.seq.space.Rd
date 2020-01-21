@@ -4,13 +4,8 @@
 \alias{meta.seq.space}
 \title{Quantification of the repeat space for multiple \code{Repeat Masker} files}
 \usage{
-meta.seq.space(
-  rm.folder,
-  type = "rm",
-  repeat.type = "all",
-  rename = FALSE,
-  save.file = TRUE
-)
+meta.seq.space(rm.folder, type = "rm", repeat.type = "all",
+  rename = FALSE, save.file = TRUE)
 }
 \arguments{
 \item{rm.folder}{file path to the \code{Repeat Masker} files.}

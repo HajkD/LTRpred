@@ -4,17 +4,9 @@
 \alias{gridPlotAssemblyVersions}
 \title{Plot retrotransposon age distributions for predictions of different genome assembly versions}
 \usage{
-gridPlotAssemblyVersions(
-  data,
-  quality.filter = FALSE,
-  text.size = 18,
-  xlab = "LTR similarity",
-  ylab = "LTR retrotransposon count",
-  main.text = "",
-  y.ticks = 6,
-  sim = 70,
-  n.orfs = 0
-)
+gridPlotAssemblyVersions(data, quality.filter = FALSE, text.size = 18,
+  xlab = "LTR similarity", ylab = "LTR retrotransposon count",
+  main.text = "", y.ticks = 6, sim = 70, n.orfs = 0)
 }
 \arguments{
 \item{data}{prediction files returned by \code{\link[LTRpred]{LTRpred}}. Usually a combined prediction file that was generated with \code{\link{combinePreds}}.}

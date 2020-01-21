@@ -4,12 +4,8 @@
 \alias{ltr_age_estimation}
 \title{Estimate retrotransposon insertion age in Mya based on 5 prime and 3 prime LTR sequence homology}
 \usage{
-ltr_age_estimation(
-  ltr_seqs_3_prime,
-  ltr_seqs_5_prime,
-  model = "K80",
-  mutation_rate = 1.3 * 1e-07
-)
+ltr_age_estimation(ltr_seqs_3_prime, ltr_seqs_5_prime, model = "K80",
+  mutation_rate = 1.3 * 1e-07)
 }
 \arguments{
 \item{ltr_seqs_3_prime}{file path to a fasta file storing the sequences of the respective 3 prime LTR (e.g. as annotatted by \code{\link{LTRpred}}).}

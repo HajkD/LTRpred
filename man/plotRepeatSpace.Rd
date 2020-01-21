@@ -4,27 +4,14 @@
 \alias{plotRepeatSpace}
 \title{Genome Size vs. Repeat Space}
 \usage{
-plotRepeatSpace(
-  genome.summary,
-  cor.method = "spearman",
-  label.organism = TRUE,
-  smooth.method = "glm",
-  se = TRUE,
+plotRepeatSpace(genome.summary, cor.method = "spearman",
+  label.organism = TRUE, smooth.method = "glm", se = TRUE,
   xlab = "Total repeats length in Mega [bp]",
-  ylab = "Genome size in Mega [bp]",
-  main = "",
-  alpha = 0.3,
-  arrow_lab = FALSE,
-  cl.analysis = FALSE,
-  cl.centers = NULL,
-  cl.method = "euclidean",
-  cl.nstart = 100,
-  cl.iter.max = 10000,
-  sim.matrix = NULL,
-  text.size = 18,
-  label.size = 3,
-  check.overlap = TRUE
-)
+  ylab = "Genome size in Mega [bp]", main = "", alpha = 0.3,
+  arrow_lab = FALSE, cl.analysis = FALSE, cl.centers = NULL,
+  cl.method = "euclidean", cl.nstart = 100, cl.iter.max = 10000,
+  sim.matrix = NULL, text.size = 18, label.size = 3,
+  check.overlap = TRUE)
 }
 \arguments{
 \item{cor.method}{method to correlate genome size versus protein space.}

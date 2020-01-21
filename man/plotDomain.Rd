@@ -4,13 +4,9 @@
 \alias{plotDomain}
 \title{Visualize the Protein Domain distribution of predicted LTR retrotransposons}
 \usage{
-plotDomain(
-  data,
-  xlab = "\\nDetected Protein Domains",
-  ylab = "Predicted LTR retrotransposons (count)\\n",
-  main = "",
-  legend.title = "Protein Domains"
-)
+plotDomain(data, xlab = "\\nDetected Protein Domains",
+  ylab = "Predicted LTR retrotransposons (count)\\n", main = "",
+  legend.title = "Protein Domains")
 }
 \arguments{
 \item{data}{\code{data.frame} returned by \code{\link[LTRpred]{LTRpred}}.}

@@ -4,16 +4,9 @@
 \alias{generate.multi.quality.filter.meta}
 \title{Run \code{quality.filter.meta} for several different ltr similarity thresholds.}
 \usage{
-generate.multi.quality.filter.meta(
-  kingdom,
-  genome.folder,
-  ltrpred.meta.folder,
-  sim.options,
-  cut.range.options,
-  n.orfs = 0,
-  strategy = "default",
-  update = FALSE
-)
+generate.multi.quality.filter.meta(kingdom, genome.folder,
+  ltrpred.meta.folder, sim.options, cut.range.options, n.orfs = 0,
+  strategy = "default", update = FALSE)
 }
 \description{
 Run \code{quality.filter.meta} for several different ltr similarity thresholds.

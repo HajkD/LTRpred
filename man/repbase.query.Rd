@@ -4,14 +4,8 @@
 \alias{repbase.query}
 \title{Query the RepBase to annotate putative LTRs}
 \usage{
-repbase.query(
-  seq.file,
-  repbase.path,
-  output = "RepbaseOutput.txt",
-  max.hits = 5000,
-  eval = 1e-30,
-  cores = 1
-)
+repbase.query(seq.file, repbase.path, output = "RepbaseOutput.txt",
+  max.hits = 5000, eval = 1e-30, cores = 1)
 }
 \arguments{
 \item{seq.file}{file path to the putative LTR transposon sequences in \code{fasta} format.}

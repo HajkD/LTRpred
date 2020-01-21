@@ -4,7 +4,8 @@
 \alias{rename.fasta}
 \title{Helper function to add species names to headers within fasta files}
 \usage{
-rename.fasta(file, species, output = "renamed_fasta.fa", append = FALSE)
+rename.fasta(file, species, output = "renamed_fasta.fa",
+  append = FALSE)
 }
 \arguments{
 \item{file}{input fasta file.}

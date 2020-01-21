@@ -4,31 +4,14 @@
 \alias{LTRdigest}
 \title{Run LTRdigest to predict putative LTR Retrotransposons}
 \usage{
-LTRdigest(
-  input.gff3,
-  genome.file,
-  aaout = "yes",
-  aliout = "yes",
-  pptlen = c(8, 30),
-  uboxlen = c(3, 30),
-  pptradius = 30,
-  trnas = NULL,
-  pbsalilen = c(11, 30),
-  pbsoffset = c(0, 5),
-  pbstrnaoffset = c(0, 5),
-  pbsmaxedist = 1,
-  pbsradius = 30,
-  hmms = NULL,
-  pdomevalcutoff = 1e-05,
-  pbsmatchscore = 5,
-  pbsmismatchscore = -10,
-  pbsinsertionscore = -20,
-  pbsdeletionscore = -20,
-  pfam.ids = NULL,
-  cores = 1,
-  index.file = NULL,
-  output.path = NULL
-)
+LTRdigest(input.gff3, genome.file, aaout = "yes", aliout = "yes",
+  pptlen = c(8, 30), uboxlen = c(3, 30), pptradius = 30,
+  trnas = NULL, pbsalilen = c(11, 30), pbsoffset = c(0, 5),
+  pbstrnaoffset = c(0, 5), pbsmaxedist = 1, pbsradius = 30,
+  hmms = NULL, pdomevalcutoff = 1e-05, pbsmatchscore = 5,
+  pbsmismatchscore = -10, pbsinsertionscore = -20,
+  pbsdeletionscore = -20, pfam.ids = NULL, cores = 1,
+  index.file = NULL, output.path = NULL)
 }
 \arguments{
 \item{input.gff3}{path to the prediction file in gff3 format returned by \code{\link{LTRharvest}}.}

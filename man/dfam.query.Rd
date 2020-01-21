@@ -4,13 +4,8 @@
 \alias{dfam.query}
 \title{Query the Dfam database to annotate putative LTRs}
 \usage{
-dfam.query(
-  seq.file,
-  Dfam.db = NULL,
-  eval = 0.001,
-  cores = 1,
-  output.folder = getwd()
-)
+dfam.query(seq.file, Dfam.db = NULL, eval = 0.001, cores = 1,
+  output.folder = getwd())
 }
 \arguments{
 \item{seq.file}{file path to the putative LTR transposon sequences in \code{fasta} format.}

@@ -4,19 +4,10 @@
 \alias{plotCluster}
 \title{Plot correlation between #cluster members and any other variable}
 \usage{
-plotCluster(
-  data,
-  y = "CG_3ltr_rel",
-  color.by = "fam",
-  quality.filter = FALSE,
-  sim = 70,
-  n.orfs = 1,
-  chop.names = TRUE,
-  xlab = "# CLUSTER MEMBERS",
-  ylab = "",
-  main = "",
-  legend.title = "Protein Domain"
-)
+plotCluster(data, y = "CG_3ltr_rel", color.by = "fam",
+  quality.filter = FALSE, sim = 70, n.orfs = 1, chop.names = TRUE,
+  xlab = "# CLUSTER MEMBERS", ylab = "", main = "",
+  legend.title = "Protein Domain")
 }
 \arguments{
 \item{data}{\code{data.frame} returned by \code{LTRpred}.}

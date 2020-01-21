@@ -4,14 +4,8 @@
 \alias{plotRanges}
 \title{Plot Ranges of an genomic feature}
 \usage{
-plotRanges(
-  x,
-  xlim = x,
-  main = deparse(substitute(x)),
-  col = "black",
-  sep = 0.5,
-  ...
-)
+plotRanges(x, xlim = x, main = deparse(substitute(x)), col = "black",
+  sep = 0.5, ...)
 }
 \arguments{
 \item{x}{range object.}

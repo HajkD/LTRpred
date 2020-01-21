@@ -4,22 +4,12 @@
 \alias{plotSizeMulti}
 \title{plotSize for \code{generate.multi.quality.filter.meta} output}
 \usage{
-plotSizeMulti(
-  meta.summary.file,
-  cor.method = "spearman",
-  type = "total_ltrs_nucl_mbp",
-  label.organism = TRUE,
-  smooth.method = "lm",
-  se = FALSE,
-  main = "",
+plotSizeMulti(meta.summary.file, cor.method = "spearman",
+  type = "total_ltrs_nucl_mbp", label.organism = TRUE,
+  smooth.method = "lm", se = FALSE, main = "",
   xlab = "LTR retrotransposon content in Mega [bp]",
-  ylab = "Genome size in Mega [bp]",
-  alpha = 0.3,
-  arrow_lab = FALSE,
-  text.size = 18,
-  label.size = 4,
-  check.overlap = TRUE
-)
+  ylab = "Genome size in Mega [bp]", alpha = 0.3, arrow_lab = FALSE,
+  text.size = 18, label.size = 4, check.overlap = TRUE)
 }
 \description{
 plotSize for \code{generate.multi.quality.filter.meta} output
