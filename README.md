@@ -53,7 +53,8 @@ When running your own genome, please specify `genome.file = "path/to/your/genome
 ## Citation
 The `LTRpred` package is not formally published yet, but a manuscript is in preparation. For now, please cite one of the the following paper when using `LTRpred` for your own research. `LTRpred` is part of these studies and helped to predict potentially active retrotransposons that were later confirmed experimentally.
 
-> M Benoit, __HG Drost__, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski. [__Environmental and epigenetic regulation of Rider retrotransposons in tomato__](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370). _PloS Genetics_ (2019) (__in press__). 
+> M Benoit, __HG Drost__, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski. [__Environmental and epigenetic regulation of Rider retrotransposons in tomato__](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370). _PloS Genetics_, 15(9):
+e1008370 (2019). 
 
 or
 
