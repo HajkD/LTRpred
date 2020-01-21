@@ -8,7 +8,7 @@
 #' @author Hajk-Georg Drost
 #' @examples 
 #' test_genome <- system.file("Hsapiens_ChrY.fa", package = "LTRpred")
-#' test_pred <- read.ltrpred(system.file("Hsapiens_ChrY_LTRpred_DataSheet.tsv", package = "LTRpred"))
+#' test_pred <- LTRpred::read.ltrpred(system.file("Hsapiens_ChrY_LTRpred_DataSheet.tsv", package = "LTRpred"))
 #' test_centromere_starts <- 55000
 #' # generate visualization
 #' LTRpred::plotChromoMap(test_pred, test_genome, test_centromere_starts)
@@ -33,7 +33,9 @@ plotChromoMap <- function(pred, genome.file, centromere_starts, ...){
                                                   chromosome_end = genome@ranges@width,
                                                   centromere_start = centromere_starts)
   
-  
+  if (!all(genome@ranges@NAMES == unique(pred$chromosome)))
+    stop("The chromosome names from the genome.file (", paste0(genome@ranges@NAMES , collapse = ", "), ") and the chromosome names from the pred file (",paste0(unique(pred$chromosome), collapse = ", "), ") do not match. Please fix this for this function to work.", call. = FALSE)
+    
   chromoMap_chromosome_file <- file.path(tempdir(), paste0("chromoMap_chromosome_file_", unlist(stringr::str_split(basename(genome.file), "[.]"))[1], ".txt"))
   chromoMap_annotation_file <- file.path(tempdir(), paste0("chromoMap_annotation_file_", unique(pred$species), ".txt"))
   
