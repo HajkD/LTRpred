@@ -14,7 +14,7 @@ pred2chromoMap <- function(LTR.data, output = "output"){
                            chromosome = LTR.data$chromosome, 
                            start      = LTR.data$start, 
                            end        = LTR.data$end,
-                           data       = LTR.data$orfs)
+                           data       = LTR.data$similarity)
   
   utils::write.table(res,output, sep = "\t", quote = FALSE, col.names = FALSE, row.names = FALSE)
 }
