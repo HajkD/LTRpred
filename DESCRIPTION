@@ -43,4 +43,4 @@ Suggests:
     amap
 URL: https://github.com/HajkD/LTRpred
 BugReports: https://github.com/HajkD/LTRpred/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
