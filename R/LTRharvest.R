@@ -117,10 +117,10 @@ LTRharvest <- function(genome.file,
   test_installation_gt()  
     
   if ((is.null(mintsd) & !is.null(maxtsd)) || (!is.null(mintsd) & is.null(maxtsd)))
-    stop("Please specify a TSD length for both: min and max TSD length!")
+    stop("Please specify a TSD length for both: min and max TSD length!", call. = FALSE)
   
   if (!is.element(overlaps,c("no","best","all")))
-    stop("Please select as LTR transposon overlap option either, 'no', 'best', or 'all'.")
+    stop("Please select as LTR transposon overlap option either, 'no', 'best', or 'all'.", call. = FALSE)
     
     if (is.null(output.path)) {
         output.path <- paste0(unlist(stringr::str_split(basename(genome.file),"[.]"))[1],"_ltrharvest")
@@ -175,8 +175,8 @@ LTRharvest <- function(genome.file,
                       "-mindistltr ", mindistltr, " \ ",
                       "-maxdistltr ", maxdistltr, " \ ",
                       "-similar ", similar, " \ ",
-                      ifelse(!is.null(mintsd),paste0("-mintsd ", mintsd, " \ ")," "),
-                      ifelse(!is.null(maxtsd),paste0("-maxtsd ", maxtsd, " \ ")," "),
+                      ifelse(!is.null(mintsd),paste0("-mintsd ", mintsd, " \ "),paste0("-mintsd ", 0, " \ ")),
+                      ifelse(!is.null(maxtsd),paste0("-maxtsd ", maxtsd, " \ "),paste0("-maxtsd ", 0, " \ ")),
                       "-vic ", vic, " \ ",
                       "-overlaps ", overlaps, " \ ",
                       "-xdrop ", xdrop, " \ ",

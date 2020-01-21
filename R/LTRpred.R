@@ -301,6 +301,9 @@ LTRpred <- function(genome.file       = NULL,
     test_installation_blast()
     test_installation_perl()
     
+    message("Running LTRpred on genome '", genome.file, "' with ", cores, " core(s) and searching for retrotransposons using the overlaps option (overlaps = '", overlaps, "') ...")
+    message("\n")
+    
     if (!is.null(LTRharvest.folder))
         if (LTRharvest.folder != "skip")
             stop(
@@ -375,32 +378,29 @@ LTRpred <- function(genome.file       = NULL,
             output.path <- LTRpred.folder
         }
         
+      if (!is.null(output.path)) {
         if (dir.exists(output.path)) {
-            message("Folder '",output.path,"' exists already and will be used...")
-            #unlink(output.path, recursive = TRUE)
-            #dir.create(output.path)
+          message(
+            "The output folder '",
+            output.path,
+            "' seems to exist already and will be used to store LTRpred results ..."
+          )
+          #unlink(output.path, recursive = TRUE)
+          #dir.create(output.path)
         } else {
-            message("Folder '",output.path,"' does not exist yet and will be created...")
-            dir.create(output.path)
+          message("The output folder '",
+                  output.path,
+                  "' does not seem to exist yet and will be created ...")
+          dir.create(output.path)
         }
-    } 
-    
-    if (!is.null(output.path)) {
-        if (dir.exists(output.path)) {
-            message("Folder '",output.path,"' exists already and will be used...")
-            #unlink(output.path, recursive = TRUE)
-            #dir.create(output.path)
-        } else {
-            message("Folder '",output.path,"' does not exist yet and will be created...")
-            dir.create(output.path)
-        }
+      }
     }
     
     rTSD_end <- lTSD_start <- PPT_end <- PPT_start <- PBS_end <- PBS_start <- NULL
     ID <- chromosome <- width <- orf.id <- NULL
     
-    message("Starting LTRpred analysis...")
-    message("Step 1:")
+    message("\n")
+    message("LTRpred - Step 1:")
     
     if (!is.null(genome.file) &
         is.null(LTRdigest.gff) & is.null(tabout.file)) {
@@ -432,7 +432,8 @@ LTRpred <- function(genome.file       = NULL,
         chopped.foldername <-
             unlist(stringr::str_split(basename(genome.file), "[.]"))[1]
         
-        message("Step 2:")
+        message("\n")
+        message("LTRpred - Step 2:")
         
         LTRdigest(
             input.gff3        = file.path(
@@ -463,7 +464,8 @@ LTRpred <- function(genome.file       = NULL,
             output.path       = NULL
         )
         
-        message("Step 3:")
+        message("\n")
+        message("LTRpred - Step 3:")
         message("Import LTRdigest Predictions...")
 
         LTRdigestOutput <-
@@ -505,7 +507,8 @@ LTRpred <- function(genome.file       = NULL,
         if (any(is.na(LTRdigestOutput)))
           return(paste0("No prediction for ", genome.file))
         
-        message("Step 4:")
+        message("\n")
+        message("LTRpred - Step 4:")
         message("Perform ORF Prediction...")
         ORFTable <-
             ORFpred(
@@ -655,7 +658,7 @@ LTRpred <- function(genome.file       = NULL,
                     }
                     
                     if (is.null(dfam.file)) {
-                        message("Perform Dfam search....")
+                        message("A hmmer search against the Dfam database located at '", Dfam.db, "' using ", dfam.cores, " cores is performed to annotate de novo predicted retrotransposons ...")
                         # perform query against the Dfam database
                         predSeqs <-
                             file.path(
@@ -848,6 +851,8 @@ LTRpred <- function(genome.file       = NULL,
             }
             
             # perform methylation mark counting
+            message("\n")
+            message("LTRpred - Step 5:")
             message("Perform methylation context quantification..")
 
             full.te.seq <-
@@ -1255,12 +1260,15 @@ LTRpred <- function(genome.file       = NULL,
             dfam_acc:cn_5ltr
         )
     
+    message("\n")
+    message("LTRpred - Step 6:")
+    
     if (quality.filter) {
         res <- quality.filter(res, sim = similar, n.orfs = n.orfs)
     }
     
     if (!quality.filter) {
-        message("No quality filters were applied...")
+        message("No quality filters were applied, please be aware that your prediction file may include some false positive predictions of retrotransposons. You can still apply quality control criteria using the function LTRpred::quality.filter() ...")
     }
         
     pred2tsv(res, file.path(
@@ -1368,7 +1376,8 @@ LTRpred <- function(genome.file       = NULL,
       paste0(chopped.foldername, "_LTRpred.bed")
     ))
     
-    message("LTRpred analysis finished properly.")
+    message("\n")
+    message("LTRpred finished all analyses successfully. All output files were stored at '", output.path,"'.")
     
     return(paste0("Successful job ", job_num," ."))
 }
