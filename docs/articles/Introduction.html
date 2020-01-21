@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to LTRpred • LTRpred</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to LTRpred">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -39,7 +38,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -62,7 +61,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/HajkD/LTRpred">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -75,7 +74,6 @@
 <!--/.navbar -->
 
       
-
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -129,7 +127,7 @@
 <p>Internally, <em>LTRpred</em> is based on the <code>de novo</code> annotation tools <code>LTRharvest</code> and <code>LTRdigest</code> which use prior knowledge about DNA sequence features (also referred to as <code>Structure-based methods</code>) such as the homology of Long Terminal Repeats (LTRs), Primer Binding Sites (PBS), <em>gag</em> and <em>pol</em> protein domains, and Target Site Duplications (TSDs) that are known to enable the process of transposition (<a href="http://bib.oxfordjournals.org/content/8/6/382.long">Bergman and Quesneville, 2007</a>) to infer LTR retrotransposons in any genome.</p>
 <p>Hence, these <code>de novo</code> annotation tools are designed to screen the genome systematically and efficiently for these structural DNA features. <strong>Figure 1</strong> shows the structural features of LTR retrotransposons that are used for predicting putative LTR transposons <code>de novo</code> in any genome of interest.</p>
 <div class="figure">
-<img src="LTRfeatures.png" alt="Sequence features of LTR retrotransposons. The structural element (LTR length, LTR similarity, TSD, max. size of full LTR rertrotransposon, PBS length, tRNA binding, protein domain search, etc.) can be modified and controlled separately by corresponding arguments implemented in the LTRpred() function. In addition to controlling the structural features of candidate LTR retrotransposons, a open reading frame prediction, Dfam annotation, copy number clustering, and LTR copy number estimation, and methylation context quantification is performed subsequently after reporting putative LTR retrotransposons."><p class="caption">Sequence features of LTR retrotransposons. The structural element (LTR length, LTR similarity, TSD, max. size of full LTR rertrotransposon, PBS length, tRNA binding, protein domain search, etc.) can be modified and controlled separately by corresponding arguments implemented in the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function. In addition to controlling the structural features of candidate LTR retrotransposons, a open reading frame prediction, Dfam annotation, copy number clustering, and LTR copy number estimation, and methylation context quantification is performed subsequently after reporting putative LTR retrotransposons.</p>
+<img src="../../../../R%20Packages/Packages/LTRpred/vignettes/LTRfeatures.png" alt="Sequence features of LTR retrotransposons. The structural element (LTR length, LTR similarity, TSD, max. size of full LTR rertrotransposon, PBS length, tRNA binding, protein domain search, etc.) can be modified and controlled separately by corresponding arguments implemented in the LTRpred() function. In addition to controlling the structural features of candidate LTR retrotransposons, a open reading frame prediction, Dfam annotation, copy number clustering, and LTR copy number estimation, and methylation context quantification is performed subsequently after reporting putative LTR retrotransposons."><p class="caption">Sequence features of LTR retrotransposons. The structural element (LTR length, LTR similarity, TSD, max. size of full LTR rertrotransposon, PBS length, tRNA binding, protein domain search, etc.) can be modified and controlled separately by corresponding arguments implemented in the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function. In addition to controlling the structural features of candidate LTR retrotransposons, a open reading frame prediction, Dfam annotation, copy number clustering, and LTR copy number estimation, and methylation context quantification is performed subsequently after reporting putative LTR retrotransposons.</p>
 </div>
 <p>Based on the optimized output of these tools, the <code>LTRpred</code> package aims to provide researchers with maximum flexibility of adjustable parameters to detect any type of functional LTR retrotransposon. <code>LTRpred</code> package allows users to modify a vast range of parameters to screen for potential LTR transposons, so having this template shown in <strong>Figure 1</strong> in mind will help researchers to modify structural parameters in a biologically meaningful manner.</p>
 <div id="installation" class="section level2">
@@ -153,20 +151,20 @@
 <a href="#dependency-r-packages" class="anchor"></a>Dependency R packages</h3>
 <p>Please make sure that <a href="https://www.bioconductor.org/install/">Bioconductor</a> and all package dependencies are installed on the system on which you would like to run <code>LTRpred</code>.</p>
 <p>Install prerequisite CRAN and Bioconductor packages:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"tidyverse"</span>, <span class="st">"data.table"</span>, <span class="st">"seqinr"</span>, <span class="st">"biomartr"</span>, <span class="st">"dtplyr"</span>, <span class="st">"devtools"</span>))</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"tidyverse"</span>, <span class="st">"data.table"</span>, <span class="st">"seqinr"</span>, <span class="st">"biomartr"</span>, <span class="st">"dtplyr"</span>, <span class="st">"devtools"</span>))</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>()</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ns-load">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"BiocManager"</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">BiocManager<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>()</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"rtracklayer"</span>, <span class="st">"GenomicFeatures"</span>, <span class="st">"biomaRt"</span>))</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">BiocManager<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/BiocManager/topics/install">install</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"rtracklayer"</span>, <span class="st">"GenomicFeatures"</span>, <span class="st">"biomaRt"</span>))</a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"HajkD/metablastr"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"HajkD/metablastr"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"BSDA"</span>, <span class="st">"ggrepel"</span>, <span class="st">"gridExtra"</span>)) </a></code></pre></div>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"BSDA"</span>, <span class="st">"ggrepel"</span>, <span class="st">"gridExtra"</span>)) </a></code></pre></div>
 <p>Now users may install <code>LTRpred</code> as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"HajkD/LTRpred"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"HajkD/LTRpred"</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="install-prerequisite-command-line-tools" class="section level2">
@@ -385,10 +383,10 @@ Internet, point your browser at http://www.perl.org/, the Perl Home Page.</code>
 <a href="#quick-start" class="anchor"></a>Quick Start</h2>
 <p>The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after <a href="Install.Rmd">installing</a> all prerequisite command line tools) is to use the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function and relying on the default parameters. In the following example, a LTR transposon prediction is performed for parts of the Human Y chromosome.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># load LTRpred package</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(LTRpred)</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(LTRpred)</a>
 <a class="sourceLine" id="cb25-3" data-line-number="3"><span class="co"># de novo LTR transposon prediction for the Human Y chromosome</span></a>
 <a class="sourceLine" id="cb25-4" data-line-number="4"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(</a>
-<a class="sourceLine" id="cb25-5" data-line-number="5">    <span class="dt">genome.file =</span> <span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>),</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">    <span class="dt">genome.file =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>),</a>
 <a class="sourceLine" id="cb25-6" data-line-number="6">    <span class="dt">cluster     =</span> <span class="ot">TRUE</span>,</a>
 <a class="sourceLine" id="cb25-7" data-line-number="7">    <span class="dt">cores =</span> <span class="dv">4</span></a>
 <a class="sourceLine" id="cb25-8" data-line-number="8">)</a></code></pre></div>
@@ -639,7 +637,7 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</
 </div>
 <div id="output-file-format-of-ltrpred" class="section level3">
 <h3 class="hasAnchor">
-<a href="#output-file-format-of-ltrpred" class="anchor"></a>Output file format of <code>LTRpred()</code>
+<a href="#output-file-format-of-ltrpred" class="anchor"></a>Output file format of <code><a href="../reference/LTRpred.html">LTRpred()</a></code>
 </h3>
 <p>The columns of the prediction file store the following information:</p>
 <p>tidy format (each row contains all information for a predicted LTR retrotransposon):</p>
@@ -791,11 +789,11 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</
 <p>The following example, however, will terminate within a few minutes.</p>
 <p>First we use the <a href="https://github.com/ropensci/biomartr">biomartr</a> package to download the genome of <code>Saccharomyces cerevisiae</code> from NCBI RefSeq:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># retrieve S. cerevisiae genome from from NCBI RefSeq</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">Scerevisiae_genome &lt;-<span class="st"> </span>biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, </a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">Scerevisiae_genome &lt;-<span class="st"> </span>biomartr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/biomartr/topics/getGenome">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, </a>
 <a class="sourceLine" id="cb31-3" data-line-number="3">                      <span class="dt">organism  =</span> <span class="st">"Saccharomyces cerevisiae"</span>)</a>
 <a class="sourceLine" id="cb31-4" data-line-number="4"><span class="co"># show path to S. cerevisiae genome</span></a>
 <a class="sourceLine" id="cb31-5" data-line-number="5">Scerevisiae_genome</a></code></pre></div>
-<p>Next, we run <code>LTRpred</code> to generate functional annotation for <code>S. cerevisiae</code> LTR retrotransposons. In general, the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function takes the path to a genome file in <code>fasta</code> format (compressed files can be used as well) as input to the <code>genome.file</code> argument. The <code>trnas</code> argument takes a file path to a <code>fasta</code> file storing tRNA sequences. In this case, for example reasons only, we use the tRNA file <code>sacCer3-tRNAs.fa</code> that comes with the <code>LTRpred</code> package. In addition, users can find tRNA files at <a href="http://gtrnadb.ucsc.edu/" class="uri">http://gtrnadb.ucsc.edu/</a> or <a href="http://gtrnadb2009.ucsc.edu/" class="uri">http://gtrnadb2009.ucsc.edu/</a>. The <code>hmms</code> argument takes a path to a folder storing the HMM models of the gag and pol protein domains. Protein domains can be found at <a href="http://pfam.xfam.org/" class="uri">http://pfam.xfam.org/</a> . When renaming the protein domains using the specification <code>hmm_*</code> users can specify <code>hmm_*</code> which indicates that all files in the folder starting with <code>hmm_</code> shall be used. The <code>LTRpred</code> package already stores the most prominent gag and pol protein domains and can be used by specifying the path <code><a href="https://rdrr.io/r/base/paste.html">paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*")</a></code>. In detail, the following HMM models are stored in <code>LTRpred</code>:</p>
+<p>Next, we run <code>LTRpred</code> to generate functional annotation for <code>S. cerevisiae</code> LTR retrotransposons. In general, the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function takes the path to a genome file in <code>fasta</code> format (compressed files can be used as well) as input to the <code>genome.file</code> argument. The <code>trnas</code> argument takes a file path to a <code>fasta</code> file storing tRNA sequences. In this case, for example reasons only, we use the tRNA file <code>sacCer3-tRNAs.fa</code> that comes with the <code>LTRpred</code> package. In addition, users can find tRNA files at <a href="http://gtrnadb.ucsc.edu/" class="uri">http://gtrnadb.ucsc.edu/</a> or <a href="http://gtrnadb2009.ucsc.edu/" class="uri">http://gtrnadb2009.ucsc.edu/</a>. The <code>hmms</code> argument takes a path to a folder storing the HMM models of the gag and pol protein domains. Protein domains can be found at <a href="http://pfam.xfam.org/" class="uri">http://pfam.xfam.org/</a> . When renaming the protein domains using the specification <code>hmm_*</code> users can specify <code>hmm_*</code> which indicates that all files in the folder starting with <code>hmm_</code> shall be used. The <code>LTRpred</code> package already stores the most prominent gag and pol protein domains and can be used by specifying the path <code><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*")</a></code>. In detail, the following HMM models are stored in <code>LTRpred</code>:</p>
 <div id="hmm-models" class="section level4">
 <h4 class="hasAnchor">
 <a href="#hmm-models" class="anchor"></a>HMM Models:</h4>
@@ -818,12 +816,12 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</
 </li>
 </ul>
 <p>The argument <code>cluster = TRUE</code> indicates that individually predicted LTR retrotransposons are clustered by sequence similarity into families using the <code>vsearch</code> program. The <code>clust.sim</code> defines the sequence similarity threshold for considering family/cluster members.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(LTRpred)</a>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(LTRpred)</a>
 <a class="sourceLine" id="cb32-2" data-line-number="2"><span class="co"># de novo LTR transposon prediction of 'D. simulans'</span></a>
 <a class="sourceLine" id="cb32-3" data-line-number="3"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(</a>
 <a class="sourceLine" id="cb32-4" data-line-number="4">    <span class="dt">genome.file =</span> Scerevisiae_genome,</a>
-<a class="sourceLine" id="cb32-5" data-line-number="5">    <span class="dt">trnas       =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"tRNAs/"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>),<span class="st">"sacCer3-tRNAs.fa"</span>),</a>
-<a class="sourceLine" id="cb32-6" data-line-number="6">    <span class="dt">hmms        =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"HMMs/"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>), <span class="st">"hmm_*"</span>),</a>
+<a class="sourceLine" id="cb32-5" data-line-number="5">    <span class="dt">trnas       =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"tRNAs/"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>),<span class="st">"sacCer3-tRNAs.fa"</span>),</a>
+<a class="sourceLine" id="cb32-6" data-line-number="6">    <span class="dt">hmms        =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"HMMs/"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>), <span class="st">"hmm_*"</span>),</a>
 <a class="sourceLine" id="cb32-7" data-line-number="7">    <span class="dt">cluster     =</span> <span class="ot">TRUE</span>,</a>
 <a class="sourceLine" id="cb32-8" data-line-number="8">    <span class="dt">clust.sim   =</span> <span class="fl">0.9</span>,</a>
 <a class="sourceLine" id="cb32-9" data-line-number="9">    <span class="dt">copy.number.est =</span> <span class="ot">TRUE</span>,  </a>
@@ -930,7 +928,7 @@ The LTR copy number estimation returned an empty file.
 This suggests that there were no solo LTRs found in the input genome sequence. </code></pre>
 <p>The output can then be imported using:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co"># import LTRpred output for S. cerevisiae</span></a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"Saccharomyces_cerevisiae_genomic_refseq_ltrpred"</span>,</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(<span class="st">"Saccharomyces_cerevisiae_genomic_refseq_ltrpred"</span>,</a>
 <a class="sourceLine" id="cb34-3" data-line-number="3">                  <span class="st">"Saccharomyces_cerevisiae_genomic_refseq_LTRpred_DataSheet.tsv"</span>)</a>
 <a class="sourceLine" id="cb34-4" data-line-number="4">Scerevisiae_LTRpred &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span>(file)</a>
 <a class="sourceLine" id="cb34-5" data-line-number="5"><span class="co"># look at output</span></a>
@@ -1180,7 +1178,7 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</
 <a class="sourceLine" id="cb39-17" data-line-number="17">  <span class="dt">copy.number.est =</span> <span class="ot">TRUE</span>,</a>
 <a class="sourceLine" id="cb39-18" data-line-number="18">  <span class="dt">fix.chr.name =</span> <span class="ot">TRUE</span>,</a>
 <a class="sourceLine" id="cb39-19" data-line-number="19">  <span class="dt">cn.eval =</span> <span class="fl">1e-10</span>,</a>
-<a class="sourceLine" id="cb39-20" data-line-number="20">  <span class="dt">range =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb39-20" data-line-number="20">  <span class="dt">range =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>),</a>
 <a class="sourceLine" id="cb39-21" data-line-number="21">  <span class="dt">seed =</span> <span class="dv">30</span>,</a>
 <a class="sourceLine" id="cb39-22" data-line-number="22">  <span class="dt">minlenltr =</span> <span class="dv">100</span>,</a>
 <a class="sourceLine" id="cb39-23" data-line-number="23">  <span class="dt">maxlenltr =</span> <span class="dv">3500</span>,</a>
@@ -1200,13 +1198,13 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N...</
 <a class="sourceLine" id="cb39-37" data-line-number="37">  <span class="dt">motifmis =</span> <span class="dv">0</span>,</a>
 <a class="sourceLine" id="cb39-38" data-line-number="38">  <span class="dt">aaout =</span> <span class="st">"yes"</span>,</a>
 <a class="sourceLine" id="cb39-39" data-line-number="39">  <span class="dt">aliout =</span> <span class="st">"yes"</span>,</a>
-<a class="sourceLine" id="cb39-40" data-line-number="40">  <span class="dt">pptlen =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">8</span>, <span class="dv">30</span>),</a>
-<a class="sourceLine" id="cb39-41" data-line-number="41">  <span class="dt">uboxlen =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>, <span class="dv">30</span>),</a>
+<a class="sourceLine" id="cb39-40" data-line-number="40">  <span class="dt">pptlen =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">8</span>, <span class="dv">30</span>),</a>
+<a class="sourceLine" id="cb39-41" data-line-number="41">  <span class="dt">uboxlen =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>, <span class="dv">30</span>),</a>
 <a class="sourceLine" id="cb39-42" data-line-number="42">  <span class="dt">pptradius =</span> <span class="dv">30</span>,</a>
 <a class="sourceLine" id="cb39-43" data-line-number="43">  <span class="dt">trnas =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb39-44" data-line-number="44">  <span class="dt">pbsalilen =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">11</span>, <span class="dv">30</span>),</a>
-<a class="sourceLine" id="cb39-45" data-line-number="45">  <span class="dt">pbsoffset =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb39-46" data-line-number="46">  <span class="dt">pbstrnaoffset =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb39-44" data-line-number="44">  <span class="dt">pbsalilen =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">11</span>, <span class="dv">30</span>),</a>
+<a class="sourceLine" id="cb39-45" data-line-number="45">  <span class="dt">pbsoffset =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb39-46" data-line-number="46">  <span class="dt">pbstrnaoffset =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">5</span>),</a>
 <a class="sourceLine" id="cb39-47" data-line-number="47">  <span class="dt">pbsmaxedist =</span> <span class="dv">1</span>,</a>
 <a class="sourceLine" id="cb39-48" data-line-number="48">  <span class="dt">pbsradius =</span> <span class="dv">30</span>,</a>
 <a class="sourceLine" id="cb39-49" data-line-number="49">  <span class="dt">hmms =</span> <span class="ot">NULL</span>,</a>
@@ -1376,7 +1374,6 @@ specify the insertion score used in the PBS/tRNA Smith-Waterman alignment. Defau
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -1404,20 +1401,17 @@ specify the insertion score used in the PBS/tRNA Smith-Waterman alignment. Defau
 </div>
 
 
-
       <footer><div class="copyright">
   <p>Developed by Hajk-Georg Drost.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
-
       </footer>
 </div>
 
   
-
 
   </body>
 </html>

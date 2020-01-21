@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute histogram shape similarity between species — SimMatAbundance • LTRpred</title>
+<title>Plot a predicted retrotransposons along the chromosomes — plotChromoMap • LTRpred</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,10 @@
 
 
 
-<meta property="og:title" content="Compute histogram shape similarity between species — SimMatAbundance" />
+<meta property="og:title" content="Plot a predicted retrotransposons along the chromosomes — plotChromoMap" />
 
-<meta property="og:description" content="For each pairwise species comparison the pattern similarity between
-LTR age distributions is computed via 1 - cor(species1,species2)." />
+<meta property="og:description" content="LTR retrotransposons predicted with LTRpred
+will be visualized along the chromsome." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,36 +112,67 @@ LTR age distributions is computed via 1 - cor(species1,species2)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute histogram shape similarity between species</h1>
-    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/SimMatAbundance.R'><code>R/SimMatAbundance.R</code></a></small>
-    <div class="hidden name"><code>SimMatAbundance.Rd</code></div>
+    <h1>Plot a predicted retrotransposons along the chromosomes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/plotChromoMap.R'><code>R/plotChromoMap.R</code></a></small>
+    <div class="hidden name"><code>plotChromoMap.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>For each pairwise species comparison the pattern similarity between
-LTR age distributions is computed via <code>1 - cor(species1,species2)</code>.</p>
+    <p>LTR retrotransposons predicted with <code><a href='LTRpred.html'>LTRpred</a></code>
+will be visualized along the chromsome.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>SimMatAbundance</span>(<span class='no'>sim.matrix</span>)</pre>
+    <pre class="usage"><span class='fu'>plotChromoMap</span>(<span class='no'>pred</span>, <span class='no'>genome.file</span>, <span class='no'>centromere_starts</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sim.matrix</th>
-      <td><p>a species age distribution matrix generated with <code><a href='LTRpred.meta.html'>LTRpred.meta</a></code>.</p></td>
+      <th>pred</th>
+      <td><p>LTRpred.tbl generated with <code><a href='LTRpred.html'>LTRpred</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>genome.file</th>
+      <td><p>a file path to the genome assembly file in fasta format for which chromosomes shall be visualized.</p></td>
+    </tr>
+    <tr>
+      <th>centromere_starts</th>
+      <td><p>a numeric vector containing the start coordinates of the centromers (for all chromosomes in <code>genome.file</code>).</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
+    <p>https://cran.r-project.org/web/packages/chromoMap/vignettes/chromoMap.html</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>test_genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY.fa"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>)
+<span class='no'>test_pred</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>LTRpred</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/LTRpred/topics/read.ltrpred'>read.ltrpred</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>))
+<span class='no'>test_centromere_starts</span> <span class='kw'>&lt;-</span> <span class='fl'>55000</span>
+<span class='co'># generate visualization</span>
+<span class='kw pkg'>LTRpred</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/LTRpred/topics/plotChromoMap'>plotChromoMap</a></span>(<span class='no'>test_pred</span>, <span class='no'>test_genome</span>, <span class='no'>test_centromere_starts</span>)</div><div class='output co'>#&gt; ********************************** __ __ ************
+#&gt; ** __**|__ * __* __ * __ __ * __ *|  |  |* __ * __ **
+#&gt; **|__**|  |*|  *|__|*|  |  |*|__|*|  |  |*|_ |*|__|**
+#&gt; ***********************************************|   **
+#&gt; *************** by Lakshay Anand ********************
+#&gt; OUTPUT: 
+#&gt; Number of Chromosome sets: 1 
+#&gt; Number of Chromosomes in set  1 : 1 
+#&gt; Processing data.. 
+#&gt; Number of annotations in data set  1 : 21 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#references">References</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     <p>Hajk-Georg Drost</p>

@@ -8,25 +8,21 @@
 
 <title>Estimate retrotransposon insertion age in Mya based on 5 prime and 3 prime LTR sequence homology — ltr_age_estimation • LTRpred</title>
 
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -34,12 +30,11 @@
 
 
 
-
 <meta property="og:title" content="Estimate retrotransposon insertion age in Mya based on 5 prime and 3 prime LTR sequence homology — ltr_age_estimation" />
+
 <meta property="og:description" content="This function implements diverse metrics to roughly estimate
 the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology." />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -51,7 +46,6 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
 
 
   </head>
@@ -78,7 +72,7 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,10 +92,11 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology." />
   </ul>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/HajkD/LTRpred">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +107,6 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology." />
 </div><!--/.navbar -->
 
       
-
       </header>
 
 <div class="row">
@@ -124,13 +118,15 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology." />
     </div>
 
     <div class="ref-description">
+    
     <p>This function implements diverse metrics to roughly estimate
 the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>ltr_age_estimation</span>(<span class='no'>ltr_seqs_3_prime</span>, <span class='no'>ltr_seqs_5_prime</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"K80"</span>,
   <span class='kw'>mutation_rate</span> <span class='kw'>=</span> <span class='fl'>1.3</span> * <span class='fl'>1e-07</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -144,7 +140,7 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology.</p>
     </tr>
     <tr>
       <th>model</th>
-      <td><p>a model as specified in <code><a href='https://rdrr.io/pkg/ape/man/dist.dna.html'>dist.dna</a></code>: a character string specifying the evolutionary model to be used - must be one of
+      <td><p>a model as specified in <code><a href='https://www.rdocumentation.org/packages/ape/topics/dist.dna'>dist.dna</a></code>: a character string specifying the evolutionary model to be used - must be one of
 <code>raw</code>, <code>N</code>, <code>TS</code>, <code>TV</code>, <code>JC69</code>, <code>K80</code> (the default), <code>F81</code>, <code>K81</code>, <code>F84</code>, <code>BH87</code>, <code>T92</code>,
  <code>TN93</code>, <code>GG95</code>, <code>logdet</code>, <code>paralin</code>.</p></td>
     </tr>
@@ -153,23 +149,24 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology.</p>
       <td><p>a mutation rate per site per year. For retrotransposons the default is \(mutation_rate = 1.3 * 10E-8\) (Wicker and Keller, 2007).</p></td>
     </tr>
     </table>
-
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='co'># define file path to fasta file storing 3 prime LTR sequences</span>
-<span class='no'>ltr_seqs_3_prime</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY-ltrdigest_3ltr.fas"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>)
-<span class='no'>ltr_seqs_5_prime</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY-ltrdigest_5ltr.fas"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>)
+<span class='no'>ltr_seqs_3_prime</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY-ltrdigest_3ltr.fas"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>)
+<span class='no'>ltr_seqs_5_prime</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY-ltrdigest_5ltr.fas"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>)
 <span class='co'># estimate insertion age based on 3 prime and 5 prime LTR homology using the K80 model</span>
 <span class='no'>Hsapiens_ltr_age</span> <span class='kw'>&lt;-</span> <span class='fu'>ltr_age_estimation</span>(<span class='no'>ltr_seqs_3_prime</span>, <span class='no'>ltr_seqs_5_prime</span>)
 <span class='co'># look at results</span>
 <span class='no'>Hsapiens_ltr_age</span>
-}</div></pre>
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -178,23 +175,19 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology.</p>
   </div>
 </div>
 
-
       <footer>
       <div class="copyright">
   <p>Developed by Hajk-Georg Drost.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
-
       </footer>
    </div>
 
   
 
-
   </body>
 </html>
-
 

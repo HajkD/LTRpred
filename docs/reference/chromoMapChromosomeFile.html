@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute histogram shape similarity between species — SimMatAbundance • LTRpred</title>
+<title>Generate chromsome file for chromoMap package visualization — chromoMapChromosomeFile • LTRpred</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Compute histogram shape similarity between species — SimMatAbundance" />
+<meta property="og:title" content="Generate chromsome file for chromoMap package visualization — chromoMapChromosomeFile" />
 
-<meta property="og:description" content="For each pairwise species comparison the pattern similarity between
-LTR age distributions is computed via 1 - cor(species1,species2)." />
+<meta property="og:description" content="Generate chromsome file for chromoMap package visualization." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,28 +111,40 @@ LTR age distributions is computed via 1 - cor(species1,species2)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute histogram shape similarity between species</h1>
-    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/SimMatAbundance.R'><code>R/SimMatAbundance.R</code></a></small>
-    <div class="hidden name"><code>SimMatAbundance.Rd</code></div>
+    <h1>Generate chromsome file for chromoMap package visualization</h1>
+    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/chromoMapChromosomeFile.R'><code>R/chromoMapChromosomeFile.R</code></a></small>
+    <div class="hidden name"><code>chromoMapChromosomeFile.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>For each pairwise species comparison the pattern similarity between
-LTR age distributions is computed via <code>1 - cor(species1,species2)</code>.</p>
+    <p>Generate chromsome file for chromoMap package visualization.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>SimMatAbundance</span>(<span class='no'>sim.matrix</span>)</pre>
+    <pre class="usage"><span class='fu'>chromoMapChromosomeFile</span>(<span class='no'>data</span>, <span class='no'>output</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sim.matrix</th>
-      <td><p>a species age distribution matrix generated with <code><a href='LTRpred.meta.html'>LTRpred.meta</a></code>.</p></td>
+      <th>data</th>
+      <td><p>a <code><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></code> with the following column format:</p><ul>
+<li><p>column 1: <code>data$chromosome_name</code></p></li>
+<li><p>column 2: <code>data$chromosome_start</code></p></li>
+<li><p>column 3: <code>data$chromosome_end</code></p></li>
+<li><p>column 4: <code>data$centromere_start</code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>output</th>
+      <td><p>a file path (file name) to the output file.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>https://cran.r-project.org/web/packages/chromoMap/vignettes/chromoMap.html</p>
     
 
   </div>
@@ -141,7 +152,9 @@ LTR age distributions is computed via <code>1 - cor(species1,species2)</code>.</
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#references">References</a></li>
+          </ul>
 
     <h2>Author</h2>
     <p>Hajk-Georg Drost</p>
