@@ -33,7 +33,8 @@ Imports:
     methods,
     tibble,
     scales,
-    ggsci
+    ggsci,
+    chromoMap
 Suggests:
     knitr (>= 1.6),
     rmarkdown (>= 0.3.3),
