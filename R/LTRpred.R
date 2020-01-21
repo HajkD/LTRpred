@@ -325,7 +325,11 @@ LTRpred <- function(genome.file       = NULL,
         stop("Please specify annotate = 'Dfam' when providing a dfam.file path.",
              call. = FALSE)
     
-    
+    if (!is.null(genome.file)){
+      if (!file.exists(genome.file))
+        stop("The genome.file '", genome.file, "' does not seem to exist. Please provide a valid path to a genome assembly file in fasta format.", call. = FALSE)
+    }
+      
     if (is.null(dfam.cores) && is.null(hmm.cores)) {
         dfam.cores <- hmm.cores <- cores
     }
