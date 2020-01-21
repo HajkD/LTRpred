@@ -4,10 +4,14 @@
 \alias{plotFamily}
 \title{Visualize the Superfamily distribution of predicted LTR retrotransposons}
 \usage{
-plotFamily(data, xlab = "\\nAnnotated Superfamily Name",
+plotFamily(
+  data,
+  xlab = "\\nAnnotated Superfamily Name",
   ylab = "Predicted LTR retrotransposons (count)\\n",
   main = "Superfamily distribution of predicted LTR retrotransposons",
-  legend.title = "Superfamily", annotation = "Dfam")
+  legend.title = "Superfamily",
+  annotation = "Dfam"
+)
 }
 \arguments{
 \item{data}{\code{data.frame} returned by \code{\link[LTRpred]{LTRpred}}.}
