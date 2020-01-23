@@ -13,13 +13,13 @@ Users can consult a comprehensive [Introduction](https://hajkd.github.io/LTRpred
 Install prerequisite CRAN and Bioconductor packages:
 
 ```r
-install.packages(c("tidyverse", "data.table", "seqinr", "biomartr", "dtplyr", "devtools"))
+install.packages(c("tidyverse", "data.table", "seqinr", "biomartr", "ape", "dtplyr", "devtools"))
 
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install()
 
-BiocManager::install(c("rtracklayer", "GenomicFeatures", "biomaRt"))
+BiocManager::install(c("rtracklayer", "GenomicFeatures", "GenomicRanges", "GenomeInfoDb", "biomaRt", "ggbio"))
 
 devtools::install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 
@@ -41,10 +41,8 @@ The fastest way to generate a LTR retrotransposon prediction for a genome of int
 a LTR transposon prediction is performed for parts of the Human Y chromosome.
 
 ```r
-# load LTRpred package
-library(LTRpred)
-# de novo LTR transposon prediction for the Human Y chromosome
-LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
+# Perform de novo LTR transposon prediction for the Human Y chromosome
+LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
 ```
 
 When running your own genome, please specify `genome.file = "path/to/your/genome.fasta` instead of `system.file(..., package = "LTRpred")`. The command `system.file(..., package = "LTRpred")` merely references the path to the example file stored in the LTRpred package itself.
@@ -76,7 +74,7 @@ browseVignettes("LTRpred")
 
 > - J Cho, M Benoit, M Catoni, __HG Drost__, A Brestovitsky, M Oosterbeek and J Paszkowski.  [__Sensitive detection of pre-integration intermediates of LTR retrotransposons in crop plants__](https://www.nature.com/articles/s41477-018-0320-9). __Nature Plants__, 5,  26-33 (2019).
 >
-> - M Benoit, __HG Drost__, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski. [__Environmental and epigenetic regulation of Rider retrotransposons in tomato__](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370). __PloS Genetics__ (2019) (__in press__). 
+> - M Benoit, __HG Drost__, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski. [__Environmental and epigenetic regulation of Rider retrotransposons in tomato__](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370). __PloS Genetics__, 15(9): e1008370 (2019). 
 >
 > - E Cerruti, C Gisbert, __HG Drost__, D Valentino, E Portis, L Barchi, J Prohens, S Lanteri, C Comino,  M Catoni. [__Epigenetic bases of grafting-induced vigour in eggplant__](https://www.biorxiv.org/content/10.1101/831719v1). __bioaRxiv__ (2019).
 >
