@@ -37,7 +37,7 @@ ltr.cn <- function(data.sheet,
                    scope.cutoff      = 0.85,
                    perc.ident.cutoff = 70,
                    output            = NULL,
-                   max.hits          = 65000, 
+                   max.hits          = 500, 
                    eval              = 1E-10,
                    cores             = 1){
   
