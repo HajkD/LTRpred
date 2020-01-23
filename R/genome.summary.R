@@ -1,13 +1,20 @@
 #' @title Generating genome summary files for \code{LTRpred.meta} results
-#' @details ...
-#' @param genome.folder
-#' @param ltrpred.meta.folder
-#' @param file.name
-#' @param sim
-#' @param cut.range
-#' @param quality.filter
-#' @param n.orfs
-#' @param strategy
+#' @details Generating genome summary files for \code{LTRpred.meta} results.
+#' @param genome.folder  a file path to a folder storing the genome assembly files in fasta format that
+#' were used to generate \code{\link{LTRpred}} annotations of diverse species from the same taxonomic kingdom.
+#' @param ltrpred.meta.folder a file path to a folder storing \code{\link{LTRpred}} annotations of diverse species from the same taxonomic kingdom.
+#' @param file.name name of the output file.
+#' @param sim LTR similarity threshold. Only putative LTR transposons that fulfill this 
+#' LTR similarity threshold will be retained.
+#' @param cut.range similarity interval size.
+#' @param quality.filter shall a quality filter to remove possible false positive predictions be applied?
+#' @param n.orfs minimum number of open reading frames a predicted retroelement shall possess.
+#' @param strategy quality filter strategy. Options are
+#' \itemize{
+#' \item \code{strategy = "default"} : see section \code{Quality Control} 
+#' \item \code{strategy = "stringent"} : in addition to filter criteria specified in section \code{Quality Control},
+#' the filter criteria \code{!is.na(protein_domain)) | (dfam_target_name != "unknown")} is applied
+#' }
 #' @author Hajk-Georg Drost
 #' @export
 
@@ -20,9 +27,7 @@ genome.summary <- function(genome.folder,
                            n.orfs              = 0,
                            strategy            = "default") {
     
-    
-    
-    if (!dir.exists(genome.folder))
+     if (!dir.exists(genome.folder))
         stop("Genome folder '", genome.folder, "' does not exist. Please provide a valid path to the folder storing your genome assembly files.", call. = FALSE)
     
     if (!dir.exists(ltrpred.meta.folder))
