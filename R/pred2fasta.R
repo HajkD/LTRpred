@@ -31,8 +31,11 @@
 #' @export 
 
 pred2fasta <- function(LTRpred.tbl, prediction.file, output = "output.fa"){
+   
+    if (!file.exists(prediction.file))
+      stop("The file '", prediction.file, "' does not seem to exist. Please provide a valid file path to a fasta file storing all predicted retrotransposon sequences.", call. = FALSE)
     PutativeLTRSeqs <- Biostrings::readDNAStringSet(prediction.file)
-    Biostrings::writeXStringSet(PutativeLTRSeqs[na.omit(match(LTRpred.tbl$orf.id, PutativeLTRSeqs@ranges@NAMES))], output)
+    Biostrings::writeXStringSet(PutativeLTRSeqs[stats::na.omit(match(LTRpred.tbl$orf.id, PutativeLTRSeqs@ranges@NAMES))], output)
     
 }
 
