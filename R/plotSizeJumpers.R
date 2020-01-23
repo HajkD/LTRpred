@@ -53,5 +53,5 @@ plotSizeJumpers <- function(genome.folder,
   gm.jumpers.joined <-
     dplyr::inner_join(dplyr::select(genome.matrix, -nLTRs), gm.jumpers, by = "organism")
   
-  plotSize(genome.matrix = gm.jumpers.joined, main = main, ...)
+  plotSize(genome.summary = gm.jumpers.joined, main = main, ...)
 }
