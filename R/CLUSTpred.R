@@ -27,11 +27,13 @@ CLUSTpred <- function(file,
                       similarity = 0.9,
                       strand     = "both",
                       cores      = 1,
-                      out.name   = "CLUSTpred",
+                      out.name   = paste0(basename(file), "_CLUSTpred"),
                       output     = NULL){
   
     test_installation_vsearch()
     
+  message("Running CLUSTpred with ", similarity * 100, "% as sequence similarity threshold using ", cores, " cores ...")
+  
     if (!file.exists(file))
         stop(
             "CLUSTpred: The file '",
