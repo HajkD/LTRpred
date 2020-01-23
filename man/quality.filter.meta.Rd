@@ -4,8 +4,16 @@
 \alias{quality.filter.meta}
 \title{Pipeline to eliminate false positive predictions of retrotransposons at a metagenomic scale}
 \usage{
-quality.filter.meta(kingdom, genome.folder, ltrpred.meta.folder, sim,
-  cut.range = 2, n.orfs, strategy, update = FALSE)
+quality.filter.meta(
+  kingdom,
+  genome.folder,
+  ltrpred.meta.folder,
+  sim,
+  cut.range = 2,
+  n.orfs,
+  strategy,
+  update = FALSE
+)
 }
 \arguments{
 \item{kingdom}{a character string specifying the kingdom of life to which genomes annotated with \code{\link{LTRpred.meta}} belong to. E.g. \code{kingdom = "Plants"}. If annotates of a variety of kingdoms have been done users can for example specify \code{kingdom = "Various"}.}

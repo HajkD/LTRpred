@@ -4,29 +4,99 @@
 \alias{LTRpred}
 \title{Predict LTR retrotransposons in a given genome}
 \usage{
-LTRpred(genome.file = NULL, index.file.harvest = NULL,
-  index.file.digest = NULL, LTRdigest.gff = NULL, tabout.file = NULL,
-  LTRharvest.folder = NULL, LTRpred.folder = NULL, orf.file = NULL,
-  annotate = NULL, Dfam.db = NULL, dfam.eval = 0.001,
-  dfam.file = NULL, cluster = FALSE, clust.sim = 0.9,
-  clust.file = NULL, copy.number.est = FALSE, fix.chr.name = TRUE,
-  cn.eval = 1e-05, range = c(0, 0), seed = 30, minlenltr = 100,
-  maxlenltr = 3500, mindistltr = 4000, maxdistltr = 25000,
-  similar = 70, mintsd = 4, maxtsd = 20, vic = 60,
-  overlaps = "no", xdrop = 5, mat = 2, mis = -2, ins = -3,
-  del = -3, motif = NULL, motifmis = 0, aaout = "yes",
-  aliout = "yes", pptlen = c(8, 30), uboxlen = c(3, 30),
-  pptradius = 30, trnas = NULL, pbsalilen = c(11, 30),
-  pbsoffset = c(0, 5), pbstrnaoffset = c(0, 5), pbsmaxedist = 1,
-  pbsradius = 30, hmms = NULL, pdomevalcutoff = 1e-05,
-  pbsmatchscore = 5, pbsmismatchscore = -10, pbsinsertionscore = -20,
-  pbsdeletionscore = -20, pfam.ids = NULL, cores = 1,
-  dfam.cores = NULL, hmm.cores = NULL, orf.style = 7,
-  min.codons = 200, trans.seqs = FALSE, output.path = NULL,
-  quality.filter = TRUE, n.orfs = 0, job_num = 1, verbose = TRUE)
+LTRpred(
+  genome.file = NULL,
+  model = "K80",
+  mutation_rate = 1.3 * 1e-07,
+  index.file.harvest = NULL,
+  index.file.digest = NULL,
+  LTRdigest.gff = NULL,
+  tabout.file = NULL,
+  LTRharvest.folder = NULL,
+  LTRpred.folder = NULL,
+  orf.file = NULL,
+  annotate = NULL,
+  Dfam.db = NULL,
+  dfam.eval = 0.001,
+  dfam.file = NULL,
+  cluster = FALSE,
+  clust.sim = 0.9,
+  clust.file = NULL,
+  copy.number.est = FALSE,
+  fix.chr.name = FALSE,
+  cn.eval = 1e-05,
+  range = c(0, 0),
+  seed = 30,
+  minlenltr = 100,
+  maxlenltr = 3500,
+  mindistltr = 4000,
+  maxdistltr = 25000,
+  similar = 70,
+  mintsd = 4,
+  maxtsd = 20,
+  vic = 60,
+  overlaps = "no",
+  xdrop = 5,
+  mat = 2,
+  mis = -2,
+  ins = -3,
+  del = -3,
+  motif = NULL,
+  motifmis = 0,
+  aaout = "yes",
+  aliout = "yes",
+  pptlen = c(8, 30),
+  uboxlen = c(3, 30),
+  pptradius = 30,
+  trnas = NULL,
+  pbsalilen = c(11, 30),
+  pbsoffset = c(0, 5),
+  pbstrnaoffset = c(0, 5),
+  pbsmaxedist = 1,
+  pbsradius = 30,
+  hmms = NULL,
+  pdomevalcutoff = 1e-05,
+  pbsmatchscore = 5,
+  pbsmismatchscore = -10,
+  pbsinsertionscore = -20,
+  pbsdeletionscore = -20,
+  pfam.ids = NULL,
+  cores = 1,
+  dfam.cores = NULL,
+  hmm.cores = NULL,
+  orf.style = 7,
+  min.codons = 200,
+  trans.seqs = FALSE,
+  output.path = NULL,
+  quality.filter = TRUE,
+  n.orfs = 0,
+  job_num = 1,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{genome.file}{path to the genome file in \code{fasta} format.}
+
+\item{model}{a model as specified in \code{\link[ape]{dist.dna}}: a character string specifying the evolutionary model to be used - must be one of
+ \itemize{
+\item  \code{K80} (the default)
+\item \code{raw}
+\item  \code{N}
+\item  \code{TS}
+\item  \code{TV}
+\item  \code{JC69}
+\item  \code{F81} 
+\item \code{K81}
+\item \code{F84}
+\item \code{BH87}
+\item \code{T92}
+\item \code{TN93}
+\item \code{GG95}
+\item \code{logdet}
+\item \code{paralin}
+}}
+
+\item{mutation_rate}{a mutation rate per site per year. For retrotransposons the default is \eqn{mutation_rate = 1.3 * 10E-8} (Wicker and Keller, 2007).}
 
 \item{index.file.harvest}{specify the name of the enhanced suffix array index file that is computed
 by \code{suffixerator} for the use of \code{LTRharvest}. This often can be used in case the suffix file was previously 
@@ -230,7 +300,7 @@ See \code{Description} for details.}
 The \code{LTRpred} function generates the following output files:
 
 \itemize{
-\item *_BetweenLTRSeqs.fsa : DNA sequences of the region between the LTRs in fasta format. 
+\item *_BetweenLTRSeqs.fsa : DNA sequences predicted LTR retrotransposons, in particular of the region between the LTRs in fasta format. 
 \item *_Details.tsv : A spread sheet containing detailed information about the predicted LTRs.
 \item *_FullLTRRetrotransposonSeqs.fsa : DNA sequences of the entire predicted LTR retrotransposon.
 \item *_index.fsa : The suffixarray index file used to predict putative LTR retrotransposons.
@@ -252,8 +322,8 @@ to the LTR retrotransposon candidates.
 \item *-ltrdigest_pdom_<domainname>_aa.fas : Stores the concatenated protein sequences of 
 the HMM matches to the LTR retrotransposon candidates.
 \item *-ltrdigest_pdom_<domainname>_ali.fas : Stores the alignment information for all matches of the given protein domain model to the translations of all candidates.
-\item *_orfs_nt.fsa : Stores the predicted open reading frames within the predicted LTR transposons as DNA sequence.
-\item *_orfs_aa.fsa : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.
+\item *_ORF_prediction_nt.fsa : Stores the predicted open reading frames within the predicted LTR transposons as DNA sequence.
+\item *_ORF_prediction_aa.fsa : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.
 \item *_LTRpred.gff : Stores the \code{LTRpred} predicted LTR transposons in GFF format.
 \item *_LTRpred.bed : Stores the \code{LTRpred} predicted LTR transposons in BED format. 
 \item *_LTRpred_DataSheet.csv : Stores the output table as data sheet.
@@ -265,12 +335,14 @@ In case the Dfam annotation option is specified the following
 additional files are generated and stored in the LTRpred result folder:
 
 \itemize{
-\item 
+\item *-ltrdigest_complete.fas_DfamAnnotation.out : a data table storing the output of the HMMer search of predicted retrotransposons against the Dfam database. 
 }
 
 \strong{if cluster = TRUE}
 \itemize{
-\item 
+\item *-ltrdigest_complete.fas_CLUSTpred.blast6out : usearch cluster result in BLAST table format.
+\item *-ltrdigest_complete.fas_CLUSTpred.log : log file of usearch run.
+\item *-ltrdigest_complete.fas_CLUSTpred.uc : usearch cluster output file.
 }
 }
 \description{

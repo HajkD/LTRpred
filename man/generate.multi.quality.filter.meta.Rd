@@ -4,12 +4,74 @@
 \alias{generate.multi.quality.filter.meta}
 \title{Run \code{quality.filter.meta} for several different ltr similarity thresholds.}
 \usage{
-generate.multi.quality.filter.meta(kingdom, genome.folder,
-  ltrpred.meta.folder, sim.options, cut.range.options, n.orfs = 0,
-  strategy = "default", update = FALSE)
+generate.multi.quality.filter.meta(
+  kingdom,
+  genome.folder,
+  ltrpred.meta.folder,
+  sim.options,
+  cut.range.options,
+  n.orfs = 0,
+  strategy = "default",
+  update = FALSE
+)
+}
+\arguments{
+\item{kingdom}{the taxonomic kingdom of the species for which \code{\link{LTRpred}} annotations are 
+stored in the \code{genome.folder}.}
+
+\item{genome.folder}{a file path to a folder storing the genome assembly files in fasta format that
+were used to generate \code{\link{LTRpred}} annotations of diverse species from the same taxonomic kingdom.}
+
+\item{ltrpred.meta.folder}{a file path to a folder storing \code{\link{LTRpred}} annotations of diverse species from the same taxonomic kingdom.}
+
+\item{sim.options}{a numeric vector storing the ltr similarity thresholds that shall be probed.}
+
+\item{cut.range.options}{a numeric vector storing the similarity cut range thresholds that shall be probed.}
+
+\item{n.orfs}{minimum number of open reading frames a predicted retroelement shall possess.}
+
+\item{strategy}{quality filter strategy. Options are
+\itemize{
+\item \code{strategy = "default"} : see section \code{Quality Control} 
+\item \code{strategy = "stringent"} : in addition to filter criteria specified in section \code{Quality Control},
+the filter criteria \code{!is.na(protein_domain)) | (dfam_target_name != "unknown")} is applied
+}}
+
+\item{update}{shall already existing \code{_SimilarityMatrix.csv} and \code{_GenomeInfo.csv} files be updated (\code{update = TRUE}) or can the already existing files be used (\code{update = FALSE})?}
+}
+\value{
+A list with to list elements \code{sim_file} and \code{gm_file}. Each list element stores a \code{data.frame}:
+  \itemize{
+  \item \code{sim_file} (similarity file)
+         \itemize{
+         This \code{data.frame} stores the information 
+                  \item 
+                  }
+   \item \code{gm_file} (genome metrics file)
+         \itemize{
+         This \code{data.frame} stores the information
+                  \item
+                  }
+   }
 }
 \description{
-Run \code{quality.filter.meta} for several different ltr similarity thresholds.
+A helper function to apply the \code{\link{quality.filter}} function to diverse \code{\link{LTRpred}} annotations while probing different ltr similarity thresholds.
+}
+\details{
+\strong{Quality Control}
+
+\itemize{
+\item \code{ltr.similarity}: Minimum similarity between LTRs. All TEs not matching this
+ criteria are discarded.
+ \item \code{n.orfs}: minimum number of Open Reading Frames that must be found between the
+  LTRs. All TEs not matching this criteria are discarded.
+ \item \code{PBS or Protein Match}: elements must either have a predicted Primer Binding
+ Site or a protein match of at least one protein (Gag, Pol, Rve, ...) between their LTRs. All TEs not matching this criteria are discarded.
+ \item The relative number of N's (= nucleotide not known) in TE <= 0.1. The relative number of N's is computed as follows: absolute number of N's in TE / width of TE.
+}
+}
+\seealso{
+\code{\link{quality.filter}}, \code{\link{quality.filter.meta}}, \code{\link{LTRpred}}, \code{\link{LTRpred.meta}}, \code{\link{read.ltrpred}}
 }
 \author{
 Hajk-Georg Drost

@@ -4,16 +4,31 @@
 \alias{plotRepeatSpace}
 \title{Genome Size vs. Repeat Space}
 \usage{
-plotRepeatSpace(genome.summary, cor.method = "spearman",
-  label.organism = TRUE, smooth.method = "glm", se = TRUE,
+plotRepeatSpace(
+  genome.matrix,
+  cor.method = "spearman",
+  label.organism = TRUE,
+  smooth.method = "glm",
+  se = TRUE,
   xlab = "Total repeats length in Mega [bp]",
-  ylab = "Genome size in Mega [bp]", main = "", alpha = 0.3,
-  arrow_lab = FALSE, cl.analysis = FALSE, cl.centers = NULL,
-  cl.method = "euclidean", cl.nstart = 100, cl.iter.max = 10000,
-  sim.matrix = NULL, text.size = 18, label.size = 3,
-  check.overlap = TRUE)
+  ylab = "Genome size in Mega [bp]",
+  main = "",
+  alpha = 0.3,
+  arrow_lab = FALSE,
+  cl.analysis = FALSE,
+  cl.centers = NULL,
+  cl.method = "euclidean",
+  cl.nstart = 100,
+  cl.iter.max = 10000,
+  sim.matrix = NULL,
+  text.size = 18,
+  label.size = 3,
+  check.overlap = TRUE
+)
 }
 \arguments{
+\item{genome.matrix}{Genome matrix retruned by \code{\link[LTRpred]{LTRpred.meta}}.}
+
 \item{cor.method}{method to correlate genome size versus protein space.}
 
 \item{label.organism}{shall organism names be drawn in the figure?}
@@ -51,8 +66,6 @@ users can specify \code{smooth.method = 'NULL'}.}
 \item{label.size}{size of the dot-labels.}
 
 \item{check.overlap}{shall overlaps of labels be avoided or not.}
-
-\item{genome.matrix}{Genome matrix retruned by \code{\link[LTRpred]{LTRpred.meta}}.}
 }
 \description{
 Compute and visualize the correlation between genome size vs. Repeat Space.
@@ -61,13 +74,6 @@ Compute and visualize the correlation between genome size vs. Repeat Space.
 In the first step, users should have generated LTR retrotransposon annotations for several species using the
 \code{\link[LTRpred]{LTRpred.meta}} function. The output of \code{\link[LTRpred]{LTRpred.meta}} is a folder storing the annotation files
 for all species of input species. In addition, \code{\link[LTRpred]{LTRpred.meta}} generates two files: \code{*_SimilarityMatrix} and \code{*_GenomeInfo} .
-}
-\examples{
-GenomeMatrix <- read.csv(system.file("GenomeMatrix.csv",package = "LTRpred"), sep = ";")
-GenomeMatrix[ , 1] <- sapply(GenomeMatrix[ , 1],
-                             function(x) unlist(stringr::str_split(x,"_"))[1])
-
-plotSize(GenomeMatrix)
 }
 \author{
 Hajk-Georg Drost

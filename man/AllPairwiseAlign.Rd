@@ -4,8 +4,13 @@
 \alias{AllPairwiseAlign}
 \title{Compute all pairwise (global) alignments with VSEARCH}
 \usage{
-AllPairwiseAlign(file, cores = 1, mask = "none",
-  out.name = "AllPairwiseAlign", output = NULL)
+AllPairwiseAlign(
+  file,
+  cores = 1,
+  mask = "none",
+  out.name = "AllPairwiseAlign",
+  output = NULL
+)
 }
 \arguments{
 \item{file}{path to fasta file storing sequences for which all possible pairwise alignments shall be computed.}

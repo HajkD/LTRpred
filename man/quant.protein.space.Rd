@@ -13,10 +13,6 @@ quant.protein.space(file)
 Quantification of the protein space (= total length of
 all annotated protein coding genes) within a given genome of interest.
 }
-\seealso{
-\code{\link{quant.cds.space}}, \code{\link{quant.repeat.space}},
-\code{\link{quant.meta.space}}
-}
 \author{
 Hajk-Georg Drost
 }

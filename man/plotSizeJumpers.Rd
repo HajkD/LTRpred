@@ -4,10 +4,15 @@
 \alias{plotSizeJumpers}
 \title{Plot Genome size vs. LTR transposon count for jumpers}
 \usage{
-plotSizeJumpers(genome.folder, genome.matrix, ltr.similarity = 98,
-  sci.name.len = 1, name.sep = "_",
-  main = paste0("Genome size vs. LTR transp. count ( ", ltr.similarity,
-  "\% )"), ...)
+plotSizeJumpers(
+  genome.folder,
+  genome.matrix,
+  ltr.similarity = 98,
+  sci.name.len = 1,
+  name.sep = "_",
+  main = paste0("Genome size vs. LTR transp. count ( ", ltr.similarity, "\% )"),
+  ...
+)
 }
 \arguments{
 \item{genome.folder}{path to the folder storing all unmasked genomes for which \code{\link[LTRpred]{LTRpred}} based de novo LTR retrotransposon prediction shall be performed.}

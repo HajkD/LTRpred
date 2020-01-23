@@ -6,8 +6,13 @@
 \usage{
 join.with.genome.tbl(meta.summary.file, genome.tbl)
 }
-\description{
+\arguments{
+\item{meta.summary.file}{a meta.summary.file.}
 
+\item{genome.tbl}{a genome.tbl.}
+}
+\description{
+Join \code{gm_files} returned by \code{generate.multi.quality.filter.meta} with a genome information table.
 }
 \author{
 Hajk-Georg Drost

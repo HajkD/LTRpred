@@ -4,8 +4,13 @@
 \alias{plotInterSpeciesCluster}
 \title{Plot inter species similarity between TEs (for a specific cluster)}
 \usage{
-plotInterSpeciesCluster(cluster.file, cluster, xlab = "Species",
-  ylab = "\% Similarity to Reference", legend.title = "Species")
+plotInterSpeciesCluster(
+  cluster.file,
+  cluster,
+  xlab = "Species",
+  ylab = "\% Similarity to Reference",
+  legend.title = "Species"
+)
 }
 \arguments{
 \item{cluster.file}{a cluster file in \code{*.uc} format (imported with e.g. \code{\link[LTRpred]{filter.uc}} and \code{\link[LTRpred]{read.uc}}).}
