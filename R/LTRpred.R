@@ -2,6 +2,25 @@
 #' @description Main pipeline to perform
 #' sufficient LTR retrotransposon predictions for any genome of interest.
 #' @param genome.file path to the genome file in \code{fasta} format.
+#' @param model a model as specified in \code{\link[ape]{dist.dna}}: a character string specifying the evolutionary model to be used - must be one of
+#'  \itemize{
+#' \item  \code{K80} (the default)
+#' \item \code{raw}
+#' \item  \code{N}
+#' \item  \code{TS}
+#' \item  \code{TV}
+#' \item  \code{JC69}
+#' \item  \code{F81} 
+#' \item \code{K81}
+#' \item \code{F84}
+#' \item \code{BH87}
+#' \item \code{T92}
+#' \item \code{TN93}
+#' \item \code{GG95}
+#' \item \code{logdet}
+#' \item \code{paralin}
+#' }
+#' @param mutation_rate a mutation rate per site per year. For retrotransposons the default is \eqn{mutation_rate = 1.3 * 10E-8} (Wicker and Keller, 2007).
 #' @param index.file.harvest specify the name of the enhanced suffix array index file that is computed
 #'  by \code{suffixerator} for the use of \code{LTRharvest}. This often can be used in case the suffix file was previously 
 #'  generated, e.g. during a previous call of this function. In this case the suffix array index
@@ -160,7 +179,7 @@
 #' The \code{LTRpred} function generates the following output files:
 #' 
 #' \itemize{
-#' \item *_BetweenLTRSeqs.fsa : DNA sequences of the region between the LTRs in fasta format. 
+#' \item *_BetweenLTRSeqs.fsa : DNA sequences predicted LTR retrotransposons, in particular of the region between the LTRs in fasta format. 
 #' \item *_Details.tsv : A spread sheet containing detailed information about the predicted LTRs.
 #' \item *_FullLTRRetrotransposonSeqs.fsa : DNA sequences of the entire predicted LTR retrotransposon.
 #' \item *_index.fsa : The suffixarray index file used to predict putative LTR retrotransposons.
@@ -182,8 +201,8 @@
 #' \item *-ltrdigest_pdom_<domainname>_aa.fas : Stores the concatenated protein sequences of 
 #' the HMM matches to the LTR retrotransposon candidates.
 #' \item *-ltrdigest_pdom_<domainname>_ali.fas : Stores the alignment information for all matches of the given protein domain model to the translations of all candidates.
-#' \item *_orfs_nt.fsa : Stores the predicted open reading frames within the predicted LTR transposons as DNA sequence.
-#' \item *_orfs_aa.fsa : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.
+#' \item *_ORF_prediction_nt.fsa : Stores the predicted open reading frames within the predicted LTR transposons as DNA sequence.
+#' \item *_ORF_prediction_aa.fsa : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.
 #' \item *_LTRpred.gff : Stores the \code{LTRpred} predicted LTR transposons in GFF format.
 #' \item *_LTRpred.bed : Stores the \code{LTRpred} predicted LTR transposons in BED format. 
 #' \item *_LTRpred_DataSheet.csv : Stores the output table as data sheet.
@@ -195,12 +214,14 @@
 #' additional files are generated and stored in the LTRpred result folder:
 #' 
 #' \itemize{
-#' \item 
+#' \item *-ltrdigest_complete.fas_DfamAnnotation.out : a data table storing the output of the HMMer search of predicted retrotransposons against the Dfam database. 
 #' }
 #' 
 #' \strong{if cluster = TRUE}
 #' \itemize{
-#' \item 
+#' \item *-ltrdigest_complete.fas_CLUSTpred.blast6out : usearch cluster result in BLAST table format.
+#' \item *-ltrdigest_complete.fas_CLUSTpred.log : log file of usearch run.
+#' \item *-ltrdigest_complete.fas_CLUSTpred.uc : usearch cluster output file.
 #' }  
 #'       
 #' @examples 
@@ -229,6 +250,8 @@
 #' @export
 
 LTRpred <- function(genome.file       = NULL,
+                    model = "K80",
+                    mutation_rate = 1.3 * 1e-07,
                     index.file.harvest = NULL,
                     index.file.digest = NULL,
                     LTRdigest.gff     = NULL,
@@ -244,7 +267,7 @@ LTRpred <- function(genome.file       = NULL,
                     clust.sim         = 0.9,
                     clust.file        = NULL,
                     copy.number.est   = FALSE,
-                    fix.chr.name      = TRUE,
+                    fix.chr.name      = FALSE,
                     cn.eval           = 1e-5,
                     range             = c(0,0),
                     seed              = 30,
@@ -361,7 +384,7 @@ LTRpred <- function(genome.file       = NULL,
     query_id <- cn_3ltr <- cn_5ltr <- orfs <- species <- ltr_similarity <- similarity <- NULL
     protein_domain <- strand <- annotation <- pred_tool <- frame <- score <- NULL
     lLTR_start <- `PBS/tRNA_edist` <- repeat_region_length <- PBS_length <- dfam_acc <- NULL
-    Query <- Target <- n <- TE_N_abs <- NULL
+    Query <- Target <- n <- NULL
     
     if (is.null(output.path)) {
         if (!is.null(genome.file)) {
@@ -513,7 +536,7 @@ LTRpred <- function(genome.file       = NULL,
         
         message("\n")
         message("LTRpred - Step 4:")
-        message("Perform ORF Prediction...")
+        message("Perform ORF Prediction using 'usearch -fastx_findorfs' ...")
         ORFTable <-
             ORFpred(
                 seq.file = file.path(
@@ -662,7 +685,7 @@ LTRpred <- function(genome.file       = NULL,
                     }
                     
                     if (is.null(dfam.file)) {
-                        message("A hmmer search against the Dfam database located at '", Dfam.db, "' using ", dfam.cores, " cores is performed to annotate de novo predicted retrotransposons ...")
+                        message("A HMMer search against the Dfam database located at '", Dfam.db, "' using ", dfam.cores, " cores is performed to annotate de novo predicted retrotransposons ...")
                         # perform query against the Dfam database
                         predSeqs <-
                             file.path(
@@ -757,7 +780,7 @@ LTRpred <- function(genome.file       = NULL,
                     "Please specify 'cluster = TRUE' when specifying 'clust.file'! Since 'cluster = FALSE' no clustering will be performed!"
                 )
             if (cluster) {
-                message("Perform Clustering of LTR transposons....")
+                message("Perform clustering of similar LTR transposons using 'vsearch --cluster_fast' ...")
                 predSeqs <-
                     file.path(
                         folder_path,
@@ -945,7 +968,6 @@ LTRpred <- function(genome.file       = NULL,
                                                 motif    = "CHH",
                                                 as.ratio = TRUE)
                 
-                
                 # count CCG: absolute
                 full.te.seq.CCG.abs <-
                     motif.count(seq.file = full.te.seq,
@@ -966,7 +988,6 @@ LTRpred <- function(genome.file       = NULL,
                 seq_5ltr.CCG.rel <- motif.count(seq.file = seq_5ltr,
                                                 motif    = "CCG",
                                                 as.ratio = TRUE)
-                
                 
                 # count N's: to assess the quality of the corresponding sequences
                 full.te.seq.N.abs <-
@@ -1079,8 +1100,7 @@ LTRpred <- function(genome.file       = NULL,
                 output.path,
                 paste0(chopped.foldername, "_LTRpred.bed")
             ))
-            
-            
+          
             if ((!is.null(annotate)) && (annotate == "Dfam")) {
               if (is.null(dfam.file)) {
                   file.move(file.path(
@@ -1201,7 +1221,6 @@ LTRpred <- function(genome.file       = NULL,
                 file.move(tabout.file, file.path(output.path, tabout.file))
         }
     }
-    
     
     res <- dplyr::mutate(res, pred_tool = rep("LTRpred", nrow(res)))
     res <- dplyr::mutate(res, species = rep(chopped.foldername, nrow(res)))
@@ -1359,6 +1378,28 @@ LTRpred <- function(genome.file       = NULL,
         res <-
             dplyr::mutate(res, cn_3ltr = rep(NA, nrow(res)), cn_5ltr = rep(NA, nrow(res)))
     }
+    
+    
+    #message("LTRpred - Step 7:")
+    seqs_3ltr <-
+      file.path(
+        output.path,
+        paste0(chopped.foldername, "_ltrdigest"),
+        paste0(chopped.foldername, "-ltrdigest_3ltr.fas")
+      )
+    seqs_5ltr <-
+      file.path(
+        output.path,
+        paste0(chopped.foldername, "_ltrdigest"),
+        paste0(chopped.foldername, "-ltrdigest_5ltr.fas")
+      )
+    
+    # ltr_age_estimation_res <- ltr_age_estimation(ltr_seqs_3_prime = seqs_3ltr,
+    #                                              ltr_seqs_5_prime = seqs_5ltr,
+    #                                              model = model,
+    #                                              mutation_rate = mutation_rate)
+    # 
+    #res <- dplyr::left_join(res, ltr_age_estimation_res, by = "orf.id")
     
     unlink(file.path(
         output.path,
