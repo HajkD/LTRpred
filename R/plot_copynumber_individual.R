@@ -22,11 +22,6 @@
 #' @author Hajk-Georg Drost
 #' @details This function visualizes the correlation between LTR transposon age
 #' (measured in LTR similarity) and the cluster copy number of the corresponding LTR retrotransposon (the complete sequence) or the width of the left LTR element. Using this visualization approach, different classes of LTR retrotransposons can be detected due to their width and age correlation.
-#' 
-#' @examples 
-#' \dontrun{
-#' 
-#' }
 #' @export
 
 plot_copynumber_individual <- function(data,
