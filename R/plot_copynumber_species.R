@@ -22,11 +22,6 @@
 #' @author Hajk-Georg Drost
 #' @details This function visualizes the correlation between LTR transposon age
 #' (measured in LTR similarity) and the cluster copy number of the corresponding LTR retrotransposon (the complete sequence) or the width of the left LTR element. Using this visualization approach, different classes of LTR retrotransposons can be detected due to their width and age correlation.
-#' 
-#' @examples 
-#' \dontrun{
-#' 
-#' }
 #' @export
 
 plot_copynumber_species <- function(data,
@@ -50,7 +45,8 @@ plot_copynumber_species <- function(data,
     if (!is.element(element.type, c("full_retrotransposon", "ltr_element")))
         stop("Please choose either element.type = 'full_retrotransposon' or element.type = 'ltr_element'.", call. = FALSE)
     
-    similarity <- Clust_cn <- cn_3ltr <- ltr_similarity <- NULL
+    similarity <- ltr_similarity <- median_cn <- NULL
+    species <- Clust_Cluster <- clust_number <- NULL
     
     if (quality.filter)
         data <- LTRpred::quality.filter(data, sim = min.sim, n.orfs = n.orfs)
@@ -72,18 +68,18 @@ plot_copynumber_species <- function(data,
     
     if (include.unique) {
         # group by species and similarity and compute the median LTR/Retrotransposon width for each species
-        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(data, species, Clust_Cluster, similarity), clust_number = n())
-        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(pred_median_sim_retrotrans, species, similarity), median_cn = median(clust_number))
-        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(data, species, Clust_Cluster, similarity), clust_number = n())
-        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(pred_median_sim_ltr_only, species, similarity), median_cn = median(clust_number))
+        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(data, species, Clust_Cluster, similarity), clust_number = dplyr::n())
+        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(pred_median_sim_retrotrans, species, similarity), median_cn = stats::median(clust_number))
+        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(data, species, Clust_Cluster, similarity), clust_number = dplyr::n())
+        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(pred_median_sim_ltr_only, species, similarity), median_cn = stats::median(clust_number))
     }
     
     if (!include.unique) {
         # group by species and similarity and compute the median LTR/Retrotransposon width for each species
-        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(dplyr::filter(data, Clust_Cluster != "unique"), species, Clust_Cluster, similarity), clust_number = n())
-        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(pred_median_sim_retrotrans, species, similarity), median_cn = median(clust_number))
-        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(dplyr::filter(data, Clust_Cluster != "unique"), species, Clust_Cluster, similarity), clust_number = n())
-        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(pred_median_sim_ltr_only, species, similarity), median_cn = median(clust_number))
+        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(dplyr::filter(data, Clust_Cluster != "unique"), species, Clust_Cluster, similarity), clust_number = dplyr::n())
+        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(pred_median_sim_retrotrans, species, similarity), median_cn = stats::median(clust_number))
+        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(dplyr::filter(data, Clust_Cluster != "unique"), species, Clust_Cluster, similarity), clust_number = dplyr::n())
+        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(pred_median_sim_ltr_only, species, similarity), median_cn = stats::median(clust_number))
     }
     
     
@@ -104,7 +100,7 @@ plot_copynumber_species <- function(data,
             ggplot2::geom_point(ggplot2::aes(colour = species)) +
             ggplot2::geom_jitter(data = dplyr::filter(
                 pred_median_sim_retrotrans,
-                median_cn < quantile(pred_median_sim_retrotrans$median_cn,seq(0,1,0.005))[197] # don't jitter upper 1.5%
+                median_cn < stats::quantile(pred_median_sim_retrotrans$median_cn,seq(0,1,0.005))[197] # don't jitter upper 1.5%
             ),ggplot2::aes(colour = species), position = ggplot2::position_jitter(0.2))
     }
     
@@ -114,7 +110,7 @@ plot_copynumber_species <- function(data,
             ggplot2::geom_point(ggplot2::aes(colour = species)) +
             ggplot2::geom_jitter(data = dplyr::filter(
                 pred_median_sim_retrotrans,
-                median_cn < quantile(pred_median_sim_retrotrans$median_cn,seq(0,1,0.005))[197] # don't jitter upper 1.5%
+                median_cn < stats::quantile(pred_median_sim_retrotrans$median_cn,seq(0,1,0.005))[197] # don't jitter upper 1.5%
             ), ggplot2::aes(colour = species), position = ggplot2::position_jitter(0.2))
     }
     
@@ -149,7 +145,7 @@ plot_copynumber_species <- function(data,
             res <-
                 res +  ggrepel::geom_text_repel(data = dplyr::filter(
                     pred_median_sim_retrotrans,
-                    median_cn >= quantile(pred_median_sim_retrotrans$median_cn,seq(0,1,0.005))[197] # label only upper 1.5%
+                    median_cn >= stats::quantile(pred_median_sim_retrotrans$median_cn,seq(0,1,0.005))[197] # label only upper 1.5%
                 ),
                 ggplot2::aes(label = species),
                 size = 3.5,
@@ -160,7 +156,7 @@ plot_copynumber_species <- function(data,
             res <-
                 res +  ggrepel::geom_text_repel(data = dplyr::filter(
                     pred_median_sim_ltr_only,
-                    median_cn >= quantile(pred_median_sim_ltr_only$median_cn,seq(0,1,0.005))[197] # label only upper 1.5%
+                    median_cn >= stats::quantile(pred_median_sim_ltr_only$median_cn,seq(0,1,0.005))[197] # label only upper 1.5%
                 ),
                 ggplot2::aes(label = species),
                 size = 3.5,
