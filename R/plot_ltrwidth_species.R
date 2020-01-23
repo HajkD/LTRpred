@@ -29,9 +29,6 @@
 #' (measured in LTR similarity) and the width of the corresponding LTR retrotransposon (the complete sequence) or the width of the left LTR element. Using this visualization approach, different classes of LTR retrotransposons can be detected due to their width and age correlation.
 #' 
 #' @examples 
-#' \dontrun{
-#' 
-#' }
 #' @export
 
 plot_ltrwidth_species <- function(data,
@@ -61,6 +58,8 @@ plot_ltrwidth_species <- function(data,
   
     similarity <- width <- lLTR_length <- ltr_similarity <- species <- median_width <- sum_width_mbp <-  NULL
     
+    width_quantile <- lLTR_length_quantile <- NULL
+    
     if (quality.filter)
         data <- LTRpred::quality.filter(data, sim = min.sim, n.orfs = n.orfs)
     if (!quality.filter) {
@@ -83,16 +82,16 @@ plot_ltrwidth_species <- function(data,
     pred_median_sim_retrotrans <-
       dplyr::summarise(
         dplyr::group_by(data, species, similarity),
-        median_width = median(width) / 1000000,
+        median_width = stats::median(width) / 1000000,
         sum_width_mbp = sum(width) / 1000000,
-        width_quantile = quantile(width, seq(0, 1, 0.005))[197]
+        width_quantile = stats::quantile(width, seq(0, 1, 0.005))[197]
       )
     pred_median_sim_ltr_only <-
       dplyr::summarise(
         dplyr::group_by(data, species, similarity),
-        median_width = median(lLTR_length) / 1000000,
+        median_width = stats::median(lLTR_length) / 1000000,
         sum_width = sum(lLTR_length) / 1000000,
-        lLTR_length_quantile = quantile(lLTR_length, seq(0, 1, 0.005))[197]
+        lLTR_length_quantile = stats::quantile(lLTR_length, seq(0, 1, 0.005))[197]
       )
     
     #max.width <- max(data$ltr.retrotransposon[ , "ltr_similarity"])
