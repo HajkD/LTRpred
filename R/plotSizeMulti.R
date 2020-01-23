@@ -1,19 +1,25 @@
 #' @title plotSize for \code{generate.multi.quality.filter.meta} output
-#' @description 
-#' @param meta.summary.file
-#' @param cor.method
-#' @param type
-#' @param label.organism
-#' @param smooth.method
-#' @param se
-#' @param main
-#' @param xlab
-#' @param ylab
-#' @param alpha
-#' @param arrow_lab
-#' @param text.size
-#' @param label.size
-#' @param check.overlap
+#' @description Visualize the correlation between genome size and TE load for \code{\link{generate.multi.quality.filter.meta}} output.
+#' @param meta.summary.file a meta.summary.file file.
+#' @param cor.method correlation method.
+#' @param type type of TE load metric that shall be visualized. Options are
+#' \itemize{
+#' \item \code{type = "total_ltrs_nucl_mbp"}
+#' \item \code{type = "n_ltrs_freq"}
+#' \item \code{type = "n_ltrs"}
+#' \item \code{type = "total_ltrs_nucl_freq"}
+#' }
+#' @param label.organism shall organism names be labeled next to each dot in the correlation plot?
+#' @param smooth.method shall a smoothing function be applied to the correlation plot?
+#' @param se shall standard.error be drawn when \code{smooth.method = TRUE}.
+#' @param main title text.
+#' @param xlab x-axis text.
+#' @param ylab y-axis text.
+#' @param alpha alpha of standard error band.
+#' @param arrow_lab shall arrows be drawn between dots and label names?
+#' @param text.size general text size.
+#' @param label.size label text size.
+#' @param check.overlap apply overlap correction for label names.
 #' @author Hajk-Georg Drost
 #' @export
 
@@ -25,19 +31,19 @@ plotSizeMulti <-
            smooth.method = "lm",
            se = FALSE,
            main = "",
-           xlab                = "LTR retrotransposon content in Mega [bp]",
-           ylab                = "Genome size in Mega [bp]",
-           alpha               = 0.3,
-           arrow_lab           = FALSE,
-           text.size           = 18,
-           label.size          = 4,
-           check.overlap       = TRUE
+           xlab = "LTR retrotransposon content in Mega [bp]",
+           ylab = "Genome size in Mega [bp]",
+           alpha = 0.3,
+           arrow_lab = FALSE,
+           text.size = 18,
+           label.size = 4,
+           check.overlap = TRUE
            ) {
     
+    n_ltrs <- total_ltrs_nucl_mbp <- 
     
   gm_files_combined <- dplyr::bind_rows(lapply(meta.summary.file, function(x) x$gm_file))  
     
-  
   if (!is.element(type, c("total_ltrs_nucl_mbp", "n_ltrs_freq", "n_ltrs", "total_ltrs_nucl_freq")))
     stop("Please specify: type = 'total_ltrs_nucl_mbp' for total length of all TEs in Mbp; type = 'total_ltrs_nucl_freq' for proportion of TEs within entire genome in %; type = 'n_ltrs' for total number of TEs in genome; type = 'n_ltrs_freq' for total number of TEs in genome normalized by genome size in Mbp.", call. = FALSE)
   
@@ -46,39 +52,39 @@ plotSizeMulti <-
     
     message(
       "R_pearson(n_ltrs, genome_size_nucl_mbp) = ",
-      cor(
+      stats::cor(
         gm_files_combined$n_ltrs,
         gm_files_combined$genome_size_nucl_mbp,
         method = "pearson"
       ),
       "; p-val = ",
-      cor.test(gm_files_combined$n_ltrs,
+      stats::cor.test(gm_files_combined$n_ltrs,
                gm_files_combined$genome_size_nucl_mbp,
                method = "pearson")
     )
     
     message(
       "R_spearman(n_ltrs, genome_size_nucl_mbp) = ",
-      cor(
+      stats::cor(
         gm_files_combined$n_ltrs,
         gm_files_combined$genome_size_nucl_mbp,
         method = "spearman"
       ),
       "; p-val = ",
-      cor.test(gm_files_combined$n_ltrs,
+      stats::cor.test(gm_files_combined$n_ltrs,
                gm_files_combined$genome_size_nucl_mbp,
                method = "spearman")
     )
     
     message(
       "R_kendall(n_ltrs, genome_size_nucl_mbp) = ",
-      cor(
+      stats::cor(
         gm_files_combined$n_ltrs,
         gm_files_combined$genome_size_nucl_mbp,
         method = "kendall"
       ),
       "; p-val = ",
-      cor.test(gm_files_combined$n_ltrs,
+      stats::cor.test(gm_files_combined$n_ltrs,
                gm_files_combined$genome_size_nucl_mbp,
                method = "kendall")
     )
@@ -97,44 +103,46 @@ plotSizeMulti <-
     
     message(
       "R_pearson(n_ltrs_freq, genome_size_nucl_mbp) = ",
-      cor(
+      stats::cor(
         gm_files_combined$n_ltrs_freq,
         gm_files_combined$genome_size_nucl_mbp,
         method = "pearson"
       ),
       "; p-val = ",
-      cor.test(gm_files_combined$n_ltrs_freq,
+      stats::cor.test(gm_files_combined$n_ltrs_freq,
                gm_files_combined$genome_size_nucl_mbp,
                method = "pearson")
     )
     
-    
     message(
       "R_spearman(n_ltrs_freq, genome_size_nucl_mbp) = ",
-      cor(
+      stats::cor(
         gm_files_combined$n_ltrs_freq,
         gm_files_combined$genome_size_nucl_mbp,
         method = "spearman"
       ),
       "; p-val = ",
-      cor.test(gm_files_combined$n_ltrs_freq,
+      stats::cor.test(gm_files_combined$n_ltrs_freq,
                gm_files_combined$genome_size_nucl_mbp,
                method = "spearman")
     )
     
     message(
       "R_kendall(n_ltrs_freq, genome_size_nucl_mbp) = ",
-      cor(
+      stats::cor(
         gm_files_combined$n_ltrs_freq,
         gm_files_combined$genome_size_nucl_mbp,
         method = "kendall"
       ),
       "; p-val = ",
-      cor.test(gm_files_combined$n_ltrs_freq,
+      stats::cor.test(gm_files_combined$n_ltrs_freq,
                gm_files_combined$genome_size_nucl_mbp,
                method = "kendall")
     )
     
+    
+    n_ltrs_freq <- genome_size_nucl_mbp <- kingdom <- NULL
+      
     res <-
       ggplot2::ggplot(gm_files_combined,
                       ggplot2::aes(x = n_ltrs_freq,
@@ -147,32 +155,32 @@ plotSizeMulti <-
   if (type == "total_ltrs_nucl_mbp") {
     
     cor_data <- dplyr::summarise(dplyr::group_by(gm_files_combined, kingdom), 
-      R_pearson = round(cor(
+      R_pearson = round(stats::cor(
       total_ltrs_nucl_mbp,
       genome_size_nucl_mbp,
       method = "pearson"
     ), 3),
-    p_val_pearson = cor.test(
+    p_val_pearson = stats::cor.test(
       total_ltrs_nucl_mbp,
       genome_size_nucl_mbp,
       method = "pearson"
     )$p.value,
-    R_spearman = round(cor(
+    R_spearman = round(stats::cor(
       total_ltrs_nucl_mbp,
       genome_size_nucl_mbp,
       method = "spearman"
     ), 3),
-    p_val_spearman = cor.test(
+    p_val_spearman = stats::cor.test(
       total_ltrs_nucl_mbp,
       genome_size_nucl_mbp,
       method = "spearman"
     )$p.value,
-    R_kendall = round(cor(
+    R_kendall = round(stats::cor(
       total_ltrs_nucl_mbp,
       genome_size_nucl_mbp,
       method = "kendall"
     ), 3),
-    p_val_kendall = cor.test(
+    p_val_kendall = stats::cor.test(
       total_ltrs_nucl_mbp,
       genome_size_nucl_mbp,
       method = "kendall"
@@ -216,13 +224,13 @@ plotSizeMulti <-
     
     message(
       "R_kendall(total_ltrs_nucl_freq, genome_size_nucl_mbp) = ",
-      cor(
+      stats::cor(
         gm_files_combined$total_ltrs_nucl_freq,
         gm_files_combined$genome_size_nucl_mbp,
         method = "kendall"
       ),
       "; p-val = ",
-      cor.test(m_files_combined$total_ltrs_nucl_freq,
+      stats::cor.test(m_files_combined$total_ltrs_nucl_freq,
                gm_files_combined$genome_size_nucl_mbp,
                method = "kendall")
     )
