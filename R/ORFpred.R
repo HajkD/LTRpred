@@ -29,7 +29,7 @@ ORFpred <- function(seq.file,
                     "usearch -fastx_findorfs ",
                     ws.wrap.path(seq.file),
                     " -ntout ",
-                    paste0(basename(seq.file), "_nt.fsa"),
+                    paste0(basename(seq.file), "_ORF_prediction_nt.fsa"),
                     " -orfstyle ",
                     orf.style,
                     " -mincodons ",
@@ -42,7 +42,7 @@ ORFpred <- function(seq.file,
                     "usearch -fastx_findorfs ",
                     ws.wrap.path(seq.file),
                     " -ntout ",
-                    file.path(output, paste0(basename(seq.file), "_nt.fsa")),
+                    file.path(output, paste0(basename(seq.file), "_ORF_prediction_nt.fsa")),
                     " -orfstyle ",
                     orf.style,
                     " -mincodons ",
@@ -58,9 +58,9 @@ ORFpred <- function(seq.file,
                     "usearch -fastx_findorfs ",
                     ws.wrap.path(seq.file),
                     " -ntout ",
-                    paste0(basename(seq.file), "_nt.fsa"),
+                    paste0(basename(seq.file), "_ORF_prediction_nt.fsa"),
                     " -aaout ",
-                    paste0(basename(seq.file), "_aa.fsa"),
+                    paste0(basename(seq.file), "_ORF_prediction_aa.fsa"),
                     " -orfstyle ",
                     orf.style,
                     " -mincodons ",
@@ -74,11 +74,11 @@ ORFpred <- function(seq.file,
                     ws.wrap.path(seq.file),
                     " -ntout ",
                     file.path(output, paste0(
-                        basename(seq.file), "_orfs_nt.fsa"
+                        basename(seq.file), "_ORF_prediction_nt.fsa"
                     )),
                     " -aaout ",
                     file.path(output, paste0(
-                        basename(seq.file), "_orfs_aa.fsa"
+                        basename(seq.file), "_ORF_prediction_aa.fsa"
                     )),
                     " -orfstyle ",
                     orf.style,
@@ -90,7 +90,7 @@ ORFpred <- function(seq.file,
     }
     
     if (!is.null(output)) {
-        orf.file <- file.path(output, paste0(basename(seq.file), "_nt.fsa"))
+        orf.file <- file.path(output, paste0(basename(seq.file), "_ORF_prediction_nt.fsa"))
         if (file.info(orf.file)$size == 0 ||
             is.na(file.info(orf.file)$size == 0)) {
             ReadSeqFile <- Biostrings::readDNAStringSet(seq.file)
@@ -101,7 +101,7 @@ ORFpred <- function(seq.file,
             ORFCount.df <- read.orfs(orf.file)
         }
     } else {
-        orf.file <- paste0(basename(seq.file), "_nt.fsa")
+        orf.file <- paste0(basename(seq.file), "_ORF_prediction_nt.fsa")
         if (file.info(orf.file)$size == 0 ||
             is.na(file.info(orf.file)$size == 0)) {
             ReadSeqFile <- Biostrings::readDNAStringSet(seq.file)
