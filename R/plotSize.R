@@ -5,6 +5,7 @@
 #' \code{type = "count"} (total number of TEs in genome), \code{type = "norm.count"} (total number of TEs in genome normalized by genome size in Mbp).
 #' @param cor.method correlation analysis method. Either \code{"pearson"}, \code{"kendall"}, or \code{"spearman"}.
 #' @param label.organism shall organism names be drawn in the figure?
+#' @param colour a colour for the graph.
 #' @param smooth.method method to add a smoothed conditional mean (see \code{ggplot2::geom_smooth()}).
 #' Users can choose from \code{auto}, \code{glm}, \code{lm}, or \code{loess}. If no smoothing function shall be applied,
 #' users can specify \code{smooth.method = 'NULL'}.
@@ -55,6 +56,9 @@ plotSize <- function(genome.summary,
     if (!is.element(type, c("total_ltrs_nucl_mbp", "n_ltrs_freq", "n_ltrs", "total_ltrs_nucl_freq", "total_repeat_space_mbp", "ltr_retro_space_mbp")))
         stop("Please specify: type = 'total_ltrs_nucl_mbp' for total length of all TEs in Mbp; type = 'total_ltrs_nucl_freq' for proportion of TEs within entire genome in %; type = 'n_ltrs' for total number of TEs in genome; type = 'n_ltrs_freq' for total number of TEs in genome normalized by genome size in Mbp.", call. = FALSE)
     
+  
+  total_ltrs_nucl_mbp <- n_ltrs <- genome_size_nucl_mbp <- n_ltrs_freq <- ltr_retro_space_mbp <- total_repeat_space_mbp <- total_ltrs_nucl_freq <- organism <- NULL
+  
      if (remove.zero)
        genome.summary <- dplyr::filter(genome.summary, total_ltrs_nucl_mbp > 0)
     
