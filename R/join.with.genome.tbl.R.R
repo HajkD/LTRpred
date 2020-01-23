@@ -1,7 +1,7 @@
 #' @title Join \code{gm_files} returned by \code{generate.multi.quality.filter.meta} with a genome information table
-#' @description  
-#' @param meta.summary.file
-#' @param genome.tbl
+#' @description Join \code{gm_files} returned by \code{generate.multi.quality.filter.meta} with a genome information table. 
+#' @param meta.summary.file a meta.summary.file.
+#' @param genome.tbl a genome.tbl.
 #' @author Hajk-Georg Drost
 #' @export
 
