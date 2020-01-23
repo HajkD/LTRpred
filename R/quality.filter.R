@@ -44,7 +44,8 @@ quality.filter <- function(pred, sim, n.orfs, strategy = "default"){
   
   # try to reduce false positives by filtering for PBS and ORFs
   ltr_similarity <- PBS_start <- protein_domain <- orfs <- NULL
-  TE_N_abs <- width <- NULL
+  TE_N_abs <- width <- dfam_target_name <- NULL
+  
   message(
     "The LTRpred prediction table has been filtered (default) to remove potential false positives. Predicted LTRs must have an PBS or Protein Domain and must fulfill thresholds: sim = ",
     sim,
