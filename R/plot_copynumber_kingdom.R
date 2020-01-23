@@ -21,11 +21,6 @@
 #' @author Hajk-Georg Drost
 #' @details This function visualizes the correlation between LTR transposon age
 #' (measured in LTR similarity) and the cluster copy number of the corresponding LTR retrotransposon (the complete sequence) or the width of the left LTR element. Using this visualization approach, different classes of LTR retrotransposons can be detected due to their width and age correlation.
-#' 
-#' @examples 
-#' \dontrun{
-#' 
-#' }
 #' @export
 
 plot_copynumber_kingdom <- function(data,
@@ -49,6 +44,7 @@ plot_copynumber_kingdom <- function(data,
         stop("Please choose either element.type = 'full_retrotransposon' or element.type = 'ltr_element'.", call. = FALSE)
     
     similarity <- Clust_cn <- cn_3ltr <- ltr_similarity <- NULL
+    kingdom <- species <- Clust_Cluster <- median_cn <- NULL
     
     if (quality.filter)
         data <- LTRpred::quality.filter(data, sim = min.sim, n.orfs = n.orfs)
@@ -70,14 +66,14 @@ plot_copynumber_kingdom <- function(data,
     
     if (include.unique) {
         # group by species and similarity and compute the median LTR/Retrotransposon width for each species
-        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity), median_cn = median(Clust_cn))
-        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity), median_cn = median(cn_3ltr))
+        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity), median_cn = stats::median(Clust_cn))
+        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity), median_cn = stats::median(cn_3ltr))
     }
     
     if (!include.unique) {
         # group by species and similarity and compute the median LTR/Retrotransposon width for each species
-        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(dplyr::filter(data, Clust_Cluster != "unique"), kingdom, species, similarity), median_cn = median(Clust_cn))
-        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(dplyr::filter(data, Clust_Cluster != "unique"), kingdom, species, similarity), median_cn = median(cn_3ltr))
+        pred_median_sim_retrotrans <- dplyr::summarise(dplyr::group_by(dplyr::filter(data, Clust_Cluster != "unique"), kingdom, species, similarity), median_cn = stats::median(Clust_cn))
+        pred_median_sim_ltr_only <- dplyr::summarise(dplyr::group_by(dplyr::filter(data, Clust_Cluster != "unique"), kingdom, species, similarity), median_cn = stats::median(cn_3ltr))
     }
     
     #max.width <- max(data$ltr.retrotransposon[ , "ltr_similarity"])
