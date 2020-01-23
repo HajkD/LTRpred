@@ -54,7 +54,7 @@ plotRepeatSpaceCval <- function(genome.matrix,
                             label.size          = 3,
                             check.overlap       = TRUE) {
     
-    genome.size <- RepeatSpaceMbp <- NULL
+    RepeatSpaceMbp <- organism <- `1C (Mbp)` <- NULL
     
     if (cl.analysis) {
         if (is.null(sim.matrix))
