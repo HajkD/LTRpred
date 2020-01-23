@@ -20,11 +20,6 @@
 #' @author Hajk-Georg Drost
 #' @details This function visualizes the correlation between LTR transposon age
 #' (measured in LTR similarity) and the width of the corresponding LTR retrotransposon (the complete sequence) or the width of the left LTR element. Using this visualization approach, different classes of LTR retrotransposons can be detected due to their width and age correlation.
-#' 
-#' @examples 
-#' \dontrun{
-#' 
-#' }
 #' @export
 
 plot_pbswidth_kingdom <- function(data,
@@ -45,6 +40,7 @@ plot_pbswidth_kingdom <- function(data,
   
   
   similarity <- width <- lLTR_length <- ltr_similarity <- NULL
+  kingdom <- species <- PBS_length <- median_pbs_width <- NULL
   
   if (quality.filter)
     data <- LTRpred::quality.filter(data, sim = min.sim, n.orfs = n.orfs)
@@ -67,7 +63,7 @@ plot_pbswidth_kingdom <- function(data,
   # group by species and similarity and compute the median LTR/Retrotransposon width for each species
   pred_median_sim_retrotrans <-
     dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity),
-                     median_pbs_width = median(PBS_length, na.rm = TRUE))
+                     median_pbs_width = stats::median(PBS_length, na.rm = TRUE))
   
       res <-
         ggplot2::ggplot(pred_median_sim_retrotrans, ggplot2::aes(similarity, median_pbs_width))
