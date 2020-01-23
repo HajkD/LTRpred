@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot retrotransposon age distributions for predictions of different genome assembly versions — gridPlotAssemblyVersions • LTRpred</title>
+<title>Plot positions of predicted retrotransposons along chromosomes — plot_element_distr_along_chromosome • LTRpred</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,9 @@
 
 
 
-<meta property="og:title" content="Plot retrotransposon age distributions for predictions of different genome assembly versions — gridPlotAssemblyVersions" />
-<meta property="og:description" content="Compare the abundance of retrotransposon predictions between different genome assembly versions. This way a genome assembly version bias can be either ruled out
-or considered for subsequent conclusions." />
+<meta property="og:title" content="Plot positions of predicted retrotransposons along chromosomes — plot_element_distr_along_chromosome" />
+<meta property="og:description" content="The positionas of LTR retrotransposons predicted with LTRpred
+will be visualized along the chromsome." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -118,76 +118,54 @@ or considered for subsequent conclusions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot retrotransposon age distributions for predictions of different genome assembly versions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/gridPlotAssemblyVersions.R'><code>R/gridPlotAssemblyVersions.R</code></a></small>
-    <div class="hidden name"><code>gridPlotAssemblyVersions.Rd</code></div>
+    <h1>Plot positions of predicted retrotransposons along chromosomes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/HajkD/LTRpred/blob/master/R/plot_element_distr_along_chromosome.R'><code>R/plot_element_distr_along_chromosome.R</code></a></small>
+    <div class="hidden name"><code>plot_element_distr_along_chromosome.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compare the abundance of retrotransposon predictions between different genome assembly versions. This way a genome assembly version bias can be either ruled out
-or considered for subsequent conclusions.</p>
+    <p>The positionas of LTR retrotransposons predicted with <code><a href='LTRpred.html'>LTRpred</a></code>
+will be visualized along the chromsome.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gridPlotAssemblyVersions</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>quality.filter</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>text.size</span> <span class='kw'>=</span> <span class='fl'>18</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"LTR similarity"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"LTR retrotransposon count"</span>,
-  <span class='kw'>main.text</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>y.ticks</span> <span class='kw'>=</span> <span class='fl'>6</span>,
-  <span class='kw'>sim</span> <span class='kw'>=</span> <span class='fl'>70</span>,
-  <span class='kw'>n.orfs</span> <span class='kw'>=</span> <span class='fl'>0</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plot_element_distr_along_chromosome</span>(<span class='no'>pred</span>, <span class='no'>genome.file</span>, <span class='no'>centromere_starts</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>prediction files returned by <code><a href='LTRpred.html'>LTRpred</a></code>. Usually a combined prediction file that was generated with <code><a href='combinePreds.html'>combinePreds</a></code>.</p></td>
+      <th>pred</th>
+      <td><p>LTRpred.tbl generated with <code><a href='LTRpred.html'>LTRpred</a></code>.</p></td>
     </tr>
     <tr>
-      <th>quality.filter</th>
-      <td><p>shall false positives be filtered out as much as possible or not.</p></td>
+      <th>genome.file</th>
+      <td><p>a file path to the genome assembly file in fasta format for which chromosomes shall be visualized.</p></td>
     </tr>
     <tr>
-      <th>text.size</th>
-      <td><p>size of x-axis, y-axis, and title text.</p></td>
+      <th>centromere_starts</th>
+      <td><p>a numeric vector containing the start coordinates of the centromers (for all chromosomes in <code>genome.file</code>).</p></td>
     </tr>
     <tr>
-      <th>xlab</th>
-      <td><p>x-axis label.</p></td>
-    </tr>
-    <tr>
-      <th>ylab</th>
-      <td><p>y-axis label.</p></td>
-    </tr>
-    <tr>
-      <th>main.text</th>
-      <td><p>title text.</p></td>
-    </tr>
-    <tr>
-      <th>y.ticks</th>
-      <td><p>number of ticks that shall be drawn on the y-axis.</p></td>
-    </tr>
-    <tr>
-      <th>sim</th>
-      <td><p>If <code>quality.filter = TRUE</code>: LTR similarity threshold. Only putative LTR transposons that fulfill this 
-LTR similarity threshold will be retained.</p></td>
-    </tr>
-    <tr>
-      <th>n.orfs</th>
-      <td><p>If <code>quality.filter = TRUE</code>: minimum number of ORFs detected in the putative LTR transposon.</p></td>
+      <th>...</th>
+      <td><p>additional arguments that shall be passed to the visualization function <code><a href='https://rdrr.io/pkg/ggbio/man/autoplot-method.html'>autoplot</a></code>.</p></td>
     </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>test_genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY.fa"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>)
+<span class='no'>test_pred</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>LTRpred</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/LTRpred/man/read.ltrpred.html'>read.ltrpred</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>))
+<span class='no'>test_centromere_starts</span> <span class='kw'>&lt;-</span> <span class='fl'>55000</span>
+<span class='co'># generate visualization</span>
+<span class='kw pkg'>LTRpred</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/LTRpred/man/plot_element_distr_along_chromosome.html'>plot_element_distr_along_chromosome</a></span>(<span class='no'>test_pred</span>, <span class='no'>test_genome</span>, <span class='no'>test_centromere_starts</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
