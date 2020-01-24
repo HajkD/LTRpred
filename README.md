@@ -1,12 +1,22 @@
-## LTRpred(ict): a pipeline for automated functional annotation of LTR retrotransposons for comparative genomics studies  <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
+## __LTRpred(ict)__: a _de novo_ functional annotation pipeline of potentially mobile LTR retrotransposons <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
 
+Transposable elements (TEs) can comprise vast parts of eukaryotic genomes.
+In the past, TEs were seen as selfish mobile elements capable of populating a host genome to increase their chances for survival. By doing so they leave traces of junk DNA in host genomes that are usually regarded as annoying by-products when sequencing, assembling, and annotating new genomes.
 
-An easy way to perform __de novo__ functional annotation of `LTR retrotransposons` from any genome assembly in `fasta` format.
+However, this picture is slowly changing ([Drost & Sanchez, 2019](https://academic.oup.com/gbe/article/11/12/3382/5637757)) and TEs have been shown to be involved in generating a diverse range of novel phenotypes, e.g. such as the tomato fruit shape ([Benoit, Drost et al., 2019](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370)).
+
+Today, the _de novo_ detection of transposable elements is performed by annotation tools which try to detect any type of repeated sequence, TE family, or remnand DNA locus that can be associated with a known transposable element within a genome assembly. The main goal of such efforts is to retrieve a maximum amount of loci that can be associated with TEs. If successful, such annotation can then be used to mask host genomes and to perform classic (phylo-)genomics studies focusing on host genes.
+
+More than [300 repeat and TE annotation tools](https://docs.google.com/spreadsheets/d/1UBK70zExiL0gFVaIAILiGhflCGXAq_SF_lymaxTE1pY/edit#gid=0) have been developed so far. Most of them are designed and optimized to annotate either the entire repeat space or specific superfamilies of TEs and their DNA remnants.
+
+>The LTRpred pipeline has a different goal than all other annotation tools. It focuses particularly on [LTR retrotransposons](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC463057/) and aims to annotate only functional and potentially mobile elements. Such type of annotation is crucial for studying retrotransposon activity in eukaryotic genomes and to understand whether specific retrotransposon families can be activated artificially and harnessed to e.g. [speed-breed crops](https://www.slcu.cam.ac.uk/news/tomato-jumping-genes) for [selective plant breeding in response to global warming](https://www.varsity.co.uk/science/17986).
+
+In detail, `LTRpred` will take any genome assembly file in `fasta` format as input and will generate a detailed annotation of functional and potentially mobile LTR retrotransposons.
 
 ![](vignettes/LTRfeatures.png)
 
 
-Users can consult a comprehensive [Introduction](https://hajkd.github.io/LTRpred/articles/Introduction.html) to the `LTRpred` pipeline to get familiar with the tool.
+__Users can consult a comprehensive [Introduction](https://hajkd.github.io/LTRpred/articles/Introduction.html) to the `LTRpred` pipeline to get familiar with the tool.__
 
 ## Install
 
@@ -89,120 +99,6 @@ Furthermore, in case you find some bugs or need additional (more flexible) funct
 of this package, please let me know:
 
 https://github.com/HajkD/LTRpred/issues
-
-In the `LTRpred` framework users can find:
-
-### _De novo_ prediction and annotation
-
-- _de novo_ prediction of LTR retrotransposons (nested, overlapping, or pure template) using [LTRharvest](http://www.zbh.uni-hamburg.de/forschung/arbeitsgruppe-genominformatik/software/ltrharvest.html) and [LTRdigest](http://www.zbh.uni-hamburg.de/forschung/gi/software/ltrdigest.html)
-- annotation of predicted LTR retrotransposons using [Dfam](http://dfam.org/) or [Repbase](http://www.girinst.org/repbase/) as reference
-- solo LTR prediction based on specialized [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download) searches
-- LTR retrotransposons family clustering using [vsearch](https://github.com/torognes/vsearch)
-- open reading frame prediction in LTR retrotransposons using [usearch](https://www.drive5.com/usearch/)
-- age estimation of predicted LTR retrotransposons in Mya (not implemented yet, but soon to come..)
-- CHH, CHG, CG, ... content quantification in predicted LTR retrotransposons
-- filtering for (potentially) functional LTR retrotransposons  
-- quality assesment of input genomes used to predict LTR retrotransposons
-
-### Meta-Genomics Analyses
-
-- run `LTRpred` on entire kingdoms of life using only one command (see `?LTRpred.meta`)
-- perform meta genomics studies customized for LTR retrotransposons
-- cluster LTR retrotransposons within and between species
-- quantify the diversity space of LTR retrotransposons for entire kingdoms of life
-
-#### De Novo Annotation Functions:
-
-* `LTRpred()` : Major pipeline to predict LTR retrotransposons in a given genome
-* `LTRpred.meta` : Perform Meta-Analyses with LTRpred
-* `meta.summarize()` : Summarize (concatenate) all predictions of a `LTRpred.meta()` run
-* `meta.apply()` : Apply functions to meta data generated by `LTRpred()`
-* `LTRharvest()` : Run LTRharvest to predict putative LTR Retrotransposons
-* `LTRdigest()` : Run LTRdigest to predict putative LTR Retrotransposons
-
-#### Sequence Clustering and Similarity Computations
-* `CLUSTpred()` : Cluster Sequences with VSEARCH
-* `cluster.members()` : Select members of a specific cluster
-* `clust2fasta()` : Export sequences of TEs belonging to the same cluster to fasta files
-* `AllPairwiseAlign()` : Compute all pairwise (global) alignments with VSEARCH
-* `filter.uc()` : Filter for cluster members
-* `SimMatAbundance()` : Compute histogram shape similarity between species
-
-
-#### LTR Copy Number Estimation
-
-* `ltr.cn()` : Detect solo LTR copies of predicted LTR transposons
-* `cn2bed()` : Write copy number estimation results to BED file format.
-
-#### Filter Functions
-
-* `filter.jumpers()` : Detect LTR retrotransposons that are potential jumpers
-* `tidy.datasheet()` : Select most important columns of 'LTRpred' output for further analytics
-
-#### Import the Output Files of the Prediction Tools:
-
-* `read.prediction()` : Import the output of LTRharvest or LTRdigest
-* `read.tabout()` : Import information sheet returned by LTRdigest
-* `read.orfs()` : Read output of `ORFpred()`
-* `read.seqs()` : Import sequences of predicted LTR transposons
-* `read.ltrpred()` : Import the data sheet file generated by `LTRpred()`
-* `read.uc()` : Read file in USEARCH cluster format
-* `read.blast6out()` : Read file in blast6out format generated by USEARCH or VSEARCH
-
-#### Export the Output Files of the Prediction Tools:
-
-* `pred2bed()` : Format LTR prediction data to BED file format
-* `pred2fasta()` : Save the sequence of the predicted LTR Transposons in a fasta file
-* `pred2gff()` : Format LTR prediction data to GFF3 file format
-* `pred2annotation()` : Match LTRharvest, LTRdigest, or LTRpred prediction with a given annotation file in GFF3 format
-* `pred2csv()` : Format LTR prediction data to CSV file format
-
-#### Analytics Tools:
-
-* `ORFpred()` : Open Reading Frame prediction in putative LTR transposons
-
-#### Annotation and Validation:
-
-* `dfam.query()` : Annotation of `de novo` predicted LTR transposons via [Dfam](http://dfam.org/help/tools) searches
-* `read.dfam()` : Import Dfam Query Output
-* `repbase.clean()` : Clean the initial Repbase database for BLAST
-* `repbase.query()` : Query the RepBase to annotate putative LTRs
-* `repbase.filter()` : Filter the Repbase query output
-
-#### Methylation Context Estimation
-
-* `motif.count()` : Low level function to detect motifs in strings
-
-#### Visualization Framework
-
-* `plot_ltrsim_individual()` : Plot the age distribution of predicted LTR transposons
-* `plot_ltrwidth_individual()` : Plot the width distribution of putative LTR transposons or LTRs for individual species
-* `plot_ltrwidth_species()` : Plot the width distribution of putative LTR transposons or LTRs for all species
-* `plot_ltrwidth_kingdom()` : Plot the width distribution of putative LTR transposons or LTRs for all kingdoms
-* `plot_copynumber_individual()` : Plot the copy number distribution of putative LTR transposons or LTRs for individual species
-* `plot_copynumber_species()` : Plot the copy number distribution of putative LTR transposons or LTRs for all species
-* `plot_copynumber_kingdom()` : Plot the copy number distribution of putative LTR transposons or LTRs for all kingdoms
-* `plotLTRRange()` : Plot Genomic Ranges of putative LTR transposons
-* `PlotSimCount()` : Plot LTR Similarity vs. predicted LTR count
-* `plotSize()` : Plot Genome size vs. LTR transposon count
-* `plotSizeJumpers()` : Plot Genome size vs. LTR transposon count for jumpers
-* `plotFamily()` : Visualize the Superfamily distribution of predicted LTR retrotransposons
-* `plotDomain()` : Visualize the Protein Domain distribution of predicted LTR retrotransposons
-* `plotCN()` : Plot correlation between LTR copy number and methylation context  
-* `plotCluster()` : Plot correlation between Cluster Number and any other variable
-* `PlotInterSpeciesCluster()` : Plot inter species similarity between TEs (for a specific cluster)
-* `PlotMainInterSpeciesCluster()` : Plot inter species similarity between TEs (for the top n clusters)
-
-
-#### Minor helper functions
-
-* `bcolor()` : Beautiful colors for plots
-* `file.move()` : Move folders from one location to another
-* `get.pred.filenames()` : Retrieve file names of files genereated by LTRpred
-* `get.seqs()` : Quickly retrieve the sequences of a 'Biostrings' object
-* `ws.wrap.path()` : Wrap whitespace in paths
-* `rename.fasta()` : rename.fasta
-
 
 ## Acknowledgement
 
