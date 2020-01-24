@@ -115,6 +115,14 @@ LTRharvest <- function(genome.file,
     
   # test if GenomeTools is installed locally    
   test_installation_gt()  
+  
+  if (!file.exists(genome.file))
+    stop("The file '", genome.file, "' does not seem to exist. Please provide a valid file path to the genome.file.", call. = FALSE)
+  
+  if (!is.null(index.file)){
+    if (!file.exists(index.file))
+      stop("The file '", index.file, "' does not seem to exist. Please provide a valid file path to the index.file.", call. = FALSE)
+  }
     
   if ((is.null(mintsd) & !is.null(maxtsd)) || (!is.null(mintsd) & is.null(maxtsd)))
     stop("Please specify a TSD length for both: min and max TSD length!", call. = FALSE)
@@ -151,11 +159,21 @@ LTRharvest <- function(genome.file,
            message("LTRharvest: Generating index file ",IndexOutputFileName,
                    " with gt suffixerator...")
         }
+      
+      tryCatch({
         # Genrate Suffix for LTRharvest
         system(paste0("gt suffixerator -db ",
                       ws.wrap.path(genome.file),
                       " -indexname ", IndexOutputFileName,
-                      " -tis -suf -lcp -des -ssp -sds -dna"))    
+                      " -tis -suf -lcp -des -ssp -sds -dna"))
+        
+      }, error = function(e)
+      {
+        stop("Something went wrong when trying to generate a genome index with: ", paste0("gt suffixerator -db ",
+                                                                                          ws.wrap.path(genome.file),
+                                                                                          " -indexname ", IndexOutputFileName,
+                                                                                          " -tis -suf -lcp -des -ssp -sds -dna"), call. = FALSE)
+      })
     } else {
         IndexOutputFileName <- index.file
     }
@@ -163,9 +181,10 @@ LTRharvest <- function(genome.file,
     if (verbose) {
       message("Running LTRharvest and writing results to ",output.path,"...")
     }
-      
+    
     if (is.null(motif)) {
         
+      tryCatch({
         # Run LTRharvest without motif
         system(paste0("gt ltrharvest -index ", ws.wrap.path(IndexOutputFileName)," \ ",
                       "-range ",range[1]," ",range[2]," \ ",
@@ -189,6 +208,9 @@ LTRharvest <- function(genome.file,
                       "-outinner ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_BetweenLTRSeqs",".fsa"))) , " \ ",
                       "-gff3 ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_Prediction",".gff"))), " \ ",
                       ">> ", file.path(output.path,paste0(OutputFileNameIdentifier,"_Details",".tsv"))," 2>&1"))
+      }, error = function(e) {
+        stop("Something went wrong when running: ", paste0("gt ltrharvest -index ", ws.wrap.path(IndexOutputFileName), " ..."), call. = FALSE)
+      })
     }
     
     if (!is.null(motif)) {
@@ -198,7 +220,7 @@ LTRharvest <- function(genome.file,
         
         if (nchar(motif) > 4)
             stop("Please choose 2 nucleotides for the starting motif and 2 nucleotides for the ending motif.")
-        
+        tryCatch({
         # Run LTRharvest with motif
         system(paste0("gt ltrharvest -index ", ws.wrap.path(IndexOutputFileName)," \ ",
                       "-seed ", seed," \ ",
@@ -222,6 +244,9 @@ LTRharvest <- function(genome.file,
                       "-out ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_FullLTRretrotransposonSeqs",".fsa"))) , " \ ",
                       "-outinner ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_BetweenLTRSeqs",".fsa"))) , " \ ",
                       "-gff3 ", ws.wrap.path(file.path(output.path,paste0(OutputFileNameIdentifier,"_Prediction",".gff")))))
+        }, error = function(e) {
+          stop("Something went wront when trying to run ", paste0("gt ltrharvest -index ", ws.wrap.path(IndexOutputFileName)), " with motif '", motif,"' ...", call. = FALSE)
+        })
         
     }
     
