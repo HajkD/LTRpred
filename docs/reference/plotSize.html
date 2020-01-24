@@ -233,19 +233,12 @@ users can specify <code>smooth.method = 'NULL'</code>.</p></td>
 <code><a href='LTRpred.meta.html'>LTRpred.meta</a></code> function. The output of <code><a href='LTRpred.meta.html'>LTRpred.meta</a></code> is a folder storing the annotation files
 for all species of input species. In addition, <code><a href='LTRpred.meta.html'>LTRpred.meta</a></code> generates two files: <code>*_SimilarityMatrix</code> and <code>*_GenomeInfo</code> .</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>GenomeMatrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"GenomeMatrix.csv"</span>,<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>), <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>";"</span>)
-<span class='no'>GenomeMatrix</span>[ , <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>GenomeMatrix</span>[ , <span class='fl'>1</span>],
-                             <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></span>(<span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_split.html'>str_split</a></span>(<span class='no'>x</span>,<span class='st'>"_"</span>))[<span class='fl'>1</span>])
-
-<span class='fu'>plotSize</span>(<span class='no'>GenomeMatrix</span>)</div><div class='output co'>#&gt; <span class='error'>Error in stats::cor(genome.summary$total_ltrs_nucl_mbp, genome.summary$genome_size_nucl_mbp,     method = cor.method): supply both 'x' and 'y' or a matrix-like 'x'</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#details">Details</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>

@@ -129,6 +129,7 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ltr_age_estimation</span>(
+  <span class='no'>pred</span>,
   <span class='no'>ltr_seqs_3_prime</span>,
   <span class='no'>ltr_seqs_5_prime</span>,
   <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"K80"</span>,
@@ -138,6 +139,10 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology.</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>pred</th>
+      <td><p>a prediction file generated with <code><a href='LTRpred.html'>LTRpred</a></code>.</p></td>
+    </tr>
     <tr>
       <th>ltr_seqs_3_prime</th>
       <td><p>file path to a fasta file storing the sequences of the respective 3 prime LTR (e.g. as annotatted by <code><a href='LTRpred.html'>LTRpred</a></code>).</p></td>
@@ -175,11 +180,14 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>ltr_pred</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>LTRpred</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/LTRpred/man/read.ltrpred.html'>read.ltrpred</a></span>(
+          <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span>,
+          <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>))
 <span class='co'># define file path to fasta file storing 3 prime LTR sequences</span>
 <span class='no'>ltr_seqs_3_prime</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY-ltrdigest_3ltr.fas"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>)
 <span class='no'>ltr_seqs_5_prime</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY-ltrdigest_5ltr.fas"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>)
 <span class='co'># estimate insertion age based on 3 prime and 5 prime LTR homology using the K80 model</span>
-<span class='no'>Hsapiens_ltr_age</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>LTRpred</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/LTRpred/man/ltr_age_estimation.html'>ltr_age_estimation</a></span>(<span class='no'>ltr_seqs_3_prime</span>, <span class='no'>ltr_seqs_5_prime</span>)
+<span class='no'>Hsapiens_ltr_age</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>LTRpred</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/LTRpred/man/ltr_age_estimation.html'>ltr_age_estimation</a></span>(<span class='no'>ltr_pred</span>, <span class='no'>ltr_seqs_3_prime</span>, <span class='no'>ltr_seqs_5_prime</span>)
 <span class='co'># look at results</span>
 <span class='no'>Hsapiens_ltr_age</span>
 }</div></pre>

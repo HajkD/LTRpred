@@ -79,13 +79,20 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="ltrpredict-a-pipeline-for-automated-functional-annotation-of-ltr-retrotransposons-for-comparative-genomics-studies" class="section level2">
+<div id="ltrpredict-a-de-novo-functional-annotation-pipeline-of-potentially-mobile-ltr-retrotransposons" class="section level2">
 <h2 class="hasAnchor">
-<a href="#ltrpredict-a-pipeline-for-automated-functional-annotation-of-ltr-retrotransposons-for-comparative-genomics-studies" class="anchor"></a>LTRpred(ict): a pipeline for automated functional annotation of LTR retrotransposons for comparative genomics studies <img src="inst/LTRpred_logo.png" align="right" height="174" width="150">
+<a href="#ltrpredict-a-de-novo-functional-annotation-pipeline-of-potentially-mobile-ltr-retrotransposons" class="anchor"></a><strong>LTRpred(ict)</strong>: a <em>de novo</em> functional annotation pipeline of potentially mobile LTR retrotransposons <img src="inst/LTRpred_logo.png" align="right" height="174" width="150">
 </h2>
-<p>An easy way to perform <strong>de novo</strong> functional annotation of <code>LTR retrotransposons</code> from any genome assembly in <code>fasta</code> format.</p>
+<p>Transposable elements (TEs) can comprise vast parts of eukaryotic genomes. In the past, TEs were seen as selfish mobile elements capable of populating a host genome to increase their chances for survival. By doing so they leave traces of junk DNA in host genomes that are usually regarded as annoying by-products when sequencing, assembling, and annotating new genomes.</p>
+<p>However, this picture is slowly changing (<a href="https://academic.oup.com/gbe/article/11/12/3382/5637757">Drost &amp; Sanchez, 2019</a>) and TEs have been shown to be involved in generating a diverse range of novel phenotypes, e.g. such as the tomato fruit shape (<a href="https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370">Benoit, Drost et al., 2019</a>).</p>
+<p>Today, the <em>de novo</em> detection of transposable elements is performed by annotation tools which try to detect any type of repeated sequence, TE family, or remnand DNA locus that can be associated with a known transposable element within a genome assembly. The main goal of such efforts is to retrieve a maximum amount of loci that can be associated with TEs. If successful, such annotation can then be used to mask host genomes and to perform classic (phylo-)genomics studies focusing on host genes.</p>
+<p>More than <a href="https://docs.google.com/spreadsheets/d/1UBK70zExiL0gFVaIAILiGhflCGXAq_SF_lymaxTE1pY/edit#gid=0">300 repeat and TE annotation tools</a> have been developed so far. Most of them are designed and optimized to annotate either the entire repeat space or specific superfamilies of TEs and their DNA remnants.</p>
+<blockquote>
+<p>The LTRpred pipeline has a different goal than all other annotation tools. It focuses particularly on <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC463057/">LTR retrotransposons</a> and aims to annotate only functional and potentially mobile elements. Such type of annotation is crucial for studying retrotransposon activity in eukaryotic genomes and to understand whether specific retrotransposon families can be activated artificially and harnessed to e.g. <a href="https://www.slcu.cam.ac.uk/news/tomato-jumping-genes">speed-breed crops</a> for <a href="https://www.varsity.co.uk/science/17986">selective plant breeding in response to global warming</a>.</p>
+</blockquote>
+<p>In detail, <code>LTRpred</code> will take any genome assembly file in <code>fasta</code> format as input and will generate a detailed annotation of functional and potentially mobile LTR retrotransposons.</p>
 <p><img src="articles/LTRfeatures.png"></p>
-<p>Users can consult a comprehensive <a href="https://hajkd.github.io/LTRpred/articles/Introduction.html">Introduction</a> to the <code>LTRpred</code> pipeline to get familiar with the tool.</p>
+<p><strong>Users can consult a comprehensive <a href="https://hajkd.github.io/LTRpred/articles/Introduction.html">Introduction</a> to the <code>LTRpred</code> pipeline to get familiar with the tool.</strong></p>
 </div>
 <div id="install" class="section level2">
 <h2 class="hasAnchor">
@@ -155,223 +162,6 @@
 <p>I would be very happy to learn more about potential improvements of the concepts and functions provided in this package.</p>
 <p>Furthermore, in case you find some bugs or need additional (more flexible) functionality of parts of this package, please let me know:</p>
 <p><a href="https://github.com/HajkD/LTRpred/issues" class="uri">https://github.com/HajkD/LTRpred/issues</a></p>
-<p>In the <code>LTRpred</code> framework users can find:</p>
-<div id="de-novo-prediction-and-annotation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#de-novo-prediction-and-annotation" class="anchor"></a><em>De novo</em> prediction and annotation</h3>
-<ul>
-<li>
-<em>de novo</em> prediction of LTR retrotransposons (nested, overlapping, or pure template) using <a href="http://www.zbh.uni-hamburg.de/forschung/arbeitsgruppe-genominformatik/software/ltrharvest.html">LTRharvest</a> and <a href="http://www.zbh.uni-hamburg.de/forschung/gi/software/ltrdigest.html">LTRdigest</a>
-</li>
-<li>annotation of predicted LTR retrotransposons using <a href="http://dfam.org/">Dfam</a> or <a href="http://www.girinst.org/repbase/">Repbase</a> as reference</li>
-<li>solo LTR prediction based on specialized <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&amp;DOC_TYPE=Download">BLAST</a> searches</li>
-<li>LTR retrotransposons family clustering using <a href="https://github.com/torognes/vsearch">vsearch</a>
-</li>
-<li>open reading frame prediction in LTR retrotransposons using <a href="https://www.drive5.com/usearch/">usearch</a>
-</li>
-<li>age estimation of predicted LTR retrotransposons in Mya (not implemented yet, but soon to come..)</li>
-<li>CHH, CHG, CG, … content quantification in predicted LTR retrotransposons</li>
-<li>filtering for (potentially) functional LTR retrotransposons<br>
-</li>
-<li>quality assesment of input genomes used to predict LTR retrotransposons</li>
-</ul>
-</div>
-<div id="meta-genomics-analyses" class="section level3">
-<h3 class="hasAnchor">
-<a href="#meta-genomics-analyses" class="anchor"></a>Meta-Genomics Analyses</h3>
-<ul>
-<li>run <code>LTRpred</code> on entire kingdoms of life using only one command (see <code><a href="reference/LTRpred.meta.html">?LTRpred.meta</a></code>)</li>
-<li>perform meta genomics studies customized for LTR retrotransposons</li>
-<li>cluster LTR retrotransposons within and between species</li>
-<li>quantify the diversity space of LTR retrotransposons for entire kingdoms of life</li>
-</ul>
-<div id="de-novo-annotation-functions" class="section level4">
-<h4 class="hasAnchor">
-<a href="#de-novo-annotation-functions" class="anchor"></a>De Novo Annotation Functions:</h4>
-<ul>
-<li>
-<code><a href="reference/LTRpred.html">LTRpred()</a></code> : Major pipeline to predict LTR retrotransposons in a given genome</li>
-<li>
-<code>LTRpred.meta</code> : Perform Meta-Analyses with LTRpred</li>
-<li>
-<code><a href="reference/meta.summarize.html">meta.summarize()</a></code> : Summarize (concatenate) all predictions of a <code><a href="reference/LTRpred.meta.html">LTRpred.meta()</a></code> run</li>
-<li>
-<code><a href="reference/meta.apply.html">meta.apply()</a></code> : Apply functions to meta data generated by <code><a href="reference/LTRpred.html">LTRpred()</a></code>
-</li>
-<li>
-<code><a href="reference/LTRharvest.html">LTRharvest()</a></code> : Run LTRharvest to predict putative LTR Retrotransposons</li>
-<li>
-<code><a href="reference/LTRdigest.html">LTRdigest()</a></code> : Run LTRdigest to predict putative LTR Retrotransposons</li>
-</ul>
-</div>
-<div id="sequence-clustering-and-similarity-computations" class="section level4">
-<h4 class="hasAnchor">
-<a href="#sequence-clustering-and-similarity-computations" class="anchor"></a>Sequence Clustering and Similarity Computations</h4>
-<ul>
-<li>
-<code><a href="reference/CLUSTpred.html">CLUSTpred()</a></code> : Cluster Sequences with VSEARCH</li>
-<li>
-<code><a href="reference/cluster.members.html">cluster.members()</a></code> : Select members of a specific cluster</li>
-<li>
-<code><a href="reference/clust2fasta.html">clust2fasta()</a></code> : Export sequences of TEs belonging to the same cluster to fasta files</li>
-<li>
-<code><a href="reference/AllPairwiseAlign.html">AllPairwiseAlign()</a></code> : Compute all pairwise (global) alignments with VSEARCH</li>
-<li>
-<code><a href="reference/filter.uc.html">filter.uc()</a></code> : Filter for cluster members</li>
-<li>
-<code><a href="reference/SimMatAbundance.html">SimMatAbundance()</a></code> : Compute histogram shape similarity between species</li>
-</ul>
-</div>
-<div id="ltr-copy-number-estimation" class="section level4">
-<h4 class="hasAnchor">
-<a href="#ltr-copy-number-estimation" class="anchor"></a>LTR Copy Number Estimation</h4>
-<ul>
-<li>
-<code><a href="reference/ltr.cn.html">ltr.cn()</a></code> : Detect solo LTR copies of predicted LTR transposons</li>
-<li>
-<code><a href="reference/cn2bed.html">cn2bed()</a></code> : Write copy number estimation results to BED file format.</li>
-</ul>
-</div>
-<div id="filter-functions" class="section level4">
-<h4 class="hasAnchor">
-<a href="#filter-functions" class="anchor"></a>Filter Functions</h4>
-<ul>
-<li>
-<code><a href="reference/filter.jumpers.html">filter.jumpers()</a></code> : Detect LTR retrotransposons that are potential jumpers</li>
-<li>
-<code><a href="reference/tidy.datasheet.html">tidy.datasheet()</a></code> : Select most important columns of ‘LTRpred’ output for further analytics</li>
-</ul>
-</div>
-<div id="import-the-output-files-of-the-prediction-tools" class="section level4">
-<h4 class="hasAnchor">
-<a href="#import-the-output-files-of-the-prediction-tools" class="anchor"></a>Import the Output Files of the Prediction Tools:</h4>
-<ul>
-<li>
-<code><a href="reference/read.prediction.html">read.prediction()</a></code> : Import the output of LTRharvest or LTRdigest</li>
-<li>
-<code><a href="reference/read.tabout.html">read.tabout()</a></code> : Import information sheet returned by LTRdigest</li>
-<li>
-<code><a href="reference/read.orfs.html">read.orfs()</a></code> : Read output of <code><a href="reference/ORFpred.html">ORFpred()</a></code>
-</li>
-<li>
-<code><a href="reference/read.seqs.html">read.seqs()</a></code> : Import sequences of predicted LTR transposons</li>
-<li>
-<code><a href="reference/read.ltrpred.html">read.ltrpred()</a></code> : Import the data sheet file generated by <code><a href="reference/LTRpred.html">LTRpred()</a></code>
-</li>
-<li>
-<code><a href="reference/read.uc.html">read.uc()</a></code> : Read file in USEARCH cluster format</li>
-<li>
-<code><a href="reference/read.blast6out.html">read.blast6out()</a></code> : Read file in blast6out format generated by USEARCH or VSEARCH</li>
-</ul>
-</div>
-<div id="export-the-output-files-of-the-prediction-tools" class="section level4">
-<h4 class="hasAnchor">
-<a href="#export-the-output-files-of-the-prediction-tools" class="anchor"></a>Export the Output Files of the Prediction Tools:</h4>
-<ul>
-<li>
-<code><a href="reference/pred2bed.html">pred2bed()</a></code> : Format LTR prediction data to BED file format</li>
-<li>
-<code><a href="reference/pred2fasta.html">pred2fasta()</a></code> : Save the sequence of the predicted LTR Transposons in a fasta file</li>
-<li>
-<code><a href="reference/pred2gff.html">pred2gff()</a></code> : Format LTR prediction data to GFF3 file format</li>
-<li>
-<code>pred2annotation()</code> : Match LTRharvest, LTRdigest, or LTRpred prediction with a given annotation file in GFF3 format</li>
-<li>
-<code><a href="reference/pred2csv.html">pred2csv()</a></code> : Format LTR prediction data to CSV file format</li>
-</ul>
-</div>
-<div id="analytics-tools" class="section level4">
-<h4 class="hasAnchor">
-<a href="#analytics-tools" class="anchor"></a>Analytics Tools:</h4>
-<ul>
-<li>
-<code><a href="reference/ORFpred.html">ORFpred()</a></code> : Open Reading Frame prediction in putative LTR transposons</li>
-</ul>
-</div>
-<div id="annotation-and-validation" class="section level4">
-<h4 class="hasAnchor">
-<a href="#annotation-and-validation" class="anchor"></a>Annotation and Validation:</h4>
-<ul>
-<li>
-<code><a href="reference/dfam.query.html">dfam.query()</a></code> : Annotation of <code>de novo</code> predicted LTR transposons via <a href="http://dfam.org/help/tools">Dfam</a> searches</li>
-<li>
-<code><a href="reference/read.dfam.html">read.dfam()</a></code> : Import Dfam Query Output</li>
-<li>
-<code><a href="reference/repbase.clean.html">repbase.clean()</a></code> : Clean the initial Repbase database for BLAST</li>
-<li>
-<code><a href="reference/repbase.query.html">repbase.query()</a></code> : Query the RepBase to annotate putative LTRs</li>
-<li>
-<code><a href="reference/repbase.filter.html">repbase.filter()</a></code> : Filter the Repbase query output</li>
-</ul>
-</div>
-<div id="methylation-context-estimation" class="section level4">
-<h4 class="hasAnchor">
-<a href="#methylation-context-estimation" class="anchor"></a>Methylation Context Estimation</h4>
-<ul>
-<li>
-<code><a href="reference/motif.count.html">motif.count()</a></code> : Low level function to detect motifs in strings</li>
-</ul>
-</div>
-<div id="visualization-framework" class="section level4">
-<h4 class="hasAnchor">
-<a href="#visualization-framework" class="anchor"></a>Visualization Framework</h4>
-<ul>
-<li>
-<code>plot_ltrsim_individual()</code> : Plot the age distribution of predicted LTR transposons</li>
-<li>
-<code><a href="reference/plot_ltrwidth_individual.html">plot_ltrwidth_individual()</a></code> : Plot the width distribution of putative LTR transposons or LTRs for individual species</li>
-<li>
-<code><a href="reference/plot_ltrwidth_species.html">plot_ltrwidth_species()</a></code> : Plot the width distribution of putative LTR transposons or LTRs for all species</li>
-<li>
-<code><a href="reference/plot_ltrwidth_kingdom.html">plot_ltrwidth_kingdom()</a></code> : Plot the width distribution of putative LTR transposons or LTRs for all kingdoms</li>
-<li>
-<code><a href="reference/plot_copynumber_individual.html">plot_copynumber_individual()</a></code> : Plot the copy number distribution of putative LTR transposons or LTRs for individual species</li>
-<li>
-<code><a href="reference/plot_copynumber_species.html">plot_copynumber_species()</a></code> : Plot the copy number distribution of putative LTR transposons or LTRs for all species</li>
-<li>
-<code><a href="reference/plot_copynumber_kingdom.html">plot_copynumber_kingdom()</a></code> : Plot the copy number distribution of putative LTR transposons or LTRs for all kingdoms</li>
-<li>
-<code><a href="reference/plotLTRRange.html">plotLTRRange()</a></code> : Plot Genomic Ranges of putative LTR transposons</li>
-<li>
-<code>PlotSimCount()</code> : Plot LTR Similarity vs. predicted LTR count</li>
-<li>
-<code><a href="reference/plotSize.html">plotSize()</a></code> : Plot Genome size vs. LTR transposon count</li>
-<li>
-<code><a href="reference/plotSizeJumpers.html">plotSizeJumpers()</a></code> : Plot Genome size vs. LTR transposon count for jumpers</li>
-<li>
-<code><a href="reference/plotFamily.html">plotFamily()</a></code> : Visualize the Superfamily distribution of predicted LTR retrotransposons</li>
-<li>
-<code><a href="reference/plotDomain.html">plotDomain()</a></code> : Visualize the Protein Domain distribution of predicted LTR retrotransposons</li>
-<li>
-<code><a href="reference/plotCN.html">plotCN()</a></code> : Plot correlation between LTR copy number and methylation context<br>
-</li>
-<li>
-<code><a href="reference/plotCluster.html">plotCluster()</a></code> : Plot correlation between Cluster Number and any other variable</li>
-<li>
-<code>PlotInterSpeciesCluster()</code> : Plot inter species similarity between TEs (for a specific cluster)</li>
-<li>
-<code>PlotMainInterSpeciesCluster()</code> : Plot inter species similarity between TEs (for the top n clusters)</li>
-</ul>
-</div>
-<div id="minor-helper-functions" class="section level4">
-<h4 class="hasAnchor">
-<a href="#minor-helper-functions" class="anchor"></a>Minor helper functions</h4>
-<ul>
-<li>
-<code><a href="reference/bcolor.html">bcolor()</a></code> : Beautiful colors for plots</li>
-<li>
-<code><a href="reference/file.move.html">file.move()</a></code> : Move folders from one location to another</li>
-<li>
-<code><a href="reference/get.pred.filenames.html">get.pred.filenames()</a></code> : Retrieve file names of files genereated by LTRpred</li>
-<li>
-<code><a href="reference/get.seqs.html">get.seqs()</a></code> : Quickly retrieve the sequences of a ‘Biostrings’ object</li>
-<li>
-<code><a href="reference/ws.wrap.path.html">ws.wrap.path()</a></code> : Wrap whitespace in paths</li>
-<li>
-<code><a href="reference/rename.fasta.html">rename.fasta()</a></code> : rename.fasta</li>
-</ul>
-</div>
-</div>
 </div>
 <div id="acknowledgement" class="section level2">
 <h2 class="hasAnchor">

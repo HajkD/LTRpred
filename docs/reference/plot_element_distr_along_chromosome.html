@@ -155,7 +155,9 @@ will be visualized along the chromsome.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>test_genome</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY.fa"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>)
-<span class='no'>test_pred</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>LTRpred</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/LTRpred/man/read.ltrpred.html'>read.ltrpred</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>))
+<span class='no'>test_pred</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>LTRpred</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/LTRpred/man/read.ltrpred.html'>read.ltrpred</a></span>(
+<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span>,
+             <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>))
 <span class='no'>test_centromere_starts</span> <span class='kw'>&lt;-</span> <span class='fl'>55000</span>
 <span class='co'># generate visualization</span>
 <span class='kw pkg'>LTRpred</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/LTRpred/man/plot_element_distr_along_chromosome.html'>plot_element_distr_along_chromosome</a></span>(<span class='no'>test_pred</span>, <span class='no'>test_genome</span>, <span class='no'>test_centromere_starts</span>)
