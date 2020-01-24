@@ -19,6 +19,8 @@
        
 motif.count <- function(seq.file, motif, as.ratio = FALSE){
    
+    if (!file.exists(seq.file))
+      stop("The file '", seq.file, "' does not seem to exist. Please provide a valid path to the seq.file for motif.count() ...", call. = FALSE)
     # read sequence
     seqs <- Biostrings::readDNAStringSet(seq.file)
     
