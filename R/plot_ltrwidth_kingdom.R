@@ -76,7 +76,7 @@ plot_ltrwidth_kingdom <- function(data,
     # group by species and similarity and compute the median LTR/Retrotransposon width for each species
     pred_median_sim_retrotrans <-
       dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity),
-                       mean_width = stats::mean(width),
+                       mean_width = mean(width),
                        sum_width = sum(width),
                        median_width = stats::median(width),
                        var_width = stats::var(width)
@@ -84,7 +84,7 @@ plot_ltrwidth_kingdom <- function(data,
     pred_median_sim_ltr_only <-
       dplyr::summarise(dplyr::group_by(data, kingdom, species, similarity),
                        median_width = stats::median(lLTR_length),
-                       mean_width = stats::mean(lLTR_length),
+                       mean_width = mean(lLTR_length),
                        sum_width = sum(lLTR_length),
                        var_width = stats::var(lLTR_length)
                        )
