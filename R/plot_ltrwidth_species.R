@@ -27,8 +27,6 @@
 #' @author Hajk-Georg Drost
 #' @details This function visualizes the correlation between LTR transposon age
 #' (measured in LTR similarity) and the width of the corresponding LTR retrotransposon (the complete sequence) or the width of the left LTR element. Using this visualization approach, different classes of LTR retrotransposons can be detected due to their width and age correlation.
-#' 
-#' @examples 
 #' @export
 
 plot_ltrwidth_species <- function(data,
