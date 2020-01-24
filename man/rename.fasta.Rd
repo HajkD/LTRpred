@@ -23,12 +23,6 @@ Writes a new fasta file with renamed headers.
 Reads a fasta file and adds the defined \code{species} name to each
 header entry of the input fasta file.
 }
-\examples{
-# example fasta file
-seqs <- system.file("nt.fa",package = "LTRpred")
-# rename headers in file by adding species name: "Athaliana"
-rename.fasta(file = seqs, species = "Athaliana", output = "Athaliana.fa")
-}
 \author{
 Hajk-Georg Drost
 }

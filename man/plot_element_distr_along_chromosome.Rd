@@ -22,7 +22,9 @@ will be visualized along the chromsome.
 \examples{
 \dontrun{
 test_genome <- system.file("Hsapiens_ChrY.fa", package = "LTRpred")
-test_pred <- LTRpred::read.ltrpred(system.file("Hsapiens_ChrY_LTRpred_DataSheet.tsv", package = "LTRpred"))
+test_pred <- LTRpred::read.ltrpred(
+system.file("Hsapiens_ChrY_LTRpred_DataSheet.tsv", 
+             package = "LTRpred"))
 test_centromere_starts <- 55000
 # generate visualization
 LTRpred::plot_element_distr_along_chromosome(test_pred, test_genome, test_centromere_starts)

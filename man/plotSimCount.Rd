@@ -61,17 +61,6 @@ a \code{z.test} is applied to compute pairwise differences between neighboring d
 In case the \code{sim.matrix} includes less than 30 observations (genomes), then
 a \code{wilcox.test} is applied to compute pairwise differences between neighboring distributions.
 }
-\examples{
-SimMatrix <- read.csv(system.file("SimMatrix.csv",package = "LTRlearn"), sep = ";")
-GenomeMatrix <- read.csv(system.file("GenomeMatrix.csv",package = "LTRlearn"), sep = ";")
-names(SimMatrix) <- c("organism",levels(cut(100,rev(seq(100,70,-2)),
-                                 include.lowest = TRUE,right = TRUE)))
-SimMatrix2 <- SimMatrix
-SimMatrix2[ , 2:16] <- SimMatrix2[ , 2:16] / GenomeMatrix$genome.size
-
-plotSimCount(SimMatrix)
-plotSimCount(SimMatrix2)
-}
 \author{
 Hajk-Georg Drost
 }
