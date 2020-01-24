@@ -107,7 +107,7 @@ pred2gff <- function(LTR.data,
     lTSD_start <- lTSD_end <- lTSD_motif <- rTSD_start <- rTSD_end <- rTSD_motif <- NULL
     PPT_start <- PPT_end <- PPT_length <- PPT_motif <- PPT_strand <- PPT_offset <- NULL
     PBS_start <- PBS_end <- PBS_length <-  PBS_strand <- PBS_offset <- NULL
-    trna <- trna_offset <- trna_motif <- `PBS/tRNA_edist` <- protein_domain <- NULL
+    trna <- trna_offset <- trna_motif <- `PBS/tRNA_edist` <- protein_domain <- ltr_age_mya <- NULL
     `seq.id` <- orfs <- repeat_region_length <- protein_domain_start <- protein_domain_end <- protein_domain_match_width <- protein_domain_reading_frame <-  NULL
     
     res <- dplyr::data_frame(seqname   = LTR.data$chromosome, 
@@ -123,6 +123,8 @@ pred2gff <- function(LTR.data,
                                  dplyr::mutate(LTR.data,
                                                attribute = paste0("ID=",ID,"; ",
                                                                   "ltr.sim=",ltr_similarity,
+                                                                  "ltr.evol.age=",ltr_age_mya,
+                                                                  
                                                                   "; ","element_length=",element_length,"; ",
                                                                   "lLTRstart=",lLTR_start,"; ",
                                                                   "lLTRend=",lLTR_end,"; ",
