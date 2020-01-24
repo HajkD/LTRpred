@@ -1,4 +1,4 @@
-## __LTRpred(ict)__: a _de novo_ functional annotation pipeline of potentially mobile LTR retrotransposons <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
+## __LTRpred(ict)__: a _de novo_ functional annotation pipeline to dectect potentially mobile LTR retrotransposons in any genome assembly <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
 
 Transposable elements (TEs) can comprise vast parts of eukaryotic genomes.
 In the past, TEs were seen as selfish mobile elements capable of populating a host genome to increase their chances for survival. By doing so they leave traces of junk DNA in host genomes that are usually regarded as annoying by-products when sequencing, assembling, and annotating new genomes.
