@@ -6,9 +6,11 @@
 #' @param centromere_starts a numeric vector containing the start coordinates of the centromers (for all chromosomes in \code{genome.file}).
 #' @param ... additional arguments that shall be passed to the visualization function \code{\link[ggbio]{autoplot}}.
 #' @author Hajk-Georg Drost
-#' @examples \dontrun {
+#' @examples \dontrun{
 #' test_genome <- system.file("Hsapiens_ChrY.fa", package = "LTRpred")
-#' test_pred <- LTRpred::read.ltrpred(system.file("Hsapiens_ChrY_LTRpred_DataSheet.tsv", package = "LTRpred"))
+#' test_pred <- LTRpred::read.ltrpred(
+#' system.file("Hsapiens_ChrY_LTRpred_DataSheet.tsv", 
+#'              package = "LTRpred"))
 #' test_centromere_starts <- 55000
 #' # generate visualization
 #' LTRpred::plot_element_distr_along_chromosome(test_pred, test_genome, test_centromere_starts)
