@@ -533,7 +533,7 @@ LTRpred <- function(genome.file       = NULL,
         
         if (any(is.na(LTRdigestOutput)))
           return(paste0("No prediction for ", genome.file))
-        
+     
         message("\n")
         message("LTRpred - Step 4:")
         message("Perform ORF Prediction using 'usearch -fastx_findorfs' ...")
