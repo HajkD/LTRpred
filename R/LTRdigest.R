@@ -130,6 +130,12 @@ LTRdigest <- function(input.gff3,
     # test if GenomeTools is installed locally
     test_installation_gt()
     
+    if (!file.exists(input.gff3))
+        stop("The file '", input.gff3, "' does not seem to exist. Please provide a valid path to the input.gff3 file for the LTRdigest run.", call. = FALSE)
+    
+    if (!file.exists(genome.file))
+        stop("The file '", genome.file, "' does not seem to exist. Please provide a valid path to the genome.file file for the LTRdigest run.", call. = FALSE)
+    
     if (parallel::detectCores() < cores)
         stop("Your system does not provide the number of cores you specified.", call. = FALSE)
     
@@ -158,7 +164,7 @@ LTRdigest <- function(input.gff3,
     
     if (!is.null(pfam.ids)) {
         if (!is.null(hmms))
-            stop("Please only provide the PFAM ids and not the actual hmm files when using the 'pfam.ids' argument.")
+            stop("Please only provide the PFAM ids and not the actual hmm files when using the 'pfam.ids' argument.", call. = FALSE)
         
         lapply(pfam.ids, function(pfamid)
             utils::download.file(
@@ -169,6 +175,7 @@ LTRdigest <- function(input.gff3,
         
     }
     
+    message("Run LTRdigest...")
     # In case no index file is passed to this function
     # an index file will be generated using "gt suffixerator"
     if (is.null(index.file)) {
