@@ -22,6 +22,9 @@ ORFpred <- function(seq.file,
    
     test_installation_usearch()
     
+    if (!file.exists(seq.file))
+        stop("The file '", seq.file, "' does not seem to exist. Please provide a valid path to the seq.file for ORFpred ...", call. = FALSE)
+    
     if (!trans.seqs) {
         if (is.null(output)) {
             system(
