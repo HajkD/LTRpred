@@ -95,7 +95,7 @@ dfam.query <- function(seq.file,
             file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3i")) &
             file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3m")) &
             file.exists(file.path(ws.wrap.path(output.folder), "Dfam.hmm.h3p"))) {
-            message("Prepare the Dfam.hmm database...")
+            message("Prepare the Dfam.hmm database by running hmmpress ...")
             system(paste0("hmmpress ", file.path(Dfam.db, "Dfam.hmm")))
         }
         
