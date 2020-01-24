@@ -1,3 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 src/
+.RDataTmp
+Hsapiens_ChrY_ltrpred
+docs
