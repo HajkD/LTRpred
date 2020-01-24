@@ -5,6 +5,7 @@
 \title{Estimate retrotransposon insertion age in Mya based on 5 prime and 3 prime LTR sequence homology}
 \usage{
 ltr_age_estimation(
+  pred,
   ltr_seqs_3_prime,
   ltr_seqs_5_prime,
   model = "K80",
@@ -12,6 +13,8 @@ ltr_age_estimation(
 )
 }
 \arguments{
+\item{pred}{a prediction file generated with \code{\link{LTRpred}}.}
+
 \item{ltr_seqs_3_prime}{file path to a fasta file storing the sequences of the respective 3 prime LTR (e.g. as annotatted by \code{\link{LTRpred}}).}
 
 \item{ltr_seqs_5_prime}{file path to a fasta file storing the sequences of the respective 5 prime LTR (e.g. as annotatted by \code{\link{LTRpred}}).}
@@ -43,11 +46,14 @@ the insertion age in Mya based on 5 prime and 3 prime LTR sequence homology.
 }
 \examples{
 \dontrun{
+ltr_pred <- LTRpred::read.ltrpred(
+          system.file("Hsapiens_ChrY_LTRpred_DataSheet.tsv", 
+          package = "LTRpred"))
 # define file path to fasta file storing 3 prime LTR sequences
 ltr_seqs_3_prime <- system.file("Hsapiens_ChrY-ltrdigest_3ltr.fas", package = "LTRpred")
 ltr_seqs_5_prime <- system.file("Hsapiens_ChrY-ltrdigest_5ltr.fas", package = "LTRpred")
 # estimate insertion age based on 3 prime and 5 prime LTR homology using the K80 model
-Hsapiens_ltr_age <- LTRpred::ltr_age_estimation(ltr_seqs_3_prime, ltr_seqs_5_prime)
+Hsapiens_ltr_age <- LTRpred::ltr_age_estimation(ltr_pred, ltr_seqs_3_prime, ltr_seqs_5_prime)
 # look at results
 Hsapiens_ltr_age
 }
