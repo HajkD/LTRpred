@@ -38,7 +38,7 @@
 read.uc <- function(uc.file){
     
   if (!file.exists(uc.file))
-      stop("Import *.uc file: The file '",uc.file,"' could not be found! Please check the path to the input *.uc file.")
+      stop("Import *.uc file: The file '",uc.file,"' could not be found! Please check the path to the input *.uc file.", call. = FALSE)
     
     uc.df <- readr::read_tsv(
         uc.file,
