@@ -7,11 +7,6 @@
 #' @param output a character string denoting the name of the renamed output fasta file.
 #' @param append logical value. If \code{TRUE} output will be appended to file; otherwise, it will overwrite the contents of file.
 #' @author Hajk-Georg Drost
-#' @examples 
-#' # example fasta file
-#' seqs <- system.file("nt.fa",package = "LTRpred")
-#' # rename headers in file by adding species name: "Athaliana"
-#' rename.fasta(file = seqs, species = "Athaliana", output = "Athaliana.fa")
 #' @return Writes a new fasta file with renamed headers.
 #' @export
 
