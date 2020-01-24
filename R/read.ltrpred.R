@@ -23,10 +23,12 @@ read.ltrpred <- function(data.sheet){
         cat("\n")
         return(NULL)
     }
+    
     pred <- readr::read_delim(data.sheet, col_types = readr::cols(
         "ID" = readr::col_character(),
         "dfam_target_name" = readr::col_character(),
         "ltr_similarity" = readr::col_double(),
+        "ltr_age_mya" = readr::col_double(),
         "similarity" = readr::col_character(),
         "protein_domain" = readr::col_character(),
         "orfs" = readr::col_integer(),
