@@ -1258,6 +1258,30 @@ LTRpred <- function(genome.file       = NULL,
     res <-
         dplyr::mutate(res, cn_3ltr = rep(NA, nrow(res)), cn_5ltr = rep(NA, nrow(res)))
     
+    message("\n")
+    message("LTRpred - Step 6:")
+    seqs_3ltr <-
+      file.path(
+        output.path,
+        paste0(chopped.foldername, "_ltrdigest"),
+        paste0(chopped.foldername, "-ltrdigest_3ltr.fas")
+      )
+    seqs_5ltr <-
+      file.path(
+        output.path,
+        paste0(chopped.foldername, "_ltrdigest"),
+        paste0(chopped.foldername, "-ltrdigest_5ltr.fas")
+      )
+    
+    ltr_age_estimation_res <- ltr_age_estimation(res,
+                                                 ltr_seqs_3_prime = seqs_3ltr,
+                                                 ltr_seqs_5_prime = seqs_5ltr,
+                                                 model = model,
+                                                 mutation_rate = mutation_rate)
+    
+    ltr_age_mya <- NULL
+    res <- dplyr::left_join(res, dplyr::select(ltr_age_estimation_res, orf.id, ltr_age_mya), by = "orf.id")
+    
     res <-
         dplyr::select(
             res,
@@ -1265,6 +1289,7 @@ LTRpred <- function(genome.file       = NULL,
             ID,
             dfam_target_name,
             ltr_similarity,
+            ltr_age_mya,
             similarity,
             protein_domain,
             orfs,
@@ -1284,7 +1309,7 @@ LTRpred <- function(genome.file       = NULL,
         )
     
     message("\n")
-    message("LTRpred - Step 6:")
+    message("LTRpred - Step 7:")
     
     if (quality.filter) {
         res <- quality.filter(res, sim = similar, n.orfs = n.orfs)
@@ -1379,28 +1404,7 @@ LTRpred <- function(genome.file       = NULL,
             dplyr::mutate(res, cn_3ltr = rep(NA, nrow(res)), cn_5ltr = rep(NA, nrow(res)))
     }
     
-    
-    #message("LTRpred - Step 7:")
-    seqs_3ltr <-
-      file.path(
-        output.path,
-        paste0(chopped.foldername, "_ltrdigest"),
-        paste0(chopped.foldername, "-ltrdigest_3ltr.fas")
-      )
-    seqs_5ltr <-
-      file.path(
-        output.path,
-        paste0(chopped.foldername, "_ltrdigest"),
-        paste0(chopped.foldername, "-ltrdigest_5ltr.fas")
-      )
-    
-    # ltr_age_estimation_res <- ltr_age_estimation(ltr_seqs_3_prime = seqs_3ltr,
-    #                                              ltr_seqs_5_prime = seqs_5ltr,
-    #                                              model = model,
-    #                                              mutation_rate = mutation_rate)
-    # 
-    #res <- dplyr::left_join(res, ltr_age_estimation_res, by = "orf.id")
-    
+  
     unlink(file.path(
         output.path,
         paste0(chopped.foldername, "_LTRpred_DataSheet.tsv")
@@ -1421,6 +1425,9 @@ LTRpred <- function(genome.file       = NULL,
       paste0(chopped.foldername, "_LTRpred.bed")
     ))
     
+    
+    message("\n")
+    message("Please cite the following paper when using LTRpred for your own research: Benoit, Drost et al., 2019 PloS Genetics, 15(9):e1008370.")
     message("\n")
     message("LTRpred finished all analyses successfully. All output files were stored at '", output.path,"'.")
     
