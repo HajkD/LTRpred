@@ -16,6 +16,9 @@
 #' @export
 read.orfs <- function(input.file){
   
+  if (!file.exists(input.file))
+    stop("The file '", input.file, "' does not seem to exist. Please provide a valid file path to input.file for read.orfs() ...", call. = FALSE)
+  
   seq.id <- orfs <- NULL
   
   ReadSeqFile <- Biostrings::readDNAStringSet(input.file)
