@@ -40,7 +40,7 @@ plotSizeMulti <-
            check.overlap = TRUE
            ) {
     
-    n_ltrs <- total_ltrs_nucl_mbp <- 
+    n_ltrs <- total_ltrs_nucl_mbp <- m_files_combined <- total_ltrs_nucl_freq <- organism <- NULL
     
   gm_files_combined <- dplyr::bind_rows(lapply(meta.summary.file, function(x) x$gm_file))  
     
@@ -211,13 +211,13 @@ plotSizeMulti <-
     
     message(
       "R_spearman(total_ltrs_nucl_freq, genome_size_nucl_mbp) = ",
-      cor(
+      stats::cor(
         gm_files_combined$total_ltrs_nucl_freq,
         gm_files_combined$genome_size_nucl_mbp,
         method = "spearman"
       ),
       "; p-val = ",
-      cor.test(m_files_combined$total_ltrs_nucl_freq,
+      stats::cor.test(m_files_combined$total_ltrs_nucl_freq,
                gm_files_combined$genome_size_nucl_mbp,
                method = "spearman")
     )
