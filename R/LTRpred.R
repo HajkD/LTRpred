@@ -2,6 +2,8 @@
 #' @description Main pipeline to perform
 #' sufficient LTR retrotransposon predictions for any genome of interest.
 #' @param genome.file path to the genome file in \code{fasta} format.
+#' @param centromere_start a numeric vector storing the centromere start coordinates in the \code{genome.file}. The position in the numeric vector should correspond to the chromosome name in the \code{genome.file} fasta file. If \code{centromere_start = NULL} (default), then no centromeres will be drawn.
+#'@param centromere_end a numeric vector storing the centromere end coordinates in the \code{genome.file}. The position in the numeric vector should correspond to the chromosome name in the \code{genome.file} fasta file. If \code{centromere_end = NULL} (default), then no centromeres will be drawn.
 #' @param model a model as specified in \code{\link[ape]{dist.dna}}: a character string specifying the evolutionary model to be used - must be one of
 #'  \itemize{
 #' \item  \code{K80} (the default)
@@ -250,6 +252,8 @@
 #' @export
 
 LTRpred <- function(genome.file       = NULL,
+                    centromere_start = NULL,
+                    centromere_end = NULL,
                     model = "K80",
                     mutation_rate = 1.3 * 1e-07,
                     index.file.harvest = NULL,
@@ -1425,6 +1429,10 @@ LTRpred <- function(genome.file       = NULL,
       paste0(chopped.foldername, "_LTRpred.bed")
     ))
     
+    # if (!file.exists(file.path(output.path, "Plots")))
+    #   dir.create(file.path(output.path, "Plots"))
+    # 
+    # plot_genomic_distr <- plot_element_distr_along_chromosome(pred = res, genome.file = genome.file, centromere_start = centromere_start, centromere_end = centromere_end)
     
     message("\n")
     message("Please cite the following paper when using LTRpred for your own research: Benoit, Drost et al., 2019 PloS Genetics, 15(9):e1008370.")
