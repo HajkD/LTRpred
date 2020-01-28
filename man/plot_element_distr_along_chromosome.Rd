@@ -4,14 +4,22 @@
 \alias{plot_element_distr_along_chromosome}
 \title{Plot positions of predicted retrotransposons along chromosomes}
 \usage{
-plot_element_distr_along_chromosome(pred, genome.file, centromere_starts, ...)
+plot_element_distr_along_chromosome(
+  pred,
+  genome.file,
+  centromere_start = NULL,
+  centromere_end = NULL,
+  ...
+)
 }
 \arguments{
 \item{pred}{LTRpred.tbl generated with \code{\link{LTRpred}}.}
 
 \item{genome.file}{a file path to the genome assembly file in fasta format for which chromosomes shall be visualized.}
 
-\item{centromere_starts}{a numeric vector containing the start coordinates of the centromers (for all chromosomes in \code{genome.file}).}
+\item{centromere_start}{a numeric vector storing the centromere start coordinates in the \code{genome.file}. The position in the numeric vector should correspond to the chromosome name in the \code{genome.file} fasta file. If \code{centromere_start = NULL} (default), then no centromeres will be drawn.}
+
+\item{centromere_end}{a numeric vector storing the centromere end coordinates in the \code{genome.file}. The position in the numeric vector should correspond to the chromosome name in the \code{genome.file} fasta file. If \code{centromere_end = NULL} (default), then no centromeres will be drawn.}
 
 \item{...}{additional arguments that shall be passed to the visualization function \code{\link[ggbio]{autoplot}}.}
 }
