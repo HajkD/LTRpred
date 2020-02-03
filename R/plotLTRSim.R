@@ -34,8 +34,7 @@
 #' # visualize the age distribution of predicted  A. thaliana LTR transposons
 #' PlotLTRAge(Ath.Pred)
 #' }
-#' @seealso \code{\link[LTRpred]{LTRpred}}, \code{\link[LTRpred]{LTRharvest}}, \code{\link[LTRpred]{LTRdigest}},
-#' \code{\link{plotRanges}}
+#' @seealso \code{\link[LTRpred]{LTRpred}}, \code{\link[LTRpred]{LTRharvest}}, \code{\link[LTRpred]{LTRdigest}}
 #' @export
 
 plotLTRSim <- function(data,
