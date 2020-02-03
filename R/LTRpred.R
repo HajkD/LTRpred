@@ -1171,7 +1171,6 @@ LTRpred <- function(genome.file       = NULL,
         }
         
         #return(res)
-        
     }
     
     if (is.null(LTRdigestOutput)) {
@@ -1284,7 +1283,7 @@ LTRpred <- function(genome.file       = NULL,
                                                  mutation_rate = mutation_rate)
     
     ltr_age_mya <- NULL
-    res <- dplyr::left_join(res, dplyr::select(ltr_age_estimation_res, orf.id, ltr_age_mya), by = "orf.id")
+    res <- dplyr::left_join(res, dplyr::select(ltr_age_estimation_res, orf.id, ltr_age_mya, ltr_evo_distance), by = "orf.id")
     
     res <-
         dplyr::select(
@@ -1294,6 +1293,7 @@ LTRpred <- function(genome.file       = NULL,
             dfam_target_name,
             ltr_similarity,
             ltr_age_mya,
+            ltr_evo_distance,
             similarity,
             protein_domain,
             orfs,
