@@ -44,7 +44,7 @@ LTRpred.meta <- function(genome.folder,
   
   assembly_files_chop <- str_chop_vec(assembly_files, pattern = "[.]")
   
-  message("Starting LTRpred meta run on ", length(assembly_files_chop), " assembly files: ", paste0(assembly_files_chop, collapse = ", "))
+  message("Starting LTRpred meta run on ", length(assembly_files_chop), " assembly files using ", cores ," cores: ", paste0(assembly_files_chop, collapse = ", "))
   
   # Setup cluster
   clust <- parallel::makeCluster(cores)
