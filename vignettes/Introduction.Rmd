@@ -1327,7 +1327,7 @@ specify the insertion score used in the PBS/tRNA Smith-Waterman alignment. Defau
 `LTRpred` allows users to perform annotations not only for single genomes
 but for multiple genomes (metagenomes) using only one pipeline function named `LTRpred.meta()`. 
 
-__Please be aware that `LTRpred` annotations for multiple genomes especailly for entire kingdoms of life is a computationally hard task and requires large server or high performance computer access. Computations for hundreds of genomes even using tens to hundreds of cores might take several weeks to terminate. Please make sure that you have the right computational infrastructure to run these processes.__
+__Please be aware that `LTRpred` annotations for multiple genomes is a computationally hard task and requires large server or high performance computer access. Computations for hundreds of genomes even using tens to hundreds of cores might take several weeks to terminate. Please make sure that you have the right computational infrastructure to run these processes.__
 
 
 
