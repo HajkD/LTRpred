@@ -135,6 +135,7 @@ ltr_age_estimation <-
       orf.id = pred$orf.id,
       ltr_name = names(ltr_3_prime_seqs),
       ltr_age_mya = (dist_vals / (2 * mutation_rate)) / 1E6,
+      ltr_evo_distance = dist_vals,
       ltr_aln_score = Alignments@score,
       ltr_indel_blocks = indel_blocks,
       ltr_indels = indel
