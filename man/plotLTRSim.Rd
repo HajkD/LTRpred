@@ -69,8 +69,7 @@ PlotLTRAge(Ath.Pred)
 }
 }
 \seealso{
-\code{\link[LTRpred]{LTRpred}}, \code{\link[LTRpred]{LTRharvest}}, \code{\link[LTRpred]{LTRdigest}},
-\code{\link{plotRanges}}
+\code{\link[LTRpred]{LTRpred}}, \code{\link[LTRpred]{LTRharvest}}, \code{\link[LTRpred]{LTRdigest}}
 }
 \author{
 Hajk-Georg Drost
