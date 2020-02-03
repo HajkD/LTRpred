@@ -685,6 +685,7 @@ tidy format (each row contains all information for a predicted LTR retrotranspos
 - `dfam_target_name` : name of hmmer search match in Dfam database (see [LTRpred HMM Models](#hmm-models) for details)
 - `ltr_similarity` : sequence similarity (global alignment) between the 5' and 3' long terminal repeat (LTR)
 - `ltr_age_mya`: Rough estimation of retrotransposon insertion age in Mya based on 5 prime and 3 prime LTR sequence homology
+- `ltr_evo_distance`: the molecular evolutionary distance value returned by the `evolutionary model` (e.g. Kimura-2P-Model) used to estamate DNA distances 
 - `similarity`: `ltr_similarity` classified into 2% intervals
 - `chromosome` : chromosome at which LTR retrotransposon was found
 - `start` : start coordinate of the LTR retrotransposon within the chromosome
