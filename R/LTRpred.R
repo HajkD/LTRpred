@@ -1282,7 +1282,7 @@ LTRpred <- function(genome.file       = NULL,
                                                  model = model,
                                                  mutation_rate = mutation_rate)
     
-    ltr_age_mya <- NULL
+    ltr_age_mya <- ltr_evo_distance <- NULL
     res <- dplyr::left_join(res, dplyr::select(ltr_age_estimation_res, orf.id, ltr_age_mya, ltr_evo_distance), by = "orf.id")
     
     res <-
