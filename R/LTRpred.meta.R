@@ -37,6 +37,11 @@ LTRpred.meta <- function(genome.folder,
   }
   
   assembly_files <- list.files(genome.folder)
+  doc_file <- which(stringr::str_detect(assembly_files, "documentation"))
+  
+  if (length(doc_file) > 0)
+    assembly_files <- assembly_files[-doc_file]
+  
   assembly_files_chop <- str_chop_vec(assembly_files, pattern = "[.]")
   
   message("Starting LTRpred meta run on ", length(assembly_files_chop), " assembly files: ", paste0(assembly_files_chop, collapse = ", "))
