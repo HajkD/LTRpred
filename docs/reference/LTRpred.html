@@ -130,6 +130,8 @@ sufficient LTR retrotransposon predictions for any genome of interest.</p>
 
     <pre class="usage"><span class='fu'>LTRpred</span>(
   <span class='kw'>genome.file</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>centromere_start</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>centromere_end</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"K80"</span>,
   <span class='kw'>mutation_rate</span> <span class='kw'>=</span> <span class='fl'>1.3</span> * <span class='fl'>1e-07</span>,
   <span class='kw'>index.file.harvest</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -204,6 +206,14 @@ sufficient LTR retrotransposon predictions for any genome of interest.</p>
     <tr>
       <th>genome.file</th>
       <td><p>path to the genome file in <code>fasta</code> format.</p></td>
+    </tr>
+    <tr>
+      <th>centromere_start</th>
+      <td><p>a numeric vector storing the centromere start coordinates in the <code>genome.file</code>. The position in the numeric vector should correspond to the chromosome name in the <code>genome.file</code> fasta file. If <code>centromere_start = NULL</code> (default), then no centromeres will be drawn.</p></td>
+    </tr>
+    <tr>
+      <th>centromere_end</th>
+      <td><p>a numeric vector storing the centromere end coordinates in the <code>genome.file</code>. The position in the numeric vector should correspond to the chromosome name in the <code>genome.file</code> fasta file. If <code>centromere_end = NULL</code> (default), then no centromeres will be drawn.</p></td>
     </tr>
     <tr>
       <th>model</th>
