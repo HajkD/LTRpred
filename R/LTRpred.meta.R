@@ -44,18 +44,22 @@ LTRpred.meta <- function(genome.folder,
   # Setup cluster
   clust <- parallel::makeCluster(cores)
   
+  base_wd <- getwd()
+  
+  setwd(output.folder)
   res <- parallel::parLapply(clust, seq_len(length(assembly_files_chop)), function(i) {
     message("Processing species '", assembly_files_chop[i], "' ...")
     
     LTRpred(genome.file = file.path(genome.folder, assembly_files[i]),
             cores = 1,
             job_num = i,
-            output.path = output.folder,
             ...)
     
   })
   
   parallel::stopCluster(clust)
+  
+  setwd(base_wd)
   
   message("Finished LTRpred meta analysis! All results were stored in: ", output.folder)
   return(res)
