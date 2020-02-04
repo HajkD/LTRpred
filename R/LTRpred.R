@@ -393,16 +393,16 @@ LTRpred <- function(genome.file       = NULL,
     if (is.null(output.path)) {
         if (!is.null(genome.file)) {
             output.path <-
-                paste0(unlist(stringr::str_split(basename(
+                file.path(getwd(), paste0(unlist(stringr::str_split(basename(
                     genome.file
-                ), "[.]"))[1], "_ltrpred")
+                ), "[.]"))[1], "_ltrpred"))
         } 
         
         if (is.null(genome.file) & is.null(LTRpred.folder)) {
             output.path <-
-                paste0(unlist(stringr::str_split(basename(
+                file.path(getwd(), paste0(unlist(stringr::str_split(basename(
                     LTRdigest.gff
-                ), "[.]"))[1], "_ltrpred")
+                ), "[.]"))[1], "_ltrpred"))
         }
         
         if (is.null(genome.file) & !is.null(LTRpred.folder)) {
