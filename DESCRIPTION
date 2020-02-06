@@ -37,7 +37,8 @@ Imports:
     scales,
     ggsci,
     ggbio,
-    ape
+    ape,
+    benchmarkme
 Suggests:
     knitr (>= 1.6),
     rmarkdown (>= 0.3.3),
