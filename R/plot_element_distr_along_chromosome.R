@@ -38,6 +38,10 @@ plot_element_distr_along_chromosome <-
     
     genome <- Biostrings::readDNAStringSet(genome.file)
     
+    news_names <- unlist(sapply(names(genome), function(x) unlist(stringr::str_split(x," "))[1]))
+    
+    names(news_names) <- news_names
+    
     if (length(genome) != length(centromere_start))
       stop("The number of chroosomes (= ", length(genome), ") stored in your genome file doesn't match the number of centromere start coordinates (= ",length(centromere_start), ")." , call. = FALSE)
     
