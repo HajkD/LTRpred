@@ -1,4 +1,4 @@
-## __LTRpred(ict)__: a _de novo_ functional annotation pipeline to dectect potentially mobile LTR retrotransposons in any genome assembly <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
+## __LTRpred(ict)__: _de novo_ annotation of functional retrotransposons <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
 
 Transposable elements (TEs) can comprise vast parts of eukaryotic genomes.
 In the past, TEs were seen as selfish mobile elements capable of populating a host genome to increase their chances for survival. By doing so they leave traces of junk DNA in host genomes that are usually regarded as annoying by-products when sequencing, assembling, and annotating new genomes.
@@ -82,6 +82,7 @@ browseVignettes("LTRpred")
 
 ### Studies that successfully used `LTRpred` to annotate functional retrotransposons
 
+> - Z Wang & D Baulcombe. __Transposon age and non-CG methylation__. __Nature Communications__, (2020) __in press__.
 > - J Cho, M Benoit, M Catoni, __HG Drost__, A Brestovitsky, M Oosterbeek and J Paszkowski.  [__Sensitive detection of pre-integration intermediates of LTR retrotransposons in crop plants__](https://www.nature.com/articles/s41477-018-0320-9). __Nature Plants__, 5,  26-33 (2019).
 >
 > - M Benoit, __HG Drost__, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski. [__Environmental and epigenetic regulation of Rider retrotransposons in tomato__](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370). __PloS Genetics__, 15(9): e1008370 (2019). 
