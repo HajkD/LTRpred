@@ -14,6 +14,10 @@
 #' @export
    
 read.ltrpred <- function(data.sheet){
+    
+    if(!file.exists(data.sheet))
+        stop("The file ", data.sheet, " does not seem to exist. Please provide a valid path to a file named *_LTRpred_DataSheet.tsv.", call. = FALSE)
+    
     if (file.info(data.sheet)$size == 0 ||
         is.na(file.info(data.sheet)$size == 0)) {
         cat("File ",
