@@ -40,7 +40,7 @@ plot_element_distr_along_chromosome <-
     
     news_names <- unlist(sapply(names(genome), function(x) unlist(stringr::str_split(x," "))[1]))
     
-    names(news_names) <- news_names
+    names(genome) <- news_names
     
     if (length(genome) != length(centromere_start))
       stop("The number of chroosomes (= ", length(genome), ") stored in your genome file doesn't match the number of centromere start coordinates (= ",length(centromere_start), ")." , call. = FALSE)
@@ -49,14 +49,24 @@ plot_element_distr_along_chromosome <-
     
   if (is.null(centromere_start) & is.null(centromere_end)) {
       genome <- Biostrings::readDNAStringSet(genome.file)
+      news_names <- unlist(sapply(names(genome), function(x) unlist(stringr::str_split(x," "))[1]))
+      
+      names(genome) <- news_names
   }
     
-  if (!all(genome@ranges@NAMES == unique(pred$chromosome)))
+  intersecting_chr_names <- dplyr::intersect(unique(pred$chromosome), genome@ranges@NAMES)  
+    
+  if (length(intersecting_chr_names) == 0)
     stop("The chromosome names from the genome.file (", paste0(genome@ranges@NAMES , collapse = ", "), ") and the chromosome names from the pred file (",paste0(unique(pred$chromosome), collapse = ", "), ") do not match. Please fix this for this function to work.", call. = FALSE)
   
+  genome <- genome[intersecting_chr_names]
+  
+  chromosome <- NULL
+  pred <- dplyr::filter(pred, is.element(chromosome, intersecting_chr_names))
+
   dn <- LTRpred::pred2GRanges(pred)
-  GenomeInfoDb::seqlengths(dn) <- genome@ranges@width
-  dn <- GenomeInfoDb::keepSeqlevels(dn, genome@ranges@NAMES)
+  GenomeInfoDb::seqlengths(dn) <- genome[names(GenomeInfoDb::seqlengths(dn))]@ranges@width
+  #dn <- GenomeInfoDb::keepSeqlevels(dn, genome@ranges@NAMES)
   
   p <- ggbio::autoplot(dn, layout = "karyogram", ...)
   
