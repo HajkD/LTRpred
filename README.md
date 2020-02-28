@@ -1,11 +1,11 @@
-## __LTRpred(ict)__: _de novo_ annotation of functional retrotransposons <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
+## __LTRpred(ict)__: _de novo_ annotation of intact retrotransposons <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
 
-Transposable elements (TEs) can comprise vast parts of eukaryotic genomes.
-In the past, TEs were seen as selfish mobile elements capable of populating a host genome to increase their chances for survival. By doing so they leave traces of junk DNA in host genomes that are usually regarded as annoying by-products when sequencing, assembling, and annotating new genomes.
+Transposable elements (TEs) comprise vast parts of eukaryotic genomes.
+In the past, TEs were seen as selfish mobile elements capable of populating a host genome to increase their chances for survival. By doing so they leave traces of junk DNA in host genomes that are usually regarded as by-products when sequencing, assembling, and annotating new genomes.
 
-However, this picture is slowly changing ([Drost & Sanchez, 2019](https://academic.oup.com/gbe/article/11/12/3382/5637757)) and TEs have been shown to be involved in generating a diverse range of novel phenotypes, e.g. such as the tomato fruit shape ([Benoit, Drost et al., 2019](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370)), moth adaptive cryptic colouration that occurred during the industrial revolution [Chuong et al., 2016](https://www.nature.com/articles/nrg.2016.139), and inner cell mass development in human embryonic stem cells [Chuong et al., 2016](https://www.nature.com/articles/nrg.2016.139).
+However, this picture is slowly changing ([Drost & Sanchez, 2019](https://academic.oup.com/gbe/article/11/12/3382/5637757)) and TEs have been shown to be involved in generating a diverse range of novel phenotypes.
 
-Today, the _de novo_ detection of transposable elements is performed by annotation tools which try to detect any type of repeated sequence, TE family, or remnand DNA locus that can be associated with a known transposable element within a genome assembly. The main goal of such efforts is to retrieve a maximum amount of loci that can be associated with TEs. If successful, such annotation can then be used to mask host genomes and to perform classic (phylo-)genomics studies focusing on host genes.
+Today, the _de novo_ detection of transposable elements is performed by annotation tools which try to detect any type of repeated sequence, TE family, or remnand DNA loci that can be associated with a known transposable element within a genome assembly. The main goal of such efforts is to retrieve a maximum amount of loci that can be associated with TEs. If successful, such annotation can then be used to mask host genomes and to perform classic (phylo-)genomics studies focusing on host genes.
 
 More than [300 repeat and TE annotation tools](https://docs.google.com/spreadsheets/d/1UBK70zExiL0gFVaIAILiGhflCGXAq_SF_lymaxTE1pY/edit#gid=0) have been developed so far. Most of them are designed and optimized to annotate either the entire repeat space or specific superfamilies of TEs and their DNA remnants.
 
