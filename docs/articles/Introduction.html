@@ -81,7 +81,7 @@
     <div class="page-header toc-ignore">
       <h1>Introduction to LTRpred</h1>
             
-            <h4 class="date">2020-02-11</h4>
+            <h4 class="date">2020-02-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
@@ -118,14 +118,14 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>The <code>LTRpred</code> package implements a pipeline and provides an integrated software framework to screen for potentially active LTR transposons <em>de novo</em> in any genomic sequence of interest. For this purpose, this package provides a rich set of analytics tools to allow researchers to quickly start annotating and explore their own genomes.</p>
+<p>The <code>LTRpred</code> package implements a software pipeline and provides an integrated workflow to screen for intact and potentially active LTR retrotransposons in any genomic sequence of interest. For this purpose, this package provides a rich set of analytics tools to allow researchers to quickly start annotating and explore their own genomes.</p>
 <p>The <em>de novo</em> prediction of LTR transposons in <code>LTRpred</code> is based on the command line tools <a href="http://www.zbh.uni-hamburg.de/?id=206">LTRharvest</a> and <a href="http://www.zbh.uni-hamburg.de/forschung/arbeitsgruppe-genominformatik/software/ltrdigest.html">LTRdigest</a> and extends these search strategies by additional analytics modules to filter the search space of putative LTR transposons for biologically meaningful candidates.</p>
 <p>Please make sure that all command line tools are installed properly before running any <code>LTRpred</code> function.</p>
 </div>
 <div id="getting-started" class="section level1">
 <h1 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting Started</h1>
-<p>The rational for implementing <code>LTRpred</code> was to implement an R based pipeline combining the most sensitive, accurate, and conservative state-of-the art LTR retrotransposon detection tools and extend their inference by additional analyses and quality filtering steps to screen for functional and structurally intact elements. Hence, <em>LTRpred</em> aims to provide a high-level <em>de novo</em> prediction infrastructure to generate high quality annotations of functionally intact LTR retrotransposons. All <code>LTRpred</code> functions are generic so that parameters can be changed to detect any form of LTR retrotransposon in any genome.</p>
+<p>The rational for implementing <code>LTRpred</code> was to implement an R based pipeline combining the most sensitive, accurate, and conservative state-of-the art LTR retrotransposon detection tools and extend their inference by additional analyses and quality filtering steps to screen for functional and structurally intact elements. Hence, <em>LTRpred</em> aims to provide a high-level <em>de novo</em> prediction infrastructure to generate high quality annotations of intact LTR retrotransposons. All <code>LTRpred</code> functions are generic so that parameters can be changed to detect any form of LTR retrotransposon in any genome.</p>
 <p>Internally, <em>LTRpred</em> is based on the <code>de novo</code> annotation tools <code>LTRharvest</code> and <code>LTRdigest</code> which use prior knowledge about DNA sequence features (also referred to as <code>Structure-based methods</code>) such as the homology of Long Terminal Repeats (LTRs), Primer Binding Sites (PBS), <em>gag</em> and <em>pol</em> protein domains, and Target Site Duplications (TSDs) that are known to enable the process of transposition (<a href="http://bib.oxfordjournals.org/content/8/6/382.long">Bergman and Quesneville, 2007</a>) to infer LTR retrotransposons in any genome.</p>
 <p>Hence, these <code>de novo</code> annotation tools are designed to screen the genome systematically and efficiently for these structural DNA features. <strong>Figure 1</strong> shows the structural features of LTR retrotransposons that are used for predicting putative LTR transposons <code>de novo</code> in any genome of interest.</p>
 <div class="figure">
