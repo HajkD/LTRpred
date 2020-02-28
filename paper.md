@@ -5,7 +5,9 @@ authors:
   name: Hajk-Georg Drost
   orcid: 0000-0002-1567-306X
 date: "28 February 2020"
-output: pdf_document
+output: 
+  pdf_document: 
+    extra_dependencies: ["float"]
 bibliography: paper.bib
 tags:
 - R
@@ -65,7 +67,8 @@ The LTRpred() output table `*_LTRpred_DataSheet.tsv` is in tidy format and can t
 
 ```r
 # import LTRpred prediction output
-Hsapiens_chrY <- read.ltrpred("Hsapiens_ChrY_ltrpred/Hsapiens_ChrY_LTRpred_DataSheet.tsv")
+Hsapiens_chrY <- read.ltrpred("Hsapiens_ChrY_ltrpred/
+Hsapiens_ChrY_LTRpred_DataSheet.tsv")
 # look at some results
 dplyr::glimpse(Hsapiens_chrY)
 ```
@@ -167,7 +170,7 @@ $ cn_3ltr                 <dbl> NA, NA, NA, NA, NA, NA, N...
 $ cn_5ltr                 <dbl> NA, NA, NA, NA, NA, NA, N..
 ```
 
-#### LTRpred output
+### LTRpred output
 
 The `LTRpred()` function internally generates a folder named `*_ltrpred` which
 stores all output annotation and sequence files.
