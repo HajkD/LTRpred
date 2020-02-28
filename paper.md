@@ -5,9 +5,7 @@ authors:
   name: Hajk-Georg Drost
   orcid: 0000-0002-1567-306X
 date: "28 February 2020"
-output: 
-  pdf_document: 
-    extra_dependencies: ["float"]
+output: pdf_document
 bibliography: paper.bib
 tags:
 - R
@@ -251,7 +249,8 @@ sc_ltrpred_filtered <- LTRpred::quality.filter(sc_ltrpred,
 LTRpred::plot_element_distr_along_chromosome(sc_ltrpred_filtered, sc_genome_path)
 ```
 
-![Positions of functional retrotransposons annotated by LTRpred along the yeast chromosomes.](Sc_LTRpred.pdf)
+
+![Positions of functional retrotransposons annotated by LTRpred along the yeast chromosomes.](Sc_LTRpred.pdf){ width=70% }
 
 ### Metagenome scale annotations
 
