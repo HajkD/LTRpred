@@ -1,0 +1,614 @@
+@ARTICLE{Hubley2016-ze,
+  title    = "The Dfam database of repetitive {DNA} families",
+  author   = "Hubley, Robert and Finn, Robert D and Clements, Jody and Eddy,
+              Sean R and Jones, Thomas A and Bao, Weidong and Smit, Arian F A
+              and Wheeler, Travis J",
+  abstract = "Repetitive DNA, especially that due to transposable elements
+              (TEs), makes up a large fraction of many genomes. Dfam is an open
+              access database of families of repetitive DNA elements, in which
+              each family is represented by a multiple sequence alignment and a
+              profile hidden Markov model (HMM). The initial release of Dfam,
+              featured in the 2013 NAR Database Issue, contained 1143 families
+              of repetitive elements found in humans, and was used to produce
+              more than 100 Mb of additional annotation of TE-derived regions
+              in the human genome, with improved speed. Here, we describe
+              recent advances, most notably expansion to 4150 total families
+              including a comprehensive set of known repeat families from four
+              new organisms (mouse, zebrafish, fly and nematode). We describe
+              improvements to coverage, and to our methods for identifying and
+              reducing false annotation. We also describe updates to the
+              website interface. The Dfam website has moved to http://dfam.org.
+              Seed alignments, profile HMMs, hit lists and other underlying
+              data are available for download.",
+  journal  = "Nucleic Acids Res.",
+  volume   =  44,
+  number   = "D1",
+  pages    = "D81--9",
+  month    =  jan,
+  year     =  2016,
+  keywords = "LTRpred Manuscript",
+  language = "en"
+}
+
+@ARTICLE{Finn2011-fs,
+  title    = "{HMMER} web server: interactive sequence similarity searching",
+  author   = "Finn, Robert D and Clements, Jody and Eddy, Sean R",
+  abstract = "HMMER is a software suite for protein sequence similarity
+              searches using probabilistic methods. Previously, HMMER has
+              mainly been available only as a computationally intensive UNIX
+              command-line tool, restricting its use. Recent advances in the
+              software, HMMER3, have resulted in a 100-fold speed gain relative
+              to previous versions. It is now feasible to make efficient
+              profile hidden Markov model (profile HMM) searches via the web. A
+              HMMER web server (http://hmmer.janelia.org) has been designed and
+              implemented such that most protein database searches return
+              within a few seconds. Methods are available for searching either
+              a single protein sequence, multiple protein sequence alignment or
+              profile HMM against a target sequence database, and for searching
+              a protein sequence against Pfam. The web server is designed to
+              cater to a range of different user expertise and accepts batch
+              uploading of multiple queries at once. All search methods are
+              also available as RESTful web services, thereby allowing them to
+              be readily integrated as remotely executed tasks in locally
+              scripted workflows. We have focused on minimizing search times
+              and the ability to rapidly display tabular results, regardless of
+              the number of matches found, developing graphical summaries of
+              the search results to provide quick, intuitive appraisement of
+              them.",
+  journal  = "Nucleic Acids Res.",
+  volume   =  39,
+  number   = "Web Server issue",
+  pages    = "W29--37",
+  month    =  jul,
+  year     =  2011,
+  keywords = "LTRpred Manuscript",
+  language = "en"
+}
+
+@ARTICLE{Rognes2016-sk,
+  title    = "{VSEARCH}: a versatile open source tool for metagenomics",
+  author   = "Rognes, Torbj{\o}rn and Flouri, Tom{\'a}{\v s} and Nichols, Ben
+              and Quince, Christopher and Mah{\'e}, Fr{\'e}d{\'e}ric",
+  abstract = "BACKGROUND: VSEARCH is an open source and free of charge
+              multithreaded 64-bit tool for processing and preparing
+              metagenomics, genomics and population genomics nucleotide
+              sequence data. It is designed as an alternative to the widely
+              used USEARCH tool (Edgar, 2010) for which the source code is not
+              publicly available, algorithm details are only rudimentarily
+              described, and only a memory-confined 32-bit version is freely
+              available for academic use. METHODS: When searching nucleotide
+              sequences, VSEARCH uses a fast heuristic based on words shared by
+              the query and target sequences in order to quickly identify
+              similar sequences, a similar strategy is probably used in
+              USEARCH. VSEARCH then performs optimal global sequence alignment
+              of the query against potential target sequences, using full
+              dynamic programming instead of the seed-and-extend heuristic used
+              by USEARCH. Pairwise alignments are computed in parallel using
+              vectorisation and multiple threads. RESULTS: VSEARCH includes
+              most commands for analysing nucleotide sequences available in
+              USEARCH version 7 and several of those available in USEARCH
+              version 8, including searching (exact or based on global
+              alignment), clustering by similarity (using length pre-sorting,
+              abundance pre-sorting or a user-defined order), chimera detection
+              (reference-based or de novo), dereplication (full length or
+              prefix), pairwise alignment, reverse complementation, sorting,
+              and subsampling. VSEARCH also includes commands for FASTQ file
+              processing, i.e., format detection, filtering, read quality
+              statistics, and merging of paired reads. Furthermore, VSEARCH
+              extends functionality with several new commands and improvements,
+              including shuffling, rereplication, masking of low-complexity
+              sequences with the well-known DUST algorithm, a choice among
+              different similarity definitions, and FASTQ file format
+              conversion. VSEARCH is here shown to be more accurate than
+              USEARCH when performing searching, clustering, chimera detection
+              and subsampling, while on a par with USEARCH for paired-ends read
+              merging. VSEARCH is slower than USEARCH when performing
+              clustering and chimera detection, but significantly faster when
+              performing paired-end reads merging and dereplication. VSEARCH is
+              available at https://github.com/torognes/vsearch under either the
+              BSD 2-clause license or the GNU General Public License version
+              3.0. DISCUSSION: VSEARCH has been shown to be a fast, accurate
+              and full-fledged alternative to USEARCH. A free and open-source
+              versatile tool for sequence analysis is now available to the
+              metagenomics community.",
+  journal  = "PeerJ",
+  volume   =  4,
+  pages    = "e2584",
+  month    =  oct,
+  year     =  2016,
+  keywords = "Alignment; Chimera detection; Clustering; Dereplication; Masking;
+              Metagenomics; Parallellization; Searching; Sequences;
+              Shuffling;LTRpred Manuscript",
+  language = "en"
+}
+
+@ARTICLE{Edgar2010-cb,
+  title    = "Search and clustering orders of magnitude faster than {BLAST}",
+  author   = "Edgar, Robert C",
+  abstract = "MOTIVATION: Biological sequence data is accumulating rapidly,
+              motivating the development of improved high-throughput methods
+              for sequence classification. RESULTS: UBLAST and USEARCH are new
+              algorithms enabling sensitive local and global search of large
+              sequence databases at exceptionally high speeds. They are often
+              orders of magnitude faster than BLAST in practical applications,
+              though sensitivity to distant protein relationships is lower.
+              UCLUST is a new clustering method that exploits USEARCH to assign
+              sequences to clusters. UCLUST offers several advantages over the
+              widely used program CD-HIT, including higher speed, lower memory
+              use, improved sensitivity, clustering at lower identities and
+              classification of much larger datasets. AVAILABILITY: Binaries
+              are available at no charge for non-commercial use at
+              http://www.drive5.com/usearch.",
+  journal  = "Bioinformatics",
+  volume   =  26,
+  number   =  19,
+  pages    = "2460--2461",
+  month    =  oct,
+  year     =  2010,
+  keywords = "LTRpred Manuscript",
+  language = "en"
+}
+
+@ARTICLE{Gremme2013-ba,
+  title    = "{GenomeTools}: a comprehensive software library for efficient
+              processing of structured genome annotations",
+  author   = "Gremme, Gordon and Steinbiss, Sascha and Kurtz, Stefan",
+  abstract = "Genome annotations are often published as plain text files
+              describing genomic features and their subcomponents by an
+              implicit annotation graph. In this paper, we present the
+              GenomeTools, a convenient and efficient software library and
+              associated software tools for developing bioinformatics software
+              intended to create, process or convert annotation graphs. The
+              GenomeTools strictly follow the annotation graph approach,
+              offering a unified graph-based representation. This gives the
+              developer intuitive and immediate access to genomic features and
+              tools for their manipulation. To process large annotation sets
+              with low memory overhead, we have designed and implemented an
+              efficient pull-based approach for sequential processing of
+              annotations. This allows to handle even the largest annotation
+              sets, such as a complete catalogue of human variations. Our
+              object-oriented C-based software library enables a developer to
+              conveniently implement their own functionality on annotation
+              graphs and to integrate it into larger workflows, simultaneously
+              accessing compressed sequence data if required. The careful C
+              implementation of the GenomeTools does not only ensure a
+              light-weight memory footprint while allowing full sequential as
+              well as random access to the annotation graph, but also
+              facilitates the creation of bindings to a variety of script
+              programming languages (like Python and Ruby) sharing the same
+              interface.",
+  journal  = "IEEE/ACM Trans. Comput. Biol. Bioinform.",
+  volume   =  10,
+  number   =  3,
+  pages    = "645--656",
+  month    =  may,
+  year     =  2013,
+  keywords = "LTRpred Manuscript",
+  language = "en"
+}
+
+@ARTICLE{Steinbiss2009-vg,
+  title    = "Fine-grained annotation and classification of de novo predicted
+              {LTR} retrotransposons",
+  author   = "Steinbiss, Sascha and Willhoeft, Ute and Gremme, Gordon and
+              Kurtz, Stefan",
+  abstract = "Long terminal repeat (LTR) retrotransposons and endogenous
+              retroviruses (ERVs) are transposable elements in eukaryotic
+              genomes well suited for computational identification. De novo
+              identification tools determine the position of potential LTR
+              retrotransposon or ERV insertions in genomic sequences. For
+              further analysis, it is desirable to obtain an annotation of the
+              internal structure of such candidates. This article presents
+              LTRdigest, a novel software tool for automated annotation of
+              internal features of putative LTR retrotransposons. It uses local
+              alignment and hidden Markov model-based algorithms to detect
+              retrotransposon-associated protein domains as well as primer
+              binding sites and polypurine tracts. As an example, we used
+              LTRdigest results to identify 88 (near) full-length ERVs in the
+              chromosome 4 sequence of Mus musculus, separating them from
+              truncated insertions and other repeats. Furthermore, we propose a
+              work flow for the use of LTRdigest in de novo LTR retrotransposon
+              classification and perform an exemplary de novo analysis on the
+              Drosophila melanogaster genome as a proof of concept. Using a new
+              method solely based on the annotations generated by LTRdigest,
+              518 potential LTR retrotransposons were automatically assigned to
+              62 candidate groups. Representative sequences from 41 of these 62
+              groups were matched to reference sequences with >80\% global
+              sequence similarity.",
+  journal  = "Nucleic Acids Res.",
+  volume   =  37,
+  number   =  21,
+  pages    = "7002--7013",
+  month    =  nov,
+  year     =  2009,
+  keywords = "LTRpred Manuscript",
+  language = "en"
+}
+
+@ARTICLE{Ellinghaus2008-hu,
+  title    = "{LTRharvest}, an efficient and flexible software for de novo
+              detection of {LTR} retrotransposons",
+  author   = "Ellinghaus, David and Kurtz, Stefan and Willhoeft, Ute",
+  abstract = "BACKGROUND: Transposable elements are abundant in eukaryotic
+              genomes and it is believed that they have a significant impact on
+              the evolution of gene and chromosome structure. While there are
+              several completed eukaryotic genome projects, there are only few
+              high quality genome wide annotations of transposable elements.
+              Therefore, there is a considerable demand for computational
+              identification of transposable elements. LTR retrotransposons, an
+              important subclass of transposable elements, are well suited for
+              computational identification, as they contain long terminal
+              repeats (LTRs). RESULTS: We have developed a software tool
+              LTRharvest for the de novo detection of full length LTR
+              retrotransposons in large sequence sets. LTRharvest efficiently
+              delivers high quality annotations based on known LTR transposon
+              features like length, distance, and sequence motifs. A quality
+              validation of LTRharvest against a gold standard annotation for
+              Saccharomyces cerevisae and Drosophila melanogaster shows a
+              sensitivity of up to 90\% and 97\% and specificity of 100\% and
+              72\%, respectively. This is comparable or slightly better than
+              annotations for previous software tools. The main advantage of
+              LTRharvest over previous tools is (a) its ability to efficiently
+              handle large datasets from finished or unfinished genome
+              projects, (b) its flexibility in incorporating known sequence
+              features into the prediction, and (c) its availability as an open
+              source software. CONCLUSION: LTRharvest is an efficient software
+              tool delivering high quality annotation of LTR retrotransposons.
+              It can, for example, process the largest human chromosome in
+              approx. 8 minutes on a Linux PC with 4 GB of memory. Its
+              flexibility and small space and run-time requirements makes
+              LTRharvest a very competitive candidate for future LTR
+              retrotransposon annotation projects. Moreover, the structured
+              design and implementation and the availability as open source
+              provides an excellent base for incorporating novel concepts to
+              further improve prediction of LTR retrotransposons.",
+  journal  = "BMC Bioinformatics",
+  volume   =  9,
+  pages    = "18",
+  month    =  jan,
+  year     =  2008,
+  keywords = "LTRpred Manuscript",
+  language = "en"
+}
+
+@BOOK{Wickham2016-eq,
+  title     = "ggplot2: Elegant Graphics for Data Analysis",
+  author    = "Wickham, Hadley",
+  abstract  = "This new edition to the classic book by ggplot2 creator Hadley
+               Wickham highlights compatibility with knitr and RStudio. ggplot2
+               is a data visualization package for R that helps users create
+               data graphics, including those that are multi-layered, with
+               ease. With ggplot2, it's easy to: produce handsome,
+               publication-quality plots with automatic legends created from
+               the plot specificationsuperimpose multiple layers (points,
+               lines, maps, tiles, box plots) from different data sources with
+               automatically adjusted common scalesadd customizable smoothers
+               that use powerful modeling capabilities of R, such as loess,
+               linear models, generalized additive models, and robust
+               regressionsave any ggplot2 plot (or part thereof) for later
+               modification or reusecreate custom themes that capture in-house
+               or journal style requirements and that can easily be applied to
+               multiple plotsapproach a graph from a visual perspective,
+               thinking about how each component of the data is represented on
+               the final plot This book will be useful to everyone who has
+               struggled with displaying data in an informative and attractive
+               way. Some basic knowledge of R is necessary (e.g., importing
+               data into R). ggplot2 is a mini-language specifically tailored
+               for producing graphics, and you'll learn everything you need in
+               the book. After reading this book you'll be able to produce
+               graphics customized precisely for your problems, and you'll find
+               it easy to get graphics out of your head and on to the screen or
+               page.",
+  publisher = "Springer",
+  month     =  jun,
+  year      =  2016,
+  keywords  = "LTRpred Manuscript",
+  language  = "en"
+}
+
+@ARTICLE{Lawrence2013-dv,
+  title    = "Software for computing and annotating genomic ranges",
+  author   = "Lawrence, Michael and Huber, Wolfgang and Pag{\`e}s, Herv{\'e}
+              and Aboyoun, Patrick and Carlson, Marc and Gentleman, Robert and
+              Morgan, Martin T and Carey, Vincent J",
+  abstract = "We describe Bioconductor infrastructure for representing and
+              computing on annotated genomic ranges and integrating genomic
+              data with the statistical computing features of R and its
+              extensions. At the core of the infrastructure are three packages:
+              IRanges, GenomicRanges, and GenomicFeatures. These packages
+              provide scalable data structures for representing annotated
+              ranges on the genome, with special support for transcript
+              structures, read alignments and coverage vectors. Computational
+              facilities include efficient algorithms for overlap and nearest
+              neighbor detection, coverage calculation and other range
+              operations. This infrastructure directly supports more than 80
+              other Bioconductor packages, including those for sequence
+              analysis, differential expression analysis and visualization.",
+  journal  = "PLoS Comput. Biol.",
+  volume   =  9,
+  number   =  8,
+  pages    = "e1003118",
+  month    =  aug,
+  year     =  2013,
+  keywords = "LTRpred Manuscript",
+  language = "en"
+}
+
+@ARTICLE{Wickham2019-kh,
+  title    = "Welcome to the Tidyverse",
+  author   = "Wickham, Hadley and Averick, Mara and Bryan, Jennifer and Chang,
+              Winston and McGowan, Lucy and Fran{\c c}ois, Romain and
+              Grolemund, Garrett and Hayes, Alex and Henry, Lionel and Hester,
+              Jim and {Others}",
+  journal  = "Journal of Open Source Software",
+  volume   =  4,
+  number   =  43,
+  pages    = "1686",
+  year     =  2019,
+  keywords = "LTRpred Manuscript"
+}
+
+@ARTICLE{Chuong2017-cb,
+  title    = "Regulatory activities of transposable elements: from conflicts to
+              benefits",
+  author   = "Chuong, Edward B and Elde, Nels C and Feschotte, C{\'e}dric",
+  abstract = "Transposable elements (TEs) are a prolific source of tightly
+              regulated, biochemically active non-coding elements, such as
+              transcription factor-binding sites and non-coding RNAs. Many
+              recent studies reinvigorate the idea that these elements are
+              pervasively co-opted for the regulation of host genes. We argue
+              that the inherent genetic properties of TEs and the conflicting
+              relationships with their hosts facilitate their recruitment for
+              regulatory functions in diverse genomes. We review recent
+              findings supporting the long-standing hypothesis that the waves
+              of TE invasions endured by organisms for eons have catalysed the
+              evolution of gene-regulatory networks. We also discuss the
+              challenges of dissecting and interpreting the phenotypic effect
+              of regulatory activities encoded by TEs in health and disease.",
+  journal  = "Nat. Rev. Genet.",
+  volume   =  18,
+  number   =  2,
+  pages    = "71--86",
+  month    =  feb,
+  year     =  2017,
+  keywords = "LTRpred Manuscript",
+  language = "en"
+}
+
+% The entry below contains non-ASCII chars that could not be converted
+% to a LaTeX equivalent.
+@ARTICLE{Sundaram2020-yw,
+  title     = "Transposable elements as a potent source of diverse
+               cis-regulatory sequences in mammalian genomes",
+  author    = "Sundaram, Vasavi and Wysocka, Joanna",
+  abstract  = "Eukaryotic gene regulation is mediated by cis-regulatory
+               elements, which are embedded within the vast non-coding genomic
+               space and recognized by the transcription factors in a
+               sequence-and context-dependent manner. A large proportion of
+               eukaryotic …",
+  journal   = "Philos. Trans. R. Soc. Lond. B Biol. Sci.",
+  publisher = "Royal Society",
+  volume    =  375,
+  number    =  1795,
+  pages     = "20190347",
+  month     =  mar,
+  year      =  2020,
+  keywords  = "LTRpred Manuscript"
+}
+
+@ARTICLE{Benoit2019-ux,
+  title    = "Environmental and epigenetic regulation of Rider retrotransposons
+              in tomato",
+  author   = "Benoit, Matthias and Drost, Hajk-Georg and Catoni, Marco and
+              Gouil, Quentin and Lopez-Gomollon, Sara and Baulcombe, David and
+              Paszkowski, Jerzy",
+  abstract = "Transposable elements in crop plants are the powerful drivers of
+              phenotypic variation that has been selected during domestication
+              and breeding programs. In tomato, transpositions of the LTR (long
+              terminal repeat) retrotransposon family Rider have contributed to
+              various phenotypes of agronomical interest, such as fruit shape
+              and colour. However, the mechanisms regulating Rider activity are
+              largely unknown. We have developed a bioinformatics pipeline for
+              the functional annotation of retrotransposons containing LTRs and
+              defined all full-length Rider elements in the tomato genome.
+              Subsequently, we showed that accumulation of Rider transcripts
+              and transposition intermediates in the form of extrachromosomal
+              DNA is triggered by drought stress and relies on abscisic acid
+              signalling. We provide evidence that residual activity of Rider
+              is controlled by epigenetic mechanisms involving siRNAs and the
+              RNA-dependent DNA methylation pathway. Finally, we demonstrate
+              the broad distribution of Rider-like elements in other plant
+              species, including crops. Our work identifies Rider as an
+              environment-responsive element and a potential source of genetic
+              and epigenetic variation in plants.",
+  journal  = "PLoS Genet.",
+  volume   =  15,
+  number   =  9,
+  pages    = "e1008370",
+  month    =  sep,
+  year     =  2019,
+  keywords = "DrostLab;LTRpred Manuscript",
+  language = "en"
+}
+
+@ARTICLE{Drost2019-rz,
+  title    = "Becoming a Selfish Clan: Recombination Associated to
+              {Reverse-Transcription} in {LTR} Retrotransposons",
+  author   = "Drost, Hajk-Georg and Sanchez, Diego H",
+  abstract = "Transposable elements (TEs) are parasitic DNA bits capable of
+              mobilization and mutagenesis, typically suppressed by host's
+              epigenetic silencing. Since the selfish DNA concept, it is
+              appreciated that genomes are also molded by arms-races against
+              natural TE inhabitants. However, our understanding of
+              evolutionary processes shaping TEs adaptive populations is
+              scarce. Here, we review the events of recombination associated to
+              reverse-transcription in LTR retrotransposons, a process
+              shuffling their genetic variants during replicative mobilization.
+              Current evidence may suggest that recombinogenic retrotransposons
+              could beneficially exploit host suppression, where clan behavior
+              facilitates their speciation and diversification. Novel
+              refinements to retrotransposons life-cycle and evolution models
+              thus emerge.",
+  journal  = "Genome Biol. Evol.",
+  volume   =  11,
+  number   =  12,
+  pages    = "3382--3392",
+  month    =  dec,
+  year     =  2019,
+  keywords = "LTR retrotransposons; epigenetics; recombination; retroelements;
+              reverse-transcription; transcriptional gene silencing;
+              transposable elements; transposons;DrostLab;LTRpred Manuscript",
+  language = "en"
+}
+
+@ARTICLE{Cho2019-zp,
+  title    = "Sensitive detection of pre-integration intermediates of long
+              terminal repeat retrotransposons in crop plants",
+  author   = "Cho, Jungnam and Benoit, Matthias and Catoni, Marco and Drost,
+              Hajk-Georg and Brestovitsky, Anna and Oosterbeek, Matthijs and
+              Paszkowski, Jerzy",
+  abstract = "Retrotransposons have played an important role in the evolution
+              of host genomes1,2. Their impact is mainly deduced from the
+              composition of DNA sequences that have been fixed over
+              evolutionary time2. Such studies provide important 'snapshots'
+              reflecting the historical activities of transposons but do not
+              predict current transposition potential. We previously reported
+              sequence-independent retrotransposon trapping (SIRT) as a method
+              that, by identification of extrachromosomal linear DNA (eclDNA),
+              revealed the presence of active long terminal repeat (LTR)
+              retrotransposons in Arabidopsis3. However, SIRT cannot be applied
+              to large and transposon-rich genomes, as found in crop plants. We
+              have developed an alternative approach named ALE-seq
+              (amplification of LTR of eclDNAs followed by sequencing) for such
+              situations. ALE-seq reveals sequences of 5' LTRs of eclDNAs after
+              two-step amplification: in vitro transcription and subsequent
+              reverse transcription. Using ALE-seq in rice, we detected eclDNAs
+              for a novel Copia family LTR retrotransposon, Go-on, which is
+              activated by heat stress. Sequencing of rice accessions revealed
+              that Go-on has preferentially accumulated in Oryza sativa ssp.
+              indica rice grown at higher temperatures. Furthermore, ALE-seq
+              applied to tomato fruits identified a developmentally regulated
+              Gypsy family of retrotransposons. A bioinformatic pipeline
+              adapted for ALE-seq data analyses is used for the direct and
+              reference-free annotation of new, active retroelements. This
+              pipeline allows assessment of LTR retrotransposon activities in
+              organisms for which genomic sequences and/or reference genomes
+              are either unavailable or of low quality.",
+  journal  = "Nature Plants",
+  volume   =  5,
+  number   =  1,
+  pages    = "26--33",
+  month    =  jan,
+  year     =  2019,
+  keywords = "DrostLab;LTRpred Manuscript",
+  language = "en"
+}
+
+@ARTICLE{Drost2017-cw,
+  title    = "Biomartr: genomic data retrieval with {R}",
+  author   = "Drost, Hajk-Georg and Paszkowski, Jerzy",
+  abstract = "Motivation: Retrieval and reproducible functional annotation of
+              genomic data are crucial in biology. However, the current poor
+              usability and transparency of retrieval methods hinders
+              reproducibility. Here we present an open source R package,
+              biomartr , which provides a comprehensive easy-to-use framework
+              for automating data retrieval and functional annotation for
+              meta-genomic approaches. The functions of biomartr achieve a high
+              degree of clarity, transparency and reproducibility of analyses.
+              Results: The biomartr package implements straightforward
+              functions for bulk retrieval of all genomic data or data for
+              selected genomes, proteomes, coding sequences and annotation
+              files present in databases hosted by the National Center for
+              Biotechnology Information (NCBI) and European Bioinformatics
+              Institute (EMBL-EBI). In addition, biomartr communicates with the
+              BioMart database for functional annotation of retrieved
+              sequences. Comprehensive documentation of biomartr functions and
+              five tutorial vignettes provide step-by-step instructions on how
+              to use the package in a reproducible manner. Availability and
+              Implementation: The open source biomartr package is available at
+              https://github.com/HajkD/biomartr and
+              https://cran.r-project.org/web/packages/biomartr/index.html .
+              Contact: hgd23@cam.ac.uk. Supplementary information:
+              Supplementary data are available at Bioinformatics online.",
+  journal  = "Bioinformatics",
+  volume   =  33,
+  number   =  8,
+  pages    = "1216--1217",
+  month    =  apr,
+  year     =  2017,
+  keywords = "DrostLab;LTRpred Manuscript",
+  language = "en"
+}
+
+
+@ARTICLE{Wang2019,
+  title    = "Transposon age and non-CG methylation",
+  author   = "Wang, Zhengming and Baulcombe, David",
+  abstract = "Silencing of transposable elements (TEs) is established by small RNA-directed DNA methylation (RdDM). Maintenance of silencing is then based on a combination of RdDM and RNA-independent mechanisms involving DNA methyltransferase MET1 and chromodomain DNA methyltransferases (CMTs). Involvement of RdDM, according to this model should decrease with TE age but here we show a different pattern in tomato and Arabidopsis. In these species the CMTs silence long terminal repeat (LTR) transposons in the distal chromatin that are younger than those affected by RdDM. To account for these findings we propose that, after establishment of primary RdDM as in the original model, there is an RNA-independent maintenance phase involving CMTs followed by secondary RdDM. This progression of epigenetic silencing in the gene-rich distal chromatin is likely to influence the transcriptome either in cis or in trans depending on whether the mechanisms are RNA-dependent or -independent.",
+  journal  = "Nature Communications",
+  volume   =  "In press.",
+  number   =  ,
+  pages    = "",
+  month    =  ,
+  year     =  2020,
+  keywords = "",
+  language = "en"
+}
+
+@ARTICLE{Yin2012-ro,
+   title    = "ggbio: an {R} package for extending the grammar of graphics for
+               genomic data",
+   author   = "Yin, Tengfei and Cook, Dianne and Lawrence, Michael",
+   abstract = "We introduce ggbio, a new methodology to visualize and explore
+               genomics annotations and high-throughput data. The plots provide
+               detailed views of genomic regions, summary views of sequence
+               alignments and splicing patterns, and genome-wide overviews with
+               karyogram, circular and grand linear layouts. The methods
+               leverage the statistical functionality available in R, the
+               grammar of graphics and the data handling capabilities of the
+               Bioconductor project. The plots are specified within a modular
+               framework that enables users to construct plots in a systematic
+               way, and are generated directly from Bioconductor data
+               structures. The ggbio R package is available at
+               http://www.bioconductor.org/packages/2.11/bioc/html/ggbio.html.",
+   journal  = "Genome Biol.",
+   volume   =  13,
+   number   =  8,
+   pages    = "R77",
+   month    =  aug,
+   year     =  2012,
+   language = "en"
+ }
+ 
+@ARTICLE{Sanchez2017-sy,
+   title    = "High-frequency recombination between members of an {LTR}
+               retrotransposon family during transposition bursts",
+   author   = "Sanchez, Diego H and Gaubert, Herv{\'e} and Drost, Hajk-Georg and
+               Zabet, Nicolae Radu and Paszkowski, Jerzy",
+   abstract = "Retrotransposons containing long terminal repeats (LTRs) form a
+               substantial fraction of eukaryotic genomes. The timing of past
+               transposition can be estimated by quantifying the accumulation of
+               mutations in initially identical LTRs. This way, retrotransposons
+               are divided into young, potentially mobile elements, and old that
+               moved thousands or even millions of years ago. Both types are
+               found within a single retrotransposon family and it is assumed
+               that the old members will remain immobile and degenerate further.
+               Here, we provide evidence in Arabidopsis that old members enter
+               into replication/transposition cycles through high rates of
+               intra-family recombination. The recombination occurs pairwise,
+               resembling the formation of recombinant retroviruses. Thus, each
+               transposition burst generates a novel progeny population of
+               chromosomally integrated LTR retrotransposons consisting of
+               pairwise recombination products produced in a process comparable
+               the sexual exchange of genetic information. Our observations
+               provide an explanation for the reported high rates of sequence
+               diversification in retrotransposons.",
+   journal  = "Nature Communications",
+   volume   =  8,
+   number   =  1,
+   pages    = "1283",
+   month    =  nov,
+   year     =  2017,
+   language = "en"
+ }
+ 
