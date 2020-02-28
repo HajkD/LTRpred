@@ -4,3 +4,6 @@ src/
 .RDataTmp
 Hsapiens_ChrY_ltrpred
 docs
+paper.md
+paper.bib
+Sc_LTRpred.pdf
