@@ -237,8 +237,9 @@ LTRpred::LTRpred(
     cores = 4
 )
 # import functional retrotransposon annotation
-sc_ltrpred <- LTRpred::read.ltrpred(file.path("Saccharomyces_cerevisiae_ltrpred",
-                        "Saccharomyces_cerevisiae_LTRpred_DataSheet.tsv"))
+sc_ltrpred <- LTRpred::read.ltrpred(
+ file.path("Saccharomyces_cerevisiae_ltrpred",
+                      "Saccharomyces_cerevisiae_LTRpred_DataSheet.tsv"))
 # filter for potentially active candidates
 sc_ltrpred_filtered <- LTRpred::quality.filter(sc_ltrpred, 
                                           sim = 95, 
@@ -246,7 +247,8 @@ sc_ltrpred_filtered <- LTRpred::quality.filter(sc_ltrpred,
                                           n.orfs = 1)
 # visualise the position of potentially active retrotransposons
 # along the yeast chromosomes
-LTRpred::plot_element_distr_along_chromosome(sc_ltrpred_filtered, sc_genome_path)
+LTRpred::plot_element_distr_along_chromosome(sc_ltrpred_filtered,
+                                             sc_genome_path)
 ```
 
 
@@ -267,7 +269,8 @@ species <- c("Arabidopsis thaliana", "Arabidopsis lyrata", "Capsella rubella")
 # download the genome assembly files for the species of interest
 # 
 # install.packages("biomartr")
-biomartr::getGenomeSet(db = "refseq", organisms = species, path = "store_genome_set")
+biomartr::getGenomeSet(db = "refseq", organisms = species,
+                      path = "store_genome_set")
 # run LTRpred.meta() on the 3 species with 3 cores
 LTRpred::LTRpred.meta(genome.folder = "store_genome_set",
                       output.folder = "LTRpred_meta_results",
