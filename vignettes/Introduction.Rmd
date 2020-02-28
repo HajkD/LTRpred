@@ -23,8 +23,7 @@ vignette: >
 
 # Introduction
 
-The `LTRpred` package implements a pipeline and provides an integrated software framework to screen for potentially active LTR transposons _de novo_ in any genomic sequence of interest. For this purpose, this package provides a rich set of analytics tools to allow researchers to quickly 
-start annotating and explore their own genomes.
+The `LTRpred` package implements a software pipeline and provides an integrated workflow to screen for intact and potentially active LTR retrotransposons in any genomic sequence of interest. For this purpose, this package provides a rich set of analytics tools to allow researchers to quickly start annotating and explore their own genomes.
 
 The _de novo_ prediction of LTR transposons in `LTRpred` is based on the command line tools 
 [LTRharvest](http://www.zbh.uni-hamburg.de/?id=206) and [LTRdigest](http://www.zbh.uni-hamburg.de/forschung/arbeitsgruppe-genominformatik/software/ltrdigest.html) and extends these search strategies by additional analytics
@@ -39,7 +38,7 @@ sensitive, accurate, and conservative state-of-the art LTR retrotransposon
 detection tools and extend their inference by additional analyses and quality filtering steps to
 screen for functional and structurally intact elements. Hence, _LTRpred_
 aims to provide a high-level _de novo_ prediction infrastructure to generate high quality annotations
-of functionally intact LTR retrotransposons. All `LTRpred` functions are generic so that parameters can be changed to detect any form of LTR retrotransposon in any genome.
+of intact LTR retrotransposons. All `LTRpred` functions are generic so that parameters can be changed to detect any form of LTR retrotransposon in any genome.
 
 Internally, _LTRpred_ is based on the `de novo` annotation tools `LTRharvest` and `LTRdigest` which use prior knowledge
 about DNA sequence features (also referred to as `Structure-based methods`) such as the homology of Long Terminal Repeats (LTRs), Primer Binding Sites (PBS), _gag_ and _pol_ protein domains, and
