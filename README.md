@@ -1,5 +1,7 @@
 ## __LTRpred(ict)__: _de novo_ annotation of intact retrotransposons <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
 
+[![status](https://joss.theoj.org/papers/eeb2359d2459d3ae448cafac3ae33211/status.svg)](https://joss.theoj.org/papers/eeb2359d2459d3ae448cafac3ae33211)
+
 Transposable elements (TEs) comprise vast parts of eukaryotic genomes.
 In the past, TEs were seen as selfish mobile elements capable of populating a host genome to increase their chances for survival. By doing so they leave traces of junk DNA in host genomes that are usually regarded as by-products when sequencing, assembling, and annotating new genomes.
 
