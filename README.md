@@ -25,13 +25,13 @@ __Users can consult a comprehensive [Introduction](https://hajkd.github.io/LTRpr
 Install prerequisite CRAN and Bioconductor packages:
 
 ```r
-install.packages(c("tidyverse", "data.table", "seqinr", "biomartr", "ape", "dtplyr", "devtools"))
-
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install()
 
-BiocManager::install(c("rtracklayer", "GenomicFeatures", "GenomicRanges", "GenomeInfoDb", "biomaRt", "ggbio"))
+BiocManager::install(c("rtracklayer", "GenomicFeatures", "GenomicRanges", "GenomeInfoDb", "biomaRt", "Biostrings", "ggbio"))
+
+install.packages(c("tidyverse", "data.table", "seqinr", "biomartr", "ape", "dtplyr", "devtools"))
 
 devtools::install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
 
