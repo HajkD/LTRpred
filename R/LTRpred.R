@@ -1435,7 +1435,7 @@ LTRpred <- function(genome.file       = NULL,
     # plot_genomic_distr <- plot_element_distr_along_chromosome(pred = res, genome.file = genome.file, centromere_start = centromere_start, centromere_end = centromere_end)
     
     message("\n")
-    message("Please cite the following paper when using LTRpred for your own research: Benoit, Drost et al., 2019 PloS Genetics, 15(9):e1008370.")
+    # message("Please cite the following paper when using LTRpred for your own research: Benoit, Drost et al., 2019 PloS Genetics, 15(9):e1008370.")
     message("\n")
     message("LTRpred finished all analyses successfully. All output files were stored at '", output.path,"'.")
     
