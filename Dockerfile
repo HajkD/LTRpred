@@ -1,6 +1,8 @@
-FROM docker.io/ubuntu
-MAINTAINER hajk-georg.drost@tuebingen.mpg.de
+FROM docker.io/ubuntu:18.04
 FROM openjdk:11
+FROM rocker/rstudio
+FROM rocker/verse
+MAINTAINER hajk-georg.drost@tuebingen.mpg.de
 RUN ["apt-get", "update"]
 RUN ["apt-get", "-y", "install", "apt-utils"]
 RUN ["apt-get", "-y", "install", "gcc"]
@@ -65,8 +67,10 @@ RUN sudo R -e "devtools::install_github('HajkD/metablastr', build_vignettes = TR
 RUN sudo R -e "install.packages(c('BSDA', 'ggrepel', 'gridExtra'))"
 RUN wget https://cran.r-project.org/src/contrib/Archive/latticeExtra/latticeExtra_0.6-28.tar.gz
 RUN sudo R -e "install.packages('latticeExtra_0.6-28.tar.gz', type = 'source')"
+RUN sudo R -e "install.packages('survival')"
 RUN sudo R -e "BiocManager::install('ggbio')"
 RUN sudo R -e "devtools::install_github('HajkD/LTRpred')"
+LABEL version="1.1.0"
+VOLUME ["/data"]
 EXPOSE 80
-CMD R -e "LTRpred::LTRpred(genome.file = system.file('Hsapiens_ChrY.fa', package = 'LTRpred'))"
-
+CMD ["/bin/bash"]
