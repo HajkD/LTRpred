@@ -22,28 +22,19 @@ __Users can consult a comprehensive [Introduction](https://hajkd.github.io/LTRpr
 
 ## Install
 
-Install prerequisite CRAN and Bioconductor packages:
+The fastest way to install `LTRpred` is via a [Docker container](https://hub.docker.com/repository/docker/drostlab/ltrpred).
+Please make sure to read the [detailed installation instructions](https://hajkd.github.io/LTRpred/articles/Introduction.html#installation) to be able to
+pass data to the container.
 
-```r
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install()
-
-BiocManager::install(c("rtracklayer", "GenomicFeatures", "GenomicRanges", "GenomeInfoDb", "biomaRt", "Biostrings", "ggbio"))
-
-install.packages(c("tidyverse", "data.table", "seqinr", "biomartr", "ape", "dtplyr", "devtools"))
-
-devtools::install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
-
-install.packages(c("BSDA", "ggrepel", "gridExtra")) 
+```bash
+# retrieve docker image from dockerhub
+docker pull drostlab/ltrpred
+# run ltrpred container
+docker run --rm -ti ltrpred
+# start R prompt within ltrpred container
+~:/app# R
 ```
 
-Now users may install `LTRpred` as follows:
-
-```r
-# install.packages("devtools")
-devtools::install_github("HajkD/LTRpred")
-```
 ## Tutorials
 
 ### Quick Start

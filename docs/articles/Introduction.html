@@ -183,10 +183,11 @@
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="bu">cd</span> ..</a></code></pre></div>
 <p>Next, make sure that you also store the genome assembly file (in <code>fasta</code> format) you want to <em>de novo</em> annotate with <code>LTRpred</code> in the <code>ltrpred_data</code> folder you just created.</p>
 <p>A possible way to retrieve such a genome is (within R):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"ensembl"</span>, </a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">                    <span class="dt">organism =</span> <span class="st">"Saccharomyces cerevisiae"</span>, </a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">                    <span class="dt">path =</span> <span class="st">"yeast_genome"</span>, </a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">                    <span class="dt">gunzip =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># install.packages("biomartr")</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"ensembl"</span>, </a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">                    <span class="dt">organism =</span> <span class="st">"Saccharomyces cerevisiae"</span>, </a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">                    <span class="dt">path =</span> <span class="st">"yeast_genome"</span>, </a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">                    <span class="dt">gunzip =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>The respective genome assembly file is now stored at <code>yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa</code> and needs to be copied into the <code>ltrpred_data</code> folder you just created.</p>
 <p>Now users can mount the <code>ltrpred_data</code> folder to the <code>ltrpred</code> Docker container:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ex">docker</span> run --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/app/ltrpred_data -ti ltrpred</a></code></pre></div>
