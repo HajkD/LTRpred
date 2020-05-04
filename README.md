@@ -30,7 +30,7 @@ pass data to the container.
 # retrieve docker image from dockerhub
 docker pull drostlab/ltrpred
 # run ltrpred container
-docker run --rm -ti ltrpred
+docker run --rm -ti drostlab/ltrpred
 # start R prompt within ltrpred container
 ~:/app# R
 ```
