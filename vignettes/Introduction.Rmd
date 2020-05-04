@@ -61,10 +61,7 @@ __Figure 1__ in mind will help researchers to modify structural parameters in a 
 
 The fastest way to run `LTRpred` is to download the `ltrpred` Docker container which
 includes all pre-installed tool dependencies. For users who cannot use a Docker environment
-the individual installation instructions for each dependency tool are listed below (for MacOS and Linux).
-
-__Note: please be aware that LTRpred is designed for Linux and Unix based systems such as macOS. Hence, although LTRpred itself can be installed on Windows machines, most of the command line tools LTRpred depends on cannot be installed on Windows machines.__
-
+the individual installation instructions for each dependency tool are listed below (only for Linux).
 
 ### LTRpred Docker Container
 
