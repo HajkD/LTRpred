@@ -175,13 +175,14 @@
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="bu">cd</span> Dfam</a></code></pre></div>
 <p>Now users can download and format the Dfam database as follows (within the <code>Dfam</code> folder created above):</p>
 <p><strong>For this step users need to install <a href="http://hmmer.org/download.html">HMMER</a> on their machine.</strong> An example installation of HMMER for Linux machines is listed below.</p>
+<p>For <code>macOS</code> users please install <code>wget</code> on your <code>masOS</code> machine using <a href="http://brew.sh/">Homebrew</a>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="fu">gunzip</span> Dfam.hmm.gz</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># run hmmpress</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="ex">hmmpress</span> Dfam.hmm</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="bu">cd</span> ..</a></code></pre></div>
 <p>Next, make sure that you also store the genome assembly file (in <code>fasta</code> format) you want to <em>de novo</em> annotate with <code>LTRpred</code> in the <code>ltrpred_data</code> folder you just created.</p>
-<p>A possible way to retrieve such a genome is (within R):</p>
+<p>A possible way to retrieve such a genome is (within R) using <a href="https://github.com/ropensci/biomartr">biomartr</a>. If you use <code>biomartr</code> please make sure that you <a href="https://github.com/ropensci/biomartr#installation">install all <code>biomartr</code> package dependencies</a> before running the following code.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># install.packages("biomartr")</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"ensembl"</span>, </a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">                    <span class="dt">organism =</span> <span class="st">"Saccharomyces cerevisiae"</span>, </a>
@@ -217,12 +218,13 @@ software_downloads</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co"># run ltrpred container</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti ltrpred_rstudio</a></code></pre></div>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti drostlab/ltrpred_rstudio</a></code></pre></div>
 <p>Now go to your standard web browser and type in the following url:</p>
 <p><code>http://localhost:8787</code></p>
 <p>Username: <code>rstudio</code> Password: <code>ltrpred</code></p>
 <p>Within <code>RStudio</code> you can now run the example:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/LTRpred.html">LTRpred</a></span>(<span class="dt">genome.file =</span> <span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>))</a></code></pre></div>
+<p>Users can <code>exit</code> the container by pressing <code>Ctrl + c</code> multiple times.</p>
 <p>Next, if users wish to mount their <code>ltrpred_data</code> folder to the RStudio server run, they can do so by typing:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</a>
@@ -234,6 +236,7 @@ software_downloads</code></pre>
 <p>In RStudio type:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>()</a></code></pre></div>
 <p>You should be able to see the <code>ltrpred_data</code> folder.</p>
+<p>Users can <code>exit</code> the container by pressing <code>Ctrl + c</code> multiple times.</p>
 <p><strong>Please read more details about how to transfer genome files and the Dfam database in the previous section <code>Download ltrpred container for use with R command line</code></strong>.</p>
 </div>
 </div>

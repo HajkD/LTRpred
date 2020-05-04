@@ -118,6 +118,8 @@ Now users can download and format the Dfam database as follows (within the `Dfam
 
 __For this step users need to install [HMMER](http://hmmer.org/download.html) on their machine.__ An example installation of HMMER for Linux machines is listed below.
 
+For `macOS` users please install `wget` on your `masOS` machine using [Homebrew](http://brew.sh/).
+
 ```bash
 wget https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz
 gunzip Dfam.hmm.gz
@@ -129,7 +131,8 @@ cd ..
 Next, make sure that you also store the genome assembly file (in `fasta` format) you
 want to _de novo_ annotate with `LTRpred` in the `ltrpred_data` folder you just created.
 
-A possible way to retrieve such a genome is (within R):
+A possible way to retrieve such a genome is (within R) using [biomartr](https://github.com/ropensci/biomartr).
+If you use `biomartr` please make sure that you [install all `biomartr` package dependencies](https://github.com/ropensci/biomartr#installation) before running the following code.
 
 ```r
 # install.packages("biomartr")
@@ -205,7 +208,7 @@ the computation time of the `LTRpred` pipeline.
 # retrieve docker image from dockerhub
 docker pull drostlab/ltrpred_rstudio
 # run ltrpred container
-docker run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti ltrpred_rstudio
+docker run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti drostlab/ltrpred_rstudio
 ```
 
 Now go to your standard web browser and type in the following url:
@@ -220,8 +223,10 @@ Within `RStudio` you can now run the example:
 
 ```r
 LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
-
 ```
+
+
+Users can `exit` the container by pressing `Ctrl + c` multiple times. 
 
 Next, if users wish to mount their `ltrpred_data` folder to the RStudio server run,
 they can do so by typing:
@@ -248,6 +253,8 @@ list.files()
 ```
 
 You should be able to see the `ltrpred_data` folder.
+
+Users can `exit` the container by pressing `Ctrl + c` multiple times. 
 
 __Please read more details about how to transfer genome files and the Dfam database in the
 previous section `Download ltrpred container for use with R command line`__.
