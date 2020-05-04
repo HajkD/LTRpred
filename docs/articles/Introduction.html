@@ -152,7 +152,7 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># run ltrpred container</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="ex">docker</span> run --rm -ti ltrpred</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="ex">docker</span> run --rm -ti drostlab/ltrpred</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># start R prompt within ltrpred container</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="ex">~</span>:/<span class="ex">app</span># R</a></code></pre></div>
 <p>Within the ltrpred container R prompt run the <code>ltrpred</code> example:</p>
@@ -227,7 +227,7 @@ software_downloads</code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co"># run ltrpred container</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/home/rstudio/ltrpred_data -ti ltrpred_rstudio</a></code></pre></div>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/home/rstudio/ltrpred_data -ti drostlab/ltrpred_rstudio</a></code></pre></div>
 <p>Now go to your standard web browser and type in the following url:</p>
 <p><code>http://localhost:8787</code></p>
 <p>Username: <code>rstudio</code> Password: <code>ltrpred</code></p>

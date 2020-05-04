@@ -74,7 +74,7 @@ Please make sure to create a [Docker](https://www.docker.com/get-started) accoun
 # retrieve docker image from dockerhub
 docker pull drostlab/ltrpred
 # run ltrpred container
-docker run --rm -ti ltrpred
+docker run --rm -ti drostlab/ltrpred
 # start R prompt within ltrpred container
 ~:/app# R
 ```
@@ -231,7 +231,7 @@ they can do so by typing:
 # retrieve docker image from dockerhub
 docker pull drostlab/ltrpred_rstudio
 # run ltrpred container
-docker run -e PASSWORD=ltrpred --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/home/rstudio/ltrpred_data -ti ltrpred_rstudio
+docker run -e PASSWORD=ltrpred --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/home/rstudio/ltrpred_data -ti drostlab/ltrpred_rstudio
 ```
 
 Now go to your standard web browser and type in the following url:
