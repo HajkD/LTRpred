@@ -12,10 +12,12 @@ vignette: >
 - [1. Introduction](#introduction)
 - [2. Getting Started](#getting-started)
     - [2.1 Installation](#installation)
-    - [2.1 Quick Start](#quick-start)
-    - [2.2 LTRpred output](#ltrpred-output)
-    - [2.3 Import LTRpred output](#import-ltrpred-output)
-    - [2.4 Output file format of LTRpred()](#output-file-format-of-ltrpred)
+        - [2.1.1 LTRpred Docker Container](#ltrpred-docker-container)
+        - [2.1.2 Install tool dependencies on Linux](#install-tool-dependencies-on-linux)
+    - [2.2 Quick Start](#quick-start)
+    - [2.3 LTRpred output](#ltrpred-output)
+    - [2.4 Import LTRpred output](#import-ltrpred-output)
+    - [2.5 Output file format of LTRpred()](#output-file-format-of-ltrpred)
 - [3. Detailed LTRpred run](#detailed-ltrpred-run)
     - [3.1 HMM Models](#hmm-models)
     - [3.2 Detailed description of adjustable LTRpred parameters](#detailed-description-of-adjustable-ltrpred-parameters)
@@ -57,166 +59,256 @@ __Figure 1__ in mind will help researchers to modify structural parameters in a 
 
 ## Installation
 
+The fastest way to run `LTRpred` is to download the `ltrpred` Docker container which
+includes all pre-installed tool dependencies. For users who cannot use a Docker environment
+the individual installation instructions for each dependency tool are listed below (for MacOS and Linux).
+
 __Note: please be aware that LTRpred is designed for Linux and Unix based systems such as macOS. Hence, although LTRpred itself can be installed on Windows machines, most of the command line tools LTRpred depends on cannot be installed on Windows machines.__
 
-### Programming Languages
+
+### LTRpred Docker Container
+
+Please make sure to create a [Docker](https://www.docker.com/get-started) account and to [install Docker](https://docs.docker.com/engine/install/) on your system.
+
+#### Download `ltrpred` container for use with R command line
+
+
+```bash
+# retrieve docker image from dockerhub
+docker pull drostlab/ltrpred
+# run ltrpred container
+docker run --rm -ti ltrpred
+# start R prompt within ltrpred container
+~:/app# R
+```
+
+Within the ltrpred container R prompt run the `ltrpred` example:
+
+```r
+LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
+```
+
+To exit R in the container run:
+
+```r
+q()
+```
+
+And to exit the `ltrpred` container run:
+
+```bash
+~:/app# exit
+```
+
+Now, users can add their own genome data as well as the Dfam database for
+further annotation to the `ltrpred` container by following these steps (in a different Terminal window):
+
+```bash
+# go to the folder path in which you want to
+# store all genome and Dfam data you want to
+# mount in the ltrpred container and then run:
+# create a new folder which will store
+# all files that will be required in the
+# ltrpred container
+mkdir ltrpred_data
+cd ltrpred_data
+# create a dfam database folder
+mkdir Dfam
+cd Dfam
+```
+
+Now users can download and format the Dfam database as follows (within the `Dfam` folder created above):
+
+__For this step users need to install [HMMER](http://hmmer.org/download.html) on their machine.__ An example installation of HMMER for Linux machines is listed below.
+
+```bash
+wget https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz
+gunzip Dfam.hmm.gz
+# run hmmpress
+hmmpress Dfam.hmm
+cd ..
+```
+
+Next, make sure that you also store the genome assembly file (in `fasta` format) you
+want to _de novo_ annotate with `LTRpred` in the `ltrpred_data` folder you just created.
+
+A possible way to retrieve such a genome is (within R):
+
+```r
+biomartr::getGenome(db = "ensembl", 
+                    organism = "Saccharomyces cerevisiae", 
+                    path = "yeast_genome", 
+                    gunzip = TRUE)
+```
+
+The respective genome assembly file is now stored at `yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa` and needs to be copied
+into the `ltrpred_data` folder you just created.
+
+
+Now users can mount the `ltrpred_data` folder to the `ltrpred` Docker container:
+
+```bash
+docker run --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/app/ltrpred_data -ti ltrpred
+```
+
+Within the `ltrpred` Docker container the `ltrpred_data` folder is now stored in the
+working directory `/app`.
+
+When running the `ltrpred` Docker container you should be able to see the
+mounted `ltrpred_data` folder as following:
+
+```bash
+~:/app# ls
+```
+
+```
+latticeExtra_0.6-28.tar.gz
+ltrpred_data
+software_downloads
+```
+
+Next, users can again run the `R prompt` within the `ltrpred` Docker container to
+run `LTRpred` with the local data that was mounted:
+
+```bash
+~:/app# R
+```
+
+```r
+# run LTRpred on the yeast genome that was mounted
+# to the ltrpred container from your local 'ltrpred_data' folder
+LTRpred(genome.file = "ltrpred_data/yeas_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa", cores = 2)
+```
+
+As you can see, within the `ltrpred` container `R prompt` the current working directory is `/app`. 
+
+To also include the `Dfam` database for further annotation users can specify
+the path to the Dfam folder:
+
+
+```r
+# run LTRpred on the yeast genome that was mounted
+# to the ltrpred container from your local 'ltrpred_data' folder
+LTRpred(genome.file = "ltrpred_data/yeas_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa", 
+    annotate = "Dfam",
+		Dfam.db = "ltrpred_data/Dfam", 
+		cores = 2)
+```
+
+
+Please be aware that using the `Dfam` database for further annotation significantly increases
+the computation time of the `LTRpred` pipeline.
+
+
+#### Download `ltrpred_rstudio` container for use with RStudio Server
+
+
+```bash
+# retrieve docker image from dockerhub
+docker pull drostlab/ltrpred_rstudio
+# run ltrpred container
+docker run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti ltrpred_rstudio
+```
+
+Now go to your standard web browser and type in the following url:
+
+`http://localhost:8787`
+
+Username: `rstudio`
+Password: `ltrpred`
+
+
+Within `RStudio` you can now run the example:
+
+```r
+LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
+
+```
+
+Next, if users wish to mount their `ltrpred_data` folder to the RStudio server run,
+they can do so by typing:
+
+
+```bash
+# retrieve docker image from dockerhub
+docker pull drostlab/ltrpred_rstudio
+# run ltrpred container
+docker run -e PASSWORD=ltrpred --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/home/rstudio/ltrpred_data -ti ltrpred_rstudio
+```
+
+Now go to your standard web browser and type in the following url:
+
+`http://localhost:8787`
+
+Username: `rstudio`
+Password: `ltrpred`
+
+In RStudio type:
+
+```r
+list.files()
+```
+
+You should be able to see the `ltrpred_data` folder.
+
+__Please read more details about how to transfer genome files and the Dfam database in the
+previous section `Download ltrpred container for use with R command line`__.
+
+### Install Tool Dependencies on Linux
+
+#### Programming Languages
 
 Please make sure that the following programming languages are installed on your system:
 
-- Perl
-- Ruby
-- Python
-- C/C++
-- R
+- [Perl](https://www.perl.org/get.html)
+- [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
+- [Python](https://www.python.org/downloads/)
+- [C/C++](https://www.cplusplus.com/)
+- [R](http://lib.stat.cmu.edu/R/CRAN/)
 
-### Dependency R packages
+#### Install Programming languages and Linux Tools
 
-Please make sure that [Bioconductor](https://www.bioconductor.org/install/) and all package dependencies are installed on the
-system on which you would like to run `LTRpred`.
-
-Install prerequisite CRAN and Bioconductor packages:
-
-```r
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install()
-
-BiocManager::install(c("rtracklayer", "GenomicFeatures", "GenomicRanges", "GenomeInfoDb", "biomaRt", "Biostrings", "ggbio"))
-
-install.packages(c("tidyverse", "data.table", "seqinr", "biomartr", "ape", "dtplyr", "devtools"))
-
-devtools::install_github("HajkD/metablastr", build_vignettes = TRUE, dependencies = TRUE)
-
-install.packages(c("BSDA", "ggrepel", "gridExtra")) 
+```bash
+apt-get update \
+&& apt-get -y install apt-utils \
+&& apt-get -y install  gcc \
+&& apt-get -y install python3 \
+&& apt-get -y install perl \
+&& apt-get -y install make \
+&& apt-get -y install sudo \
+&& apt-get -y install wget \
+&& apt-get -y install genometools \
+&& apt-get -y install git \
+&& apt-get -y install autoconf \
+&& apt-get -y install g++ \
+&& apt-get -y install ncbi-blast+ \
+&& apt-get -y install build-essential \
+&& apt-get -y install libcurl4-gnutls-dev \
+&& apt-get -y install libxml2-dev \
+&& apt-get -y install libssl-dev \
+&& apt-get -y install libpq-dev \
+&& apt-get -y install software-properties-common
 ```
 
-Now users may install `LTRpred` as follows:
-
-```r
-# install.packages("devtools")
-devtools::install_github("HajkD/LTRpred")
-```
-
-
-
-## Install prerequisite command line tools
-
-__For the `LTRpred::LTRpred()` function to run properly, please make sure that the following command line tools are installed on your system__:
-
-__We show examplified for macOS Sierra 10.12.6 how to install the individual tools. Please consult the installation documentation of the individual tools when you wish to install the command line tools for a different operating system than macOS Sierra. Please also make sure that you have sudo rights on the system you wish to install the following tools.__ 
-
-
-## Install [HMMER](http://hmmer.org/download.html)
+#### Install [HMMER](http://hmmer.org/download.html)
 
 A detailed description of how to install `HMMER` for several operating systems 
 can be found [here](http://hmmer.org/download.html).
 
-### For `Linux` systems:
-
 ```bash
-wget ftp://selab.janelia.org/pub/software/hmmer3/3.1b2/hmmer-3.1b2.tar.gz
-tar xf hmmer-3.1b2.tar.gz
-cd hmmer-3.1b2
- ./configure
- make
- make check
- sudo make install
+mkdir software_downloads \
+  && cd software_downloads \
+  && wget http://eddylab.org/software/hmmer/hmmer-3.3.tar.gz \
+  && tar xf hmmer-3.3.tar.gz \
+  && cd hmmer-3.3 \
+  && ./configure \
+  && make \
+  && make check \
+  && sudo make install \
+  && cd ..
 ```
 
-### For `macOS` systems:
-
-First install [Homebrew](http://brew.sh/) by running the command:
-
-```bash
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-Then users can install the following dependencies:
-
-```bash
-brew install wget
-```
-
-In case you have troubles installing `Homebrew` or some dependencies,
-please consult the [Common issues](https://docs.brew.sh/Common-Issues.html)
-section of the `Homebrew` documentation.
-
-```bash
-# download HMMER binary
-wget http://eddylab.org/software/hmmer3/3.1b2/hmmer-3.1b2-macosx-intel.tar.gz
-tar xf hmmer-3.1b2-macosx-intel.tar.gz
-cd hmmer-3.1b2-macosx-intel
- ./configure
- make
- make check
- sudo make install
-```
-
-## Install [GenomeTools](https://github.com/genometools/genometools)
-
-A detailed description of how to install `GenomeTools` for several operating systems 
-can be found [here](https://github.com/genometools/genometools/blob/master/INSTALL).
-
-__For now `LTRpred` is designed for `genome tools version 1.5.7` and might not
-run seamlessly with more recent versions. The adaptation of `LTRpred` to more recent
-`genome tools versions` is ongoing but will require a few more weeks.__
-
-You can find out which `genome tools version` you installed by typing `gt -version`
-in your terminal (after installation).
-
-Examplified for Linux or macOS users can run the following procedures:
-
-### For `Linux` systems
-
-```bash
-wget http://genometools.org/pub/genometools-1.5.9.tar.gz
-tar -xf genometools-1.5.9.tar.gz
-cd genometools-1.5.9
-make with-hmmer=yes cairo=no 
-make cairo=no test
-sudo make cairo=no install
-```
-
-### For `macOS` systems
-
-First install [Homebrew](http://brew.sh/) by running the command:
-
-```bash
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-Then users can install the following dependencies:
-
-```bash
-# install dependencies
-brew tap caskroom/cask
-brew cask install xquartz
-brew install cairo
-brew install pango
-brew install wget
-```
-
-In case you have troubles installing `Homebrew` or some dependencies,
-please consult the [Common issues](https://docs.brew.sh/Common-Issues.html)
-section of the `Homebrew` documentation.
-
-```bash
-# install genometools
-# download from http://genometools.org/pub/genometools-1.5.9.tar.gz
-wget http://genometools.org/pub/genometools-1.5.9.tar.gz
-tar -xf genometools-1.5.9.tar.gz
-cd genometools-1.5.9
-make with-hmmer=yes cairo=no 
-make cairo=no test
-sudo make cairo=no install
-```
-
-In case you have problems or issues installing `GenomeTools` please
-consult the [installation](https://github.com/genometools/genometools/blob/master/INSTALL)
-documentation.
-
-
-## Install [USEARCH](http://drive5.com/usearch/download.html)
+#### Install [USEARCH](http://drive5.com/usearch/download.html)
 
 A detailed description of how to install `USEARCH` for several operating systems 
 can be found [here](http://drive5.com/usearch/manual/install.html).
@@ -227,163 +319,52 @@ from http://drive5.com/usearch/download.html .
 After downloading USEARCH you will need to install it as a command line tool in your `/usr/local/` directory and you should be able to execute the following command in your Terminal:
 
 ```sh
+cd software_downloads \
+  && wget https://www.drive5.com/downloads/usearch11.0.667_i86linux32.gz \
+  && gunzip usearch11.0.667_i86linux32.gz \
+  && chmod +x usearch11.0.667_i86linux32 \
+  && sudo mv usearch11.0.667_i86linux32 usearch \
+  && sudo cp usearch /usr/local/bin/usearch \
+  && cd ..
 usearch -version
 ```
 
 ```
-usearch v8.1.1861_i86osx32
+usearch v11.0.667_i86linux32
 ```
 
-Otherwise, `usearch` is not properly installed on your system and `LTRpred()` will not be able to run seamlessly.
-
-### Example for macOS:
-
-```bash
-# register and download operating system specific usearch from
-# http://drive5.com/usearch/download.html
-# After download run:
-chmod +x usearch10.0.240_i86osx32
-sudo cp usearch10.0.240_i86osx32 /usr/local/bin/
-sudo mv /usr/local/bin/usearch10.0.240_i86osx32 /usr/local/bin/usearch
-```
-
-In case you have problems or issues installing `USEARCH` please
-consult the [USEARCH documentation](http://drive5.com/usearch/)
-documentation.
-
-## Install [VSEARCH](https://github.com/torognes/vsearch)
+#### Install [VSEARCH](https://github.com/torognes/vsearch)
 
 A detailed description of how to install `VSEARCH` for several operating systems 
 can be found [here](https://github.com/torognes/vsearch).
 
 Please [install git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) before running the following commands.
 
-
-### Example for Linux systems:
-
 ```bash
-sudo apt-get install git autotools-dev
-```
-
-```bash
-sudo git clone https://github.com/torognes/vsearch.git
-cd vsearch
-sudo ./autogen.sh
-sudo ./configure
-sudo make
-sudo make install
-```
-
-### Example for macOS systems:
-
-First install [Homebrew](http://brew.sh/) by running the command:
-
-```bash
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-```bash
-brew install autoconf
-brew install automake
-```
-
-```bash
-sudo git clone https://github.com/torognes/vsearch.git
-cd vsearch
-sudo ./autogen.sh
-sudo ./configure
-sudo make
-sudo make install
-```
-
-In case you have problems or issues installing `VSEARCH` please
-consult the [VSEARCH documentation](https://github.com/Pas-Kapli/tutorials/wiki/vsearch)
-documentation.
-
-
-## [BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279671/)
-
-A detailed description of how to install `BLAST` for several operating systems 
-can be found [here](https://www.ncbi.nlm.nih.gov/books/NBK279671/).
-
-
-### Linux Example
-
-```bash
-# download BLAST+ version 2.7.1
-wget 
-ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.7.1/ncbi-blast-2.7.1+-x64-linux.tar.gz
-
-# extract the compiled version of BLAST
-tar zxvpf ncbi-blast-2.7.1+-x64-linux.tar.gz
-
-# copy BLAST files to `usr/local/bin`
-cp ncbi-blast-2.7.1+/bin/* usr/local/bin
-```
-
-Alternatively users can set the system call to the BLAST programs by specifying the PATH variable (this is useful, because it allows an easier update of BLAST versions instead of deleting all BLAST programs from usr/local/bin):
-
-```bash
-# open vim text editor
-vi .bash_profile
-
-# type 'Shift' then I to edit the file .bash_profile
-# and specify the export PATH
-export PATH=${PATH}:/path/to/downloaded/blast/folder/ncbi-blast-2.7.1+/bin
-
-# type 'ESC' then ':' then 'w' then 'q' to save and quit the .bash_profile file 
-# log out from your server with
-exit
-
-# log in again and type
-blastp -version
-```
-
-Now users should see the BLAST command line options.
-
-
-### macOS Example
-
-Download the file `ncbi-blast-2.7.1+.dmg` from ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.7.1/
-and run the excecutable.
-
-
-
-### Install [Perl](https://www.perl.org/)
-
-Please follow the instructions at https://learn.perl.org/installing/.
-
-After installation, you should be able to execute the following command on the terminal:
-
-```bash
-perl -v
-```
-
-```
-This is perl 5, version 18, subversion 2 (v5.18.2) built for darwin-thread-multi-2level
-(with 2 registered patches, see perl -V for more detail)
-
-Copyright 1987-2013, Larry Wall
-
-Perl may be copied only under the terms of either the Artistic License or the
-GNU General Public License, which may be found in the Perl 5 source kit.
-
-Complete documentation for Perl, including FAQ lists, should be found on
-this system using "man perl" or "perldoc perl".  If you have access to the
-Internet, point your browser at http://www.perl.org/, the Perl Home Page.
+cd software_downloads \
+  && wget https://github.com/torognes/vsearch/archive/v2.14.2.tar.gz \
+  && tar xzf v2.14.2.tar.gz \
+  && cd vsearch-2.14.2 \
+  && sudo ./autogen.sh \
+  && sudo ./configure \
+  && sudo make \
+  && sudo make install \
+  && cd ..
 ```
 
 ### Install [dfamscan.pl](http://www.dfam.org/web_download/Current_Release/dfamscan.pl)
 
 [dfamscan.pl](https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz) needs to be unzipped and stored at `/usr/local/bin/dfamscan.pl` and executabe via `perl /usr/local/bin/dfamscan.pl -help`. This is important to be able to run the hmmer search against the Dfam database.
 
-```sh
-wget https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz
-gunzip dfamscan.pl.gz
-sudo cp dfamscan.pl /usr/local/bin/dfamscan.pl
-# test whether it worked
-perl /usr/local/bin/dfamscan.pl -help
+
+```bash
+cd software_downloads \
+  && wget https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz \
+  && gunzip dfamscan.pl.gz \
+  && sudo cp dfamscan.pl /usr/local/bin/dfamscan.pl \
+  && cd ..
 ```
+
 
 Users can download the [Dfam database v3.1](https://www.dfam.org/releases/Dfam_3.1/families/) by running:
 
@@ -394,9 +375,41 @@ gunzip Dfam.hmm.gz
 hmmpress Dfam.hmm
 ```
 
+The path to the folder where the formatted `Dfam` database can be found can then be passed
+as argument `Dfam.db` to the `LTRpred::LTRpred()` function.
+
+### Install R packages
+
+Please make sure that [Bioconductor](https://www.bioconductor.org/install/) and all package dependencies are installed on the system on which you would like to run `LTRpred`.
+
+Install prerequisite CRAN and Bioconductor packages:
+
+```r
+install.packages('devtools')
+install.packages('tidyverse')
+install.packages('BiocManager')
+BiocManager::install()
+BiocManager::install(c('rtracklayer', 'GenomicFeatures', 'GenomicRanges', 'GenomeInfoDb', 'biomaRt', 'Biostrings'))
+install.packages(c('tidyverse', 'data.table', 'seqinr', 'biomartr', 'ape', 'dtplyr', 'devtools'))
+devtools::install_github('HajkD/metablastr', build_vignettes = TRUE, dependencies = TRUE)
+install.packages(c('BSDA', 'ggrepel', 'gridExtra'))
+https://cran.r-project.org/src/contrib/Archive/latticeExtra/latticeExtra_0.6-28.tar.gz
+install.packages('latticeExtra_0.6-28.tar.gz', type = 'source')
+install.packages('survival')
+BiocManager::install('ggbio')
+```
+
+Now users may install `LTRpred` as follows:
+
+```r
+# install.packages("devtools")
+devtools::install_github("HajkD/LTRpred")
+```
+
+
 ## Quick Start
 
-The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after [installing](Install.Rmd) all prerequisite command line tools) is to use the
+The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after [installing](https://hajkd.github.io/LTRpred/articles/Introduction.html#installation) all prerequisite command line tools) is to use the
 `LTRpred()` function and relying on the default parameters. In the following example,
 a LTR transposon prediction is performed for parts of the Human Y chromosome.
 
