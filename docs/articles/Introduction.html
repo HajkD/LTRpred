@@ -81,7 +81,7 @@
     <div class="page-header toc-ignore">
       <h1>Introduction to LTRpred</h1>
             
-            <h4 class="date">2020-05-04</h4>
+            <h4 class="date">2020-05-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
@@ -131,11 +131,11 @@
 <div id="getting-started" class="section level1">
 <h1 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting Started</h1>
-<p>The rational for implementing <code>LTRpred</code> was to implement an R based pipeline combining the most sensitive, accurate, and conservative state-of-the art LTR retrotransposon detection tools and extend their inference by additional analyses and quality filtering steps to screen for functional and structurally intact elements. Hence, <em>LTRpred</em> aims to provide a high-level <em>de novo</em> prediction infrastructure to generate high quality annotations of intact LTR retrotransposons. All <code>LTRpred</code> functions are generic so that parameters can be changed to detect any form of LTR retrotransposon in any genome.</p>
+<p>The rationale for implementing <code>LTRpred</code> was to implement an R based pipeline combining the most sensitive, accurate, and conservative state-of-the art LTR retrotransposon detection tools and extend their inference by additional analyses and quality filtering steps to screen for functional and structurally intact elements. Hence, <em>LTRpred</em> aims to provide a high-level <em>de novo</em> prediction infrastructure to generate high quality annotations of intact LTR retrotransposons. All <code>LTRpred</code> functions are generic so that parameters can be changed to detect any form of LTR retrotransposon in any genome.</p>
 <p>Internally, <em>LTRpred</em> is based on the <code>de novo</code> annotation tools <code>LTRharvest</code> and <code>LTRdigest</code> which use prior knowledge about DNA sequence features (also referred to as <code>Structure-based methods</code>) such as the homology of Long Terminal Repeats (LTRs), Primer Binding Sites (PBS), <em>gag</em> and <em>pol</em> protein domains, and Target Site Duplications (TSDs) that are known to enable the process of transposition (<a href="http://bib.oxfordjournals.org/content/8/6/382.long">Bergman and Quesneville, 2007</a>) to infer LTR retrotransposons in any genome.</p>
 <p>Hence, these <code>de novo</code> annotation tools are designed to screen the genome systematically and efficiently for these structural DNA features. <strong>Figure 1</strong> shows the structural features of LTR retrotransposons that are used for predicting putative LTR transposons <code>de novo</code> in any genome of interest.</p>
 <div class="figure">
-<img src="../../../../R%20Packages/Packages/LTRpred/vignettes/LTRfeatures.png" alt="Sequence features of LTR retrotransposons. The structural element (LTR length, LTR similarity, TSD, max. size of full LTR rertrotransposon, PBS length, tRNA binding, protein domain search, etc.) can be modified and controlled separately by corresponding arguments implemented in the LTRpred() function. In addition to controlling the structural features of candidate LTR retrotransposons, a open reading frame prediction, Dfam annotation, copy number clustering, and LTR copy number estimation, and methylation context quantification is performed subsequently after reporting putative LTR retrotransposons."><p class="caption">Sequence features of LTR retrotransposons. The structural element (LTR length, LTR similarity, TSD, max. size of full LTR rertrotransposon, PBS length, tRNA binding, protein domain search, etc.) can be modified and controlled separately by corresponding arguments implemented in the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function. In addition to controlling the structural features of candidate LTR retrotransposons, a open reading frame prediction, Dfam annotation, copy number clustering, and LTR copy number estimation, and methylation context quantification is performed subsequently after reporting putative LTR retrotransposons.</p>
+<img src="../../../../R%20Packages/Packages/LTRpred/vignettes/LTRfeatures.png" alt="Sequence features of LTR retrotransposons. The structural element (LTR length, LTR similarity, TSD, max. size of full LTR retrotransposon, PBS length, tRNA binding, protein domain search, etc.) can be modified and controlled separately by corresponding arguments implemented in the LTRpred() function. In addition to controlling the structural features of candidate LTR retrotransposons, a open reading frame prediction, Dfam annotation, copy number clustering, and LTR copy number estimation, and methylation context quantification is performed subsequently after reporting putative LTR retrotransposons."><p class="caption">Sequence features of LTR retrotransposons. The structural element (LTR length, LTR similarity, TSD, max. size of full LTR retrotransposon, PBS length, tRNA binding, protein domain search, etc.) can be modified and controlled separately by corresponding arguments implemented in the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function. In addition to controlling the structural features of candidate LTR retrotransposons, a open reading frame prediction, Dfam annotation, copy number clustering, and LTR copy number estimation, and methylation context quantification is performed subsequently after reporting putative LTR retrotransposons.</p>
 </div>
 <p>Based on the optimized output of these tools, the <code>LTRpred</code> package aims to provide researchers with maximum flexibility of adjustable parameters to detect any type of functional LTR retrotransposon. <code>LTRpred</code> package allows users to modify a vast range of parameters to screen for potential LTR transposons, so having this template shown in <strong>Figure 1</strong> in mind will help researchers to modify structural parameters in a biologically meaningful manner.</p>
 <div id="installation" class="section level2">
@@ -145,10 +145,11 @@
 <div id="ltrpred-docker-container" class="section level3">
 <h3 class="hasAnchor">
 <a href="#ltrpred-docker-container" class="anchor"></a>LTRpred Docker Container</h3>
+<p>Please be aware that the <code>drostlab/ltrpred</code> container (command line version) is suitable for <code>Linux</code>, <code>macOS</code>, and <code>Windows</code> users. Whereas the <code>RStudio</code> container version <code>drostlab/ltrpred_rstudio</code> is not suitable for <code>Windows</code> users, because a port bridge cannot be established.</p>
 <p>Please make sure to create a <a href="https://www.docker.com/get-started">Docker</a> account and to <a href="https://docs.docker.com/engine/install/">install Docker</a> on your system.</p>
-<div id="download-ltrpred-container-for-use-with-r-command-line" class="section level4">
+<div id="download-drostlabltrpred-container-for-use-with-r-command-line" class="section level4">
 <h4 class="hasAnchor">
-<a href="#download-ltrpred-container-for-use-with-r-command-line" class="anchor"></a>Download <code>ltrpred</code> container for use with R command line</h4>
+<a href="#download-drostlabltrpred-container-for-use-with-r-command-line" class="anchor"></a>Download <code>drostlab/ltrpred</code> container for use with R command line</h4>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># run ltrpred container</span></a>
@@ -173,23 +174,23 @@
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co"># create a dfam database folder</span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="fu">mkdir</span> Dfam</a>
 <a class="sourceLine" id="cb5-11" data-line-number="11"><span class="bu">cd</span> Dfam</a></code></pre></div>
-<p>Now users can download and format the Dfam database as follows (within the <code>Dfam</code> folder created above):</p>
-<p><strong>For this step users need to install <a href="http://hmmer.org/download.html">HMMER</a> on their machine.</strong> An example installation of HMMER for Linux machines is listed below.</p>
-<p>For <code>macOS</code> users please install <code>wget</code> on your <code>masOS</code> machine using <a href="http://brew.sh/">Homebrew</a>.</p>
+<p>Now users can download and format the Dfam database as follows (within the <code>Dfam</code> folder created above). Unfortunately, the <code>Dfam</code> database size is too large to make it part of the <code>drostlab/ltrpred</code> container. In addition, the database is frequently curated and updated. Thus, it is recommended that users download and format the <code>Dfam</code> database to their local hard drive and mount it to the running <code>drostlab/ltrpred</code> container.</p>
+<p><strong>To format the Dfam database locally, users need to install <a href="http://hmmer.org/download.html">HMMER</a> on their local machine (to use <code>hmmpress</code>). However, within the <code>drostlab/ltrpred</code> and <code>drostlab/ltrpred_rstudio</code> containers HMMER is already preinstalled and does not need to be installed by the user.</strong> An example installation of HMMER for Linux machines is listed below.</p>
+<p>For <code>macOS</code> users, please install <code>wget</code> on your <code>masOS</code> machine using <a href="http://brew.sh/">Homebrew</a>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="fu">gunzip</span> Dfam.hmm.gz</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># run hmmpress</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># format database by running hmmpress</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="ex">hmmpress</span> Dfam.hmm</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="bu">cd</span> ..</a></code></pre></div>
-<p>Next, make sure that you also store the genome assembly file (in <code>fasta</code> format) you want to <em>de novo</em> annotate with <code>LTRpred</code> in the <code>ltrpred_data</code> folder you just created.</p>
-<p>A possible way to retrieve such a genome is (within R) using <a href="https://github.com/ropensci/biomartr">biomartr</a>. If you use <code>biomartr</code> please make sure that you <a href="https://github.com/ropensci/biomartr#installation">install all <code>biomartr</code> package dependencies</a> before running the following code.</p>
+<p>Next, make sure to also store the genome assembly file (in <code>fasta</code> format) you want to <em>de novo</em> annotate with <code>LTRpred</code> in the <code>ltrpred_data</code> folder you just created.</p>
+<p>A possible way to retrieve such a genome is (within R) using <a href="https://github.com/ropensci/biomartr">biomartr</a>. If you use <code>biomartr</code> please make sure to <a href="https://github.com/ropensci/biomartr#installation">install all <code>biomartr</code> package dependencies</a> before running the following code.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># install.packages("biomartr")</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"ensembl"</span>, </a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">                    <span class="dt">organism =</span> <span class="st">"Saccharomyces cerevisiae"</span>, </a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">                    <span class="dt">path =</span> <span class="st">"yeast_genome"</span>, </a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">                    <span class="dt">gunzip =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>The respective genome assembly file is now stored at <code>yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa</code> and needs to be copied into the <code>ltrpred_data</code> folder you just created.</p>
-<p>Now users can mount the <code>ltrpred_data</code> folder to the <code>ltrpred</code> Docker container:</p>
+<p>Now users can mount the <code>ltrpred_data</code> folder to the <code>ltrpred</code> Docker container (using the <code>-v</code> option). This <code>-v</code> mounting option is also available for the <code>RStudio</code> container version and can also be run within the <code>RStudio</code> Terminal.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ex">docker</span> run --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/app/ltrpred_data -ti ltrpred</a></code></pre></div>
 <p>Within the <code>ltrpred</code> Docker container the <code>ltrpred_data</code> folder is now stored in the working directory <code>/app</code>.</p>
 <p>When running the <code>ltrpred</code> Docker container you should be able to see the mounted <code>ltrpred_data</code> folder as following:</p>
@@ -201,31 +202,31 @@ software_downloads</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="ex">~</span>:/<span class="ex">app</span># R</a></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># run LTRpred on the yeast genome that was mounted</span></a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co"># to the ltrpred container from your local 'ltrpred_data' folder</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(<span class="dt">genome.file =</span> <span class="st">"ltrpred_data/yeas_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa"</span>, <span class="dt">cores =</span> <span class="dv">2</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(<span class="dt">genome.file =</span> <span class="st">"ltrpred_data/yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa"</span>, <span class="dt">cores =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p>As you can see, within the <code>ltrpred</code> container <code>R prompt</code> the current working directory is <code>/app</code>.</p>
 <p>To also include the <code>Dfam</code> database for further annotation users can specify the path to the Dfam folder:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># run LTRpred on the yeast genome that was mounted</span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co"># to the ltrpred container from your local 'ltrpred_data' folder</span></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(<span class="dt">genome.file =</span> <span class="st">"ltrpred_data/yeas_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa"</span>, </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(<span class="dt">genome.file =</span> <span class="st">"ltrpred_data/yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa"</span>, </a>
 <a class="sourceLine" id="cb13-4" data-line-number="4">    <span class="dt">annotate =</span> <span class="st">"Dfam"</span>,</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">        <span class="dt">Dfam.db =</span> <span class="st">"ltrpred_data/Dfam"</span>, </a>
 <a class="sourceLine" id="cb13-6" data-line-number="6">        <span class="dt">cores =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p>Please be aware that using the <code>Dfam</code> database for further annotation significantly increases the computation time of the <code>LTRpred</code> pipeline.</p>
 </div>
-<div id="download-ltrpred_rstudio-container-for-use-with-rstudio-server" class="section level4">
+<div id="download-drostlabltrpred_rstudio-container-for-use-with-rstudio-server" class="section level4">
 <h4 class="hasAnchor">
-<a href="#download-ltrpred_rstudio-container-for-use-with-rstudio-server" class="anchor"></a>Download <code>ltrpred_rstudio</code> container for use with RStudio Server</h4>
+<a href="#download-drostlabltrpred_rstudio-container-for-use-with-rstudio-server" class="anchor"></a>Download <code>drostlab/ltrpred_rstudio</code> container for use with RStudio Server</h4>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co"># run ltrpred container</span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti drostlab/ltrpred_rstudio</a></code></pre></div>
-<p>Now go to your standard web browser and type in the following url:</p>
+<p>To open <code>RStudio</code> and interact with the container go to your standard web browser and type in the following url:</p>
 <p><code>http://localhost:8787</code></p>
 <p>Username: <code>rstudio</code> Password: <code>ltrpred</code></p>
 <p>Within <code>RStudio</code> you can now run the example:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/LTRpred.html">LTRpred</a></span>(<span class="dt">genome.file =</span> <span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>))</a></code></pre></div>
 <p>Users can <code>exit</code> the container by pressing <code>Ctrl + c</code> multiple times.</p>
-<p>Next, if users wish to mount their <code>ltrpred_data</code> folder to the RStudio server run, they can do so by typing:</p>
+<p>Next, users can mount their <code>ltrpred_data</code> folder to the RStudio server run the same way they mounted folders in the command line container version (using <code>-v</code>). This folder mounting can also be run within the <code>RStudio</code> Terminal of the <code>drostlab/ltrpred_rstudio</code> container.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co"># run ltrpred container</span></a>
