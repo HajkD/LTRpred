@@ -245,7 +245,7 @@ sufficient LTR retrotransposon predictions for any genome of interest.</p>
 by <code>suffixerator</code> for the use of <code>LTRharvest</code>. This often can be used in case the suffix file was previously 
 generated, e.g. during a previous call of this function. In this case the suffix array index
 file does not need to be re-computed for new analyses. This is particularly useful when 
-running <code>LTRpred</code> with different parameter settings.</p></td>
+running <code>LTRpred</code> with different parameter settings. A possible index file name could be <code>BASENAME_index.fsa</code>.</p></td>
     </tr>
     <tr>
       <th>index.file.digest</th>
@@ -253,7 +253,7 @@ running <code>LTRpred</code> with different parameter settings.</p></td>
 by <code>suffixerator</code> for the use of <code>LTRdigest</code>. This often can be used in case the suffix file was previously 
 generated, e.g. during a previous call of this function. In this case the suffix array index
 file does not need to be re-computed for new analyses. This is particularly useful when 
-running <code>LTRpred</code> with different parameter settings.</p></td>
+running <code>LTRpred</code> with different parameter settings. A possible index file name could be <code>BASENAME_index_ltrdigest.fsa</code>.</p></td>
     </tr>
     <tr>
       <th>LTRdigest.gff</th>
@@ -309,7 +309,7 @@ with <code>annotate = "Dfam"</code>.</p></td>
     </tr>
     <tr>
       <th>copy.number.est</th>
-      <td><p>shall copy number estimation (including solo LTR prediction) be performed? Default is <code>copy.number.est = TRUE</code>.</p></td>
+      <td><p>shall copy number estimation (including solo LTR prediction) be performed? Default is <code>copy.number.est = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>fix.chr.name</th>
@@ -574,7 +574,7 @@ See <code>Description</code> for details.</p></td>
 <li><p>*_BetweenLTRSeqs.fsa : DNA sequences predicted LTR retrotransposons, in particular of the region between the LTRs in fasta format.</p></li>
 <li><p>*_Details.tsv : A spread sheet containing detailed information about the predicted LTRs.</p></li>
 <li><p>*_FullLTRRetrotransposonSeqs.fsa : DNA sequences of the entire predicted LTR retrotransposon.</p></li>
-<li><p>*_index.fsa : The suffixarray index file used to predict putative LTR retrotransposons.</p></li>
+<li><p>*_index.fsa.* : The suffixarray index file used to predict putative LTR retrotransposons.</p></li>
 <li><p>*_Prediction.gff : A spread sheet containing detailed additional information about the predicted LTRs (partially redundant with the *_Details.tsv file).</p></li>
 <li><p>*_index_ltrdigest.fsa : The suffixarray index file used to predict putative LTR retrotransposonswith <code>LTRdigest</code>.</p></li>
 <li><p>*_LTRdigestPrediction.gff : A spread sheet containing detailed information about the predicted LTRs.</p></li>
@@ -597,7 +597,7 @@ the HMM matches to the LTR retrotransposon candidates.</p></li>
 <li><p>*_ORF_prediction_aa.fsa : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.</p></li>
 <li><p>*_LTRpred.gff : Stores the <code>LTRpred</code> predicted LTR transposons in GFF format.</p></li>
 <li><p>*_LTRpred.bed : Stores the <code>LTRpred</code> predicted LTR transposons in BED format.</p></li>
-<li><p>*_LTRpred_DataSheet.csv : Stores the output table as data sheet.</p></li>
+<li><p>*_LTRpred_DataSheet.tsv : Stores the output table as data sheet.</p></li>
 </ul><p>The ' * ' is an place holder for the name of the input genome file.</p>
 <p><strong>If annotate = "Dfam"</strong>
 In case the Dfam annotation option is specified the following
