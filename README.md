@@ -73,6 +73,8 @@ library(LTRpred)
 browseVignettes("LTRpred")
 ```
 
+You can also find a list of all available `LTRpred` functions here: https://hajkd.github.io/LTRpred/reference/index.html
+
 ### Studies that successfully used `LTRpred` to annotate functional retrotransposons
 
 > - Z Wang & D Baulcombe. [__Transposon age and non-CG methylation__](https://www.nature.com/articles/s41467-020-14995-6). __Nature Communications__, (2020) __in press__.
