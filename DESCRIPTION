@@ -2,7 +2,7 @@ Package: LTRpred
 Type: Package
 Title: De novo functional annotation of retrotransposons 
 Version: 1.1.0
-Date: 2020-01-23
+Date: 2020-04-26
 Authors@R: as.person(c(
     "Hajk-Georg Drost <hajk-georg.drost@tuebingen.mpg.de> [aut, cre]"
     ))
