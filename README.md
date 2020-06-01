@@ -22,7 +22,7 @@ __Users can consult a comprehensive [Introduction](https://hajkd.github.io/LTRpr
 
 ## Install
 
-The fastest way to install `LTRpred` is via a [Docker container](https://hub.docker.com/repository/docker/drostlab/ltrpred).
+The fastest way to install `LTRpred` is via a [Docker container](https://hub.docker.com/r/drostlab/ltrpred).
 Please make sure to read the [detailed installation instructions](https://hajkd.github.io/LTRpred/articles/Introduction.html#installation) to be able to
 pass data to the container.
 
