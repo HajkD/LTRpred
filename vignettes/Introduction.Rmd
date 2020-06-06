@@ -151,7 +151,7 @@ into the `ltrpred_data` folder you just created.
 Now users can mount the `ltrpred_data` folder to the `ltrpred` Docker container (using the `-v` option). This `-v` mounting option is also available for the `RStudio` container version and can also be run within the `RStudio` Terminal. 
 
 ```bash
-docker run --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/app/ltrpred_data -ti ltrpred
+docker run --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/app/ltrpred_data -ti drostlab/ltrpred
 ```
 
 Within the `ltrpred` Docker container the `ltrpred_data` folder is now stored in the
