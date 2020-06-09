@@ -32,7 +32,7 @@ Nowadays, the _de novo_ detection of transposable elements is performed by annot
 
 Here, we introduce the ``LTRpred`` pipeline which allows to _de novo_ annotate functional and thus potentially mobile retrotransposons in any given genome assembly. Different from other annotation tools, ``LTRpred`` focuses on retrieving structurally intact elements within sequences of genomes rather than characterizing all traces of historic TE activity. 
 
-Such functional annotation is most useful when trying to spot retrotransposons responsible for recent reshuffling of genetic material in the tree of life. Detecting and further characterisation of those active retrotransposons yields the potential to harness them as mutagenesis agents by inducing transposition bursts in a controlled fashion to stimulate genomic reshaping processes towards novel traits. 
+Such functional annotation is most useful when trying to spot retrotransposons responsible for recent reshuffling of genetic material in the tree of life. Detecting and further characterization of those active retrotransposons yields the potential to harness them as mutagenesis agents by inducing transposition bursts in a controlled fashion to stimulate genomic reshaping processes towards novel traits. 
 
 # ``LTRpred`` emerged as valuable tool for diverse TE mobilization studies
 
