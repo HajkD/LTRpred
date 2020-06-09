@@ -202,6 +202,30 @@ LTRpred(genome.file = "ltrpred_data/yeast_genome/Saccharomyces_cerevisiae.R64-1-
 Please be aware that using the `Dfam` database for further annotation significantly increases
 the computation time of the `LTRpred` pipeline.
 
+#### Retrieve LTRpred output files from Docker container
+
+Next, users can retrieve the `LTRpred` generated results from the docker container by opening a second `Terminal` window (while the `drostlab/ltrpred` container remains running) and perform the following steps:
+
+1) Close `R` in the running docker container using `q()`.
+2) This should bring you back to the docker bash `root@ac389gfja8089:/app#`.
+3) Copy the docker ID, in this case `ac389gfja8089` (this docker ID is just an example, please use the docker ID shown on your system).
+4) Type in the newly opened `Terminal` window:
+
+```bash
+# copy Hsapiens_ChrY_ltrpred output from docker container to hard drive
+docker cp ac389gfja8089:/app/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred
+```
+
+This example assumes that you ran the example `LTRpred` run `LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))` which created the output folder `Hsapiens_ChrY_ltrpred` in the docker folder `/app/`. 
+
+Please note, that if you specify different file paths when creating files within the docker container,
+these must be adjusted when running:
+
+```bash
+# copy files from docker container to hard drive
+docker cp ac389gfja8089:/app/your/inside/docker/path/here/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred
+```
+
 
 #### Download `drostlab/ltrpred_rstudio` container for use with RStudio Server
 
@@ -258,6 +282,30 @@ list.files()
 You should be able to see the `ltrpred_data` folder.
 
 Users can `exit` the container by pressing `Ctrl + c` multiple times. 
+
+#### Retrieve LTRpred output files from Docker container
+
+Next, users can retrieve the `LTRpred` generated results from the docker container by opening a second `Terminal` window (while the `drostlab/ltrpred` container remains running) and perform the following steps:
+
+1) Close `R` in the running docker container using `q()`.
+2) This should bring you back to the docker bash `root@ac389gfja8089:/app#`.
+3) Copy the docker ID, in this case `ac389gfja8089` (this docker ID is just an example, please use the docker ID shown on your system).
+4) Type in the newly opened `Terminal` window:
+
+```bash
+# copy Hsapiens_ChrY_ltrpred output from docker container to hard drive
+docker cp ac389gfja8089:/app/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred
+```
+
+This example assumes that you ran the example `LTRpred` run `LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))` which created the output folder `Hsapiens_ChrY_ltrpred` in the docker folder `/app/`. 
+
+Please note, that if you specify different file paths when creating files within the docker container,
+these must be adjusted when running:
+
+```bash
+# copy files from docker container to hard drive
+docker cp ac389gfja8089:/app/your/inside/docker/path/here/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred
+```
 
 __Please read more details about how to transfer genome files and the Dfam database in the
 previous section [Download ltrpred container for use with R command line](#ltrpred-docker-container).
