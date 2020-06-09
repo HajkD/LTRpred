@@ -260,7 +260,7 @@ You should be able to see the `ltrpred_data` folder.
 Users can `exit` the container by pressing `Ctrl + c` multiple times. 
 
 __Please read more details about how to transfer genome files and the Dfam database in the
-previous section `Download ltrpred container for use with R command line`__.
+previous section [Download ltrpred container for use with R command line](#ltrpred-docker-container).
 
 ### Install Tool Dependencies on Linux
 
