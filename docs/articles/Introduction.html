@@ -81,7 +81,7 @@
     <div class="page-header toc-ignore">
       <h1>Introduction to LTRpred</h1>
             
-            <h4 class="date">2020-06-01</h4>
+            <h4 class="date">2020-06-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
@@ -156,6 +156,7 @@
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="ex">docker</span> run --rm -ti drostlab/ltrpred</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># start R prompt within ltrpred container</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="ex">~</span>:/<span class="ex">app</span># R</a></code></pre></div>
+<p>Users who wish to run the <code>LTRpred</code> Docker container in a <a href="https://docs.conda.io/en/latest/">conda</a> environment can use the <a href="https://github.com/HajkD/LTRpred/issues/16">following approach based on UDocker</a> (Many thanks to Ilja Bezrukov).</p>
 <p>Within the ltrpred container R prompt run the <code>ltrpred</code> example:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/LTRpred.html">LTRpred</a></span>(<span class="dt">genome.file =</span> <span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>))</a></code></pre></div>
 <p>To exit R in the container run:</p>
@@ -191,7 +192,7 @@
 <a class="sourceLine" id="cb7-5" data-line-number="5">                    <span class="dt">gunzip =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>The respective genome assembly file is now stored at <code>yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa</code> and needs to be copied into the <code>ltrpred_data</code> folder you just created.</p>
 <p>Now users can mount the <code>ltrpred_data</code> folder to the <code>ltrpred</code> Docker container (using the <code>-v</code> option). This <code>-v</code> mounting option is also available for the <code>RStudio</code> container version and can also be run within the <code>RStudio</code> Terminal.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ex">docker</span> run --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/app/ltrpred_data -ti ltrpred</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ex">docker</span> run --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/app/ltrpred_data -ti drostlab/ltrpred</a></code></pre></div>
 <p>Within the <code>ltrpred</code> Docker container the <code>ltrpred_data</code> folder is now stored in the working directory <code>/app</code>.</p>
 <p>When running the <code>ltrpred</code> Docker container you should be able to see the mounted <code>ltrpred_data</code> folder as following:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="ex">~</span>:/<span class="ex">app</span># ls</a></code></pre></div>
@@ -213,32 +214,66 @@ software_downloads</code></pre>
 <a class="sourceLine" id="cb13-6" data-line-number="6">        <span class="dt">cores =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p>Please be aware that using the <code>Dfam</code> database for further annotation significantly increases the computation time of the <code>LTRpred</code> pipeline.</p>
 </div>
+<div id="retrieve-ltrpred-output-files-from-docker-container" class="section level4">
+<h4 class="hasAnchor">
+<a href="#retrieve-ltrpred-output-files-from-docker-container" class="anchor"></a>Retrieve LTRpred output files from Docker container</h4>
+<p>Next, users can retrieve the <code>LTRpred</code> generated results from the docker container by opening a second <code>Terminal</code> window (while the <code>drostlab/ltrpred</code> container remains running) and perform the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Close <code>R</code> in the running docker container using <code><a href="https://rdrr.io/r/base/quit.html">q()</a></code>.</li>
+<li>This should bring you back to the docker bash <code>root@ac389gfja8089:/app#</code>.</li>
+<li>Copy the docker ID, in this case <code>ac389gfja8089</code> (this docker ID is just an example, please use the docker ID shown on your system).</li>
+<li>Type in the newly opened <code>Terminal</code> window:</li>
+</ol>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># copy Hsapiens_ChrY_ltrpred output from docker container to hard drive</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="ex">docker</span> cp ac389gfja8089:/app/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</a></code></pre></div>
+<p>This example assumes that you ran the example <code>LTRpred</code> run <code><a href="../reference/LTRpred.html">LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))</a></code> which created the output folder <code>Hsapiens_ChrY_ltrpred</code> in the docker folder <code>/app/</code>.</p>
+<p>Please note, that if you specify different file paths when creating files within the docker container, these must be adjusted when running:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># copy files from docker container to hard drive</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="ex">docker</span> cp ac389gfja8089:/app/your/inside/docker/path/here/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</a></code></pre></div>
+</div>
 <div id="download-drostlabltrpred_rstudio-container-for-use-with-rstudio-server" class="section level4">
 <h4 class="hasAnchor">
 <a href="#download-drostlabltrpred_rstudio-container-for-use-with-rstudio-server" class="anchor"></a>Download <code>drostlab/ltrpred_rstudio</code> container for use with RStudio Server</h4>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co"># run ltrpred container</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti drostlab/ltrpred_rstudio</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co"># run ltrpred container</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti drostlab/ltrpred_rstudio</a></code></pre></div>
 <p>To open <code>RStudio</code> and interact with the container go to your standard web browser and type in the following url:</p>
 <p><code>http://localhost:8787</code></p>
 <p>Username: <code>rstudio</code> Password: <code>ltrpred</code></p>
 <p>Within <code>RStudio</code> you can now run the example:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/LTRpred.html">LTRpred</a></span>(<span class="dt">genome.file =</span> <span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/LTRpred.html">LTRpred</a></span>(<span class="dt">genome.file =</span> <span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>))</a></code></pre></div>
 <p>Users can <code>exit</code> the container by pressing <code>Ctrl + c</code> multiple times.</p>
 <p>Next, users can mount their <code>ltrpred_data</code> folder to the RStudio server run the same way they mounted folders in the command line container version (using <code>-v</code>). This folder mounting can also be run within the <code>RStudio</code> Terminal of the <code>drostlab/ltrpred_rstudio</code> container.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co"># run ltrpred container</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/home/rstudio/ltrpred_data -ti drostlab/ltrpred_rstudio</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># retrieve docker image from dockerhub</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="co"># run ltrpred container</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/home/rstudio/ltrpred_data -ti drostlab/ltrpred_rstudio</a></code></pre></div>
 <p>Now go to your standard web browser and type in the following url:</p>
 <p><code>http://localhost:8787</code></p>
 <p>Username: <code>rstudio</code> Password: <code>ltrpred</code></p>
 <p>In RStudio type:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>()</a></code></pre></div>
 <p>You should be able to see the <code>ltrpred_data</code> folder.</p>
 <p>Users can <code>exit</code> the container by pressing <code>Ctrl + c</code> multiple times.</p>
-<p><strong>Please read more details about how to transfer genome files and the Dfam database in the previous section <code>Download ltrpred container for use with R command line</code></strong>.</p>
+</div>
+<div id="retrieve-ltrpred-output-files-from-docker-container-1" class="section level4">
+<h4 class="hasAnchor">
+<a href="#retrieve-ltrpred-output-files-from-docker-container-1" class="anchor"></a>Retrieve LTRpred output files from Docker container</h4>
+<p>Next, users can retrieve the <code>LTRpred</code> generated results from the docker container by opening a second <code>Terminal</code> window (while the <code>drostlab/ltrpred</code> container remains running) and perform the following steps:</p>
+<ol style="list-style-type: decimal">
+<li>Close <code>R</code> in the running docker container using <code><a href="https://rdrr.io/r/base/quit.html">q()</a></code>.</li>
+<li>This should bring you back to the docker bash <code>root@ac389gfja8089:/app#</code>.</li>
+<li>Copy the docker ID, in this case <code>ac389gfja8089</code> (this docker ID is just an example, please use the docker ID shown on your system).</li>
+<li>Type in the newly opened <code>Terminal</code> window:</li>
+</ol>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># copy Hsapiens_ChrY_ltrpred output from docker container to hard drive</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="ex">docker</span> cp ac389gfja8089:/app/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</a></code></pre></div>
+<p>This example assumes that you ran the example <code>LTRpred</code> run <code><a href="../reference/LTRpred.html">LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))</a></code> which created the output folder <code>Hsapiens_ChrY_ltrpred</code> in the docker folder <code>/app/</code>.</p>
+<p>Please note, that if you specify different file paths when creating files within the docker container, these must be adjusted when running:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># copy files from docker container to hard drive</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="ex">docker</span> cp ac389gfja8089:/app/your/inside/docker/path/here/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</a></code></pre></div>
+<p>__Please read more details about how to transfer genome files and the Dfam database in the previous section <a href="#ltrpred-docker-container">Download ltrpred container for use with R command line</a>.</p>
 </div>
 </div>
 <div id="install-tool-dependencies-on-linux" class="section level3">
@@ -259,41 +294,41 @@ software_downloads</code></pre>
 <div id="install-programming-languages-and-linux-tools" class="section level4">
 <h4 class="hasAnchor">
 <a href="#install-programming-languages-and-linux-tools" class="anchor"></a>Install Programming languages and Linux Tools</h4>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="ex">apt-get</span> update \</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install apt-utils \</a>
-<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install  gcc \</a>
-<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install python3 \</a>
-<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install perl \</a>
-<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install make \</a>
-<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install sudo \</a>
-<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install wget \</a>
-<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install genometools \</a>
-<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install git \</a>
-<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install autoconf \</a>
-<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install g++ \</a>
-<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install ncbi-blast+ \</a>
-<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install build-essential \</a>
-<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install libcurl4-gnutls-dev \</a>
-<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install libxml2-dev \</a>
-<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install libssl-dev \</a>
-<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install libpq-dev \</a>
-<a class="sourceLine" id="cb18-19" data-line-number="19"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install software-properties-common</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="ex">apt-get</span> update \</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install apt-utils \</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install  gcc \</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install python3 \</a>
+<a class="sourceLine" id="cb22-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install perl \</a>
+<a class="sourceLine" id="cb22-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install make \</a>
+<a class="sourceLine" id="cb22-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install sudo \</a>
+<a class="sourceLine" id="cb22-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install wget \</a>
+<a class="sourceLine" id="cb22-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install genometools \</a>
+<a class="sourceLine" id="cb22-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install git \</a>
+<a class="sourceLine" id="cb22-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install autoconf \</a>
+<a class="sourceLine" id="cb22-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install g++ \</a>
+<a class="sourceLine" id="cb22-13" data-line-number="13"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install ncbi-blast+ \</a>
+<a class="sourceLine" id="cb22-14" data-line-number="14"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install build-essential \</a>
+<a class="sourceLine" id="cb22-15" data-line-number="15"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install libcurl4-gnutls-dev \</a>
+<a class="sourceLine" id="cb22-16" data-line-number="16"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install libxml2-dev \</a>
+<a class="sourceLine" id="cb22-17" data-line-number="17"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install libssl-dev \</a>
+<a class="sourceLine" id="cb22-18" data-line-number="18"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install libpq-dev \</a>
+<a class="sourceLine" id="cb22-19" data-line-number="19"><span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">apt-get</span> -y install software-properties-common</a></code></pre></div>
 </div>
 <div id="install-hmmer" class="section level4">
 <h4 class="hasAnchor">
 <a href="#install-hmmer" class="anchor"></a>Install <a href="http://hmmer.org/download.html">HMMER</a>
 </h4>
 <p>A detailed description of how to install <code>HMMER</code> for several operating systems can be found <a href="http://hmmer.org/download.html">here</a>.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="fu">mkdir</span> software_downloads \</a>
-<a class="sourceLine" id="cb19-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> software_downloads \</a>
-<a class="sourceLine" id="cb19-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">wget</span> http://eddylab.org/software/hmmer/hmmer-3.3.tar.gz \</a>
-<a class="sourceLine" id="cb19-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">tar</span> xf hmmer-3.3.tar.gz \</a>
-<a class="sourceLine" id="cb19-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> hmmer-3.3 \</a>
-<a class="sourceLine" id="cb19-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">./configure</span> \</a>
-<a class="sourceLine" id="cb19-7" data-line-number="7">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">make</span> \</a>
-<a class="sourceLine" id="cb19-8" data-line-number="8">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">make</span> check \</a>
-<a class="sourceLine" id="cb19-9" data-line-number="9">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> make install \</a>
-<a class="sourceLine" id="cb19-10" data-line-number="10">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> ..</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="fu">mkdir</span> software_downloads \</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> software_downloads \</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">wget</span> http://eddylab.org/software/hmmer/hmmer-3.3.tar.gz \</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">tar</span> xf hmmer-3.3.tar.gz \</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> hmmer-3.3 \</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="ex">./configure</span> \</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">make</span> \</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">make</span> check \</a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> make install \</a>
+<a class="sourceLine" id="cb23-10" data-line-number="10">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> ..</a></code></pre></div>
 </div>
 <div id="install-usearch" class="section level4">
 <h4 class="hasAnchor">
@@ -302,14 +337,14 @@ software_downloads</code></pre>
 <p>A detailed description of how to install <code>USEARCH</code> for several operating systems can be found <a href="http://drive5.com/usearch/manual/install.html">here</a>.</p>
 <p>First, users will need to register and download USEARCH for their operating system from <a href="http://drive5.com/usearch/download.html" class="uri">http://drive5.com/usearch/download.html</a> .</p>
 <p>After downloading USEARCH you will need to install it as a command line tool in your <code>/usr/local/</code> directory and you should be able to execute the following command in your Terminal:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="bu">cd</span> software_downloads \</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">wget</span> https://www.drive5.com/downloads/usearch11.0.667_i86linux32.gz \</a>
-<a class="sourceLine" id="cb20-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">gunzip</span> usearch11.0.667_i86linux32.gz \</a>
-<a class="sourceLine" id="cb20-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">chmod</span> +x usearch11.0.667_i86linux32 \</a>
-<a class="sourceLine" id="cb20-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> mv usearch11.0.667_i86linux32 usearch \</a>
-<a class="sourceLine" id="cb20-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> cp usearch /usr/local/bin/usearch \</a>
-<a class="sourceLine" id="cb20-7" data-line-number="7">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> ..</a>
-<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="ex">usearch</span> -version</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="bu">cd</span> software_downloads \</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">wget</span> https://www.drive5.com/downloads/usearch11.0.667_i86linux32.gz \</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">gunzip</span> usearch11.0.667_i86linux32.gz \</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">chmod</span> +x usearch11.0.667_i86linux32 \</a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> mv usearch11.0.667_i86linux32 usearch \</a>
+<a class="sourceLine" id="cb24-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> cp usearch /usr/local/bin/usearch \</a>
+<a class="sourceLine" id="cb24-7" data-line-number="7">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> ..</a>
+<a class="sourceLine" id="cb24-8" data-line-number="8"><span class="ex">usearch</span> -version</a></code></pre></div>
 <pre><code>usearch v11.0.667_i86linux32</code></pre>
 </div>
 <div id="install-vsearch" class="section level4">
@@ -318,15 +353,15 @@ software_downloads</code></pre>
 </h4>
 <p>A detailed description of how to install <code>VSEARCH</code> for several operating systems can be found <a href="https://github.com/torognes/vsearch">here</a>.</p>
 <p>Please <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">install git</a> before running the following commands.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="bu">cd</span> software_downloads \</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">wget</span> https://github.com/torognes/vsearch/archive/v2.14.2.tar.gz \</a>
-<a class="sourceLine" id="cb22-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">tar</span> xzf v2.14.2.tar.gz \</a>
-<a class="sourceLine" id="cb22-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> vsearch-2.14.2 \</a>
-<a class="sourceLine" id="cb22-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> ./autogen.sh \</a>
-<a class="sourceLine" id="cb22-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> ./configure \</a>
-<a class="sourceLine" id="cb22-7" data-line-number="7">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> make \</a>
-<a class="sourceLine" id="cb22-8" data-line-number="8">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> make install \</a>
-<a class="sourceLine" id="cb22-9" data-line-number="9">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> ..</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="bu">cd</span> software_downloads \</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">wget</span> https://github.com/torognes/vsearch/archive/v2.14.2.tar.gz \</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">tar</span> xzf v2.14.2.tar.gz \</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> vsearch-2.14.2 \</a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> ./autogen.sh \</a>
+<a class="sourceLine" id="cb26-6" data-line-number="6">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> ./configure \</a>
+<a class="sourceLine" id="cb26-7" data-line-number="7">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> make \</a>
+<a class="sourceLine" id="cb26-8" data-line-number="8">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> make install \</a>
+<a class="sourceLine" id="cb26-9" data-line-number="9">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> ..</a></code></pre></div>
 </div>
 </div>
 <div id="install-dfamscan-pl" class="section level3">
@@ -334,16 +369,16 @@ software_downloads</code></pre>
 <a href="#install-dfamscan-pl" class="anchor"></a>Install <a href="http://www.dfam.org/web_download/Current_Release/dfamscan.pl">dfamscan.pl</a>
 </h3>
 <p><a href="https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz">dfamscan.pl</a> needs to be unzipped and stored at <code>/usr/local/bin/dfamscan.pl</code> and executabe via <code>perl /usr/local/bin/dfamscan.pl -help</code>. This is important to be able to run the hmmer search against the Dfam database.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="bu">cd</span> software_downloads \</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz \</a>
-<a class="sourceLine" id="cb23-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">gunzip</span> dfamscan.pl.gz \</a>
-<a class="sourceLine" id="cb23-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> cp dfamscan.pl /usr/local/bin/dfamscan.pl \</a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> ..</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="bu">cd</span> software_downloads \</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz \</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">gunzip</span> dfamscan.pl.gz \</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="fu">sudo</span> cp dfamscan.pl /usr/local/bin/dfamscan.pl \</a>
+<a class="sourceLine" id="cb27-5" data-line-number="5">  <span class="kw"><a href="https://rdrr.io/r/base/Logic.html">&amp;&amp;</a></span> <span class="bu">cd</span> ..</a></code></pre></div>
 <p>Users can download the <a href="https://www.dfam.org/releases/Dfam_3.1/families/">Dfam database v3.1</a> by running:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="fu">gunzip</span> Dfam.hmm.gz</a>
-<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="co"># run hmmpress</span></a>
-<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="ex">hmmpress</span> Dfam.hmm</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="fu">gunzip</span> Dfam.hmm.gz</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="co"># run hmmpress</span></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="ex">hmmpress</span> Dfam.hmm</a></code></pre></div>
 <p>The path to the folder where the formatted <code>Dfam</code> database can be found can then be passed as argument <code>Dfam.db</code> to the <code><a href="../reference/LTRpred.html">LTRpred::LTRpred()</a></code> function.</p>
 </div>
 <div id="install-r-packages" class="section level3">
@@ -351,34 +386,34 @@ software_downloads</code></pre>
 <a href="#install-r-packages" class="anchor"></a>Install R packages</h3>
 <p>Please make sure that <a href="https://www.bioconductor.org/install/">Bioconductor</a> and all package dependencies are installed on the system on which you would like to run <code>LTRpred</code>.</p>
 <p>Install prerequisite CRAN and Bioconductor packages:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'devtools'</span>)</a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'tidyverse'</span>)</a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'BiocManager'</span>)</a>
-<a class="sourceLine" id="cb25-4" data-line-number="4">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>()</a>
-<a class="sourceLine" id="cb25-5" data-line-number="5">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'rtracklayer'</span>, <span class="st">'GenomicFeatures'</span>, <span class="st">'GenomicRanges'</span>, <span class="st">'GenomeInfoDb'</span>, <span class="st">'biomaRt'</span>, <span class="st">'Biostrings'</span>))</a>
-<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'tidyverse'</span>, <span class="st">'data.table'</span>, <span class="st">'seqinr'</span>, <span class="st">'biomartr'</span>, <span class="st">'ape'</span>, <span class="st">'dtplyr'</span>, <span class="st">'devtools'</span>))</a>
-<a class="sourceLine" id="cb25-7" data-line-number="7">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">'HajkD/metablastr'</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'BSDA'</span>, <span class="st">'ggrepel'</span>, <span class="st">'gridExtra'</span>))</a>
-<a class="sourceLine" id="cb25-9" data-line-number="9">https<span class="op">:</span><span class="er">//</span>cran.r<span class="op">-</span>project.org<span class="op">/</span>src<span class="op">/</span>contrib<span class="op">/</span>Archive<span class="op">/</span>latticeExtra<span class="op">/</span>latticeExtra_<span class="fl">0.6-28.</span>tar.gz</a>
-<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'latticeExtra_0.6-28.tar.gz'</span>, <span class="dt">type =</span> <span class="st">'source'</span>)</a>
-<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'survival'</span>)</a>
-<a class="sourceLine" id="cb25-12" data-line-number="12">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">'ggbio'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'devtools'</span>)</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'tidyverse'</span>)</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'BiocManager'</span>)</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>()</a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'rtracklayer'</span>, <span class="st">'GenomicFeatures'</span>, <span class="st">'GenomicRanges'</span>, <span class="st">'GenomeInfoDb'</span>, <span class="st">'biomaRt'</span>, <span class="st">'Biostrings'</span>))</a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'tidyverse'</span>, <span class="st">'data.table'</span>, <span class="st">'seqinr'</span>, <span class="st">'biomartr'</span>, <span class="st">'ape'</span>, <span class="st">'dtplyr'</span>, <span class="st">'devtools'</span>))</a>
+<a class="sourceLine" id="cb29-7" data-line-number="7">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">'HajkD/metablastr'</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb29-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'BSDA'</span>, <span class="st">'ggrepel'</span>, <span class="st">'gridExtra'</span>))</a>
+<a class="sourceLine" id="cb29-9" data-line-number="9">https<span class="op">:</span><span class="er">//</span>cran.r<span class="op">-</span>project.org<span class="op">/</span>src<span class="op">/</span>contrib<span class="op">/</span>Archive<span class="op">/</span>latticeExtra<span class="op">/</span>latticeExtra_<span class="fl">0.6-28.</span>tar.gz</a>
+<a class="sourceLine" id="cb29-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'latticeExtra_0.6-28.tar.gz'</span>, <span class="dt">type =</span> <span class="st">'source'</span>)</a>
+<a class="sourceLine" id="cb29-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'survival'</span>)</a>
+<a class="sourceLine" id="cb29-12" data-line-number="12">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">'ggbio'</span>)</a></code></pre></div>
 <p>Now users may install <code>LTRpred</code> as follows:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"HajkD/LTRpred"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"HajkD/LTRpred"</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick Start</h2>
 <p>The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after <a href="https://hajkd.github.io/LTRpred/articles/Introduction.html#installation">installing</a> all prerequisite command line tools) is to use the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function and relying on the default parameters. In the following example, a LTR transposon prediction is performed for parts of the Human Y chromosome.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># load LTRpred package</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(LTRpred)</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="co"># de novo LTR transposon prediction for the Human Y chromosome</span></a>
-<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(</a>
-<a class="sourceLine" id="cb27-5" data-line-number="5">    <span class="dt">genome.file =</span> <span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>),</a>
-<a class="sourceLine" id="cb27-6" data-line-number="6">    <span class="dt">cores =</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb27-7" data-line-number="7">)</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># load LTRpred package</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(LTRpred)</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="co"># de novo LTR transposon prediction for the Human Y chromosome</span></a>
+<a class="sourceLine" id="cb31-4" data-line-number="4"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(</a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">    <span class="dt">genome.file =</span> <span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>),</a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">    <span class="dt">cores =</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb31-7" data-line-number="7">)</a></code></pre></div>
 <pre><code>Running LTRpred on genome '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/LTRpred/Hsapiens_ChrY.fa' with 4 core(s) and searching for retrotransposons using the overlaps option (overlaps = 'no') ...
 
 
@@ -499,10 +534,10 @@ LTRpred finished all analyses successfully. All output files were stored at 'Hsa
 <h3 class="hasAnchor">
 <a href="#import-ltrpred-output" class="anchor"></a>Import LTRpred output</h3>
 <p>The <code><a href="../reference/LTRpred.html">LTRpred()</a></code> output table <code>*_LTRpred_DataSheet.tsv</code> is in <a href="http://vita.had.co.nz/papers/tidy-data.html">tidy</a> format and can then be imported using <code><a href="../reference/read.ltrpred.html">read.ltrpred()</a></code>. The <code>tidy</code> output format is designed to work seamlessly with the <a href="https://www.tidyverse.org/">tidyverse</a> and <a href="http://r4ds.had.co.nz/">R data science</a> framework.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># import LTRpred prediction output</span></a>
-<a class="sourceLine" id="cb29-2" data-line-number="2">Hsapiens_chrY &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span>(<span class="st">"Hsapiens_ChrY_ltrpred/Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span>)</a>
-<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="co"># look at some results</span></a>
-<a class="sourceLine" id="cb29-4" data-line-number="4">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(Hsapiens_chrY, ltr_similarity<span class="op">:</span>end, tRNA_motif, Clust_cn)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># import LTRpred prediction output</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">Hsapiens_chrY &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span>(<span class="st">"Hsapiens_ChrY_ltrpred/Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span>)</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="co"># look at some results</span></a>
+<a class="sourceLine" id="cb33-4" data-line-number="4">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(Hsapiens_chrY, ltr_similarity<span class="op">:</span>end, tRNA_motif, Clust_cn)</a></code></pre></div>
 <pre><code># A tibble: 14 x 9
    ltr_similarity similarity protein_domain  orfs        chromosome
             &lt;dbl&gt;      &lt;chr&gt;          &lt;chr&gt; &lt;int&gt;             &lt;chr&gt;
@@ -523,7 +558,7 @@ LTRpred finished all analyses successfully. All output files were stored at 'Hsa
 # ... with 4 more variables: start &lt;int&gt;, end &lt;int&gt;, tRNA_motif &lt;chr&gt;,
 #   Clust_cn &lt;int&gt;</code></pre>
 <p>Looking at all columns:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(Hsapiens_chrY)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(Hsapiens_chrY)</a></code></pre></div>
 <pre><code>Observations: 21
 Variables: 92
 $ species                 &lt;chr&gt; "Hsapiens_ChrY", "Hsapien...
@@ -776,11 +811,11 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 <p><strong>Please be aware that functional de novo annotation is a computationally heavy task that requires substantial computing resources. For larger genomes recommend running LTRpred on a computing server or a high performance computing cluster. Large genome computations can take up to days even with tens of computing cores.</strong></p>
 <p>The following example, however, will terminate within a few minutes.</p>
 <p>First we use the <a href="https://github.com/ropensci/biomartr">biomartr</a> package to download the genome of <code>Saccharomyces cerevisiae</code> from NCBI RefSeq:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># retrieve S. cerevisiae genome from from NCBI RefSeq</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2">Scerevisiae_genome &lt;-<span class="st"> </span>biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, </a>
-<a class="sourceLine" id="cb33-3" data-line-number="3">                      <span class="dt">organism  =</span> <span class="st">"Saccharomyces cerevisiae"</span>)</a>
-<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="co"># show path to S. cerevisiae genome</span></a>
-<a class="sourceLine" id="cb33-5" data-line-number="5">Scerevisiae_genome</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># retrieve S. cerevisiae genome from from NCBI RefSeq</span></a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">Scerevisiae_genome &lt;-<span class="st"> </span>biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, </a>
+<a class="sourceLine" id="cb37-3" data-line-number="3">                      <span class="dt">organism  =</span> <span class="st">"Saccharomyces cerevisiae"</span>)</a>
+<a class="sourceLine" id="cb37-4" data-line-number="4"><span class="co"># show path to S. cerevisiae genome</span></a>
+<a class="sourceLine" id="cb37-5" data-line-number="5">Scerevisiae_genome</a></code></pre></div>
 <p>Next, we run <code>LTRpred</code> to generate functional annotation for <code>S. cerevisiae</code> LTR retrotransposons. In general, the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function takes the path to a genome file in <code>fasta</code> format (compressed files can be used as well) as input to the <code>genome.file</code> argument. The <code>trnas</code> argument takes a file path to a <code>fasta</code> file storing tRNA sequences. In this case, for example reasons only, we use the tRNA file <code>sacCer3-tRNAs.fa</code> that comes with the <code>LTRpred</code> package. In addition, users can find tRNA files at <a href="http://gtrnadb.ucsc.edu/" class="uri">http://gtrnadb.ucsc.edu/</a> or <a href="http://gtrnadb2009.ucsc.edu/" class="uri">http://gtrnadb2009.ucsc.edu/</a>. The <code>hmms</code> argument takes a path to a folder storing the HMM models of the gag and pol protein domains. Protein domains can be found at <a href="http://pfam.xfam.org/" class="uri">http://pfam.xfam.org/</a> . When renaming the protein domains using the specification <code>hmm_*</code> users can specify <code>hmm_*</code> which indicates that all files in the folder starting with <code>hmm_</code> shall be used. The <code>LTRpred</code> package already stores the most prominent gag and pol protein domains and can be used by specifying the path <code><a href="https://rdrr.io/r/base/paste.html">paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*")</a></code>. In detail, the following HMM models are stored in <code>LTRpred</code>:</p>
 <div id="hmm-models" class="section level4">
 <h4 class="hasAnchor">
@@ -806,17 +841,17 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 </li>
 </ul>
 <p>The argument <code>cluster = TRUE</code> indicates that individually predicted LTR retrotransposons are clustered by sequence similarity into families using the <code>vsearch</code> program. The <code>clust.sim</code> defines the sequence similarity threshold for considering family/cluster members.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(LTRpred)</a>
-<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="co"># de novo LTR transposon prediction of 'D. simulans'</span></a>
-<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(</a>
-<a class="sourceLine" id="cb34-4" data-line-number="4">    <span class="dt">genome.file =</span> Scerevisiae_genome,</a>
-<a class="sourceLine" id="cb34-5" data-line-number="5">    <span class="dt">trnas       =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"tRNAs/"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>),<span class="st">"sacCer3-tRNAs.fa"</span>),</a>
-<a class="sourceLine" id="cb34-6" data-line-number="6">    <span class="dt">hmms        =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"HMMs/"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>), <span class="st">"hmm_*"</span>),</a>
-<a class="sourceLine" id="cb34-7" data-line-number="7">    <span class="dt">cluster     =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb34-8" data-line-number="8">    <span class="dt">clust.sim   =</span> <span class="fl">0.9</span>,</a>
-<a class="sourceLine" id="cb34-9" data-line-number="9">    <span class="dt">copy.number.est =</span> <span class="ot">TRUE</span>,  </a>
-<a class="sourceLine" id="cb34-10" data-line-number="10">    <span class="dt">cores =</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb34-11" data-line-number="11">)</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(LTRpred)</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="co"># de novo LTR transposon prediction of 'D. simulans'</span></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4">    <span class="dt">genome.file =</span> Scerevisiae_genome,</a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">    <span class="dt">trnas       =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"tRNAs/"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>),<span class="st">"sacCer3-tRNAs.fa"</span>),</a>
+<a class="sourceLine" id="cb38-6" data-line-number="6">    <span class="dt">hmms        =</span> <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"HMMs/"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>), <span class="st">"hmm_*"</span>),</a>
+<a class="sourceLine" id="cb38-7" data-line-number="7">    <span class="dt">cluster     =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb38-8" data-line-number="8">    <span class="dt">clust.sim   =</span> <span class="fl">0.9</span>,</a>
+<a class="sourceLine" id="cb38-9" data-line-number="9">    <span class="dt">copy.number.est =</span> <span class="ot">TRUE</span>,  </a>
+<a class="sourceLine" id="cb38-10" data-line-number="10">    <span class="dt">cores =</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb38-11" data-line-number="11">)</a></code></pre></div>
 <pre><code>Running LTRpred on genome '_ncbi_downloads/genomes/Saccharomyces_cerevisiae_genomic_refseq.fna.gz' with 4 core(s) and searching for retrotransposons using the overlaps option (overlaps = 'no') ...
 
 
@@ -930,12 +965,12 @@ TRpred finished all analyses successfully. All output files were stored at 'Sacc
 Warning message:
 The LTR copy number estimation returned an empty file. This suggests that there were no solo LTRs found in the input genome sequence. </code></pre>
 <p>The output can then be imported using:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># import LTRpred output for S. cerevisiae</span></a>
-<a class="sourceLine" id="cb36-2" data-line-number="2">file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"Saccharomyces_cerevisiae_genomic_refseq_ltrpred"</span>,</a>
-<a class="sourceLine" id="cb36-3" data-line-number="3">                  <span class="st">"Saccharomyces_cerevisiae_genomic_refseq_LTRpred_DataSheet.tsv"</span>)</a>
-<a class="sourceLine" id="cb36-4" data-line-number="4">Scerevisiae_LTRpred &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span>(file)</a>
-<a class="sourceLine" id="cb36-5" data-line-number="5"><span class="co"># look at output</span></a>
-<a class="sourceLine" id="cb36-6" data-line-number="6">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(Scerevisiae_LTRpred)</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># import LTRpred output for S. cerevisiae</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2">file &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"Saccharomyces_cerevisiae_genomic_refseq_ltrpred"</span>,</a>
+<a class="sourceLine" id="cb40-3" data-line-number="3">                  <span class="st">"Saccharomyces_cerevisiae_genomic_refseq_LTRpred_DataSheet.tsv"</span>)</a>
+<a class="sourceLine" id="cb40-4" data-line-number="4">Scerevisiae_LTRpred &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span>(file)</a>
+<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="co"># look at output</span></a>
+<a class="sourceLine" id="cb40-6" data-line-number="6">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(Scerevisiae_LTRpred)</a></code></pre></div>
 <pre><code>Observations: 31
 Variables: 92
 $ species                 &lt;chr&gt; "Saccharomyces_cerevisiae...
@@ -1047,12 +1082,12 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 <li>
 <code>strategy = "stringent"</code> : in addition to filter criteria specified in section Quality Control, the filter criteria !is.na(protein_domain)) | (dfam_target_name != “unknown”) is applied</li>
 </ul>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="co"># filter for potentially functional LTR retrotransposons</span></a>
-<a class="sourceLine" id="cb38-2" data-line-number="2">Scerevisiae_functional &lt;-<span class="st"> </span><span class="kw"><a href="../reference/quality.filter.html">quality.filter</a></span>(Scerevisiae_LTRpred, </a>
-<a class="sourceLine" id="cb38-3" data-line-number="3">                                         <span class="dt">sim =</span> <span class="dv">97</span>, </a>
-<a class="sourceLine" id="cb38-4" data-line-number="4">                                         <span class="dt">n.orfs =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb38-5" data-line-number="5">                                         <span class="dt">strategy =</span> <span class="st">"stringent"</span>)</a>
-<a class="sourceLine" id="cb38-6" data-line-number="6">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(Scerevisiae_functional)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="co"># filter for potentially functional LTR retrotransposons</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">Scerevisiae_functional &lt;-<span class="st"> </span><span class="kw"><a href="../reference/quality.filter.html">quality.filter</a></span>(Scerevisiae_LTRpred, </a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">                                         <span class="dt">sim =</span> <span class="dv">97</span>, </a>
+<a class="sourceLine" id="cb42-4" data-line-number="4">                                         <span class="dt">n.orfs =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb42-5" data-line-number="5">                                         <span class="dt">strategy =</span> <span class="st">"stringent"</span>)</a>
+<a class="sourceLine" id="cb42-6" data-line-number="6">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(Scerevisiae_functional)</a></code></pre></div>
 <pre><code>Observations: 25
 Variables: 92
 $ species                 &lt;chr&gt; "Saccharomyces_cerevisiae...
@@ -1161,9 +1196,9 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 <code><a href="../reference/pred2tsv.html">pred2tsv()</a></code>: Format LTR prediction data to TSV file format</li>
 </ul>
 <p>In this example we will store the functional annotation results <code>Scerevisiae_functional</code> as <code>gff</code> file.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw"><a href="../reference/pred2gff.html">pred2gff</a></span>(<span class="dt">LTR.data =</span> Scerevisiae_functional,</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2">         <span class="dt">output   =</span> <span class="st">"Scerevisiae_functional_LTRpred.gff"</span>,</a>
-<a class="sourceLine" id="cb40-3" data-line-number="3">         <span class="dt">program  =</span> <span class="st">"LTRpred"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw"><a href="../reference/pred2gff.html">pred2gff</a></span>(<span class="dt">LTR.data =</span> Scerevisiae_functional,</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">         <span class="dt">output   =</span> <span class="st">"Scerevisiae_functional_LTRpred.gff"</span>,</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">         <span class="dt">program  =</span> <span class="st">"LTRpred"</span>)</a></code></pre></div>
 <p>This gff file can now be used for mapping tools, genome browsers, etc.</p>
 </div>
 <div id="detailed-description-of-adjustable-ltrpred-parameters" class="section level3">
@@ -1171,74 +1206,74 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 <a href="#detailed-description-of-adjustable-ltrpred-parameters" class="anchor"></a>Detailed description of adjustable LTRpred parameters</h3>
 <p>The <code>S. cerevisiae</code> example shown above assumes that users wish to run <code>LTRpred</code> using a default parameter configuration. However, as the figure shown below demonstrates, there are large number of parameters that can be adjusted and altered according the the user’s specifications and interests.</p>
 <p>Users can adjust and run <code>LTRpred</code> with the following parameter options:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(</a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">  <span class="dt">genome.file =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">  <span class="dt">model =</span> <span class="st">"K80"</span>,</a>
-<a class="sourceLine" id="cb41-4" data-line-number="4">  <span class="dt">mutation_rate =</span> <span class="fl">1.3</span> <span class="op">*</span><span class="st"> </span><span class="fl">1e-07</span>,</a>
-<a class="sourceLine" id="cb41-5" data-line-number="5">  <span class="dt">index.file.harvest =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-6" data-line-number="6">  <span class="dt">index.file.digest =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-7" data-line-number="7">  <span class="dt">LTRdigest.gff =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-8" data-line-number="8">  <span class="dt">tabout.file =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-9" data-line-number="9">  <span class="dt">LTRharvest.folder =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-10" data-line-number="10">  <span class="dt">LTRpred.folder =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-11" data-line-number="11">  <span class="dt">orf.file =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-12" data-line-number="12">  <span class="dt">annotate =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-13" data-line-number="13">  <span class="dt">Dfam.db =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-14" data-line-number="14">  <span class="dt">dfam.eval =</span> <span class="fl">0.001</span>,</a>
-<a class="sourceLine" id="cb41-15" data-line-number="15">  <span class="dt">dfam.file =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-16" data-line-number="16">  <span class="dt">cluster =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb41-17" data-line-number="17">  <span class="dt">clust.sim =</span> <span class="fl">0.9</span>,</a>
-<a class="sourceLine" id="cb41-18" data-line-number="18">  <span class="dt">clust.file =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-19" data-line-number="19">  <span class="dt">copy.number.est =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb41-20" data-line-number="20">  <span class="dt">fix.chr.name =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb41-21" data-line-number="21">  <span class="dt">cn.eval =</span> <span class="fl">1e-10</span>,</a>
-<a class="sourceLine" id="cb41-22" data-line-number="22">  <span class="dt">range =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>),</a>
-<a class="sourceLine" id="cb41-23" data-line-number="23">  <span class="dt">seed =</span> <span class="dv">30</span>,</a>
-<a class="sourceLine" id="cb41-24" data-line-number="24">  <span class="dt">minlenltr =</span> <span class="dv">100</span>,</a>
-<a class="sourceLine" id="cb41-25" data-line-number="25">  <span class="dt">maxlenltr =</span> <span class="dv">3500</span>,</a>
-<a class="sourceLine" id="cb41-26" data-line-number="26">  <span class="dt">mindistltr =</span> <span class="dv">4000</span>,</a>
-<a class="sourceLine" id="cb41-27" data-line-number="27">  <span class="dt">maxdistltr =</span> <span class="dv">25000</span>,</a>
-<a class="sourceLine" id="cb41-28" data-line-number="28">  <span class="dt">similar =</span> <span class="dv">70</span>,</a>
-<a class="sourceLine" id="cb41-29" data-line-number="29">  <span class="dt">mintsd =</span> <span class="dv">4</span>,</a>
-<a class="sourceLine" id="cb41-30" data-line-number="30">  <span class="dt">maxtsd =</span> <span class="dv">20</span>,</a>
-<a class="sourceLine" id="cb41-31" data-line-number="31">  <span class="dt">vic =</span> <span class="dv">60</span>,</a>
-<a class="sourceLine" id="cb41-32" data-line-number="32">  <span class="dt">overlaps =</span> <span class="st">"no"</span>,</a>
-<a class="sourceLine" id="cb41-33" data-line-number="33">  <span class="dt">xdrop =</span> <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb41-34" data-line-number="34">  <span class="dt">mat =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb41-35" data-line-number="35">  <span class="dt">mis =</span> <span class="dv">-2</span>,</a>
-<a class="sourceLine" id="cb41-36" data-line-number="36">  <span class="dt">ins =</span> <span class="dv">-3</span>,</a>
-<a class="sourceLine" id="cb41-37" data-line-number="37">  <span class="dt">del =</span> <span class="dv">-3</span>,</a>
-<a class="sourceLine" id="cb41-38" data-line-number="38">  <span class="dt">motif =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-39" data-line-number="39">  <span class="dt">motifmis =</span> <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb41-40" data-line-number="40">  <span class="dt">aaout =</span> <span class="st">"yes"</span>,</a>
-<a class="sourceLine" id="cb41-41" data-line-number="41">  <span class="dt">aliout =</span> <span class="st">"yes"</span>,</a>
-<a class="sourceLine" id="cb41-42" data-line-number="42">  <span class="dt">pptlen =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">8</span>, <span class="dv">30</span>),</a>
-<a class="sourceLine" id="cb41-43" data-line-number="43">  <span class="dt">uboxlen =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>, <span class="dv">30</span>),</a>
-<a class="sourceLine" id="cb41-44" data-line-number="44">  <span class="dt">pptradius =</span> <span class="dv">30</span>,</a>
-<a class="sourceLine" id="cb41-45" data-line-number="45">  <span class="dt">trnas =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-46" data-line-number="46">  <span class="dt">pbsalilen =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">11</span>, <span class="dv">30</span>),</a>
-<a class="sourceLine" id="cb41-47" data-line-number="47">  <span class="dt">pbsoffset =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb41-48" data-line-number="48">  <span class="dt">pbstrnaoffset =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb41-49" data-line-number="49">  <span class="dt">pbsmaxedist =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb41-50" data-line-number="50">  <span class="dt">pbsradius =</span> <span class="dv">30</span>,</a>
-<a class="sourceLine" id="cb41-51" data-line-number="51">  <span class="dt">hmms =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-52" data-line-number="52">  <span class="dt">pdomevalcutoff =</span> <span class="fl">1e-05</span>,</a>
-<a class="sourceLine" id="cb41-53" data-line-number="53">  <span class="dt">pbsmatchscore =</span> <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb41-54" data-line-number="54">  <span class="dt">pbsmismatchscore =</span> <span class="dv">-10</span>,</a>
-<a class="sourceLine" id="cb41-55" data-line-number="55">  <span class="dt">pbsinsertionscore =</span> <span class="dv">-20</span>,</a>
-<a class="sourceLine" id="cb41-56" data-line-number="56">  <span class="dt">pbsdeletionscore =</span> <span class="dv">-20</span>,</a>
-<a class="sourceLine" id="cb41-57" data-line-number="57">  <span class="dt">pfam.ids =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-58" data-line-number="58">  <span class="dt">cores =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb41-59" data-line-number="59">  <span class="dt">dfam.cores =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-60" data-line-number="60">  <span class="dt">hmm.cores =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-61" data-line-number="61">  <span class="dt">orf.style =</span> <span class="dv">7</span>,</a>
-<a class="sourceLine" id="cb41-62" data-line-number="62">  <span class="dt">min.codons =</span> <span class="dv">200</span>,</a>
-<a class="sourceLine" id="cb41-63" data-line-number="63">  <span class="dt">trans.seqs =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb41-64" data-line-number="64">  <span class="dt">output.path =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb41-65" data-line-number="65">  <span class="dt">quality.filter =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb41-66" data-line-number="66">  <span class="dt">n.orfs =</span> <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb41-67" data-line-number="67">  <span class="dt">verbose =</span> <span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb41-68" data-line-number="68">)</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw"><a href="../reference/LTRpred.html">LTRpred</a></span>(</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">  <span class="dt">genome.file =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">  <span class="dt">model =</span> <span class="st">"K80"</span>,</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">  <span class="dt">mutation_rate =</span> <span class="fl">1.3</span> <span class="op">*</span><span class="st"> </span><span class="fl">1e-07</span>,</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">  <span class="dt">index.file.harvest =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-6" data-line-number="6">  <span class="dt">index.file.digest =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-7" data-line-number="7">  <span class="dt">LTRdigest.gff =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-8" data-line-number="8">  <span class="dt">tabout.file =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-9" data-line-number="9">  <span class="dt">LTRharvest.folder =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-10" data-line-number="10">  <span class="dt">LTRpred.folder =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-11" data-line-number="11">  <span class="dt">orf.file =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-12" data-line-number="12">  <span class="dt">annotate =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-13" data-line-number="13">  <span class="dt">Dfam.db =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-14" data-line-number="14">  <span class="dt">dfam.eval =</span> <span class="fl">0.001</span>,</a>
+<a class="sourceLine" id="cb45-15" data-line-number="15">  <span class="dt">dfam.file =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-16" data-line-number="16">  <span class="dt">cluster =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb45-17" data-line-number="17">  <span class="dt">clust.sim =</span> <span class="fl">0.9</span>,</a>
+<a class="sourceLine" id="cb45-18" data-line-number="18">  <span class="dt">clust.file =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-19" data-line-number="19">  <span class="dt">copy.number.est =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb45-20" data-line-number="20">  <span class="dt">fix.chr.name =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb45-21" data-line-number="21">  <span class="dt">cn.eval =</span> <span class="fl">1e-10</span>,</a>
+<a class="sourceLine" id="cb45-22" data-line-number="22">  <span class="dt">range =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb45-23" data-line-number="23">  <span class="dt">seed =</span> <span class="dv">30</span>,</a>
+<a class="sourceLine" id="cb45-24" data-line-number="24">  <span class="dt">minlenltr =</span> <span class="dv">100</span>,</a>
+<a class="sourceLine" id="cb45-25" data-line-number="25">  <span class="dt">maxlenltr =</span> <span class="dv">3500</span>,</a>
+<a class="sourceLine" id="cb45-26" data-line-number="26">  <span class="dt">mindistltr =</span> <span class="dv">4000</span>,</a>
+<a class="sourceLine" id="cb45-27" data-line-number="27">  <span class="dt">maxdistltr =</span> <span class="dv">25000</span>,</a>
+<a class="sourceLine" id="cb45-28" data-line-number="28">  <span class="dt">similar =</span> <span class="dv">70</span>,</a>
+<a class="sourceLine" id="cb45-29" data-line-number="29">  <span class="dt">mintsd =</span> <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb45-30" data-line-number="30">  <span class="dt">maxtsd =</span> <span class="dv">20</span>,</a>
+<a class="sourceLine" id="cb45-31" data-line-number="31">  <span class="dt">vic =</span> <span class="dv">60</span>,</a>
+<a class="sourceLine" id="cb45-32" data-line-number="32">  <span class="dt">overlaps =</span> <span class="st">"no"</span>,</a>
+<a class="sourceLine" id="cb45-33" data-line-number="33">  <span class="dt">xdrop =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb45-34" data-line-number="34">  <span class="dt">mat =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb45-35" data-line-number="35">  <span class="dt">mis =</span> <span class="dv">-2</span>,</a>
+<a class="sourceLine" id="cb45-36" data-line-number="36">  <span class="dt">ins =</span> <span class="dv">-3</span>,</a>
+<a class="sourceLine" id="cb45-37" data-line-number="37">  <span class="dt">del =</span> <span class="dv">-3</span>,</a>
+<a class="sourceLine" id="cb45-38" data-line-number="38">  <span class="dt">motif =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-39" data-line-number="39">  <span class="dt">motifmis =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb45-40" data-line-number="40">  <span class="dt">aaout =</span> <span class="st">"yes"</span>,</a>
+<a class="sourceLine" id="cb45-41" data-line-number="41">  <span class="dt">aliout =</span> <span class="st">"yes"</span>,</a>
+<a class="sourceLine" id="cb45-42" data-line-number="42">  <span class="dt">pptlen =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">8</span>, <span class="dv">30</span>),</a>
+<a class="sourceLine" id="cb45-43" data-line-number="43">  <span class="dt">uboxlen =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>, <span class="dv">30</span>),</a>
+<a class="sourceLine" id="cb45-44" data-line-number="44">  <span class="dt">pptradius =</span> <span class="dv">30</span>,</a>
+<a class="sourceLine" id="cb45-45" data-line-number="45">  <span class="dt">trnas =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-46" data-line-number="46">  <span class="dt">pbsalilen =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">11</span>, <span class="dv">30</span>),</a>
+<a class="sourceLine" id="cb45-47" data-line-number="47">  <span class="dt">pbsoffset =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb45-48" data-line-number="48">  <span class="dt">pbstrnaoffset =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb45-49" data-line-number="49">  <span class="dt">pbsmaxedist =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb45-50" data-line-number="50">  <span class="dt">pbsradius =</span> <span class="dv">30</span>,</a>
+<a class="sourceLine" id="cb45-51" data-line-number="51">  <span class="dt">hmms =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-52" data-line-number="52">  <span class="dt">pdomevalcutoff =</span> <span class="fl">1e-05</span>,</a>
+<a class="sourceLine" id="cb45-53" data-line-number="53">  <span class="dt">pbsmatchscore =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb45-54" data-line-number="54">  <span class="dt">pbsmismatchscore =</span> <span class="dv">-10</span>,</a>
+<a class="sourceLine" id="cb45-55" data-line-number="55">  <span class="dt">pbsinsertionscore =</span> <span class="dv">-20</span>,</a>
+<a class="sourceLine" id="cb45-56" data-line-number="56">  <span class="dt">pbsdeletionscore =</span> <span class="dv">-20</span>,</a>
+<a class="sourceLine" id="cb45-57" data-line-number="57">  <span class="dt">pfam.ids =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-58" data-line-number="58">  <span class="dt">cores =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb45-59" data-line-number="59">  <span class="dt">dfam.cores =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-60" data-line-number="60">  <span class="dt">hmm.cores =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-61" data-line-number="61">  <span class="dt">orf.style =</span> <span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb45-62" data-line-number="62">  <span class="dt">min.codons =</span> <span class="dv">200</span>,</a>
+<a class="sourceLine" id="cb45-63" data-line-number="63">  <span class="dt">trans.seqs =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb45-64" data-line-number="64">  <span class="dt">output.path =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb45-65" data-line-number="65">  <span class="dt">quality.filter =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb45-66" data-line-number="66">  <span class="dt">n.orfs =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb45-67" data-line-number="67">  <span class="dt">verbose =</span> <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb45-68" data-line-number="68">)</a></code></pre></div>
 <ul>
 <li>
 <code>genome.file</code>: path to the genome assembly file in fasta format.</li>
@@ -1388,18 +1423,18 @@ specify the insertion score used in the PBS/tRNA Smith-Waterman alignment. Defau
 <p><code>LTRpred</code> allows users to perform annotations not only for single genomes but for multiple genomes (metagenomes) using only one pipeline function named <code><a href="../reference/LTRpred.meta.html">LTRpred.meta()</a></code>.</p>
 <p><strong>Please be aware that <code>LTRpred</code> annotations for multiple genomes is a computationally hard task and requires large server or high performance computer access. Computations for hundreds of genomes even using tens to hundreds of cores might take several weeks to terminate. Please make sure that you have the right computational infrastructure to run these processes.</strong></p>
 <p>Users can download the <a href="https://docs.ropensci.org/biomartr/">biomartr</a> package to automatically retrieve genome assembly files for the species of interest.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="co"># specify the scientific names of the species of interest</span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="co"># that shall first be downloaded and then be used</span></a>
-<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="co"># to generate LTRpred annotations</span></a>
-<a class="sourceLine" id="cb42-4" data-line-number="4">species &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Arabidopsis thaliana"</span>, <span class="st">"Arabidopsis lyrata"</span>, <span class="st">"Capsella rubella"</span>) </a>
-<a class="sourceLine" id="cb42-5" data-line-number="5"><span class="co"># download the genome assembly files for the species of interest</span></a>
-<a class="sourceLine" id="cb42-6" data-line-number="6"><span class="co"># </span></a>
-<a class="sourceLine" id="cb42-7" data-line-number="7"><span class="co"># install.packages("biomartr")</span></a>
-<a class="sourceLine" id="cb42-8" data-line-number="8">biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenomeSet.html">getGenomeSet</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, <span class="dt">organisms =</span> species, <span class="dt">path =</span> <span class="st">"store_genome_set"</span>)</a>
-<a class="sourceLine" id="cb42-9" data-line-number="9"><span class="co"># run LTRpred.meta() on the 3 species with 3 cores</span></a>
-<a class="sourceLine" id="cb42-10" data-line-number="10">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/LTRpred.meta.html">LTRpred.meta</a></span>(<span class="dt">genome.folder =</span> <span class="st">"store_genome_set"</span>,</a>
-<a class="sourceLine" id="cb42-11" data-line-number="11">                      <span class="dt">output.folder =</span> <span class="st">"LTRpred_meta_results"</span>,</a>
-<a class="sourceLine" id="cb42-12" data-line-number="12">                      <span class="dt">cores =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="co"># specify the scientific names of the species of interest</span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="co"># that shall first be downloaded and then be used</span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="co"># to generate LTRpred annotations</span></a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">species &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Arabidopsis thaliana"</span>, <span class="st">"Arabidopsis lyrata"</span>, <span class="st">"Capsella rubella"</span>) </a>
+<a class="sourceLine" id="cb46-5" data-line-number="5"><span class="co"># download the genome assembly files for the species of interest</span></a>
+<a class="sourceLine" id="cb46-6" data-line-number="6"><span class="co"># </span></a>
+<a class="sourceLine" id="cb46-7" data-line-number="7"><span class="co"># install.packages("biomartr")</span></a>
+<a class="sourceLine" id="cb46-8" data-line-number="8">biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenomeSet.html">getGenomeSet</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, <span class="dt">organisms =</span> species, <span class="dt">path =</span> <span class="st">"store_genome_set"</span>)</a>
+<a class="sourceLine" id="cb46-9" data-line-number="9"><span class="co"># run LTRpred.meta() on the 3 species with 3 cores</span></a>
+<a class="sourceLine" id="cb46-10" data-line-number="10">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/LTRpred.meta.html">LTRpred.meta</a></span>(<span class="dt">genome.folder =</span> <span class="st">"store_genome_set"</span>,</a>
+<a class="sourceLine" id="cb46-11" data-line-number="11">                      <span class="dt">output.folder =</span> <span class="st">"LTRpred_meta_results"</span>,</a>
+<a class="sourceLine" id="cb46-12" data-line-number="12">                      <span class="dt">cores =</span> <span class="dv">3</span>)</a></code></pre></div>
 </div>
 </div>
   </div>
