@@ -35,6 +35,9 @@ docker run --rm -ti drostlab/ltrpred
 ~:/app# R
 ```
 
+Users who wish to run the `LTRpred` Docker container in a [conda](https://docs.conda.io/en/latest/) environment 
+can use the [following approach based on UDocker](https://github.com/HajkD/LTRpred/issues/16) (Many thanks to Ilja Bezrukov). 
+
 ## Tutorials
 
 ### Quick Start
