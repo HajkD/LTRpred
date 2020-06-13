@@ -252,7 +252,7 @@ LTRpred::plot_element_distr_along_chromosome(sc_ltrpred_filtered,
 ```
 
 
-![Positions of functional retrotransposons annotated by LTRpred along the yeast chromosomes.](Sc_LTRpred.pdf){ width=70% }
+![Positions of functional retrotransposons annotated by LTRpred along the yeast chromosomes.](Sc_LTRpred.png){ width=70% }
 
 ### Metagenome scale annotations
 
