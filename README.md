@@ -55,15 +55,9 @@ When running your own genome, please specify `genome.file = "path/to/your/genome
 
 
 ## Citation
-The `LTRpred` package is not formally published yet, but a manuscript is in preparation. For now, please cite one of the the following paper when using `LTRpred` for your own research. `LTRpred` is part of these studies and helped to predict potentially active retrotransposons that were later confirmed experimentally.
+Please cite the following paper when using `LTRpred` for your own research:
 
-> M Benoit, __HG Drost__, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski. [__Environmental and epigenetic regulation of Rider retrotransposons in tomato__](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370). _PloS Genetics_, 15(9):
-e1008370 (2019). 
-
-or
-
-> J Cho, M Benoit, M Catoni, __HG Drost__, A Brestovitsky, M Oosterbeek and J Paszkowski.  [__Sensitive detection of pre-integration intermediates of LTR retrotransposons in crop plants__](https://www.nature.com/articles/s41477-018-0320-9). _Nature Plants_, 5,  26-33 (2019).
-
+> HG Drost. [__LTRpred: _de novo_ annotation of intact retrotransposons__](). __Journal of Open Source Software__, 5(50), 2170 (2020).
 
 This tutorial introduces users to `LTRpred`:
 
@@ -80,14 +74,17 @@ You can also find a list of all available `LTRpred` functions here: https://hajk
 
 ### Studies that successfully used `LTRpred` to annotate functional retrotransposons
 
-> - Z Wang & D Baulcombe. [__Transposon age and non-CG methylation__](https://www.nature.com/articles/s41467-020-14995-6). __Nature Communications__, (2020) __in press__.
+> - Z Wang & D Baulcombe. [__Transposon age and non-CG methylation__](https://www.nature.com/articles/s41467-020-14995-6). __Nature Communications__, 11, 1221 (2020).
 > - J Cho, M Benoit, M Catoni, __HG Drost__, A Brestovitsky, M Oosterbeek and J Paszkowski.  [__Sensitive detection of pre-integration intermediates of LTR retrotransposons in crop plants__](https://www.nature.com/articles/s41477-018-0320-9). __Nature Plants__, 5,  26-33 (2019).
 >
 > - M Benoit, __HG Drost__, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski. [__Environmental and epigenetic regulation of Rider retrotransposons in tomato__](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370). __PloS Genetics__, 15(9): e1008370 (2019). 
 >
+> - Nguinkal _et al._ [__The First Highly Contiguous Genome Assembly of Pikeperch (Sander lucioperca), an Emerging Aquaculture Species in Europe__](https://www.mdpi.com/2073-4425/10/9/708/htm) __Genes__, 0(9), 708 (2019).
 > - E Cerruti, C Gisbert, __HG Drost__, D Valentino, E Portis, L Barchi, J Prohens, S Lanteri, C Comino,  M Catoni. [__Epigenetic bases of grafting-induced vigour in eggplant__](https://www.biorxiv.org/content/10.1101/831719v1). __bioaRxiv__ (2019).
 >
-> - Nguinkal _et al._ [__The First Highly Contiguous Genome Assembly of Pikeperch (Sander lucioperca), an Emerging Aquaculture Species in Europe__](https://www.mdpi.com/2073-4425/10/9/708/htm) __Genes__, 0(9), 708 (2019).
+> - P Gan, R Hiroyama, A Tsushima, S Masuda _et al_.
+[__Subtelomeric regions and a repeat-rich chromosome harbor multicopy effector gene clusters with variable conservation in multiple plant pathogenic Colletotrichum species__](https://www.biorxiv.org/content/10.1101/2020.04.28.061093v1.abstract) __bioRxiv__ (2020)
+
 
 ## Discussions and Bug Reports
 

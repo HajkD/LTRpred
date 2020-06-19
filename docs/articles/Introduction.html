@@ -81,7 +81,7 @@
     <div class="page-header toc-ignore">
       <h1>Introduction to LTRpred</h1>
             
-            <h4 class="date">2020-06-10</h4>
+            <h4 class="date">2020-06-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
@@ -186,7 +186,7 @@
 <p>Next, make sure to also store the genome assembly file (in <code>fasta</code> format) you want to <em>de novo</em> annotate with <code>LTRpred</code> in the <code>ltrpred_data</code> folder you just created.</p>
 <p>A possible way to retrieve such a genome is (within R) using <a href="https://github.com/ropensci/biomartr">biomartr</a>. If you use <code>biomartr</code> please make sure to <a href="https://github.com/ropensci/biomartr#installation">install all <code>biomartr</code> package dependencies</a> before running the following code.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># install.packages("biomartr")</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"ensembl"</span>, </a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">biomartr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/biomartr/man/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"ensembl"</span>, </a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">                    <span class="dt">organism =</span> <span class="st">"Saccharomyces cerevisiae"</span>, </a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">                    <span class="dt">path =</span> <span class="st">"yeast_genome"</span>, </a>
 <a class="sourceLine" id="cb7-5" data-line-number="5">                    <span class="dt">gunzip =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
@@ -812,7 +812,7 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 <p>The following example, however, will terminate within a few minutes.</p>
 <p>First we use the <a href="https://github.com/ropensci/biomartr">biomartr</a> package to download the genome of <code>Saccharomyces cerevisiae</code> from NCBI RefSeq:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># retrieve S. cerevisiae genome from from NCBI RefSeq</span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2">Scerevisiae_genome &lt;-<span class="st"> </span>biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, </a>
+<a class="sourceLine" id="cb37-2" data-line-number="2">Scerevisiae_genome &lt;-<span class="st"> </span>biomartr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/biomartr/man/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, </a>
 <a class="sourceLine" id="cb37-3" data-line-number="3">                      <span class="dt">organism  =</span> <span class="st">"Saccharomyces cerevisiae"</span>)</a>
 <a class="sourceLine" id="cb37-4" data-line-number="4"><span class="co"># show path to S. cerevisiae genome</span></a>
 <a class="sourceLine" id="cb37-5" data-line-number="5">Scerevisiae_genome</a></code></pre></div>
@@ -1430,7 +1430,7 @@ specify the insertion score used in the PBS/tRNA Smith-Waterman alignment. Defau
 <a class="sourceLine" id="cb46-5" data-line-number="5"><span class="co"># download the genome assembly files for the species of interest</span></a>
 <a class="sourceLine" id="cb46-6" data-line-number="6"><span class="co"># </span></a>
 <a class="sourceLine" id="cb46-7" data-line-number="7"><span class="co"># install.packages("biomartr")</span></a>
-<a class="sourceLine" id="cb46-8" data-line-number="8">biomartr<span class="op">::</span><span class="kw"><a href="https://docs.ropensci.org/biomartr/reference/getGenomeSet.html">getGenomeSet</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, <span class="dt">organisms =</span> species, <span class="dt">path =</span> <span class="st">"store_genome_set"</span>)</a>
+<a class="sourceLine" id="cb46-8" data-line-number="8">biomartr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/biomartr/man/getGenomeSet.html">getGenomeSet</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, <span class="dt">organisms =</span> species, <span class="dt">path =</span> <span class="st">"store_genome_set"</span>)</a>
 <a class="sourceLine" id="cb46-9" data-line-number="9"><span class="co"># run LTRpred.meta() on the 3 species with 3 cores</span></a>
 <a class="sourceLine" id="cb46-10" data-line-number="10">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/LTRpred.meta.html">LTRpred.meta</a></span>(<span class="dt">genome.folder =</span> <span class="st">"store_genome_set"</span>,</a>
 <a class="sourceLine" id="cb46-11" data-line-number="11">                      <span class="dt">output.folder =</span> <span class="st">"LTRpred_meta_results"</span>,</a>
