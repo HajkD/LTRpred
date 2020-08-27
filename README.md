@@ -57,7 +57,7 @@ When running your own genome, please specify `genome.file = "path/to/your/genome
 ## Citation
 Please cite the following paper when using `LTRpred` for your own research:
 
-> HG Drost. [__LTRpred: _de novo_ annotation of intact retrotransposons__](). __Journal of Open Source Software__, 5(50), 2170 (2020).
+> HG Drost. [__LTRpred: _de novo_ annotation of intact retrotransposons__](https://joss.theoj.org/papers/10.21105/joss.02170). __Journal of Open Source Software__, 5(50), 2170 (2020).
 
 This tutorial introduces users to `LTRpred`:
 
