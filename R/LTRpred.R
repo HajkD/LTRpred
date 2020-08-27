@@ -853,7 +853,7 @@ LTRpred <- function(genome.file       = NULL,
                     # compute copy number of clustered elements
                     Clust.cn <-
                         dplyr::filter(
-                            dplyr::summarise(dplyr::group_by(res, Clust_Cluster), Clust_cn = n()),
+                            dplyr::summarise(dplyr::group_by(res, Clust_Cluster), Clust_cn = dplyr::n()),
                             Clust_Cluster != "unique"
                         )
                     
