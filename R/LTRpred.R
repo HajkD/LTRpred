@@ -1378,10 +1378,10 @@ LTRpred <- function(genome.file       = NULL,
             
             solo.ltr.cn.n_3ltr <-
                 dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_3ltr, query_id),
-                                 cn_3ltr = n())
+                                 cn_3ltr = dplyr::n())
             solo.ltr.cn.n_5ltr <-
                 dplyr::summarise(dplyr::group_by(solo.ltr.cn$pred_5ltr, query_id),
-                                 cn_5ltr = n())
+                                 cn_5ltr = dplyr::n())
             
             names(solo.ltr.cn.n_3ltr)[1] <- "orf.id"
             names(solo.ltr.cn.n_5ltr)[1] <- "orf.id"
