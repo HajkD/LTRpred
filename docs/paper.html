@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="pkgdown.css" rel="stylesheet">
@@ -53,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -97,7 +101,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/HajkD/LTRpred">
+  <a href="https://github.com/HajkD/LTRpred/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -156,19 +160,23 @@
 <h1 class="hasAnchor">
 <a href="#example-workflow" class="anchor"></a>Example workflow</h1>
 <p>After installing all prerequisite command line tools (<a href="https://hajkd.github.io/LTRpred/articles/Introduction.html#installation" class="uri">https://hajkd.github.io/LTRpred/articles/Introduction.html#installation</a>) users can run the <code><a href="reference/LTRpred.html">LTRpred()</a></code> pipeline using the default parameter configuration. In the following example, an LTR transposon prediction is performed for parts of the Human Y chromosome.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># load LTRpred package</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(LTRpred)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># de novo LTR transposon prediction for the Human Y chromosome</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="reference/LTRpred.html">LTRpred</a></span>(</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="dt">genome.file =</span> <span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, <span class="dt">package =</span> <span class="st">"LTRpred"</span>),</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">cores =</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># load LTRpred package</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/HajkD/LTRpred">LTRpred</a></span>)
+<span class="co"># de novo LTR transposon prediction for the Human Y chromosome</span>
+<span class="fu"><a href="reference/LTRpred.html">LTRpred</a></span>(
+    genome.file = <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, package = <span class="st">"LTRpred"</span>),
+    cores = <span class="fl">4</span>
+)
+</pre></div>
 <p>The LTRpred() output table <code>*_LTRpred_DataSheet.tsv</code> is in tidy format and can then be imported using <code><a href="reference/read.ltrpred.html">read.ltrpred()</a></code>. The tidy output format is designed to work seamlessly with the tidyverse and R data science framework.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># import LTRpred prediction output</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">Hsapiens_chrY &lt;-<span class="st"> </span><span class="kw"><a href="reference/read.ltrpred.html">read.ltrpred</a></span>(<span class="st">"Hsapiens_ChrY_ltrpred/</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span>)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># look at some results</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(Hsapiens_chrY)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># import LTRpred prediction output</span>
+<span class="kw">Hsapiens_chrY</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read.ltrpred.html">read.ltrpred</a></span>(<span class="st">"Hsapiens_ChrY_ltrpred/
+Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span>)
+<span class="co"># look at some results</span>
+<span class="kw">dplyr</span>::<span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span>(<span class="kw">Hsapiens_chrY</span>)
+</pre></div>
 <pre><code>Observations: 21
 Variables: 92
 $ species                 &lt;chr&gt; "Hsapiens_ChrY", "Hsapien...
@@ -276,10 +284,9 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N..</code></pre>
 <li><p><code>*_ORF_prediction_aa.fsa</code> : Stores the predicted open reading frames within the predicted LTR transposons as protein sequence.</p></li>
 <li><p><code>*_LTRpred.gff</code> : Stores the LTRpred predicted LTR transposons in GFF format.</p></li>
 <li><p><code>*_LTRpred.bed</code> : Stores the LTRpred predicted LTR transposons in BED format.</p></li>
+<li><p><code>*_LTRpred_DataSheet.tsv</code> : Stores the output table as data sheet.</p></li>
 <li>
-<code>*_LTRpred_DataSheet.tsv</code> : Stores the output table as data sheet.</li>
-<li>
-<strong>Folder <code>*_ltrharvest</code></strong>
+<p><strong>Folder <code>*_ltrharvest</code></strong></p>
 <ul>
 <li><p><code>*_ltrharvest/*_BetweenLTRSeqs.fsa</code> : DNA sequences of the region between the LTRs in fasta format.</p></li>
 <li><p><code>*_ltrharvest/*_Details.tsv</code> : A spread sheet containing detailed information about the predicted LTRs.</p></li>
@@ -289,7 +296,7 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N..</code></pre>
 </ul>
 </li>
 <li>
-<strong>Folder <code>*_ltrdigest</code></strong>
+<p><strong>Folder <code>*_ltrdigest</code></strong></p>
 <ul>
 <li><p><code>*_ltrdigest/*_LTRdigestPrediction.gff</code> : A spread sheet containing detailed information about the predicted LTRs.</p></li>
 <li><p><code>*_ltrdigest/*_index_ltrdigest.fsa</code> : The suffixarray index file used to predict putative LTR retrotransposons with LTRdigest.</p></li>
@@ -313,30 +320,32 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N..</code></pre>
 <a href="#visualising-functional-retrotransposons-annotated-with-ltrpred" class="anchor"></a>Visualising functional retrotransposons annotated with <code>LTRpred</code>
 </h3>
 <p>Finally, users can visualise the positioning of <em>de novo</em> annotated retrotransposons along the chromosomes. Here, we choose an example based on the yeast genome.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># install.packages("biomartr")</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co"># download the yeast genome from ENSEMBL</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">sc_genome_path &lt;-<span class="st"> </span>biomartr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/biomartr/man/getGenome.html">getGenome</a></span>(<span class="dt">db =</span> <span class="st">"ensembl"</span>, </a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">                               <span class="dt">organism =</span> <span class="st">"Saccharomyces cerevisiae"</span>, </a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">                               <span class="dt">path =</span> <span class="st">"yeast_genome"</span>, </a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">                               <span class="dt">gunzip =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co"># run LTRpred on the yeast genome (-&gt; this may take a few minutes)</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/LTRpred.html">LTRpred</a></span>(</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">    <span class="dt">genome.file =</span> sc_genome_path,</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">    <span class="dt">cores =</span> <span class="dv">4</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">)</a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co"># import functional retrotransposon annotation</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13">sc_ltrpred &lt;-<span class="st"> </span>LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/read.ltrpred.html">read.ltrpred</a></span>(</a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"> <span class="kw"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"Saccharomyces_cerevisiae_ltrpred"</span>,</a>
-<a class="sourceLine" id="cb4-15" data-line-number="15">                      <span class="st">"Saccharomyces_cerevisiae_LTRpred_DataSheet.tsv"</span>))</a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co"># filter for potentially active candidates</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17">sc_ltrpred_filtered &lt;-<span class="st"> </span>LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/quality.filter.html">quality.filter</a></span>(sc_ltrpred, </a>
-<a class="sourceLine" id="cb4-18" data-line-number="18">                                          <span class="dt">sim =</span> <span class="dv">95</span>, </a>
-<a class="sourceLine" id="cb4-19" data-line-number="19">                                          <span class="dt">strategy =</span> <span class="st">"stringent"</span>, </a>
-<a class="sourceLine" id="cb4-20" data-line-number="20">                                          <span class="dt">n.orfs =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co"># visualise the position of potentially active retrotransposons</span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co"># along the yeast chromosomes</span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/plot_element_distr_along_chromosome.html">plot_element_distr_along_chromosome</a></span>(sc_ltrpred_filtered,</a>
-<a class="sourceLine" id="cb4-24" data-line-number="24">                                             sc_genome_path)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="co"># install.packages("biomartr")</span>
+<span class="co"># download the yeast genome from ENSEMBL</span>
+<span class="kw">sc_genome_path</span> <span class="op">&lt;-</span> <span class="kw">biomartr</span>::<span class="fu"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(db = <span class="st">"ensembl"</span>, 
+                               organism = <span class="st">"Saccharomyces cerevisiae"</span>, 
+                               path = <span class="st">"yeast_genome"</span>, 
+                               gunzip = <span class="fl">TRUE</span>)
+<span class="co"># run LTRpred on the yeast genome (-&gt; this may take a few minutes)</span>
+<span class="kw">LTRpred</span>::<span class="fu"><a href="reference/LTRpred.html">LTRpred</a></span>(
+    genome.file = <span class="kw">sc_genome_path</span>,
+    cores = <span class="fl">4</span>
+)
+<span class="co"># import functional retrotransposon annotation</span>
+<span class="kw">sc_ltrpred</span> <span class="op">&lt;-</span> <span class="kw">LTRpred</span>::<span class="fu"><a href="reference/read.ltrpred.html">read.ltrpred</a></span>(
+ <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"Saccharomyces_cerevisiae_ltrpred"</span>,
+                      <span class="st">"Saccharomyces_cerevisiae_LTRpred_DataSheet.tsv"</span>))
+<span class="co"># filter for potentially active candidates</span>
+<span class="kw">sc_ltrpred_filtered</span> <span class="op">&lt;-</span> <span class="kw">LTRpred</span>::<span class="fu"><a href="reference/quality.filter.html">quality.filter</a></span>(<span class="kw">sc_ltrpred</span>, 
+                                          sim = <span class="fl">95</span>, 
+                                          strategy = <span class="st">"stringent"</span>, 
+                                          n.orfs = <span class="fl">1</span>)
+<span class="co"># visualise the position of potentially active retrotransposons</span>
+<span class="co"># along the yeast chromosomes</span>
+<span class="kw">LTRpred</span>::<span class="fu"><a href="reference/plot_element_distr_along_chromosome.html">plot_element_distr_along_chromosome</a></span>(<span class="kw">sc_ltrpred_filtered</span>,
+                                             <span class="kw">sc_genome_path</span>)
+</pre></div>
 <p><img src="Sc_LTRpred.png" alt="Positions of functional retrotransposons annotated by LTRpred along the yeast chromosomes.">{ width=70% }</p>
 </div>
 <div id="metagenome-scale-annotations" class="section level3">
@@ -344,19 +353,21 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N..</code></pre>
 <a href="#metagenome-scale-annotations" class="anchor"></a>Metagenome scale annotations</h3>
 <p><code>LTRpred</code> allows users to generate annotations not only for single genomes but for multiple genomes (metagenomes) using only one pipeline function named <code><a href="reference/LTRpred.meta.html">LTRpred.meta()</a></code>.</p>
 <p>Users can download the <code>biomartr</code> package [@Drost2017-cw] to automatically retrieve genome assembly files for the species of interest.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># specify the scientific names of the species of interest</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co"># that shall first be downloaded and then be used</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># to generate LTRpred annotations</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">species &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Arabidopsis thaliana"</span>, <span class="st">"Arabidopsis lyrata"</span>, <span class="st">"Capsella rubella"</span>) </a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co"># download the genome assembly files for the species of interest</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co"># </span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co"># install.packages("biomartr")</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">biomartr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/biomartr/man/getGenomeSet.html">getGenomeSet</a></span>(<span class="dt">db =</span> <span class="st">"refseq"</span>, <span class="dt">organisms =</span> species,</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">                      <span class="dt">path =</span> <span class="st">"store_genome_set"</span>)</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co"># run LTRpred.meta() on the 3 species with 3 cores</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">LTRpred<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/LTRpred/man/LTRpred.meta.html">LTRpred.meta</a></span>(<span class="dt">genome.folder =</span> <span class="st">"store_genome_set"</span>,</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">                      <span class="dt">output.folder =</span> <span class="st">"LTRpred_meta_results"</span>,</a>
-<a class="sourceLine" id="cb5-13" data-line-number="13">                      <span class="dt">cores =</span> <span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="co"># specify the scientific names of the species of interest</span>
+<span class="co"># that shall first be downloaded and then be used</span>
+<span class="co"># to generate LTRpred annotations</span>
+<span class="kw">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Arabidopsis thaliana"</span>, <span class="st">"Arabidopsis lyrata"</span>, <span class="st">"Capsella rubella"</span>) 
+<span class="co"># download the genome assembly files for the species of interest</span>
+<span class="co"># </span>
+<span class="co"># install.packages("biomartr")</span>
+<span class="kw">biomartr</span>::<span class="fu"><a href="https://docs.ropensci.org/biomartr/reference/getGenomeSet.html">getGenomeSet</a></span>(db = <span class="st">"refseq"</span>, organisms = <span class="kw">species</span>,
+                      path = <span class="st">"store_genome_set"</span>)
+<span class="co"># run LTRpred.meta() on the 3 species with 3 cores</span>
+<span class="kw">LTRpred</span>::<span class="fu"><a href="reference/LTRpred.meta.html">LTRpred.meta</a></span>(genome.folder = <span class="st">"store_genome_set"</span>,
+                      output.folder = <span class="st">"LTRpred_meta_results"</span>,
+                      cores = <span class="fl">3</span>)
+</pre></div>
 </div>
 </div>
 <div id="acknowledgements" class="section level1">
@@ -372,6 +383,12 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N..</code></pre>
 
   </div>
 
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
+  </div>
+
 </div>
 
 
@@ -382,7 +399,7 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N..</code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

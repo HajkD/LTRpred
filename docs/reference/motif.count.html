@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,7 +42,6 @@
 <meta property="og:title" content="Low level function to detect motifs in strings — motif.count" />
 <meta property="og:description" content="Find a specific motif or a sequence of motifs within
 genomic sequences." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -56,7 +59,7 @@ genomic sequences." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -100,7 +103,7 @@ genomic sequences." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/HajkD/LTRpred">
+  <a href="https://github.com/HajkD/LTRpred/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -128,7 +131,7 @@ genomic sequences." />
 genomic sequences.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>motif.count</span>(<span class='no'>seq.file</span>, <span class='no'>motif</span>, <span class='kw'>as.ratio</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>motif.count</span>(<span class='kw'>seq.file</span>, <span class='kw'>motif</span>, as.ratio = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,11 +151,15 @@ genomic sequences.</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># find number of "CG" motifs in predicted LTR transposons</span>
-<span class='fu'>motif.count</span>(<span class='kw'>seq.file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"LTRseqs.fas"</span>,<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>),
-            <span class='kw'>motif</span>    <span class='kw'>=</span> <span class='st'>"CG"</span>)</div><div class='output co'>#&gt;   [1] 245 186 235 116 129 118  98 180 236  75  81 105 127  56 214  77 152 172
+<span class='fu'>motif.count</span>(seq.file = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"LTRseqs.fas"</span>,package = <span class='st'>"LTRpred"</span>), 
+            motif    = <span class='st'>"CG"</span>)
+</div><div class='output co'>#&gt;   [1] 245 186 235 116 129 118  98 180 236  75  81 105 127  56 214  77 152 172
 #&gt;  [19] 115 581 459 196 129  70 165  84  84 169 124 216 179 263 166 107 133  79
 #&gt;  [37] 117 664 113  81 152 102 191  77 146  92 156 116 140 297 104 108 116 204
 #&gt;  [55] 173  85 133 260 119 129 291 274 134 113 655 169 224 189  62  67  81 210
@@ -177,11 +184,12 @@ genomic sequences.</p>
 #&gt; [397] 178 193 116 155  57 592  97 177 310 373  93 308 262 276 162  77 181  71
 #&gt; [415]  75  97  77  77 176 130  80 130 128 182 105 128 232 111 116 138  76 143
 #&gt; [433] 215 395 214  74 107 199 117 140 100 128 179 109 206 126 117 128 154  78
-#&gt; [451] 204 131 191  94 240  96 580 686</div><div class='input'>
+#&gt; [451] 204 131 191  94 240  96 580 686</div><div class='input'>            
 <span class='co'># find number of "CG" motifs in predicted LTR transposons: rel. frequency</span>
-<span class='fu'>motif.count</span>(<span class='kw'>seq.file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"LTRseqs.fas"</span>,<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"LTRpred"</span>),
-            <span class='kw'>motif</span>    <span class='kw'>=</span> <span class='st'>"CG"</span>,
-            <span class='kw'>as.ratio</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;     1_CHROMOSOME_dumped__149500_155909     1_CHROMOSOME_dumped__249531_259127 
+<span class='fu'>motif.count</span>(seq.file = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"LTRseqs.fas"</span>,package = <span class='st'>"LTRpred"</span>), 
+            motif    = <span class='st'>"CG"</span>,
+            as.ratio = <span class='fl'>TRUE</span>)             
+</div><div class='output co'>#&gt;     1_CHROMOSOME_dumped__149500_155909     1_CHROMOSOME_dumped__249531_259127 
 #&gt;                             0.03822153                             0.01938106 
 #&gt;     1_CHROMOSOME_dumped__428932_438092   1_CHROMOSOME_dumped__2659374_2663971 
 #&gt;                             0.02565222                             0.02522836 
@@ -640,15 +648,10 @@ genomic sequences.</p>
 #&gt;     mitochondria_CHROMOS_111563_129916     mitochondria_CHROMOS_241879_260732 
 #&gt;                             0.03160074                             0.03638485 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Hajk-Georg Drost</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -659,7 +662,7 @@ genomic sequences.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
