@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -62,7 +62,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/HajkD/LTRpred/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -122,20 +122,18 @@
 <h3 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick Start</h3>
 <p>The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after <a href="https://hajkd.github.io/LTRpred/articles/Introduction.html">installing</a> all prerequisite command line tools) is to use the <code><a href="reference/LTRpred.html">LTRpred()</a></code> function and relying on the default parameters. In the following example, a LTR transposon prediction is performed for parts of the Human Y chromosome.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co"># Perform de novo LTR transposon prediction for the Human Y chromosome</span>
-<span class="kw">LTRpred</span>::<span class="fu"><a href="reference/LTRpred.html">LTRpred</a></span>(genome.file = <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, package = <span class="st">"LTRpred"</span>))
-</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Perform de novo LTR transposon prediction for the Human Y chromosome</span>
+<span class="fu">LTRpred</span><span class="fu">::</span><span class="fu"><a href="reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>genome.file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"Hsapiens_ChrY.fa"</span>, package <span class="op">=</span> <span class="st">"LTRpred"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>When running your own genome, please specify <code>genome.file = "path/to/your/genome.fasta</code> instead of <code><a href="https://rdrr.io/r/base/system.file.html">system.file(..., package = "LTRpred")</a></code>. The command <code><a href="https://rdrr.io/r/base/system.file.html">system.file(..., package = "LTRpred")</a></code> merely references the path to the example file stored in the LTRpred package itself.</p>
 <p>This tutorial introduces users to <code>LTRpred</code>:</p>
 <ul>
 <li><a href="https://hajkd.github.io/LTRpred/articles/Introduction.html">Introduction to LTRpred</a></li>
 </ul>
 <p>Users can also read the tutorials within (<a href="http://www.rstudio.com/">RStudio</a>) :</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/HajkD/LTRpred">LTRpred</a></span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span>(<span class="st">"LTRpred"</span>)
-</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HajkD/LTRpred">LTRpred</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span><span class="op">(</span><span class="st">"LTRpred"</span><span class="op">)</span></code></pre></div>
 <p>You can also find a list of all available <code>LTRpred</code> functions here: <a href="https://hajkd.github.io/LTRpred/reference/index.html" class="uri">https://hajkd.github.io/LTRpred/reference/index.html</a></p>
 </div>
 <div id="studies-that-successfully-used-ltrpred-to-annotate-functional-retrotransposons" class="section level3">
@@ -144,8 +142,9 @@
 <blockquote>
 <ul>
 <li><p>Z Wang &amp; D Baulcombe. <a href="https://www.nature.com/articles/s41467-020-14995-6"><strong>Transposon age and non-CG methylation</strong></a>. <strong>Nature Communications</strong>, 11, 1221 (2020).</p></li>
+<li><p>JH Collins, KW Keating, TR Jones, S Balaji, CB Marsan et al. <a href="https://www.nature.com/articles/s41467-021-21656-9"><strong>Engineered yeast genomes accurately assembled from pure and mixed samples</strong></a>. <strong>Nature communications</strong>, 12, 1485 (2021).</p></li>
+<li><p>H Kundariya et al. <a href="https://www.nature.com/articles/s41467-020-19140-x"><strong>MSH1-induced heritable enhanced growth vigor through grafting is associated with the RdDM pathway in plants</strong></a> <strong>Nature Communications</strong>, 11, 5343 (2020).</p></li>
 <li><p>J Cho, M Benoit, M Catoni, <strong>HG Drost</strong>, A Brestovitsky, M Oosterbeek and J Paszkowski. <a href="https://www.nature.com/articles/s41477-018-0320-9"><strong>Sensitive detection of pre-integration intermediates of LTR retrotransposons in crop plants</strong></a>. <strong>Nature Plants</strong>, 5, 26-33 (2019).</p></li>
-<li><p>H Kundariya et al. <a href="https://www.nature.com/articles/s41467-020-19140-x"><strong>MSH1-induced heritable enhanced growth vigor through grafting is associated with the RdDM pathway in plants</strong></a> <strong>Nature Communications</strong>, <em>in press</em> (2020).</p></li>
 <li><p>M Benoit, <strong>HG Drost</strong>, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski. <a href="https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370"><strong>Environmental and epigenetic regulation of Rider retrotransposons in tomato</strong></a>. <strong>PloS Genetics</strong>, 15(9): e1008370 (2019).</p></li>
 <li><p>Nguinkal <em>et al.</em> <a href="https://www.mdpi.com/2073-4425/10/9/708/htm"><strong>The First Highly Contiguous Genome Assembly of Pikeperch (Sander lucioperca), an Emerging Aquaculture Species in Europe</strong></a> <strong>Genes</strong>, 0(9), 708 (2019).</p></li>
 <li><p>E Cerruti, C Gisbert, <strong>HG Drost</strong>, D Valentino, E Portis, L Barchi, J Prohens, S Lanteri, C Comino, M Catoni. <a href="https://www.biorxiv.org/content/10.1101/831719v1"><strong>Epigenetic bases of grafting-induced vigour in eggplant</strong></a>. <strong>bioaRxiv</strong> (2019).</p></li>
@@ -153,6 +152,7 @@
 <li><p>J Wang et al. <a href="https://www.biorxiv.org/content/10.1101/2020.08.19.257527v1"><strong>Gigantic Genomes Can Provide Empirical Tests of TE Dynamics Models–An Example from Amphibians</strong></a>. <strong>bioRxiv</strong>, (2020).</p></li>
 <li><p>Y Ayukawa et al. <a href="https://www.biorxiv.org/content/10.1101/2020.10.06.329052v1"><strong>A pair of effectors encoded on a conditionally dispensable chromosome of Fusarium oxysporum suppress host-specific immunity</strong></a>. <strong>bioRxiv</strong>, (2020).</p></li>
 </ul>
+<p>C Meguerditchian, A Ergun, V Decroocq, M Lefebvre et al. <a href="https://www.biorxiv.org/content/10.1101/2021.02.25.432867v1.abstract"><strong>Pipeline to detect the relationship between transposable elements and adjacent genes in host genome</strong></a> <strong>bioRxiv</strong>, (2021).</p>
 </blockquote>
 </div>
 </div>

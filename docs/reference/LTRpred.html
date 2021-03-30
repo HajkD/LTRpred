@@ -81,7 +81,7 @@ sufficient LTR retrotransposon predictions for any genome of interest." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -104,7 +104,7 @@ sufficient LTR retrotransposon predictions for any genome of interest." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/HajkD/LTRpred/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,77 +131,77 @@ sufficient LTR retrotransposon predictions for any genome of interest." />
 sufficient LTR retrotransposon predictions for any genome of interest.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>LTRpred</span>(
-  genome.file = <span class='kw'>NULL</span>,
-  centromere_start = <span class='kw'>NULL</span>,
-  centromere_end = <span class='kw'>NULL</span>,
-  model = <span class='st'>"K80"</span>,
-  mutation_rate = <span class='fl'>1.3</span> <span class='op'>*</span> <span class='fl'>1e-07</span>,
-  index.file.harvest = <span class='kw'>NULL</span>,
-  index.file.digest = <span class='kw'>NULL</span>,
-  LTRdigest.gff = <span class='kw'>NULL</span>,
-  tabout.file = <span class='kw'>NULL</span>,
-  LTRharvest.folder = <span class='kw'>NULL</span>,
-  LTRpred.folder = <span class='kw'>NULL</span>,
-  orf.file = <span class='kw'>NULL</span>,
-  annotate = <span class='kw'>NULL</span>,
-  Dfam.db = <span class='kw'>NULL</span>,
-  dfam.eval = <span class='fl'>0.001</span>,
-  dfam.file = <span class='kw'>NULL</span>,
-  cluster = <span class='fl'>FALSE</span>,
-  clust.sim = <span class='fl'>0.9</span>,
-  clust.file = <span class='kw'>NULL</span>,
-  copy.number.est = <span class='fl'>FALSE</span>,
-  fix.chr.name = <span class='fl'>FALSE</span>,
-  cn.eval = <span class='fl'>1e-05</span>,
-  range = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>),
-  seed = <span class='fl'>30</span>,
-  minlenltr = <span class='fl'>100</span>,
-  maxlenltr = <span class='fl'>3500</span>,
-  mindistltr = <span class='fl'>4000</span>,
-  maxdistltr = <span class='fl'>25000</span>,
-  similar = <span class='fl'>70</span>,
-  mintsd = <span class='fl'>4</span>,
-  maxtsd = <span class='fl'>20</span>,
-  vic = <span class='fl'>60</span>,
-  overlaps = <span class='st'>"no"</span>,
-  xdrop = <span class='fl'>5</span>,
-  mat = <span class='fl'>2</span>,
-  mis = <span class='op'>-</span><span class='fl'>2</span>,
-  ins = <span class='op'>-</span><span class='fl'>3</span>,
-  del = <span class='op'>-</span><span class='fl'>3</span>,
-  motif = <span class='kw'>NULL</span>,
-  motifmis = <span class='fl'>0</span>,
-  aaout = <span class='st'>"yes"</span>,
-  aliout = <span class='st'>"yes"</span>,
-  pptlen = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>, <span class='fl'>30</span>),
-  uboxlen = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>30</span>),
-  pptradius = <span class='fl'>30</span>,
-  trnas = <span class='kw'>NULL</span>,
-  pbsalilen = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>, <span class='fl'>30</span>),
-  pbsoffset = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>5</span>),
-  pbstrnaoffset = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>5</span>),
-  pbsmaxedist = <span class='fl'>1</span>,
-  pbsradius = <span class='fl'>30</span>,
-  hmms = <span class='kw'>NULL</span>,
-  pdomevalcutoff = <span class='fl'>1e-05</span>,
-  pbsmatchscore = <span class='fl'>5</span>,
-  pbsmismatchscore = <span class='op'>-</span><span class='fl'>10</span>,
-  pbsinsertionscore = <span class='op'>-</span><span class='fl'>20</span>,
-  pbsdeletionscore = <span class='op'>-</span><span class='fl'>20</span>,
-  pfam.ids = <span class='kw'>NULL</span>,
-  cores = <span class='fl'>1</span>,
-  dfam.cores = <span class='kw'>NULL</span>,
-  hmm.cores = <span class='kw'>NULL</span>,
-  orf.style = <span class='fl'>7</span>,
-  min.codons = <span class='fl'>200</span>,
-  trans.seqs = <span class='fl'>FALSE</span>,
-  output.path = <span class='kw'>NULL</span>,
-  quality.filter = <span class='fl'>TRUE</span>,
-  n.orfs = <span class='fl'>0</span>,
-  job_num = <span class='fl'>1</span>,
-  verbose = <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>LTRpred</span><span class='op'>(</span>
+  genome.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  centromere_start <span class='op'>=</span> <span class='cn'>NULL</span>,
+  centromere_end <span class='op'>=</span> <span class='cn'>NULL</span>,
+  model <span class='op'>=</span> <span class='st'>"K80"</span>,
+  mutation_rate <span class='op'>=</span> <span class='fl'>1.3</span> <span class='op'>*</span> <span class='fl'>1e-07</span>,
+  index.file.harvest <span class='op'>=</span> <span class='cn'>NULL</span>,
+  index.file.digest <span class='op'>=</span> <span class='cn'>NULL</span>,
+  LTRdigest.gff <span class='op'>=</span> <span class='cn'>NULL</span>,
+  tabout.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  LTRharvest.folder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  LTRpred.folder <span class='op'>=</span> <span class='cn'>NULL</span>,
+  orf.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  annotate <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Dfam.db <span class='op'>=</span> <span class='cn'>NULL</span>,
+  dfam.eval <span class='op'>=</span> <span class='fl'>0.001</span>,
+  dfam.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cluster <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  clust.sim <span class='op'>=</span> <span class='fl'>0.9</span>,
+  clust.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  copy.number.est <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  fix.chr.name <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cn.eval <span class='op'>=</span> <span class='fl'>1e-05</span>,
+  range <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
+  seed <span class='op'>=</span> <span class='fl'>30</span>,
+  minlenltr <span class='op'>=</span> <span class='fl'>100</span>,
+  maxlenltr <span class='op'>=</span> <span class='fl'>3500</span>,
+  mindistltr <span class='op'>=</span> <span class='fl'>4000</span>,
+  maxdistltr <span class='op'>=</span> <span class='fl'>25000</span>,
+  similar <span class='op'>=</span> <span class='fl'>70</span>,
+  mintsd <span class='op'>=</span> <span class='fl'>4</span>,
+  maxtsd <span class='op'>=</span> <span class='fl'>20</span>,
+  vic <span class='op'>=</span> <span class='fl'>60</span>,
+  overlaps <span class='op'>=</span> <span class='st'>"no"</span>,
+  xdrop <span class='op'>=</span> <span class='fl'>5</span>,
+  mat <span class='op'>=</span> <span class='fl'>2</span>,
+  mis <span class='op'>=</span> <span class='op'>-</span><span class='fl'>2</span>,
+  ins <span class='op'>=</span> <span class='op'>-</span><span class='fl'>3</span>,
+  del <span class='op'>=</span> <span class='op'>-</span><span class='fl'>3</span>,
+  motif <span class='op'>=</span> <span class='cn'>NULL</span>,
+  motifmis <span class='op'>=</span> <span class='fl'>0</span>,
+  aaout <span class='op'>=</span> <span class='st'>"yes"</span>,
+  aliout <span class='op'>=</span> <span class='st'>"yes"</span>,
+  pptlen <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>, <span class='fl'>30</span><span class='op'>)</span>,
+  uboxlen <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>30</span><span class='op'>)</span>,
+  pptradius <span class='op'>=</span> <span class='fl'>30</span>,
+  trnas <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pbsalilen <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>30</span><span class='op'>)</span>,
+  pbsoffset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>5</span><span class='op'>)</span>,
+  pbstrnaoffset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>5</span><span class='op'>)</span>,
+  pbsmaxedist <span class='op'>=</span> <span class='fl'>1</span>,
+  pbsradius <span class='op'>=</span> <span class='fl'>30</span>,
+  hmms <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pdomevalcutoff <span class='op'>=</span> <span class='fl'>1e-05</span>,
+  pbsmatchscore <span class='op'>=</span> <span class='fl'>5</span>,
+  pbsmismatchscore <span class='op'>=</span> <span class='op'>-</span><span class='fl'>10</span>,
+  pbsinsertionscore <span class='op'>=</span> <span class='op'>-</span><span class='fl'>20</span>,
+  pbsdeletionscore <span class='op'>=</span> <span class='op'>-</span><span class='fl'>20</span>,
+  pfam.ids <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cores <span class='op'>=</span> <span class='fl'>1</span>,
+  dfam.cores <span class='op'>=</span> <span class='cn'>NULL</span>,
+  hmm.cores <span class='op'>=</span> <span class='cn'>NULL</span>,
+  orf.style <span class='op'>=</span> <span class='fl'>7</span>,
+  min.codons <span class='op'>=</span> <span class='fl'>200</span>,
+  trans.seqs <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  output.path <span class='op'>=</span> <span class='cn'>NULL</span>,
+  quality.filter <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  n.orfs <span class='op'>=</span> <span class='fl'>0</span>,
+  job_num <span class='op'>=</span> <span class='fl'>1</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -646,20 +646,20 @@ predictions.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># generate de novo LTR transposon prediction</span>
-<span class='fu'>LTRpred</span>(genome.file = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY.fa"</span>, package = <span class='st'>"LTRpred"</span>),
-          trnas       = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"hg38-tRNAs.fa"</span>, package = <span class='st'>"LTRpred"</span>),
-          hmms        = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"HMMs/"</span>, package = <span class='st'>"LTRpred"</span>),<span class='st'>"hmm_*"</span>))
+<span class='fu'>LTRpred</span><span class='op'>(</span>genome.file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"Hsapiens_ChrY.fa"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>,
+          trnas       <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"hg38-tRNAs.fa"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>,
+          hmms        <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"HMMs/"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>,<span class='st'>"hmm_*"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># run LTRpred with pre-computed predictions from LTRdigest()  </span>
-<span class='kw'>genome</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"TAIR10_chr_all_LTRdigestPrediction.gff"</span>,package = <span class='st'>"LTRpred"</span>)   
-<span class='kw'>tabout</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"TAIR10_chr_all-ltrdigest_tabout.csv"</span>,package = <span class='st'>"LTRpred"</span>)
-<span class='kw'>orf.pred</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"nt.fa"</span>,package = <span class='st'>"LTRpred"</span>)              
-<span class='fu'>LTRpred</span>(LTRdigest.gff = <span class='kw'>genome</span>,
-        tabout.file   = <span class='kw'>tabout</span>,
-        orf.file      = <span class='kw'>orf.pred</span>)
-}
+<span class='va'>genome</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"TAIR10_chr_all_LTRdigestPrediction.gff"</span>,package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>   
+<span class='va'>tabout</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"TAIR10_chr_all-ltrdigest_tabout.csv"</span>,package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>
+<span class='va'>orf.pred</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"nt.fa"</span>,package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>              
+<span class='fu'>LTRpred</span><span class='op'>(</span>LTRdigest.gff <span class='op'>=</span> <span class='va'>genome</span>,
+        tabout.file   <span class='op'>=</span> <span class='va'>tabout</span>,
+        orf.file      <span class='op'>=</span> <span class='va'>orf.pred</span><span class='op'>)</span>
+<span class='op'>}</span>
 
 </div></pre>
   </div>

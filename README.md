@@ -75,9 +75,11 @@ You can also find a list of all available `LTRpred` functions here: https://hajk
 ### Studies that successfully used `LTRpred` to annotate functional retrotransposons
 
 > - Z Wang & D Baulcombe. [__Transposon age and non-CG methylation__](https://www.nature.com/articles/s41467-020-14995-6). __Nature Communications__, 11, 1221 (2020).
-> - J Cho, M Benoit, M Catoni, __HG Drost__, A Brestovitsky, M Oosterbeek and J Paszkowski.  [__Sensitive detection of pre-integration intermediates of LTR retrotransposons in crop plants__](https://www.nature.com/articles/s41477-018-0320-9). __Nature Plants__, 5,  26-33 (2019).
+> - JH Collins, KW Keating, TR Jones, S Balaji, CB Marsan et al. [__Engineered yeast genomes accurately assembled from pure and mixed samples__](https://www.nature.com/articles/s41467-021-21656-9). __Nature communications__, 12, 1485 (2021).
 >
-> - H Kundariya et al. [__MSH1-induced heritable enhanced growth vigor through grafting is associated with the RdDM pathway in plants__](https://www.nature.com/articles/s41467-020-19140-x) __Nature Communications__, _in press_ (2020).
+> - H Kundariya et al. [__MSH1-induced heritable enhanced growth vigor through grafting is associated with the RdDM pathway in plants__](https://www.nature.com/articles/s41467-020-19140-x) __Nature Communications__, 11, 5343 (2020).
+>
+> - J Cho, M Benoit, M Catoni, __HG Drost__, A Brestovitsky, M Oosterbeek and J Paszkowski.  [__Sensitive detection of pre-integration intermediates of LTR retrotransposons in crop plants__](https://www.nature.com/articles/s41477-018-0320-9). __Nature Plants__, 5,  26-33 (2019).
 >
 > - M Benoit, __HG Drost__, M Catoni, Q Gouil, S Lopez-Gomollon, DC Baulcombe, J Paszkowski. [__Environmental and epigenetic regulation of Rider retrotransposons in tomato__](https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1008370). __PloS Genetics__, 15(9): e1008370 (2019). 
 >
@@ -90,6 +92,8 @@ You can also find a list of all available `LTRpred` functions here: https://hajk
 > - J Wang et al. [__Gigantic Genomes Can Provide Empirical Tests of TE Dynamics Models--An Example from Amphibians__](https://www.biorxiv.org/content/10.1101/2020.08.19.257527v1). __bioRxiv__, (2020).
 >
 > - Y Ayukawa et al. [__A pair of effectors encoded on a conditionally dispensable chromosome of Fusarium oxysporum suppress host-specific immunity__](https://www.biorxiv.org/content/10.1101/2020.10.06.329052v1). __bioRxiv__, (2020).
+> 
+> C Meguerditchian, A Ergun, V Decroocq, M Lefebvre et al. [__Pipeline to detect the relationship between transposable elements and adjacent genes in host genome__](https://www.biorxiv.org/content/10.1101/2021.02.25.432867v1.abstract) __bioRxiv__, (2021).
 
 
 ## Discussions and Bug Reports
@@ -101,11 +105,5 @@ Furthermore, in case you find some bugs or need additional (more flexible) funct
 of this package, please let me know:
 
 https://github.com/HajkD/LTRpred/issues
-
-## Acknowledgement
-
-I would like to thank the [Paszkowski team](http://www.slcu.cam.ac.uk/research/paszkowski-group/group-members) for incredible support and motivating discussions that led to 
-the realization of this project.
-
 
 

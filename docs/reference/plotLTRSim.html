@@ -85,7 +85,7 @@ tend to have less similar LTRs." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -108,7 +108,7 @@ tend to have less similar LTRs." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/HajkD/LTRpred/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -139,19 +139,19 @@ LTRs (up to 100% sequence similarity), whereas evolutionary older LTR transposon
 tend to have less similar LTRs.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotLTRSim</span>(
-  <span class='kw'>data</span>,
-  type = <span class='st'>"hist"</span>,
-  stack.fill = <span class='st'>"protein_domain"</span>,
-  similarity.bin = <span class='fl'>2</span>,
-  min.sim = <span class='fl'>70</span>,
-  quality.filter = <span class='fl'>TRUE</span>,
-  n.orfs = <span class='fl'>1</span>,
-  xlab = <span class='st'>"LTR % Similarity"</span>,
-  ylab = <span class='st'>"Frequency"</span>,
-  main = <span class='st'>"LTR Age Distribution"</span>,
-  legend.title = <span class='st'>"LTR Similarity"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plotLTRSim</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  type <span class='op'>=</span> <span class='st'>"hist"</span>,
+  stack.fill <span class='op'>=</span> <span class='st'>"protein_domain"</span>,
+  similarity.bin <span class='op'>=</span> <span class='fl'>2</span>,
+  min.sim <span class='op'>=</span> <span class='fl'>70</span>,
+  quality.filter <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  n.orfs <span class='op'>=</span> <span class='fl'>1</span>,
+  xlab <span class='op'>=</span> <span class='st'>"LTR % Similarity"</span>,
+  ylab <span class='op'>=</span> <span class='st'>"Frequency"</span>,
+  main <span class='op'>=</span> <span class='st'>"LTR Age Distribution"</span>,
+  legend.title <span class='op'>=</span> <span class='st'>"LTR Similarity"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,12 +219,12 @@ by the <code>similarity.bin</code> argument.</p>
     <p>Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># run LTRpred for A. thaliana</span>
-<span class='kw'>Ath.Pred</span> <span class='op'>&lt;-</span> <span class='fu'><a href='LTRpred.html'>LTRpred</a></span>(genome.file = <span class='st'>"TAIR10_chr_all.fas"</span>)
+<span class='va'>Ath.Pred</span> <span class='op'>&lt;-</span> <span class='fu'><a href='LTRpred.html'>LTRpred</a></span><span class='op'>(</span>genome.file <span class='op'>=</span> <span class='st'>"TAIR10_chr_all.fas"</span><span class='op'>)</span>
 <span class='co'># visualize the age distribution of predicted  A. thaliana LTR transposons</span>
-<span class='fu'>PlotLTRAge</span>(<span class='kw'>Ath.Pred</span>)
-}
+<span class='fu'>PlotLTRAge</span><span class='op'>(</span><span class='va'>Ath.Pred</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

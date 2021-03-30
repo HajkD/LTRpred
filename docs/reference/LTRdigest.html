@@ -81,7 +81,7 @@ the LTRdigest command line tool to predict putative LTR retrotransposons from R.
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -104,7 +104,7 @@ the LTRdigest command line tool to predict putative LTR retrotransposons from R.
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/HajkD/LTRpred/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,31 +131,31 @@ the LTRdigest command line tool to predict putative LTR retrotransposons from R.
 the LTRdigest command line tool to predict putative LTR retrotransposons from R.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>LTRdigest</span>(
-  <span class='kw'>input.gff3</span>,
-  <span class='kw'>genome.file</span>,
-  aaout = <span class='st'>"yes"</span>,
-  aliout = <span class='st'>"yes"</span>,
-  pptlen = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>8</span>, <span class='fl'>30</span>),
-  uboxlen = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>30</span>),
-  pptradius = <span class='fl'>30</span>,
-  trnas = <span class='kw'>NULL</span>,
-  pbsalilen = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>11</span>, <span class='fl'>30</span>),
-  pbsoffset = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>5</span>),
-  pbstrnaoffset = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>5</span>),
-  pbsmaxedist = <span class='fl'>1</span>,
-  pbsradius = <span class='fl'>30</span>,
-  hmms = <span class='kw'>NULL</span>,
-  pdomevalcutoff = <span class='fl'>1e-05</span>,
-  pbsmatchscore = <span class='fl'>5</span>,
-  pbsmismatchscore = <span class='op'>-</span><span class='fl'>10</span>,
-  pbsinsertionscore = <span class='op'>-</span><span class='fl'>20</span>,
-  pbsdeletionscore = <span class='op'>-</span><span class='fl'>20</span>,
-  pfam.ids = <span class='kw'>NULL</span>,
-  cores = <span class='fl'>1</span>,
-  index.file = <span class='kw'>NULL</span>,
-  output.path = <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>LTRdigest</span><span class='op'>(</span>
+  <span class='va'>input.gff3</span>,
+  <span class='va'>genome.file</span>,
+  aaout <span class='op'>=</span> <span class='st'>"yes"</span>,
+  aliout <span class='op'>=</span> <span class='st'>"yes"</span>,
+  pptlen <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>8</span>, <span class='fl'>30</span><span class='op'>)</span>,
+  uboxlen <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>30</span><span class='op'>)</span>,
+  pptradius <span class='op'>=</span> <span class='fl'>30</span>,
+  trnas <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pbsalilen <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11</span>, <span class='fl'>30</span><span class='op'>)</span>,
+  pbsoffset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>5</span><span class='op'>)</span>,
+  pbstrnaoffset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>5</span><span class='op'>)</span>,
+  pbsmaxedist <span class='op'>=</span> <span class='fl'>1</span>,
+  pbsradius <span class='op'>=</span> <span class='fl'>30</span>,
+  hmms <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pdomevalcutoff <span class='op'>=</span> <span class='fl'>1e-05</span>,
+  pbsmatchscore <span class='op'>=</span> <span class='fl'>5</span>,
+  pbsmismatchscore <span class='op'>=</span> <span class='op'>-</span><span class='fl'>10</span>,
+  pbsinsertionscore <span class='op'>=</span> <span class='op'>-</span><span class='fl'>20</span>,
+  pbsdeletionscore <span class='op'>=</span> <span class='op'>-</span><span class='fl'>20</span>,
+  pfam.ids <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cores <span class='op'>=</span> <span class='fl'>1</span>,
+  index.file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  output.path <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -329,16 +329,16 @@ call the <code>LTRdigest</code> command line tool from R.</p>
     <p>Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Run LTRharvest for Arabidopsis thaliana using standard parameters</span>
-<span class='fu'><a href='LTRharvest.html'>LTRharvest</a></span>(genome.file = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY.fa"</span>, package = <span class='st'>"LTRpred"</span>))
+<span class='fu'><a href='LTRharvest.html'>LTRharvest</a></span><span class='op'>(</span>genome.file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"Hsapiens_ChrY.fa"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Run LTRdigest for Arabidopsis thaliana using standard parameters</span>
-<span class='fu'>LTRdigest</span>(input.gff3  = <span class='st'>"Hsapiens_ChrY_ltrharvest/Hsapiens_ChrY_Prediction.gff"</span>, 
-          genome.file = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"Hsapiens_ChrY.fa"</span>, package = <span class='st'>"LTRpred"</span>),
-          trnas       = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"hg38-tRNAs.fa"</span>, package = <span class='st'>"LTRpred"</span>),
-          hmms        = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"HMMs/"</span>, package = <span class='st'>"LTRpred"</span>),<span class='st'>"hmm_*"</span>))
-}
+<span class='fu'>LTRdigest</span><span class='op'>(</span>input.gff3  <span class='op'>=</span> <span class='st'>"Hsapiens_ChrY_ltrharvest/Hsapiens_ChrY_Prediction.gff"</span>, 
+          genome.file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"Hsapiens_ChrY.fa"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>,
+          trnas       <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"hg38-tRNAs.fa"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>,
+          hmms        <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"HMMs/"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>,<span class='st'>"hmm_*"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

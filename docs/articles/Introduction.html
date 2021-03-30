@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -62,7 +62,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/HajkD/LTRpred/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -81,7 +81,7 @@
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to LTRpred</h1>
             
-            <h4 class="date">2020-10-27</h4>
+            <h4 class="date">2021-03-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
@@ -158,13 +158,11 @@
 <span id="cb1-6"><a href="#cb1-6"></a><span class="ex">~</span>:/<span class="ex">app</span># R</span></code></pre></div>
 <p>Users who wish to run the <code>LTRpred</code> Docker container in a <a href="https://docs.conda.io/en/latest/">conda</a> environment can use the <a href="https://github.com/HajkD/LTRpred/issues/16">following approach based on UDocker</a> (Many thanks to Ilja Bezrukov).</p>
 <p>Within the ltrpred container R prompt run the <code>ltrpred</code> example:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">LTRpred</span>::<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span>(genome.file = <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, package = <span class="st">"LTRpred"</span>))
-</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">LTRpred</span><span class="fu">::</span><span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>genome.file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"Hsapiens_ChrY.fa"</span>, package <span class="op">=</span> <span class="st">"LTRpred"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>To exit R in the container run:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/quit.html">q</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/quit.html">q</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>And to exit the <code>ltrpred</code> container run:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">~</span>:/<span class="ex">app</span># exit</span></code></pre></div>
 <p>Now, users can add their own genome data as well as the Dfam database for further annotation to the <code>ltrpred</code> container by following these steps (in a different Terminal window):</p>
@@ -189,13 +187,12 @@
 <span id="cb6-5"><a href="#cb6-5"></a><span class="bu">cd</span> ..</span></code></pre></div>
 <p>Next, make sure to also store the genome assembly file (in <code>fasta</code> format) you want to <em>de novo</em> annotate with <code>LTRpred</code> in the <code>ltrpred_data</code> folder you just created.</p>
 <p>A possible way to retrieve such a genome is (within R) using <a href="https://github.com/ropensci/biomartr">biomartr</a>. If you use <code>biomartr</code> please make sure to <a href="https://github.com/ropensci/biomartr#installation">install all <code>biomartr</code> package dependencies</a> before running the following code.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="co"># install.packages("biomartr")</span>
-<span class="kw">biomartr</span>::<span class="fu"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(db = <span class="st">"ensembl"</span>, 
-                    organism = <span class="st">"Saccharomyces cerevisiae"</span>, 
-                    path = <span class="st">"yeast_genome"</span>, 
-                    gunzip = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("biomartr")</span>
+<span class="fu">biomartr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span><span class="op">(</span>db <span class="op">=</span> <span class="st">"ensembl"</span>, 
+                    organism <span class="op">=</span> <span class="st">"Saccharomyces cerevisiae"</span>, 
+                    path <span class="op">=</span> <span class="st">"yeast_genome"</span>, 
+                    gunzip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>The respective genome assembly file is now stored at <code>yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa</code> and needs to be copied into the <code>ltrpred_data</code> folder you just created.</p>
 <p>Now users can mount the <code>ltrpred_data</code> folder to the <code>ltrpred</code> Docker container (using the <code>-v</code> option). This <code>-v</code> mounting option is also available for the <code>RStudio</code> container version and can also be run within the <code>RStudio</code> Terminal.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="ex">docker</span> run --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/app/ltrpred_data -ti drostlab/ltrpred</span></code></pre></div>
@@ -207,21 +204,19 @@ ltrpred_data
 software_downloads</code></pre>
 <p>Next, users can again run the <code>R prompt</code> within the <code>ltrpred</code> Docker container to run <code>LTRpred</code> with the local data that was mounted:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="ex">~</span>:/<span class="ex">app</span># R</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="co"># run LTRpred on the yeast genome that was mounted</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># run LTRpred on the yeast genome that was mounted</span>
 <span class="co"># to the ltrpred container from your local 'ltrpred_data' folder</span>
-<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span>(genome.file = <span class="st">"ltrpred_data/yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa"</span>, cores = <span class="fl">2</span>)
-</pre></div>
+<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>genome.file <span class="op">=</span> <span class="st">"ltrpred_data/yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa"</span>, cores <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p>As you can see, within the <code>ltrpred</code> container <code>R prompt</code> the current working directory is <code>/app</code>.</p>
 <p>To also include the <code>Dfam</code> database for further annotation users can specify the path to the Dfam folder:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="co"># run LTRpred on the yeast genome that was mounted</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># run LTRpred on the yeast genome that was mounted</span>
 <span class="co"># to the ltrpred container from your local 'ltrpred_data' folder</span>
-<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span>(genome.file = <span class="st">"ltrpred_data/yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa"</span>, 
-    annotate = <span class="st">"Dfam"</span>,
-        Dfam.db = <span class="st">"ltrpred_data/Dfam"</span>, 
-        cores = <span class="fl">2</span>)
-</pre></div>
+<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>genome.file <span class="op">=</span> <span class="st">"ltrpred_data/yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa"</span>, 
+    annotate <span class="op">=</span> <span class="st">"Dfam"</span>,
+        Dfam.db <span class="op">=</span> <span class="st">"ltrpred_data/Dfam"</span>, 
+        cores <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p>Please be aware that using the <code>Dfam</code> database for further annotation significantly increases the computation time of the <code>LTRpred</code> pipeline.</p>
 </div>
 <div id="retrieve-ltrpred-output-files-from-docker-container" class="section level4">
@@ -252,9 +247,8 @@ software_downloads</code></pre>
 <p><code>http://localhost:8787</code></p>
 <p>Username: <code>rstudio</code> Password: <code>ltrpred</code></p>
 <p>Within <code>RStudio</code> you can now run the example:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="kw">LTRpred</span>::<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span>(genome.file = <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, package = <span class="st">"LTRpred"</span>))
-</pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">LTRpred</span><span class="fu">::</span><span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>genome.file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"Hsapiens_ChrY.fa"</span>, package <span class="op">=</span> <span class="st">"LTRpred"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Users can <code>exit</code> the container by pressing <code>Ctrl + c</code> multiple times.</p>
 <p>Next, users can mount their <code>ltrpred_data</code> folder to the RStudio server run the same way they mounted folders in the command line container version (using <code>-v</code>). This folder mounting can also be run within the <code>RStudio</code> Terminal of the <code>drostlab/ltrpred_rstudio</code> container.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># retrieve docker image from dockerhub</span></span>
@@ -265,9 +259,8 @@ software_downloads</code></pre>
 <p><code>http://localhost:8787</code></p>
 <p>Username: <code>rstudio</code> Password: <code>ltrpred</code></p>
 <p>In RStudio type:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>You should be able to see the <code>ltrpred_data</code> folder.</p>
 <p>Users can <code>exit</code> the container by pressing <code>Ctrl + c</code> multiple times.</p>
 </div>
@@ -413,25 +406,23 @@ software_downloads</code></pre>
 <span id="cb29-11"><a href="#cb29-11"></a><span class="kw">install.packages</span>(<span class="st">'survival'</span>)</span>
 <span id="cb29-12"><a href="#cb29-12"></a>BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">'ggbio'</span>)</span></code></pre></div>
 <p>Now users may install <code>LTRpred</code> as follows:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit">
-<span class="co"># install.packages("devtools")</span>
-<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"HajkD/LTRpred"</span>)
-</pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"HajkD/LTRpred"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick Start</h2>
 <p>The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after <a href="https://hajkd.github.io/LTRpred/articles/Introduction.html#installation">installing</a> all prerequisite command line tools) is to use the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function and relying on the default parameters. In the following example, a LTR transposon prediction is performed for parts of the Human Y chromosome.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit">
-<span class="co"># load LTRpred package</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/HajkD/LTRpred">LTRpred</a></span>)
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># load LTRpred package</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HajkD/LTRpred">LTRpred</a></span><span class="op">)</span>
 <span class="co"># de novo LTR transposon prediction for the Human Y chromosome</span>
-<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span>(
-    genome.file = <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"Hsapiens_ChrY.fa"</span>, package = <span class="st">"LTRpred"</span>),
-    cores = <span class="fl">4</span>
-)
-</pre></div>
+<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>
+    genome.file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"Hsapiens_ChrY.fa"</span>, package <span class="op">=</span> <span class="st">"LTRpred"</span><span class="op">)</span>,
+    cores <span class="op">=</span> <span class="fl">4</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>Running LTRpred on genome '/Library/Frameworks/R.framework/Versions/3.6/Resources/library/LTRpred/Hsapiens_ChrY.fa' with 4 core(s) and searching for retrotransposons using the overlaps option (overlaps = 'no') ...
 
 
@@ -551,12 +542,11 @@ LTRpred finished all analyses successfully. All output files were stored at 'Hsa
 <h3 class="hasAnchor">
 <a href="#import-ltrpred-output" class="anchor"></a>Import LTRpred output</h3>
 <p>The <code><a href="../reference/LTRpred.html">LTRpred()</a></code> output table <code>*_LTRpred_DataSheet.tsv</code> is in <a href="http://vita.had.co.nz/papers/tidy-data.html">tidy</a> format and can then be imported using <code><a href="../reference/read.ltrpred.html">read.ltrpred()</a></code>. The <code>tidy</code> output format is designed to work seamlessly with the <a href="https://www.tidyverse.org/">tidyverse</a> and <a href="http://r4ds.had.co.nz/">R data science</a> framework.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit">
-<span class="co"># import LTRpred prediction output</span>
-<span class="kw">Hsapiens_chrY</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span>(<span class="st">"Hsapiens_ChrY_ltrpred/Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span>)
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># import LTRpred prediction output</span>
+<span class="va">Hsapiens_chrY</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span><span class="op">(</span><span class="st">"Hsapiens_ChrY_ltrpred/Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span><span class="op">)</span>
 <span class="co"># look at some results</span>
-<span class="kw">dplyr</span>::<span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw">Hsapiens_chrY</span>, <span class="kw">ltr_similarity</span><span class="op">:</span><span class="kw">end</span>, <span class="kw">tRNA_motif</span>, <span class="kw">Clust_cn</span>)
-</pre></div>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Hsapiens_chrY</span>, <span class="va">ltr_similarity</span><span class="op">:</span><span class="va">end</span>, <span class="va">tRNA_motif</span>, <span class="va">Clust_cn</span><span class="op">)</span></code></pre></div>
 <pre><code># A tibble: 14 x 9
    ltr_similarity similarity protein_domain  orfs        chromosome
             &lt;dbl&gt;      &lt;chr&gt;          &lt;chr&gt; &lt;int&gt;             &lt;chr&gt;
@@ -577,9 +567,8 @@ LTRpred finished all analyses successfully. All output files were stored at 'Hsa
 # ... with 4 more variables: start &lt;int&gt;, end &lt;int&gt;, tRNA_motif &lt;chr&gt;,
 #   Clust_cn &lt;int&gt;</code></pre>
 <p>Looking at all columns:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit">
-<span class="kw">dplyr</span>::<span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span>(<span class="kw">Hsapiens_chrY</span>)
-</pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Hsapiens_chrY</span><span class="op">)</span></code></pre></div>
 <pre><code>Observations: 21
 Variables: 92
 $ species                 &lt;chr&gt; "Hsapiens_ChrY", "Hsapien...
@@ -832,13 +821,12 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 <p><strong>Please be aware that functional de novo annotation is a computationally heavy task that requires substantial computing resources. For larger genomes recommend running LTRpred on a computing server or a high performance computing cluster. Large genome computations can take up to days even with tens of computing cores.</strong></p>
 <p>The following example, however, will terminate within a few minutes.</p>
 <p>First we use the <a href="https://github.com/ropensci/biomartr">biomartr</a> package to download the genome of <code>Saccharomyces cerevisiae</code> from NCBI RefSeq:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit">
-<span class="co"># retrieve S. cerevisiae genome from from NCBI RefSeq</span>
-<span class="kw">Scerevisiae_genome</span> <span class="op">&lt;-</span> <span class="kw">biomartr</span>::<span class="fu"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span>(db = <span class="st">"refseq"</span>, 
-                      organism  = <span class="st">"Saccharomyces cerevisiae"</span>)
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># retrieve S. cerevisiae genome from from NCBI RefSeq</span>
+<span class="va">Scerevisiae_genome</span> <span class="op">&lt;-</span> <span class="fu">biomartr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/biomartr/reference/getGenome.html">getGenome</a></span><span class="op">(</span>db <span class="op">=</span> <span class="st">"refseq"</span>, 
+                      organism  <span class="op">=</span> <span class="st">"Saccharomyces cerevisiae"</span><span class="op">)</span>
 <span class="co"># show path to S. cerevisiae genome</span>
-<span class="kw">Scerevisiae_genome</span>
-</pre></div>
+<span class="va">Scerevisiae_genome</span></code></pre></div>
 <p>Next, we run <code>LTRpred</code> to generate functional annotation for <code>S. cerevisiae</code> LTR retrotransposons. In general, the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function takes the path to a genome file in <code>fasta</code> format (compressed files can be used as well) as input to the <code>genome.file</code> argument. The <code>trnas</code> argument takes a file path to a <code>fasta</code> file storing tRNA sequences. In this case, for example reasons only, we use the tRNA file <code>sacCer3-tRNAs.fa</code> that comes with the <code>LTRpred</code> package. In addition, users can find tRNA files at <a href="http://gtrnadb.ucsc.edu/" class="uri">http://gtrnadb.ucsc.edu/</a> or <a href="http://gtrnadb2009.ucsc.edu/" class="uri">http://gtrnadb2009.ucsc.edu/</a>. The <code>hmms</code> argument takes a path to a folder storing the HMM models of the gag and pol protein domains. Protein domains can be found at <a href="http://pfam.xfam.org/" class="uri">http://pfam.xfam.org/</a> . When renaming the protein domains using the specification <code>hmm_*</code> users can specify <code>hmm_*</code> which indicates that all files in the folder starting with <code>hmm_</code> shall be used. The <code>LTRpred</code> package already stores the most prominent gag and pol protein domains and can be used by specifying the path <code><a href="https://rdrr.io/r/base/paste.html">paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*")</a></code>. In detail, the following HMM models are stored in <code>LTRpred</code>:</p>
 <div id="hmm-models" class="section level4">
 <h4 class="hasAnchor">
@@ -864,19 +852,18 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 </li>
 </ul>
 <p>The argument <code>cluster = TRUE</code> indicates that individually predicted LTR retrotransposons are clustered by sequence similarity into families using the <code>vsearch</code> program. The <code>clust.sim</code> defines the sequence similarity threshold for considering family/cluster members.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/HajkD/LTRpred">LTRpred</a></span>)
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HajkD/LTRpred">LTRpred</a></span><span class="op">)</span>
 <span class="co"># de novo LTR transposon prediction of 'D. simulans'</span>
-<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span>(
-    genome.file = <span class="kw">Scerevisiae_genome</span>,
-    trnas       = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"tRNAs/"</span>, package = <span class="st">"LTRpred"</span>),<span class="st">"sacCer3-tRNAs.fa"</span>),
-    hmms        = <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"HMMs/"</span>, package = <span class="st">"LTRpred"</span>), <span class="st">"hmm_*"</span>),
-    cluster     = <span class="fl">TRUE</span>,
-    clust.sim   = <span class="fl">0.9</span>,
-    copy.number.est = <span class="fl">TRUE</span>,  
-    cores = <span class="fl">4</span>
-)
-</pre></div>
+<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>
+    genome.file <span class="op">=</span> <span class="va">Scerevisiae_genome</span>,
+    trnas       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"tRNAs/"</span>, package <span class="op">=</span> <span class="st">"LTRpred"</span><span class="op">)</span>,<span class="st">"sacCer3-tRNAs.fa"</span><span class="op">)</span>,
+    hmms        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"HMMs/"</span>, package <span class="op">=</span> <span class="st">"LTRpred"</span><span class="op">)</span>, <span class="st">"hmm_*"</span><span class="op">)</span>,
+    cluster     <span class="op">=</span> <span class="cn">TRUE</span>,
+    clust.sim   <span class="op">=</span> <span class="fl">0.9</span>,
+    copy.number.est <span class="op">=</span> <span class="cn">TRUE</span>,  
+    cores <span class="op">=</span> <span class="fl">4</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>Running LTRpred on genome '_ncbi_downloads/genomes/Saccharomyces_cerevisiae_genomic_refseq.fna.gz' with 4 core(s) and searching for retrotransposons using the overlaps option (overlaps = 'no') ...
 
 
@@ -990,14 +977,13 @@ TRpred finished all analyses successfully. All output files were stored at 'Sacc
 Warning message:
 The LTR copy number estimation returned an empty file. This suggests that there were no solo LTRs found in the input genome sequence. </code></pre>
 <p>The output can then be imported using:</p>
-<div class="sourceCode" id="cb40"><pre class="downlit">
-<span class="co"># import LTRpred output for S. cerevisiae</span>
-<span class="kw">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="st">"Saccharomyces_cerevisiae_genomic_refseq_ltrpred"</span>,
-                  <span class="st">"Saccharomyces_cerevisiae_genomic_refseq_LTRpred_DataSheet.tsv"</span>)
-<span class="kw">Scerevisiae_LTRpred</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span>(<span class="kw">file</span>)
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># import LTRpred output for S. cerevisiae</span>
+<span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="st">"Saccharomyces_cerevisiae_genomic_refseq_ltrpred"</span>,
+                  <span class="st">"Saccharomyces_cerevisiae_genomic_refseq_LTRpred_DataSheet.tsv"</span><span class="op">)</span>
+<span class="va">Scerevisiae_LTRpred</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
 <span class="co"># look at output</span>
-<span class="kw">dplyr</span>::<span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span>(<span class="kw">Scerevisiae_LTRpred</span>)
-</pre></div>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Scerevisiae_LTRpred</span><span class="op">)</span></code></pre></div>
 <pre><code>Observations: 31
 Variables: 92
 $ species                 &lt;chr&gt; "Saccharomyces_cerevisiae...
@@ -1109,14 +1095,13 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 <li>
 <code>strategy = "stringent"</code> : in addition to filter criteria specified in section Quality Control, the filter criteria !is.na(protein_domain)) | (dfam_target_name != “unknown”) is applied</li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="downlit">
-<span class="co"># filter for potentially functional LTR retrotransposons</span>
-<span class="kw">Scerevisiae_functional</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/quality.filter.html">quality.filter</a></span>(<span class="kw">Scerevisiae_LTRpred</span>, 
-                                         sim = <span class="fl">97</span>, 
-                                         n.orfs = <span class="fl">1</span>,
-                                         strategy = <span class="st">"stringent"</span>)
-<span class="kw">dplyr</span>::<span class="fu"><a href="https://tibble.tidyverse.org/reference/glimpse.html">glimpse</a></span>(<span class="kw">Scerevisiae_functional</span>)
-</pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># filter for potentially functional LTR retrotransposons</span>
+<span class="va">Scerevisiae_functional</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/quality.filter.html">quality.filter</a></span><span class="op">(</span><span class="va">Scerevisiae_LTRpred</span>, 
+                                         sim <span class="op">=</span> <span class="fl">97</span>, 
+                                         n.orfs <span class="op">=</span> <span class="fl">1</span>,
+                                         strategy <span class="op">=</span> <span class="st">"stringent"</span><span class="op">)</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Scerevisiae_functional</span><span class="op">)</span></code></pre></div>
 <pre><code>Observations: 25
 Variables: 92
 $ species                 &lt;chr&gt; "Saccharomyces_cerevisiae...
@@ -1225,11 +1210,10 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 <code><a href="../reference/pred2tsv.html">pred2tsv()</a></code>: Format LTR prediction data to TSV file format</li>
 </ul>
 <p>In this example we will store the functional annotation results <code>Scerevisiae_functional</code> as <code>gff</code> file.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit">
-<span class="fu"><a href="../reference/pred2gff.html">pred2gff</a></span>(LTR.data = <span class="kw">Scerevisiae_functional</span>,
-         output   = <span class="st">"Scerevisiae_functional_LTRpred.gff"</span>,
-         program  = <span class="st">"LTRpred"</span>)
-</pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/pred2gff.html">pred2gff</a></span><span class="op">(</span>LTR.data <span class="op">=</span> <span class="va">Scerevisiae_functional</span>,
+         output   <span class="op">=</span> <span class="st">"Scerevisiae_functional_LTRpred.gff"</span>,
+         program  <span class="op">=</span> <span class="st">"LTRpred"</span><span class="op">)</span></code></pre></div>
 <p>This gff file can now be used for mapping tools, genome browsers, etc.</p>
 </div>
 <div id="detailed-description-of-adjustable-ltrpred-parameters" class="section level3">
@@ -1237,76 +1221,75 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 <a href="#detailed-description-of-adjustable-ltrpred-parameters" class="anchor"></a>Detailed description of adjustable LTRpred parameters</h3>
 <p>The <code>S. cerevisiae</code> example shown above assumes that users wish to run <code>LTRpred</code> using a default parameter configuration. However, as the figure shown below demonstrates, there are large number of parameters that can be adjusted and altered according the the user’s specifications and interests.</p>
 <p>Users can adjust and run <code>LTRpred</code> with the following parameter options:</p>
-<div class="sourceCode" id="cb45"><pre class="downlit">
-<span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span>(
-  genome.file = <span class="kw">NULL</span>,
-  model = <span class="st">"K80"</span>,
-  mutation_rate = <span class="fl">1.3</span> <span class="op">*</span> <span class="fl">1e-07</span>,
-  index.file.harvest = <span class="kw">NULL</span>,
-  index.file.digest = <span class="kw">NULL</span>,
-  LTRdigest.gff = <span class="kw">NULL</span>,
-  tabout.file = <span class="kw">NULL</span>,
-  LTRharvest.folder = <span class="kw">NULL</span>,
-  LTRpred.folder = <span class="kw">NULL</span>,
-  orf.file = <span class="kw">NULL</span>,
-  annotate = <span class="kw">NULL</span>,
-  Dfam.db = <span class="kw">NULL</span>,
-  dfam.eval = <span class="fl">0.001</span>,
-  dfam.file = <span class="kw">NULL</span>,
-  cluster = <span class="fl">FALSE</span>,
-  clust.sim = <span class="fl">0.9</span>,
-  clust.file = <span class="kw">NULL</span>,
-  copy.number.est = <span class="fl">TRUE</span>,
-  fix.chr.name = <span class="fl">TRUE</span>,
-  cn.eval = <span class="fl">1e-10</span>,
-  range = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0</span>),
-  seed = <span class="fl">30</span>,
-  minlenltr = <span class="fl">100</span>,
-  maxlenltr = <span class="fl">3500</span>,
-  mindistltr = <span class="fl">4000</span>,
-  maxdistltr = <span class="fl">25000</span>,
-  similar = <span class="fl">70</span>,
-  mintsd = <span class="fl">4</span>,
-  maxtsd = <span class="fl">20</span>,
-  vic = <span class="fl">60</span>,
-  overlaps = <span class="st">"no"</span>,
-  xdrop = <span class="fl">5</span>,
-  mat = <span class="fl">2</span>,
-  mis = <span class="op">-</span><span class="fl">2</span>,
-  ins = <span class="op">-</span><span class="fl">3</span>,
-  del = <span class="op">-</span><span class="fl">3</span>,
-  motif = <span class="kw">NULL</span>,
-  motifmis = <span class="fl">0</span>,
-  aaout = <span class="st">"yes"</span>,
-  aliout = <span class="st">"yes"</span>,
-  pptlen = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">8</span>, <span class="fl">30</span>),
-  uboxlen = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">30</span>),
-  pptradius = <span class="fl">30</span>,
-  trnas = <span class="kw">NULL</span>,
-  pbsalilen = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">11</span>, <span class="fl">30</span>),
-  pbsoffset = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="fl">5</span>),
-  pbstrnaoffset = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">5</span>),
-  pbsmaxedist = <span class="fl">1</span>,
-  pbsradius = <span class="fl">30</span>,
-  hmms = <span class="kw">NULL</span>,
-  pdomevalcutoff = <span class="fl">1e-05</span>,
-  pbsmatchscore = <span class="fl">5</span>,
-  pbsmismatchscore = <span class="op">-</span><span class="fl">10</span>,
-  pbsinsertionscore = <span class="op">-</span><span class="fl">20</span>,
-  pbsdeletionscore = <span class="op">-</span><span class="fl">20</span>,
-  pfam.ids = <span class="kw">NULL</span>,
-  cores = <span class="fl">1</span>,
-  dfam.cores = <span class="kw">NULL</span>,
-  hmm.cores = <span class="kw">NULL</span>,
-  orf.style = <span class="fl">7</span>,
-  min.codons = <span class="fl">200</span>,
-  trans.seqs = <span class="fl">FALSE</span>,
-  output.path = <span class="kw">NULL</span>,
-  quality.filter = <span class="fl">TRUE</span>,
-  n.orfs = <span class="fl">0</span>,
-  verbose = <span class="fl">TRUE</span>
-)
-</pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>
+  genome.file <span class="op">=</span> <span class="cn">NULL</span>,
+  model <span class="op">=</span> <span class="st">"K80"</span>,
+  mutation_rate <span class="op">=</span> <span class="fl">1.3</span> <span class="op">*</span> <span class="fl">1e-07</span>,
+  index.file.harvest <span class="op">=</span> <span class="cn">NULL</span>,
+  index.file.digest <span class="op">=</span> <span class="cn">NULL</span>,
+  LTRdigest.gff <span class="op">=</span> <span class="cn">NULL</span>,
+  tabout.file <span class="op">=</span> <span class="cn">NULL</span>,
+  LTRharvest.folder <span class="op">=</span> <span class="cn">NULL</span>,
+  LTRpred.folder <span class="op">=</span> <span class="cn">NULL</span>,
+  orf.file <span class="op">=</span> <span class="cn">NULL</span>,
+  annotate <span class="op">=</span> <span class="cn">NULL</span>,
+  Dfam.db <span class="op">=</span> <span class="cn">NULL</span>,
+  dfam.eval <span class="op">=</span> <span class="fl">0.001</span>,
+  dfam.file <span class="op">=</span> <span class="cn">NULL</span>,
+  cluster <span class="op">=</span> <span class="cn">FALSE</span>,
+  clust.sim <span class="op">=</span> <span class="fl">0.9</span>,
+  clust.file <span class="op">=</span> <span class="cn">NULL</span>,
+  copy.number.est <span class="op">=</span> <span class="cn">TRUE</span>,
+  fix.chr.name <span class="op">=</span> <span class="cn">TRUE</span>,
+  cn.eval <span class="op">=</span> <span class="fl">1e-10</span>,
+  range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,
+  seed <span class="op">=</span> <span class="fl">30</span>,
+  minlenltr <span class="op">=</span> <span class="fl">100</span>,
+  maxlenltr <span class="op">=</span> <span class="fl">3500</span>,
+  mindistltr <span class="op">=</span> <span class="fl">4000</span>,
+  maxdistltr <span class="op">=</span> <span class="fl">25000</span>,
+  similar <span class="op">=</span> <span class="fl">70</span>,
+  mintsd <span class="op">=</span> <span class="fl">4</span>,
+  maxtsd <span class="op">=</span> <span class="fl">20</span>,
+  vic <span class="op">=</span> <span class="fl">60</span>,
+  overlaps <span class="op">=</span> <span class="st">"no"</span>,
+  xdrop <span class="op">=</span> <span class="fl">5</span>,
+  mat <span class="op">=</span> <span class="fl">2</span>,
+  mis <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>,
+  ins <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>,
+  del <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>,
+  motif <span class="op">=</span> <span class="cn">NULL</span>,
+  motifmis <span class="op">=</span> <span class="fl">0</span>,
+  aaout <span class="op">=</span> <span class="st">"yes"</span>,
+  aliout <span class="op">=</span> <span class="st">"yes"</span>,
+  pptlen <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">30</span><span class="op">)</span>,
+  uboxlen <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">30</span><span class="op">)</span>,
+  pptradius <span class="op">=</span> <span class="fl">30</span>,
+  trnas <span class="op">=</span> <span class="cn">NULL</span>,
+  pbsalilen <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">30</span><span class="op">)</span>,
+  pbsoffset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span>,
+  pbstrnaoffset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span>,
+  pbsmaxedist <span class="op">=</span> <span class="fl">1</span>,
+  pbsradius <span class="op">=</span> <span class="fl">30</span>,
+  hmms <span class="op">=</span> <span class="cn">NULL</span>,
+  pdomevalcutoff <span class="op">=</span> <span class="fl">1e-05</span>,
+  pbsmatchscore <span class="op">=</span> <span class="fl">5</span>,
+  pbsmismatchscore <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>,
+  pbsinsertionscore <span class="op">=</span> <span class="op">-</span><span class="fl">20</span>,
+  pbsdeletionscore <span class="op">=</span> <span class="op">-</span><span class="fl">20</span>,
+  pfam.ids <span class="op">=</span> <span class="cn">NULL</span>,
+  cores <span class="op">=</span> <span class="fl">1</span>,
+  dfam.cores <span class="op">=</span> <span class="cn">NULL</span>,
+  hmm.cores <span class="op">=</span> <span class="cn">NULL</span>,
+  orf.style <span class="op">=</span> <span class="fl">7</span>,
+  min.codons <span class="op">=</span> <span class="fl">200</span>,
+  trans.seqs <span class="op">=</span> <span class="cn">FALSE</span>,
+  output.path <span class="op">=</span> <span class="cn">NULL</span>,
+  quality.filter <span class="op">=</span> <span class="cn">TRUE</span>,
+  n.orfs <span class="op">=</span> <span class="fl">0</span>,
+  verbose <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></code></pre></div>
 <ul>
 <li>
 <code>genome.file</code>: path to the genome assembly file in fasta format.</li>
@@ -1456,20 +1439,19 @@ specify the insertion score used in the PBS/tRNA Smith-Waterman alignment. Defau
 <p><code>LTRpred</code> allows users to perform annotations not only for single genomes but for multiple genomes (metagenomes) using only one pipeline function named <code><a href="../reference/LTRpred.meta.html">LTRpred.meta()</a></code>.</p>
 <p><strong>Please be aware that <code>LTRpred</code> annotations for multiple genomes is a computationally hard task and requires large server or high performance computer access. Computations for hundreds of genomes even using tens to hundreds of cores might take several weeks to terminate. Please make sure that you have the right computational infrastructure to run these processes.</strong></p>
 <p>Users can download the <a href="https://docs.ropensci.org/biomartr/">biomartr</a> package to automatically retrieve genome assembly files for the species of interest.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit">
-<span class="co"># specify the scientific names of the species of interest</span>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># specify the scientific names of the species of interest</span>
 <span class="co"># that shall first be downloaded and then be used</span>
 <span class="co"># to generate LTRpred annotations</span>
-<span class="kw">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Arabidopsis thaliana"</span>, <span class="st">"Arabidopsis lyrata"</span>, <span class="st">"Capsella rubella"</span>) 
+<span class="va">species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Arabidopsis thaliana"</span>, <span class="st">"Arabidopsis lyrata"</span>, <span class="st">"Capsella rubella"</span><span class="op">)</span> 
 <span class="co"># download the genome assembly files for the species of interest</span>
 <span class="co"># </span>
 <span class="co"># install.packages("biomartr")</span>
-<span class="kw">biomartr</span>::<span class="fu"><a href="https://docs.ropensci.org/biomartr/reference/getGenomeSet.html">getGenomeSet</a></span>(db = <span class="st">"refseq"</span>, organisms = <span class="kw">species</span>, path = <span class="st">"store_genome_set"</span>)
+<span class="fu">biomartr</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/biomartr/reference/getGenomeSet.html">getGenomeSet</a></span><span class="op">(</span>db <span class="op">=</span> <span class="st">"refseq"</span>, organisms <span class="op">=</span> <span class="va">species</span>, path <span class="op">=</span> <span class="st">"store_genome_set"</span><span class="op">)</span>
 <span class="co"># run LTRpred.meta() on the 3 species with 3 cores</span>
-<span class="kw">LTRpred</span>::<span class="fu"><a href="../reference/LTRpred.meta.html">LTRpred.meta</a></span>(genome.folder = <span class="st">"store_genome_set"</span>,
-                      output.folder = <span class="st">"LTRpred_meta_results"</span>,
-                      cores = <span class="fl">3</span>)
-</pre></div>
+<span class="fu">LTRpred</span><span class="fu">::</span><span class="fu"><a href="../reference/LTRpred.meta.html">LTRpred.meta</a></span><span class="op">(</span>genome.folder <span class="op">=</span> <span class="st">"store_genome_set"</span>,
+                      output.folder <span class="op">=</span> <span class="st">"LTRpred_meta_results"</span>,
+                      cores <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>

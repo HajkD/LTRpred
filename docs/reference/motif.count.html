@@ -81,7 +81,7 @@ genomic sequences." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -104,7 +104,7 @@ genomic sequences." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/HajkD/LTRpred/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -131,7 +131,7 @@ genomic sequences." />
 genomic sequences.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>motif.count</span>(<span class='kw'>seq.file</span>, <span class='kw'>motif</span>, as.ratio = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>motif.count</span><span class='op'>(</span><span class='va'>seq.file</span>, <span class='va'>motif</span>, as.ratio <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,8 +157,8 @@ genomic sequences.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># find number of "CG" motifs in predicted LTR transposons</span>
-<span class='fu'>motif.count</span>(seq.file = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"LTRseqs.fas"</span>,package = <span class='st'>"LTRpred"</span>), 
-            motif    = <span class='st'>"CG"</span>)
+<span class='fu'>motif.count</span><span class='op'>(</span>seq.file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"LTRseqs.fas"</span>,package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>, 
+            motif    <span class='op'>=</span> <span class='st'>"CG"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   [1] 245 186 235 116 129 118  98 180 236  75  81 105 127  56 214  77 152 172
 #&gt;  [19] 115 581 459 196 129  70 165  84  84 169 124 216 179 263 166 107 133  79
 #&gt;  [37] 117 664 113  81 152 102 191  77 146  92 156 116 140 297 104 108 116 204
@@ -186,9 +186,9 @@ genomic sequences.</p>
 #&gt; [433] 215 395 214  74 107 199 117 140 100 128 179 109 206 126 117 128 154  78
 #&gt; [451] 204 131 191  94 240  96 580 686</div><div class='input'>            
 <span class='co'># find number of "CG" motifs in predicted LTR transposons: rel. frequency</span>
-<span class='fu'>motif.count</span>(seq.file = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"LTRseqs.fas"</span>,package = <span class='st'>"LTRpred"</span>), 
-            motif    = <span class='st'>"CG"</span>,
-            as.ratio = <span class='fl'>TRUE</span>)             
+<span class='fu'>motif.count</span><span class='op'>(</span>seq.file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"LTRseqs.fas"</span>,package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>, 
+            motif    <span class='op'>=</span> <span class='st'>"CG"</span>,
+            as.ratio <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>             
 </div><div class='output co'>#&gt;     1_CHROMOSOME_dumped__149500_155909     1_CHROMOSOME_dumped__249531_259127 
 #&gt;                             0.03822153                             0.01938106 
 #&gt;     1_CHROMOSOME_dumped__428932_438092   1_CHROMOSOME_dumped__2659374_2663971 
