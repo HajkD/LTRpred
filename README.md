@@ -9,7 +9,7 @@ However, this picture is slowly changing ([Drost & Sanchez, 2019](https://academ
 
 Today, the _de novo_ detection of transposable elements is performed by annotation tools which try to detect any type of repeated sequence, TE family, or remnand DNA loci that can be associated with a known transposable element within a genome assembly. The main goal of such efforts is to retrieve a maximum amount of loci that can be associated with TEs. If successful, such annotation can then be used to mask host genomes and to perform classic (phylo-)genomics studies focusing on host genes.
 
-More than [300 repeat and TE annotation tools](https://docs.google.com/spreadsheets/d/1UBK70zExiL0gFVaIAILiGhflCGXAq_SF_lymaxTE1pY/edit#gid=0) have been developed so far. Most of them are designed and optimized to annotate either the entire repeat space or specific superfamilies of TEs and their DNA remnants.
+More than [600 repeat and TE annotation tools](https://docs.google.com/spreadsheets/d/1UBK70zExiL0gFVaIAILiGhflCGXAq_SF_lymaxTE1pY/edit#gid=0) have been developed so far. Most of them are designed and optimized to annotate either the entire repeat space or specific superfamilies of TEs and their DNA remnants.
 
 >The LTRpred pipeline has a different goal than all other annotation tools. It focuses particularly on [LTR retrotransposons](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC463057/) and aims to annotate only functional and potentially mobile elements. Such type of annotation is crucial for studying retrotransposon activity in eukaryotic genomes and to understand whether specific retrotransposon families can be activated artificially and harnessed to [mutagenize genomes at much faster speed](https://www.slcu.cam.ac.uk/news/tomato-jumping-genes).
 
@@ -35,8 +35,43 @@ docker run --rm -ti drostlab/ltrpred
 ~:/app# R
 ```
 
-Users who wish to run the `LTRpred` Docker container in a [conda](https://docs.conda.io/en/latest/) environment 
-can use the [following approach based on UDocker](https://github.com/HajkD/LTRpred/issues/16) (Many thanks to Ilja Bezrukov). 
+__Users who wish to run the `LTRpred` Docker container in a [conda](https://docs.conda.io/en/latest/) environment 
+can use the [following approach based on UDocker](https://github.com/HajkD/LTRpred/issues/16) (Many thanks to Ilja Bezrukov).__ 
+
+### Accessing LTRpred Container via RStudio
+A more interactive way of performing analyses with `LTRpred` is via the [`RStudio`
+version of LTRpred](https://hub.docker.com/r/drostlab/ltrpred_rstudio).
+In [this LTRpred Docker Container](https://hub.docker.com/r/drostlab/ltrpred_rstudio)
+users can access LTRpred within the container via `Rstudio`.
+
+```bash
+# retrieve docker image from dockerhub
+docker pull drostlab/ltrpred_rstudio
+# run ltrpred container
+docker run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti drostlab/ltrpred_rstudio
+```
+
+To open `RStudio` and interact with the container go to your standard web browser and type in the following URL:
+
+```
+http://localhost:8787
+
+Username: rstudio
+
+Password: ltrpred
+```
+
+Users can choose a custom password if they wish.
+
+Within RStudio you can now run the example:
+
+```r
+LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))
+```
+
+Users can exit the container by pressing `Ctrl + c` multiple times.
+
+Please find [all details here about how to use the Rstudio version here](https://hub.docker.com/r/drostlab/ltrpred_rstudio). 
 
 ## Citation
 Please cite the following paper when using `LTRpred` for your own research:
@@ -93,7 +128,7 @@ You can also find a list of all available `LTRpred` functions here: https://hajk
 >
 > - Y Ayukawa et al. [__A pair of effectors encoded on a conditionally dispensable chromosome of Fusarium oxysporum suppress host-specific immunity__](https://www.biorxiv.org/content/10.1101/2020.10.06.329052v1). __bioRxiv__, (2020).
 > 
-> C Meguerditchian, A Ergun, V Decroocq, M Lefebvre et al. [__Pipeline to detect the relationship between transposable elements and adjacent genes in host genome__](https://www.biorxiv.org/content/10.1101/2021.02.25.432867v1.abstract) __bioRxiv__, (2021).
+> - C Meguerditchian, A Ergun, V Decroocq, M Lefebvre et al. [__Pipeline to detect the relationship between transposable elements and adjacent genes in host genome__](https://www.biorxiv.org/content/10.1101/2021.02.25.432867v1.abstract) __bioRxiv__, (2021).
 
 
 ## Discussions and Bug Reports

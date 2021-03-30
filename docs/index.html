@@ -87,7 +87,7 @@
 <p>Transposable elements (TEs) comprise vast parts of eukaryotic genomes. In the past, TEs were seen as selfish mobile elements capable of populating a host genome to increase their chances for survival. By doing so they leave traces of junk DNA in host genomes that are usually regarded as by-products when sequencing, assembling, and annotating new genomes.</p>
 <p>However, this picture is slowly changing (<a href="https://academic.oup.com/gbe/article/11/12/3382/5637757">Drost &amp; Sanchez, 2019</a>) and TEs have been shown to be involved in generating a diverse range of novel phenotypes.</p>
 <p>Today, the <em>de novo</em> detection of transposable elements is performed by annotation tools which try to detect any type of repeated sequence, TE family, or remnand DNA loci that can be associated with a known transposable element within a genome assembly. The main goal of such efforts is to retrieve a maximum amount of loci that can be associated with TEs. If successful, such annotation can then be used to mask host genomes and to perform classic (phylo-)genomics studies focusing on host genes.</p>
-<p>More than <a href="https://docs.google.com/spreadsheets/d/1UBK70zExiL0gFVaIAILiGhflCGXAq_SF_lymaxTE1pY/edit#gid=0">300 repeat and TE annotation tools</a> have been developed so far. Most of them are designed and optimized to annotate either the entire repeat space or specific superfamilies of TEs and their DNA remnants.</p>
+<p>More than <a href="https://docs.google.com/spreadsheets/d/1UBK70zExiL0gFVaIAILiGhflCGXAq_SF_lymaxTE1pY/edit#gid=0">600 repeat and TE annotation tools</a> have been developed so far. Most of them are designed and optimized to annotate either the entire repeat space or specific superfamilies of TEs and their DNA remnants.</p>
 <blockquote>
 <p>The LTRpred pipeline has a different goal than all other annotation tools. It focuses particularly on <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC463057/">LTR retrotransposons</a> and aims to annotate only functional and potentially mobile elements. Such type of annotation is crucial for studying retrotransposon activity in eukaryotic genomes and to understand whether specific retrotransposon families can be activated artificially and harnessed to <a href="https://www.slcu.cam.ac.uk/news/tomato-jumping-genes">mutagenize genomes at much faster speed</a>.</p>
 </blockquote>
@@ -105,7 +105,28 @@
 <span id="cb1-4"><a href="#cb1-4"></a><span class="ex">docker</span> run --rm -ti drostlab/ltrpred</span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="co"># start R prompt within ltrpred container</span></span>
 <span id="cb1-6"><a href="#cb1-6"></a><span class="ex">~</span>:/<span class="ex">app</span># R</span></code></pre></div>
-<p>Users who wish to run the <code>LTRpred</code> Docker container in a <a href="https://docs.conda.io/en/latest/">conda</a> environment can use the <a href="https://github.com/HajkD/LTRpred/issues/16">following approach based on UDocker</a> (Many thanks to Ilja Bezrukov).</p>
+<p><strong>Users who wish to run the <code>LTRpred</code> Docker container in a <a href="https://docs.conda.io/en/latest/">conda</a> environment can use the <a href="https://github.com/HajkD/LTRpred/issues/16">following approach based on UDocker</a> (Many thanks to Ilja Bezrukov).</strong></p>
+<div id="accessing-ltrpred-container-via-rstudio" class="section level3">
+<h3 class="hasAnchor">
+<a href="#accessing-ltrpred-container-via-rstudio" class="anchor"></a>Accessing LTRpred Container via RStudio</h3>
+<p>A more interactive way of performing analyses with <code>LTRpred</code> is via the <a href="https://hub.docker.com/r/drostlab/ltrpred_rstudio"><code>RStudio</code> version of LTRpred</a>. In <a href="https://hub.docker.com/r/drostlab/ltrpred_rstudio">this LTRpred Docker Container</a> users can access LTRpred within the container via <code>Rstudio</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># retrieve docker image from dockerhub</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># run ltrpred container</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti drostlab/ltrpred_rstudio</span></code></pre></div>
+<p>To open <code>RStudio</code> and interact with the container go to your standard web browser and type in the following URL:</p>
+<pre><code>http://localhost:8787
+
+Username: rstudio
+
+Password: ltrpred</code></pre>
+<p>Users can choose a custom password if they wish.</p>
+<p>Within RStudio you can now run the example:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">LTRpred</span><span class="fu">::</span><span class="fu"><a href="reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>genome.file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"Hsapiens_ChrY.fa"</span>, package <span class="op">=</span> <span class="st">"LTRpred"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Users can exit the container by pressing <code>Ctrl + c</code> multiple times.</p>
+<p>Please find <a href="https://hub.docker.com/r/drostlab/ltrpred_rstudio">all details here about how to use the Rstudio version here</a>.</p>
+</div>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
@@ -122,7 +143,7 @@
 <h3 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick Start</h3>
 <p>The fastest way to generate a LTR retrotransposon prediction for a genome of interest (after <a href="https://hajkd.github.io/LTRpred/articles/Introduction.html">installing</a> all prerequisite command line tools) is to use the <code><a href="reference/LTRpred.html">LTRpred()</a></code> function and relying on the default parameters. In the following example, a LTR transposon prediction is performed for parts of the Human Y chromosome.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Perform de novo LTR transposon prediction for the Human Y chromosome</span>
 <span class="fu">LTRpred</span><span class="fu">::</span><span class="fu"><a href="reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>genome.file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"Hsapiens_ChrY.fa"</span>, package <span class="op">=</span> <span class="st">"LTRpred"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>When running your own genome, please specify <code>genome.file = "path/to/your/genome.fasta</code> instead of <code><a href="https://rdrr.io/r/base/system.file.html">system.file(..., package = "LTRpred")</a></code>. The command <code><a href="https://rdrr.io/r/base/system.file.html">system.file(..., package = "LTRpred")</a></code> merely references the path to the example file stored in the LTRpred package itself.</p>
@@ -131,7 +152,7 @@
 <li><a href="https://hajkd.github.io/LTRpred/articles/Introduction.html">Introduction to LTRpred</a></li>
 </ul>
 <p>Users can also read the tutorials within (<a href="http://www.rstudio.com/">RStudio</a>) :</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/HajkD/LTRpred">LTRpred</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span><span class="op">(</span><span class="st">"LTRpred"</span><span class="op">)</span></code></pre></div>
 <p>You can also find a list of all available <code>LTRpred</code> functions here: <a href="https://hajkd.github.io/LTRpred/reference/index.html" class="uri">https://hajkd.github.io/LTRpred/reference/index.html</a></p>
@@ -151,8 +172,8 @@
 <li><p>P Gan, R Hiroyama, A Tsushima, S Masuda <em>et al</em>. <a href="https://www.biorxiv.org/content/10.1101/2020.04.28.061093v1.abstract"><strong>Subtelomeric regions and a repeat-rich chromosome harbor multicopy effector gene clusters with variable conservation in multiple plant pathogenic Colletotrichum species</strong></a> <strong>bioRxiv</strong> (2020)</p></li>
 <li><p>J Wang et al. <a href="https://www.biorxiv.org/content/10.1101/2020.08.19.257527v1"><strong>Gigantic Genomes Can Provide Empirical Tests of TE Dynamics Models–An Example from Amphibians</strong></a>. <strong>bioRxiv</strong>, (2020).</p></li>
 <li><p>Y Ayukawa et al. <a href="https://www.biorxiv.org/content/10.1101/2020.10.06.329052v1"><strong>A pair of effectors encoded on a conditionally dispensable chromosome of Fusarium oxysporum suppress host-specific immunity</strong></a>. <strong>bioRxiv</strong>, (2020).</p></li>
+<li><p>C Meguerditchian, A Ergun, V Decroocq, M Lefebvre et al. <a href="https://www.biorxiv.org/content/10.1101/2021.02.25.432867v1.abstract"><strong>Pipeline to detect the relationship between transposable elements and adjacent genes in host genome</strong></a> <strong>bioRxiv</strong>, (2021).</p></li>
 </ul>
-<p>C Meguerditchian, A Ergun, V Decroocq, M Lefebvre et al. <a href="https://www.biorxiv.org/content/10.1101/2021.02.25.432867v1.abstract"><strong>Pipeline to detect the relationship between transposable elements and adjacent genes in host genome</strong></a> <strong>bioRxiv</strong>, (2021).</p>
 </blockquote>
 </div>
 </div>
@@ -162,11 +183,6 @@
 <p>I would be very happy to learn more about potential improvements of the concepts and functions provided in this package.</p>
 <p>Furthermore, in case you find some bugs or need additional (more flexible) functionality of parts of this package, please let me know:</p>
 <p><a href="https://github.com/HajkD/LTRpred/issues" class="uri">https://github.com/HajkD/LTRpred/issues</a></p>
-</div>
-<div id="acknowledgement" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgement" class="anchor"></a>Acknowledgement</h2>
-<p>I would like to thank the <a href="http://www.slcu.cam.ac.uk/research/paszkowski-group/group-members">Paszkowski team</a> for incredible support and motivating discussions that led to the realization of this project.</p>
 </div>
 
   </div>
