@@ -1,4 +1,4 @@
-## __LTRpred(ict)__: _de novo_ annotation of intact retrotransposons <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
+## __LTRpred(ict)__: _de novo_ annotation of young and intact retrotransposons <img src="inst/LTRpred_logo.png" align="right" height="174" width="150" />
 
 [![status](https://joss.theoj.org/papers/eeb2359d2459d3ae448cafac3ae33211/status.svg)](https://joss.theoj.org/papers/eeb2359d2459d3ae448cafac3ae33211)
 
