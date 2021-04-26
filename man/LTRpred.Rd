@@ -8,6 +8,7 @@ LTRpred(
   genome.file = NULL,
   centromere_start = NULL,
   centromere_end = NULL,
+  ltr_age_estimation = TRUE,
   model = "K80",
   mutation_rate = 1.3 * 1e-07,
   index.file.harvest = NULL,
@@ -82,6 +83,8 @@ LTRpred(
 \item{centromere_start}{a numeric vector storing the centromere start coordinates in the \code{genome.file}. The position in the numeric vector should correspond to the chromosome name in the \code{genome.file} fasta file. If \code{centromere_start = NULL} (default), then no centromeres will be drawn.}
 
 \item{centromere_end}{a numeric vector storing the centromere end coordinates in the \code{genome.file}. The position in the numeric vector should correspond to the chromosome name in the \code{genome.file} fasta file. If \code{centromere_end = NULL} (default), then no centromeres will be drawn.}
+
+\item{ltr_age_estimation}{a logical value indicating wether or not ltr-age estimation shall be performed (default \code{ltr_age_estimation = TRUE}).}
 
 \item{model}{a model as specified in \code{\link[ape]{dist.dna}}: a character string specifying the evolutionary model to be used - must be one of
  \itemize{

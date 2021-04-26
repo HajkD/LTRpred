@@ -3,7 +3,8 @@
 #' sufficient LTR retrotransposon predictions for any genome of interest.
 #' @param genome.file path to the genome file in \code{fasta} format.
 #' @param centromere_start a numeric vector storing the centromere start coordinates in the \code{genome.file}. The position in the numeric vector should correspond to the chromosome name in the \code{genome.file} fasta file. If \code{centromere_start = NULL} (default), then no centromeres will be drawn.
-#'@param centromere_end a numeric vector storing the centromere end coordinates in the \code{genome.file}. The position in the numeric vector should correspond to the chromosome name in the \code{genome.file} fasta file. If \code{centromere_end = NULL} (default), then no centromeres will be drawn.
+#' @param centromere_end a numeric vector storing the centromere end coordinates in the \code{genome.file}. The position in the numeric vector should correspond to the chromosome name in the \code{genome.file} fasta file. If \code{centromere_end = NULL} (default), then no centromeres will be drawn.
+#' @param ltr_age_estimation a logical value indicating wether or not ltr-age estimation shall be performed (default \code{ltr_age_estimation = TRUE}).
 #' @param model a model as specified in \code{\link[ape]{dist.dna}}: a character string specifying the evolutionary model to be used - must be one of
 #'  \itemize{
 #' \item  \code{K80} (the default)
@@ -254,6 +255,7 @@
 LTRpred <- function(genome.file       = NULL,
                     centromere_start = NULL,
                     centromere_end = NULL,
+                    ltr_age_estimation = TRUE,
                     model = "K80",
                     mutation_rate = 1.3 * 1e-07,
                     index.file.harvest = NULL,
@@ -1263,54 +1265,74 @@ LTRpred <- function(genome.file       = NULL,
     
     message("\n")
     message("LTRpred - Step 6:")
-    seqs_3ltr <-
-      file.path(
-        output.path,
-        paste0(chopped.foldername, "_ltrdigest"),
-        paste0(chopped.foldername, "-ltrdigest_3ltr.fas")
-      )
-    seqs_5ltr <-
-      file.path(
-        output.path,
-        paste0(chopped.foldername, "_ltrdigest"),
-        paste0(chopped.foldername, "-ltrdigest_5ltr.fas")
-      )
     
-    ltr_age_estimation_res <- ltr_age_estimation(res,
-                                                 ltr_seqs_3_prime = seqs_3ltr,
-                                                 ltr_seqs_5_prime = seqs_5ltr,
-                                                 model = model,
-                                                 mutation_rate = mutation_rate)
-    
-    ltr_age_mya <- ltr_evo_distance <- NULL
-    res <- dplyr::left_join(res, dplyr::select(ltr_age_estimation_res, orf.id, ltr_age_mya, ltr_evo_distance), by = "orf.id")
-    
-    res <-
-        dplyr::select(
-            res,
-            species,
-            ID,
-            dfam_target_name,
-            ltr_similarity,
-            ltr_age_mya,
-            ltr_evo_distance,
-            similarity,
-            protein_domain,
-            orfs,
-            chromosome,
-            start,
-            end,
-            strand,
-            width,
-            annotation,
-            pred_tool,
-            frame,
-            score,
-            lLTR_start:`PBS/tRNA_edist`,
-            orf.id,
-            repeat_region_length:PBS_length,
-            dfam_acc:cn_5ltr
+    if (ltr_age_estimation) {
+      seqs_3ltr <-
+        file.path(
+          output.path,
+          paste0(chopped.foldername, "_ltrdigest"),
+          paste0(chopped.foldername, "-ltrdigest_3ltr.fas")
         )
+      seqs_5ltr <-
+        file.path(
+          output.path,
+          paste0(chopped.foldername, "_ltrdigest"),
+          paste0(chopped.foldername, "-ltrdigest_5ltr.fas")
+        )
+      
+      ltr_age_estimation_res <- ltr_age_estimation(
+        res,
+        ltr_seqs_3_prime = seqs_3ltr,
+        ltr_seqs_5_prime = seqs_5ltr,
+        model = model,
+        mutation_rate = mutation_rate
+      )
+      
+      ltr_age_mya <- ltr_evo_distance <- NULL
+      res <-
+        dplyr::left_join(
+          res,
+          dplyr::select(
+            ltr_age_estimation_res,
+            orf.id,
+            ltr_age_mya,
+            ltr_evo_distance
+          ),
+          by = "orf.id"
+        )
+      
+      res <-
+        dplyr::select(
+          res,
+          species,
+          ID,
+          dfam_target_name,
+          ltr_similarity,
+          ltr_age_mya,
+          ltr_evo_distance,
+          similarity,
+          protein_domain,
+          orfs,
+          chromosome,
+          start,
+          end,
+          strand,
+          width,
+          annotation,
+          pred_tool,
+          frame,
+          score,
+          lLTR_start:`PBS/tRNA_edist`,
+          orf.id,
+          repeat_region_length:PBS_length,
+          dfam_acc:cn_5ltr
+        )
+    }
+    
+    if (!ltr_age_estimation){
+      message("\n")
+      message("This step was skipped, because: 'ltr_age_estimation = ", ltr_age_estimation, "'.")
+    }
     
     message("\n")
     message("LTRpred - Step 7:")

@@ -135,6 +135,7 @@ sufficient LTR retrotransposon predictions for any genome of interest.</p>
   genome.file <span class='op'>=</span> <span class='cn'>NULL</span>,
   centromere_start <span class='op'>=</span> <span class='cn'>NULL</span>,
   centromere_end <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ltr_age_estimation <span class='op'>=</span> <span class='cn'>TRUE</span>,
   model <span class='op'>=</span> <span class='st'>"K80"</span>,
   mutation_rate <span class='op'>=</span> <span class='fl'>1.3</span> <span class='op'>*</span> <span class='fl'>1e-07</span>,
   index.file.harvest <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -217,6 +218,10 @@ sufficient LTR retrotransposon predictions for any genome of interest.</p>
     <tr>
       <th>centromere_end</th>
       <td><p>a numeric vector storing the centromere end coordinates in the <code>genome.file</code>. The position in the numeric vector should correspond to the chromosome name in the <code>genome.file</code> fasta file. If <code>centromere_end = NULL</code> (default), then no centromeres will be drawn.</p></td>
+    </tr>
+    <tr>
+      <th>ltr_age_estimation</th>
+      <td><p>a logical value indicating wether or not ltr-age estimation shall be performed (default <code>ltr_age_estimation = TRUE</code>).</p></td>
     </tr>
     <tr>
       <th>model</th>
