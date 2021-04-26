@@ -37,7 +37,7 @@ FilteredLTRTransposons <- dplyr::filter(Ath.Pred, ltr_similarity == 100)
 
 # Write the sequences of these filtered LTR transposons to a fasta file
 pred2fasta(LTRpred.tbl = FilteredLTRTransposons, 
-           prediction.fasta.file = "TAIR10_chr_all-ltrdigest_complete.fas", 
+           prediction.file = "TAIR10_chr_all-ltrdigest_complete.fas", 
            output                = "AthalianaPutativeLTRTransposons.fa")
 }
 }

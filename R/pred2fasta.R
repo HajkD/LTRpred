@@ -24,7 +24,7 @@
 #' 
 #' # Write the sequences of these filtered LTR transposons to a fasta file
 #' pred2fasta(LTRpred.tbl = FilteredLTRTransposons, 
-#'            prediction.fasta.file = "TAIR10_chr_all-ltrdigest_complete.fas", 
+#'            prediction.file = "TAIR10_chr_all-ltrdigest_complete.fas", 
 #'            output                = "AthalianaPutativeLTRTransposons.fa")
 #' }
 #' @seealso \code{\link{LTRharvest}}, \code{\link{LTRdigest}}, \code{\link{LTRpred}}, \code{\link{read.prediction}} 
