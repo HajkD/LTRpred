@@ -35,8 +35,6 @@ Imports:
     methods,
     tibble,
     scales,
-    ggsci,
-    ggbio,
     ape,
     R.utils
 Suggests:
@@ -45,7 +43,9 @@ Suggests:
     devtools (>= 1.6.1),
     testthat (>= 0.9.1),
     roxygen2,
-    amap
+    amap,
+    ggsci,
+    ggbio
 URL: https://github.com/HajkD/LTRpred
 BugReports: https://github.com/HajkD/LTRpred/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
