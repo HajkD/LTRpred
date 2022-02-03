@@ -166,21 +166,22 @@
     <p>Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># read example *.blast6out file</span>
-<span class='va'>test.blast6out</span> <span class='op'>&lt;-</span> <span class='fu'>read.blast6out</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"test.blast6out"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># look at the format in R</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>test.blast6out</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 12</span><span>
-#&gt;   query subject perc_ident align_len n_mismatch n_gap_open start_q end_q start_s
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2_CH… mitoch…       99.6     </span><span style='text-decoration: underline;'>18</span><span>868         22         19   </span><span style='text-decoration: underline;'>18</span><span>831     1       1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> mito… 2_CHRO…       99.3     </span><span style='text-decoration: underline;'>18</span><span>390         29         35       1 </span><span style='text-decoration: underline;'>18</span><span>354       1
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> 3_CH… 1_CHRO…       91.3      </span><span style='text-decoration: underline;'>9</span><span>070        317         20       1  </span><span style='text-decoration: underline;'>8</span><span>652       1
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> 4_CH… 3_CHRO…       92.2      </span><span style='text-decoration: underline;'>8</span><span>301        429         19       1  </span><span style='text-decoration: underline;'>8</span><span>152       1
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> 3_CH… 3_CHRO…       92        </span><span style='text-decoration: underline;'>8</span><span>337        292         15       1  </span><span style='text-decoration: underline;'>8</span><span>080       1
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> 4_CH… 3_CHRO…       93        </span><span style='text-decoration: underline;'>8</span><span>292        284         12       1  </span><span style='text-decoration: underline;'>8</span><span>053       1
-#&gt; </span><span style='color: #949494;'># … with 3 more variables: end_s &lt;int&gt;, evalue &lt;dbl&gt;, bit_score &lt;dbl&gt;</span><span></div></span></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># read example *.blast6out file</span></span>
+<span class='r-in'><span class='va'>test.blast6out</span> <span class='op'>&lt;-</span> <span class='fu'>read.blast6out</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"test.blast6out"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># look at the format in R</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>test.blast6out</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 6 × 12</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   query subject perc_ident align_len n_mismatch n_gap_open start_q end_q start_s</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>        <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> 2_CH… mitoch…       99.6     <span style='text-decoration: underline;'>18</span>868         22         19   <span style='text-decoration: underline;'>18</span>831     1       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> mito… 2_CHRO…       99.3     <span style='text-decoration: underline;'>18</span>390         29         35       1 <span style='text-decoration: underline;'>18</span>354       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> 3_CH… 1_CHRO…       91.3      <span style='text-decoration: underline;'>9</span>070        317         20       1  <span style='text-decoration: underline;'>8</span>652       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> 4_CH… 3_CHRO…       92.2      <span style='text-decoration: underline;'>8</span>301        429         19       1  <span style='text-decoration: underline;'>8</span>152       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> 3_CH… 3_CHRO…       92        <span style='text-decoration: underline;'>8</span>337        292         15       1  <span style='text-decoration: underline;'>8</span>080       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> 4_CH… 3_CHRO…       93        <span style='text-decoration: underline;'>8</span>292        284         12       1  <span style='text-decoration: underline;'>8</span>053       1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 3 more variables: end_s &lt;int&gt;, evalue &lt;dbl&gt;, bit_score &lt;dbl&gt;</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

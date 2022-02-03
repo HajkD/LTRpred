@@ -411,14 +411,14 @@ cd software_downloads \
   && cd ..
 ```
 
-### Install [dfamscan.pl](http://www.dfam.org/web_download/Current_Release/dfamscan.pl)
+### Install [dfamscan.pl](https://dfam.org/releases/current/infrastructure/dfamscan.pl.gz)
 
-[dfamscan.pl](https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz) needs to be unzipped and stored at `/usr/local/bin/dfamscan.pl` and executabe via `perl /usr/local/bin/dfamscan.pl -help`. This is important to be able to run the hmmer search against the Dfam database.
+[dfamscan.pl](https://dfam.org/releases/current/infrastructure/dfamscan.pl.gz) needs to be unzipped and stored at `/usr/local/bin/dfamscan.pl` and executable via `perl /usr/local/bin/dfamscan.pl -help`. This is important to be able to run the hmmer search against the Dfam database.
 
 
 ```bash
 cd software_downloads \
-  && wget https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz \
+  && wget https://dfam.org/releases/current/infrastructure/dfamscan.pl.gz \
   && gunzip dfamscan.pl.gz \
   && sudo cp dfamscan.pl /usr/local/bin/dfamscan.pl \
   && cd ..

@@ -151,46 +151,48 @@ when crawling LTRpred generated result folders.</p>
     <p>Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># without wrapped whitespaces</span>
-<span class='fu'>get.pred.filenames</span><span class='op'>(</span><span class='st'>"path/to/LTRpred.folder"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "path/to/LTRpred.folder/LTRpred.folder_LTRpred_DataSheet.tsv"                            
-#&gt;  [2] "path/to/LTRpred.folder/LTRpred.folder_LTRpred.bed"                                      
-#&gt;  [3] "path/to/LTRpred.folder/LTRpred.folder_LTRpred.gff"                                      
-#&gt;  [4] "path/to/LTRpred.folder/LTRpred.folder_ORF_prediction_nt.fsa"                            
-#&gt;  [5] "path/to/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.blast6out"       
-#&gt;  [6] "path/to/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.log"             
-#&gt;  [7] "path/to/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.uc"              
-#&gt;  [8] "path/to/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_nt.fsa"                    
-#&gt;  [9] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_3ltr.fas"      
-#&gt; [10] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_5ltr.fas"      
-#&gt; [11] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_5ltr.fas"      
-#&gt; [12] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder_LTRdigestPrediction.gff" 
-#&gt; [13] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_tabout.csv"    
-#&gt; [14] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_complete.fas"  
-#&gt; [15] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_conditions.csv"
-#&gt; [16] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_pbs.fas"       
-#&gt; [17] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_ppt.fas"       
-#&gt; [18] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_pbs.fas"       </div><div class='input'>
-<span class='co'># with wrapped whitespaces</span>
-<span class='fu'>get.pred.filenames</span><span class='op'>(</span><span class='st'>"path to/LTRpred.folder"</span>, ws.wrap <span class='op'>=</span> <span class='cn'>TRUE</span> <span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] "'path to'/LTRpred.folder/LTRpred.folder_LTRpred_DataSheet.tsv"                            
-#&gt;  [2] "'path to'/LTRpred.folder/LTRpred.folder_LTRpred.bed"                                      
-#&gt;  [3] "'path to'/LTRpred.folder/LTRpred.folder_LTRpred.gff"                                      
-#&gt;  [4] "'path to'/LTRpred.folder/LTRpred.folder_ORF_prediction_nt.fsa"                            
-#&gt;  [5] "'path to'/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.blast6out"       
-#&gt;  [6] "'path to'/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.log"             
-#&gt;  [7] "'path to'/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.uc"              
-#&gt;  [8] "'path to'/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_nt.fsa"                    
-#&gt;  [9] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_3ltr.fas"      
-#&gt; [10] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_5ltr.fas"      
-#&gt; [11] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_5ltr.fas"      
-#&gt; [12] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder_LTRdigestPrediction.gff" 
-#&gt; [13] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_tabout.csv"    
-#&gt; [14] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_complete.fas"  
-#&gt; [15] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_conditions.csv"
-#&gt; [16] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_pbs.fas"       
-#&gt; [17] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_ppt.fas"       
-#&gt; [18] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_pbs.fas"       </div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># without wrapped whitespaces</span></span>
+<span class='r-in'><span class='fu'>get.pred.filenames</span><span class='op'>(</span><span class='st'>"path/to/LTRpred.folder"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "path/to/LTRpred.folder/LTRpred.folder_LTRpred_DataSheet.tsv"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2] "path/to/LTRpred.folder/LTRpred.folder_LTRpred.bed"                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3] "path/to/LTRpred.folder/LTRpred.folder_LTRpred.gff"                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4] "path/to/LTRpred.folder/LTRpred.folder_ORF_prediction_nt.fsa"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5] "path/to/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.blast6out"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] "path/to/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.log"             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] "path/to/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.uc"              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8] "path/to/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_nt.fsa"                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_3ltr.fas"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_5ltr.fas"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_5ltr.fas"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder_LTRdigestPrediction.gff" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_tabout.csv"    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_complete.fas"  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_conditions.csv"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_pbs.fas"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_ppt.fas"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18] "path/to/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_pbs.fas"       </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># with wrapped whitespaces</span></span>
+<span class='r-in'><span class='fu'>get.pred.filenames</span><span class='op'>(</span><span class='st'>"path to/LTRpred.folder"</span>, ws.wrap <span class='op'>=</span> <span class='cn'>TRUE</span> <span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] "'path to'/LTRpred.folder/LTRpred.folder_LTRpred_DataSheet.tsv"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2] "'path to'/LTRpred.folder/LTRpred.folder_LTRpred.bed"                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3] "'path to'/LTRpred.folder/LTRpred.folder_LTRpred.gff"                                      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4] "'path to'/LTRpred.folder/LTRpred.folder_ORF_prediction_nt.fsa"                            </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5] "'path to'/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.blast6out"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] "'path to'/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.log"             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] "'path to'/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_CLUSTpred.uc"              </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8] "'path to'/LTRpred.folder/LTRpred.folder-ltrdigest_complete.fas_nt.fsa"                    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_3ltr.fas"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_5ltr.fas"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_5ltr.fas"      </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder_LTRdigestPrediction.gff" </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [13] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_tabout.csv"    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [14] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_complete.fas"  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [15] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_conditions.csv"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [16] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_pbs.fas"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [17] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_ppt.fas"       </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [18] "'path to'/LTRpred.folder/LTRpred.folder_ltrdigest/LTRpred.folder-ltrdigest_pbs.fas"       </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

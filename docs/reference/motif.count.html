@@ -156,497 +156,499 @@ genomic sequences.</p>
     <p>Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># find number of "CG" motifs in predicted LTR transposons</span>
-<span class='fu'>motif.count</span><span class='op'>(</span>seq.file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"LTRseqs.fas"</span>,package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>, 
-            motif    <span class='op'>=</span> <span class='st'>"CG"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   [1] 245 186 235 116 129 118  98 180 236  75  81 105 127  56 214  77 152 172
-#&gt;  [19] 115 581 459 196 129  70 165  84  84 169 124 216 179 263 166 107 133  79
-#&gt;  [37] 117 664 113  81 152 102 191  77 146  92 156 116 140 297 104 108 116 204
-#&gt;  [55] 173  85 133 260 119 129 291 274 134 113 655 169 224 189  62  67  81 210
-#&gt;  [73] 605  75 437 347 178 106  93 146 585  67  96 191 147 159  83 163  79 190
-#&gt;  [91] 150 102 109 119 181 135 150 130 216 122 117 131  80 234 188 176  91 187
-#&gt; [109] 224 152 124 627 157 367 146 130  66 145 405 265  56 110  63 165  88 300
-#&gt; [127] 164  86 110  96  99 239  92  87 164 117 136  83 611 686 576 973 445 112
-#&gt; [145] 151  66  91 396  80 111 130 300 191 136 409  62 172 369  84 192 326 190
-#&gt; [163] 129 140  88 139 206 203 112  81  82  96 328 229 334 206  89 235 116 165
-#&gt; [181] 124 291 100 200  81 177 154 522 154 174 205 124 194 120 397 198 459 615
-#&gt; [199] 142  90 173 147 117 108  99  93 125  87 176  77 170 208  64 121 116 318
-#&gt; [217] 185 189 112 206 123 124 287 218 103 117 318 564 114 212 304 211 327 223
-#&gt; [235] 302 333 401 116 116 129 113 518 204 741 226 137 310 162 120 149  98 225
-#&gt; [253] 532  81 169  76 144 218  66  98 452  83 247 418 156  91 254  69 222 128
-#&gt; [271]  89 151 134  77 482  94 102  78  95 159 128 126 157 385 385 211  91 145
-#&gt; [289] 111 125 247 207 522 117 111 151 186 148 194 125 122 659 660  66 138 101
-#&gt; [307] 527 145  88 132  91 147 190 309 115 498 108 187 653 104 257 327 301 147
-#&gt; [325] 162 187 134 146 101 240  84 162 168 235  80 114  75 132 111  93 117 132
-#&gt; [343] 235 139  78  70  79 188  74  69 350 399  79 131 108  88 181  72 258 122
-#&gt; [361] 132 643  74 104 143 137 316 236 368 239 215 177 701  82 176 119 121 176
-#&gt; [379] 115  93  73  99 199 171 113 114 219 108 289 119 238 274  76  62 108 207
-#&gt; [397] 178 193 116 155  57 592  97 177 310 373  93 308 262 276 162  77 181  71
-#&gt; [415]  75  97  77  77 176 130  80 130 128 182 105 128 232 111 116 138  76 143
-#&gt; [433] 215 395 214  74 107 199 117 140 100 128 179 109 206 126 117 128 154  78
-#&gt; [451] 204 131 191  94 240  96 580 686</div><div class='input'>            
-<span class='co'># find number of "CG" motifs in predicted LTR transposons: rel. frequency</span>
-<span class='fu'>motif.count</span><span class='op'>(</span>seq.file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"LTRseqs.fas"</span>,package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>, 
-            motif    <span class='op'>=</span> <span class='st'>"CG"</span>,
-            as.ratio <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>             
-</div><div class='output co'>#&gt;     1_CHROMOSOME_dumped__149500_155909     1_CHROMOSOME_dumped__249531_259127 
-#&gt;                             0.03822153                             0.01938106 
-#&gt;     1_CHROMOSOME_dumped__428932_438092   1_CHROMOSOME_dumped__2659374_2663971 
-#&gt;                             0.02565222                             0.02522836 
-#&gt;   1_CHROMOSOME_dumped__3357954_3363283   1_CHROMOSOME_dumped__3780765_3785720 
-#&gt;                             0.02420263                             0.02380952 
-#&gt;   1_CHROMOSOME_dumped__3907118_3911673   1_CHROMOSOME_dumped__4081628_4091086 
-#&gt;                             0.02151010                             0.01902950 
-#&gt;   1_CHROMOSOME_dumped__4119030_4126617   1_CHROMOSOME_dumped__4405997_4411118 
-#&gt;                             0.03110174                             0.01464272 
-#&gt;   1_CHROMOSOME_dumped__5691759_5696703   1_CHROMOSOME_dumped__5897842_5902839 
-#&gt;                             0.01638018                             0.02100840 
-#&gt;   1_CHROMOSOME_dumped__5920835_5927113   1_CHROMOSOME_dumped__6009304_6014076 
-#&gt;                             0.02022615                             0.01173266 
-#&gt;   1_CHROMOSOME_dumped__6191403_6197517   1_CHROMOSOME_dumped__6538418_6543536 
-#&gt;                             0.03499591                             0.01504200 
-#&gt;   1_CHROMOSOME_dumped__6719067_6724311   1_CHROMOSOME_dumped__6767255_6773967 
-#&gt;                             0.02897998                             0.02562193 
-#&gt;   1_CHROMOSOME_dumped__6825176_6830220   1_CHROMOSOME_dumped__7025897_7047012 
-#&gt;                             0.02279485                             0.02751468 
-#&gt;   1_CHROMOSOME_dumped__8445394_8466734   1_CHROMOSOME_dumped__8578711_8588761 
-#&gt;                             0.02150790                             0.01950055 
-#&gt;   1_CHROMOSOME_dumped__8643650_8649288   1_CHROMOSOME_dumped__9368344_9373311 
-#&gt;                             0.02287640                             0.01409018 
-#&gt;   1_CHROMOSOME_dumped__9476002_9480634 1_CHROMOSOME_dumped__10121579_10125768 
-#&gt;                             0.03561407                             0.02004773 
-#&gt; 1_CHROMOSOME_dumped__10696719_10701589 1_CHROMOSOME_dumped__11125145_11133104 
-#&gt;                             0.01724492                             0.02123116 
-#&gt; 1_CHROMOSOME_dumped__11148084_11152830 1_CHROMOSOME_dumped__11284903_11295619 
-#&gt;                             0.02612176                             0.02015489 
-#&gt; 1_CHROMOSOME_dumped__11339006_11344662 1_CHROMOSOME_dumped__11346530_11355061 
-#&gt;                             0.03164221                             0.03082513 
-#&gt; 1_CHROMOSOME_dumped__11697950_11705480 1_CHROMOSOME_dumped__11789447_11794074 
-#&gt;                             0.02204223                             0.02312014 
-#&gt; 1_CHROMOSOME_dumped__11890866_11900756 1_CHROMOSOME_dumped__12194788_12199420 
-#&gt;                             0.01344657                             0.01705159 
-#&gt; 1_CHROMOSOME_dumped__12541821_12546900 1_CHROMOSOME_dumped__12664511_12673933 
-#&gt;                             0.02303150                             0.07046588 
-#&gt; 1_CHROMOSOME_dumped__12871512_12878779 1_CHROMOSOME_dumped__12969459_12975236 
-#&gt;                             0.01554761                             0.01401869 
-#&gt; 1_CHROMOSOME_dumped__13324761_13329591 1_CHROMOSOME_dumped__13334465_13339870 
-#&gt;                             0.03146347                             0.01886792 
-#&gt; 1_CHROMOSOME_dumped__13388869_13396650 1_CHROMOSOME_dumped__13398499_13402662 
-#&gt;                             0.02454382                             0.01849183 
-#&gt; 1_CHROMOSOME_dumped__13439443_13448531 1_CHROMOSOME_dumped__13559843_13564825 
-#&gt;                             0.01606337                             0.01846277 
-#&gt; 1_CHROMOSOME_dumped__13593058_13599710 1_CHROMOSOME_dumped__13676498_13682108 
-#&gt;                             0.02344807                             0.02067368 
-#&gt; 1_CHROMOSOME_dumped__13818567_13823889 1_CHROMOSOME_dumped__13883095_13890935 
-#&gt;                             0.02630096                             0.03787782 
-#&gt; 1_CHROMOSOME_dumped__13912841_13919010 1_CHROMOSOME_dumped__14019278_14024519 
-#&gt;                             0.01685575                             0.02060282 
-#&gt; 1_CHROMOSOME_dumped__14179555_14183988 1_CHROMOSOME_dumped__14214740_14225657 
-#&gt;                             0.02616148                             0.01868474 
-#&gt; 1_CHROMOSOME_dumped__14282118_14286791 1_CHROMOSOME_dumped__14745962_14750821 
-#&gt;                             0.03701326                             0.01748971 
-#&gt; 1_CHROMOSOME_dumped__15610250_15615956 1_CHROMOSOME_dumped__16012601_16019700 
-#&gt;                             0.02330471                             0.03661972 
-#&gt; 1_CHROMOSOME_dumped__16117817_16124067 1_CHROMOSOME_dumped__16176836_16181678 
-#&gt;                             0.01903695                             0.02663638 
-#&gt; 1_CHROMOSOME_dumped__16387793_16398190 1_CHROMOSOME_dumped__16537640_16548760 
-#&gt;                             0.02798615                             0.02463807 
-#&gt; 1_CHROMOSOME_dumped__16551721_16557069 1_CHROMOSOME_dumped__16569870_16575240 
-#&gt;                             0.02505141                             0.02103891 
-#&gt; 1_CHROMOSOME_dumped__16626036_16637234 1_CHROMOSOME_dumped__16638793_16645558 
-#&gt;                             0.05848736                             0.02497783 
-#&gt; 1_CHROMOSOME_dumped__16674908_16683328 1_CHROMOSOME_dumped__16853317_16858040 
-#&gt;                             0.02660017                             0.04000847 
-#&gt; 1_CHROMOSOME_dumped__17023916_17029257 1_CHROMOSOME_dumped__17054990_17060023 
-#&gt;                             0.01160614                             0.01330950 
-#&gt; 1_CHROMOSOME_dumped__17156581_17161059 1_CHROMOSOME_dumped__17247721_17252580 
-#&gt;                             0.01808439                             0.04320988 
-#&gt; 1_CHROMOSOME_dumped__17255285_17265290 1_CHROMOSOME_dumped__17520596_17525126 
-#&gt;                             0.06046372                             0.01655264 
-#&gt; 1_CHROMOSOME_dumped__17528667_17536139 1_CHROMOSOME_dumped__17574998_17592212 
-#&gt;                             0.05847718                             0.02015684 
-#&gt; 1_CHROMOSOME_dumped__17606460_17612336 1_CHROMOSOME_dumped__18198315_18206598 
-#&gt;                             0.03028756                             0.01279575 
-#&gt; 1_CHROMOSOME_dumped__18552993_18557995 1_CHROMOSOME_dumped__18639849_18648168 
-#&gt;                             0.01858885                             0.01754808 
-#&gt; 1_CHROMOSOME_dumped__18962095_18971496 1_CHROMOSOME_dumped__18996885_19001831 
-#&gt;                             0.06222080                             0.01354356 
-#&gt; 1_CHROMOSOME_dumped__20085162_20090239 1_CHROMOSOME_dumped__21244323_21249201 
-#&gt;                             0.01890508                             0.03914737 
-#&gt; 1_CHROMOSOME_dumped__21318903_21325509 1_CHROMOSOME_dumped__21346162_21351041 
-#&gt;                             0.02224913                             0.03258197 
-#&gt; 1_CHROMOSOME_dumped__21438251_21442649 1_CHROMOSOME_dumped__21930876_21937598 
-#&gt;                             0.01886792                             0.02424513 
-#&gt; 1_CHROMOSOME_dumped__21947272_21951934 1_CHROMOSOME_dumped__22100643_22105329 
-#&gt;                             0.01694188                             0.04053766 
-#&gt; 1_CHROMOSOME_dumped__22272951_22280403 1_CHROMOSOME_dumped__22619338_22624555 
-#&gt;                             0.02012612                             0.01954772 
-#&gt; 1_CHROMOSOME_dumped__22831590_22837366 1_CHROMOSOME_dumped__22941592_22946917 
-#&gt;                             0.01886792                             0.02234322 
-#&gt; 1_CHROMOSOME_dumped__23000655_23008290 1_CHROMOSOME_dumped__23118242_23123215 
-#&gt;                             0.02370351                             0.02714113 
-#&gt; 1_CHROMOSOME_dumped__23569996_23575851 1_CHROMOSOME_dumped__23646949_23653338 
-#&gt;                             0.02561475                             0.02034429 
-#&gt; 1_CHROMOSOME_dumped__24506842_24514619 1_CHROMOSOME_dumped__24873949_24879663 
-#&gt;                             0.02777064                             0.02134733 
-#&gt; 1_CHROMOSOME_dumped__24938566_24945901 1_CHROMOSOME_dumped__25265020_25271109 
-#&gt;                             0.01594875                             0.02151067 
-#&gt; 1_CHROMOSOME_dumped__26366608_26371676 1_CHROMOSOME_dumped__27199829_27210847 
-#&gt;                             0.01578221                             0.02123605 
-#&gt; 1_CHROMOSOME_dumped__27829437_27835759 1_CHROMOSOME_dumped__27930411_27936476 
-#&gt;                             0.02973272                             0.02901418 
-#&gt; 1_CHROMOSOME_dumped__28501879_28506082 1_CHROMOSOME_dumped__29587846_29595895 
-#&gt;                             0.02164605                             0.02322981 
-#&gt; 1_CHROMOSOME_dumped__29642083_29647526 1_CHROMOSOME_dumped__29700884_29707698 
-#&gt;                             0.04114622                             0.02230374 
-#&gt; 1_CHROMOSOME_dumped__30419866_30424328        2_CHROMOSOME_dumped__2080_10521 
-#&gt;                             0.02778400                             0.07427150 
-#&gt;     2_CHROMOSOME_dumped__167975_174024     2_CHROMOSOME_dumped__593307_610013 
-#&gt;                             0.02595041                             0.02196684 
-#&gt;     2_CHROMOSOME_dumped__611690_617410     2_CHROMOSOME_dumped__775782_782412 
-#&gt;                             0.02552001                             0.01960489 
-#&gt;     2_CHROMOSOME_dumped__909733_914339     2_CHROMOSOME_dumped__959966_964731 
-#&gt;                             0.01432603                             0.03042384 
-#&gt;     2_CHROMOSOME_dumped__975729_990317   2_CHROMOSOME_dumped__1235983_1250415 
-#&gt;                             0.02776064                             0.01836070 
-#&gt;   2_CHROMOSOME_dumped__1292790_1297013   2_CHROMOSOME_dumped__1388832_1393901 
-#&gt;                             0.01325758                             0.02169625 
-#&gt;   2_CHROMOSOME_dumped__1395261_1399523   2_CHROMOSOME_dumped__1523655_1531024 
-#&gt;                             0.01477833                             0.02238806 
-#&gt;   2_CHROMOSOME_dumped__1557140_1562062   2_CHROMOSOME_dumped__1629671_1637490 
-#&gt;                             0.01787528                             0.03836317 
-#&gt;   2_CHROMOSOME_dumped__1882607_1887821   2_CHROMOSOME_dumped__1970254_1974960 
-#&gt;                             0.03144775                             0.01827066 
-#&gt;   2_CHROMOSOME_dumped__2075307_2080607   2_CHROMOSOME_dumped__2274202_2280048 
-#&gt;                             0.02075080                             0.01641868 
-#&gt;   2_CHROMOSOME_dumped__2302464_2307170   2_CHROMOSOME_dumped__2745600_2752272 
-#&gt;                             0.02103250                             0.03581597 
-#&gt;   2_CHROMOSOME_dumped__2844749_2849616   2_CHROMOSOME_dumped__2858551_2864192 
-#&gt;                             0.01889893                             0.01542006 
-#&gt;   2_CHROMOSOME_dumped__2902330_2907117   2_CHROMOSOME_dumped__2911997_2919582 
-#&gt;                             0.03425230                             0.01542315 
-#&gt;   2_CHROMOSOME_dumped__3083903_3089468   2_CHROMOSOME_dumped__3160549_3166281 
-#&gt;                             0.02443406                             0.01447759 
-#&gt;   2_CHROMOSOME_dumped__3221681_3238915   2_CHROMOSOME_dumped__3270279_3289109 
-#&gt;                             0.03545112                             0.03642929 
-#&gt;   2_CHROMOSOME_dumped__3367929_3386289   2_CHROMOSOME_dumped__3426174_3451000 
-#&gt;                             0.03137084                             0.03919120 
-#&gt;   2_CHROMOSOME_dumped__3539977_3559406   2_CHROMOSOME_dumped__4080728_4088155 
-#&gt;                             0.02290273                             0.01507808 
-#&gt;   2_CHROMOSOME_dumped__4090709_4096103   2_CHROMOSOME_dumped__4110947_4115696 
-#&gt;                             0.02798888                             0.01389474 
-#&gt;   2_CHROMOSOME_dumped__4116023_4120740   2_CHROMOSOME_dumped__4161050_4173975 
-#&gt;                             0.01928783                             0.03063593 
-#&gt;   2_CHROMOSOME_dumped__4230743_4236513   2_CHROMOSOME_dumped__4408338_4413617 
-#&gt;                             0.01386242                             0.02102273 
-#&gt;   2_CHROMOSOME_dumped__4542920_4547698   2_CHROMOSOME_dumped__4558517_4566125 
-#&gt;                             0.02720234                             0.03942699 
-#&gt;   2_CHROMOSOME_dumped__4682601_4690775   2_CHROMOSOME_dumped__4693482_4698777 
-#&gt;                             0.02336391                             0.02567976 
-#&gt;   2_CHROMOSOME_dumped__4737963_4753533   2_CHROMOSOME_dumped__4775685_4780521 
-#&gt;                             0.02626678                             0.01281786 
-#&gt;   2_CHROMOSOME_dumped__4818686_4826103   2_CHROMOSOME_dumped__5040989_5048393 
-#&gt;                             0.02318684                             0.04983120 
-#&gt;   2_CHROMOSOME_dumped__5073848_5078420   2_CHROMOSOME_dumped__5394710_5399650 
-#&gt;                             0.01836869                             0.03885853 
-#&gt;   2_CHROMOSOME_dumped__6023868_6032902   2_CHROMOSOME_dumped__6256496_6260935 
-#&gt;                             0.03608190                             0.04279279 
-#&gt;   2_CHROMOSOME_dumped__6422229_6427295   2_CHROMOSOME_dumped__6819006_6823730 
-#&gt;                             0.02545885                             0.02962963 
-#&gt;   2_CHROMOSOME_dumped__6837314_6843322   2_CHROMOSOME_dumped__6894106_6899938 
-#&gt;                             0.01464470                             0.02382993 
-#&gt;   2_CHROMOSOME_dumped__7157625_7166649   2_CHROMOSOME_dumped__7224084_7229138 
-#&gt;                             0.02282548                             0.04015826 
-#&gt;   2_CHROMOSOME_dumped__7373364_7379268   2_CHROMOSOME_dumped__7448762_7454290 
-#&gt;                             0.01896698                             0.01465003 
-#&gt;   2_CHROMOSOME_dumped__8697239_8702070   2_CHROMOSOME_dumped__8816049_8820894 
-#&gt;                             0.01697020                             0.01981015 
-#&gt;   2_CHROMOSOME_dumped__8873017_8891285   2_CHROMOSOME_dumped__9187492_9195280 
-#&gt;                             0.01795391                             0.02940044 
-#&gt;   2_CHROMOSOME_dumped__9306572_9319034   2_CHROMOSOME_dumped__9927681_9932559 
-#&gt;                             0.02679933                             0.04222177 
-#&gt; 2_CHROMOSOME_dumped__10464648_10471481 2_CHROMOSOME_dumped__10483666_10492018 
-#&gt;                             0.01302312                             0.02813360 
-#&gt; 2_CHROMOSOME_dumped__10637411_10647335 2_CHROMOSOME_dumped__11435732_11443090 
-#&gt;                             0.01168766                             0.02242152 
-#&gt; 2_CHROMOSOME_dumped__11721105_11726615 2_CHROMOSOME_dumped__12445635_12457164 
-#&gt;                             0.02250045                             0.02523851 
-#&gt; 2_CHROMOSOME_dumped__12620243_12625077 2_CHROMOSOME_dumped__13508554_13515938 
-#&gt;                             0.02068252                             0.02708192 
-#&gt; 2_CHROMOSOME_dumped__13664992_13669870 2_CHROMOSOME_dumped__14026300_14032819 
-#&gt;                             0.01660176                             0.02714724 
-#&gt; 2_CHROMOSOME_dumped__14406571_14412855 2_CHROMOSOME_dumped__16280712_16302420 
-#&gt;                             0.02450278                             0.02404533 
-#&gt; 2_CHROMOSOME_dumped__17136148_17141211 2_CHROMOSOME_dumped__17252349_17258537 
-#&gt;                             0.03041074                             0.02811440 
-#&gt; 2_CHROMOSOME_dumped__17270937_17278587 2_CHROMOSOME_dumped__17676479_17684201 
-#&gt;                             0.02679388                             0.01605594 
-#&gt; 2_CHROMOSOME_dumped__18347446_18355355 2_CHROMOSOME_dumped__18659187_18664902 
-#&gt;                             0.02452592                             0.02099370 
-#&gt;     3_CHROMOSOME_dumped__780904_798849   3_CHROMOSOME_dumped__1526151_1535730 
-#&gt;                             0.02212192                             0.02066806 
-#&gt;   3_CHROMOSOME_dumped__1657651_1681989   3_CHROMOSOME_dumped__3110405_3124906 
-#&gt;                             0.01885862                             0.04240794 
-#&gt;   3_CHROMOSOME_dumped__3807306_3812643   3_CHROMOSOME_dumped__6188741_6193283 
-#&gt;                             0.02660172                             0.01981070 
-#&gt;   3_CHROMOSOME_dumped__6372409_6378607   3_CHROMOSOME_dumped__7354085_7359059 
-#&gt;                             0.02790773                             0.02954774 
-#&gt;   3_CHROMOSOME_dumped__7728276_7733244   3_CHROMOSOME_dumped__7760615_7765156 
-#&gt;                             0.02354599                             0.02377807 
-#&gt;   3_CHROMOSOME_dumped__8046323_8051045   3_CHROMOSOME_dumped__8537355_8543559 
-#&gt;                             0.02096125                             0.01498791 
-#&gt;   3_CHROMOSOME_dumped__8632393_8638600   3_CHROMOSOME_dumped__9226633_9231377 
-#&gt;                             0.02013531                             0.01833509 
-#&gt;   3_CHROMOSOME_dumped__9243115_9251762   3_CHROMOSOME_dumped__9387852_9393276 
-#&gt;                             0.02035153                             0.01419355 
-#&gt;   3_CHROMOSOME_dumped__9404664_9410413   3_CHROMOSOME_dumped__9604460_9613216 
-#&gt;                             0.02956522                             0.02375243 
-#&gt;   3_CHROMOSOME_dumped__9692211_9697532 3_CHROMOSOME_dumped__10494353_10500970 
-#&gt;                             0.01202555                             0.01828347 
-#&gt; 3_CHROMOSOME_dumped__10577158_10581825 3_CHROMOSOME_dumped__10711160_10725823 
-#&gt;                             0.02485004                             0.02168576 
-#&gt; 3_CHROMOSOME_dumped__11016111_11020804 3_CHROMOSOME_dumped__11122707_11127675 
-#&gt;                             0.03941202                             0.03803582 
-#&gt; 3_CHROMOSOME_dumped__11387801_11394402 3_CHROMOSOME_dumped__11652697_11657743 
-#&gt;                             0.01696456                             0.04081633 
-#&gt; 3_CHROMOSOME_dumped__11664969_11669787 3_CHROMOSOME_dumped__11853471_11859849 
-#&gt;                             0.02552397                             0.01943878 
-#&gt; 3_CHROMOSOME_dumped__12056081_12071267 3_CHROMOSOME_dumped__12275508_12287360 
-#&gt;                             0.01889774                             0.01839197 
-#&gt; 3_CHROMOSOME_dumped__12303477_12308746 3_CHROMOSOME_dumped__12314647_12319070 
-#&gt;                             0.01954459                             0.02644665 
-#&gt; 3_CHROMOSOME_dumped__12478086_12486327 3_CHROMOSOME_dumped__12491757_12502106 
-#&gt;                             0.03858287                             0.05449275 
-#&gt; 3_CHROMOSOME_dumped__12502664_12508397 3_CHROMOSOME_dumped__12549509_12555919 
-#&gt;                             0.01988141                             0.03306816 
-#&gt; 3_CHROMOSOME_dumped__12613331_12620941 3_CHROMOSOME_dumped__12636500_12644002 
-#&gt;                             0.03994219                             0.02812208 
-#&gt; 3_CHROMOSOME_dumped__12674274_12684173 3_CHROMOSOME_dumped__12695928_12704543 
-#&gt;                             0.03303030                             0.02588208 
-#&gt; 3_CHROMOSOME_dumped__12960389_12968468 3_CHROMOSOME_dumped__13087350_13092790 
-#&gt;                             0.03737624                             0.06120198 
-#&gt; 3_CHROMOSOME_dumped__13096163_13112097 3_CHROMOSOME_dumped__13318010_13323173 
-#&gt;                             0.02516473                             0.02246321 
-#&gt; 3_CHROMOSOME_dumped__13334612_13342566 3_CHROMOSOME_dumped__13360109_13368309 
-#&gt;                             0.01458202                             0.01572979 
-#&gt; 3_CHROMOSOME_dumped__13369174_13374107 3_CHROMOSOME_dumped__13440036_13449242 
-#&gt;                             0.02290231                             0.05626154 
-#&gt; 3_CHROMOSOME_dumped__14073146_14081964 3_CHROMOSOME_dumped__14117876_14141561 
-#&gt;                             0.02313187                             0.03128430 
-#&gt; 3_CHROMOSOME_dumped__14272824_14285579 3_CHROMOSOME_dumped__14329874_14334136 
-#&gt;                             0.01771715                             0.03213699 
-#&gt; 3_CHROMOSOME_dumped__14504089_14511689 3_CHROMOSOME_dumped__14579222_14584089 
-#&gt;                             0.04078411                             0.03327855 
-#&gt; 3_CHROMOSOME_dumped__14608928_14615360 3_CHROMOSOME_dumped__14616107_14623209 
-#&gt;                             0.01865382                             0.02097705 
-#&gt; 3_CHROMOSOME_dumped__14671141_14675856 3_CHROMOSOME_dumped__14729381_14734607 
-#&gt;                             0.02078032                             0.04304572 
-#&gt; 3_CHROMOSOME_dumped__14762490_14785730 3_CHROMOSOME_dumped__14860990_14866191 
-#&gt;                             0.02289058                             0.01557093 
-#&gt; 3_CHROMOSOME_dumped__14890955_14900038 3_CHROMOSOME_dumped__14956986_14962254 
-#&gt;                             0.01860414                             0.01442399 
-#&gt; 3_CHROMOSOME_dumped__15540529_15549180 3_CHROMOSOME_dumped__15591669_15600822 
-#&gt;                             0.01664355                             0.02381473 
-#&gt; 3_CHROMOSOME_dumped__15621872_15626854 3_CHROMOSOME_dumped__15768786_15773747 
-#&gt;                             0.01324503                             0.01975010 
-#&gt; 3_CHROMOSOME_dumped__15779153_15801235 3_CHROMOSOME_dumped__15919026_15924075 
-#&gt;                             0.02046823                             0.01643564 
-#&gt; 3_CHROMOSOME_dumped__16172247_16183071 3_CHROMOSOME_dumped__16243296_16256896 
-#&gt;                             0.02281755                             0.03073303 
-#&gt; 3_CHROMOSOME_dumped__16809187_16814152 3_CHROMOSOME_dumped__16826414_16832203 
-#&gt;                             0.03141361                             0.01571675 
-#&gt; 3_CHROMOSOME_dumped__16885889_16894261 3_CHROMOSOME_dumped__16957465_16962731 
-#&gt;                             0.03033560                             0.01310044 
-#&gt; 3_CHROMOSOME_dumped__17031074_17041106 3_CHROMOSOME_dumped__17235380_17239718 
-#&gt;                             0.02212698                             0.02949988 
-#&gt; 3_CHROMOSOME_dumped__17354612_17359635 3_CHROMOSOME_dumped__17403584_17414141 
-#&gt;                             0.01771497                             0.01430195 
-#&gt; 3_CHROMOSOME_dumped__17447389_17451847 3_CHROMOSOME_dumped__17978754_17983948 
-#&gt;                             0.03005158                             0.01482194 
-#&gt; 3_CHROMOSOME_dumped__18151296_18168081 3_CHROMOSOME_dumped__18169847_18174127 
-#&gt;                             0.02871440                             0.02195749 
-#&gt; 3_CHROMOSOME_dumped__18536569_18541113 3_CHROMOSOME_dumped__18734248_18739393 
-#&gt;                             0.02244224                             0.01515740 
-#&gt; 3_CHROMOSOME_dumped__18791152_18796089 3_CHROMOSOME_dumped__19290470_19296623 
-#&gt;                             0.01923856                             0.02583685 
-#&gt; 3_CHROMOSOME_dumped__19759349_19765040 3_CHROMOSOME_dumped__20304946_20310167 
-#&gt;                             0.02248770                             0.02412869 
-#&gt; 3_CHROMOSOME_dumped__21485038_21491983 3_CHROMOSOME_dumped__21576037_21593706 
-#&gt;                             0.02260294                             0.02178834 
-#&gt; 3_CHROMOSOME_dumped__21642929_21660064 3_CHROMOSOME_dumped__21894821_21904623 
-#&gt;                             0.02246732                             0.02152402 
-#&gt; 3_CHROMOSOME_dumped__21971055_21975268 3_CHROMOSOME_dumped__22015001_22020670 
-#&gt;                             0.02159468                             0.02557319 
-#&gt; 3_CHROMOSOME_dumped__22059535_22064329 3_CHROMOSOME_dumped__22232190_22236820 
-#&gt;                             0.02314911                             0.02699201 
-#&gt; 3_CHROMOSOME_dumped__22237229_22242466 3_CHROMOSOME_dumped__22334467_22341333 
-#&gt;                             0.04715540                             0.03014417 
-#&gt; 3_CHROMOSOME_dumped__22513587_22521224 3_CHROMOSOME_dumped__22695566_22700521 
-#&gt;                             0.06834250                             0.02360775 
-#&gt; 3_CHROMOSOME_dumped__23100313_23104853     4_CHROMOSOME_dumped__178046_186886 
-#&gt;                             0.02444396                             0.01707952 
-#&gt;   4_CHROMOSOME_dumped__1340159_1351874   4_CHROMOSOME_dumped__1473821_1478344 
-#&gt;                             0.01587573                             0.03271441 
-#&gt;   4_CHROMOSOME_dumped__1619054_1624381   4_CHROMOSOME_dumped__1749269_1755807 
-#&gt;                             0.03641141                             0.01911607 
-#&gt;   4_CHROMOSOME_dumped__1814108_1818633   4_CHROMOSOME_dumped__1943797_1955321 
-#&gt;                             0.02695537                             0.05718004 
-#&gt;   4_CHROMOSOME_dumped__2001193_2010885   4_CHROMOSOME_dumped__2064089_2068818 
-#&gt;                             0.06809037                             0.01395349 
-#&gt;   4_CHROMOSOME_dumped__2188978_2194314   4_CHROMOSOME_dumped__2198167_2203996 
-#&gt;                             0.02585722                             0.01732419 
-#&gt;   4_CHROMOSOME_dumped__2243443_2261156   4_CHROMOSOME_dumped__2279948_2286705 
-#&gt;                             0.02975048                             0.02145605 
-#&gt;   4_CHROMOSOME_dumped__2302657_2307843   4_CHROMOSOME_dumped__2442384_2446881 
-#&gt;                             0.01696549                             0.02934638 
-#&gt;   4_CHROMOSOME_dumped__2597020_2602180   4_CHROMOSOME_dumped__2615229_2622565 
-#&gt;                             0.01763224                             0.02003544 
-#&gt;   4_CHROMOSOME_dumped__2763293_2771367   4_CHROMOSOME_dumped__2867762_2875913 
-#&gt;                             0.02352941                             0.03790481 
-#&gt;   4_CHROMOSOME_dumped__2989830_2994788   4_CHROMOSOME_dumped__3704587_3716723 
-#&gt;                             0.02319016                             0.04103156 
-#&gt;   4_CHROMOSOME_dumped__3881650_3886431   4_CHROMOSOME_dumped__3907466_3915200 
-#&gt;                             0.02258469                             0.02417582 
-#&gt;   4_CHROMOSOME_dumped__4464332_4482516   4_CHROMOSOME_dumped__4623486_4628226 
-#&gt;                             0.03590872                             0.02193630 
-#&gt;   4_CHROMOSOME_dumped__4677141_4684195   4_CHROMOSOME_dumped__4958195_4969598 
-#&gt;                             0.03642807                             0.02867415 
-#&gt;   4_CHROMOSOME_dumped__5127101_5135153   4_CHROMOSOME_dumped__5291921_5296999 
-#&gt;                             0.03737737                             0.02894271 
-#&gt;   4_CHROMOSOME_dumped__5591440_5596425   4_CHROMOSOME_dumped__5822426_5827300 
-#&gt;                             0.03249097                             0.03835897 
-#&gt;   4_CHROMOSOME_dumped__5987008_5991992   4_CHROMOSOME_dumped__6588726_6593808 
-#&gt;                             0.02688064                             0.02872319 
-#&gt;   4_CHROMOSOME_dumped__6594136_6598635   4_CHROMOSOME_dumped__6659028_6672586 
-#&gt;                             0.02244444                             0.01770042 
-#&gt;   4_CHROMOSOME_dumped__6723347_6728791   4_CHROMOSOME_dumped__6826682_6833259 
-#&gt;                             0.01542700                             0.02462755 
-#&gt;   4_CHROMOSOME_dumped__6914662_6919598   4_CHROMOSOME_dumped__7298372_7305107 
-#&gt;                             0.03402876                             0.03488717 
-#&gt;   4_CHROMOSOME_dumped__7359462_7364591   4_CHROMOSOME_dumped__7522904_7527330 
-#&gt;                             0.01559454                             0.02575107 
-#&gt;   4_CHROMOSOME_dumped__7816826_7821792   4_CHROMOSOME_dumped__8086223_8092247 
-#&gt;                             0.01509966                             0.02190871 
-#&gt;   4_CHROMOSOME_dumped__8202631_8206965   4_CHROMOSOME_dumped__8313595_8319066 
-#&gt;                             0.02560554                             0.01699561 
-#&gt;   4_CHROMOSOME_dumped__8589987_8597164   4_CHROMOSOME_dumped__8852913_8857290 
-#&gt;                             0.01629980                             0.03015075 
-#&gt;   4_CHROMOSOME_dumped__9163509_9172988   4_CHROMOSOME_dumped__9182952_9188015 
-#&gt;                             0.02478903                             0.02744866 
-#&gt;   4_CHROMOSOME_dumped__9570498_9575604   4_CHROMOSOME_dumped__9732605_9737731 
-#&gt;                             0.01527315                             0.01365321 
-#&gt;   4_CHROMOSOME_dumped__9908989_9914046   4_CHROMOSOME_dumped__9950615_9958242 
-#&gt;                             0.01561882                             0.02464604 
-#&gt; 4_CHROMOSOME_dumped__10899527_10904693 4_CHROMOSOME_dumped__10992996_10998058 
-#&gt;                             0.01432166                             0.01362828 
-#&gt; 4_CHROMOSOME_dumped__11040514_11046715 4_CHROMOSOME_dumped__11206541_11211219 
-#&gt;                             0.05643341                             0.08527463 
-#&gt; 4_CHROMOSOME_dumped__11481824_11486753 4_CHROMOSOME_dumped__11703299_11707622 
-#&gt;                             0.01602434                             0.03029602 
-#&gt; 4_CHROMOSOME_dumped__11734522_11739041 4_CHROMOSOME_dumped__12211784_12218169 
-#&gt;                             0.02389381                             0.01378014 
-#&gt; 4_CHROMOSOME_dumped__13336302_13341644 4_CHROMOSOME_dumped__14258825_14263830 
-#&gt;                             0.03387610                             0.01438274 
-#&gt; 4_CHROMOSOME_dumped__14503006_14512023 4_CHROMOSOME_dumped__14684005_14688751 
-#&gt;                             0.02860945                             0.02570044 
-#&gt; 4_CHROMOSOME_dumped__15027814_15033127 4_CHROMOSOME_dumped__15551901_15565729 
-#&gt;                             0.02484005                             0.04649649 
-#&gt; 4_CHROMOSOME_dumped__15840427_15844699 4_CHROMOSOME_dumped__16320863_16325954 
-#&gt;                             0.01731804                             0.02042419 
-#&gt; 4_CHROMOSOME_dumped__17225299_17230933 4_CHROMOSOME_dumped__17712151_17716968 
-#&gt;                             0.02537711                             0.02843504 
-#&gt; 4_CHROMOSOME_dumped__18381613_18390512       5_CHROMOSOME_dumped__64772_71199 
-#&gt;                             0.03550562                             0.03671437 
-#&gt;     5_CHROMOSOME_dumped__211336_219089   5_CHROMOSOME_dumped__1331310_1337190 
-#&gt;                             0.04745938                             0.04063935 
-#&gt;   5_CHROMOSOME_dumped__1961367_1970365   5_CHROMOSOME_dumped__2373775_2379810 
-#&gt;                             0.02389154                             0.02932406 
-#&gt;   5_CHROMOSOME_dumped__2380969_2405489   5_CHROMOSOME_dumped__2510278_2515356 
-#&gt;                             0.02858774                             0.01614491 
-#&gt;   5_CHROMOSOME_dumped__3247646_3253022   5_CHROMOSOME_dumped__3904675_3909862 
-#&gt;                             0.03273201                             0.02293755 
-#&gt;   5_CHROMOSOME_dumped__4208083_4213084   5_CHROMOSOME_dumped__5603823_5608721 
-#&gt;                             0.02419032                             0.03592570 
-#&gt;   5_CHROMOSOME_dumped__6064597_6068747   5_CHROMOSOME_dumped__6403057_6408054 
-#&gt;                             0.02770417                             0.01860744 
-#&gt;   5_CHROMOSOME_dumped__6433629_6438777   5_CHROMOSOME_dumped__6468251_6472831 
-#&gt;                             0.01417751                             0.02161100 
-#&gt;   5_CHROMOSOME_dumped__7170326_7177335   5_CHROMOSOME_dumped__7210794_7219564 
-#&gt;                             0.02838802                             0.01949607 
-#&gt;   5_CHROMOSOME_dumped__7505453_7511007   5_CHROMOSOME_dumped__7511425_7516841 
-#&gt;                             0.02034203                             0.02104486 
-#&gt;   5_CHROMOSOME_dumped__7820047_7826629   5_CHROMOSOME_dumped__7858641_7864260 
-#&gt;                             0.03326751                             0.01921708 
-#&gt;   5_CHROMOSOME_dumped__8204176_8218846   5_CHROMOSOME_dumped__8245442_8252558 
-#&gt;                             0.01969873                             0.01672053 
-#&gt;   5_CHROMOSOME_dumped__8927997_8934328   5_CHROMOSOME_dumped__9181894_9189365 
-#&gt;                             0.03758686                             0.03667024 
-#&gt;   5_CHROMOSOME_dumped__9381694_9386622   5_CHROMOSOME_dumped__9949175_9954432 
-#&gt;                             0.01541895                             0.01179156 
-#&gt; 5_CHROMOSOME_dumped__10026369_10030633 5_CHROMOSOME_dumped__10128753_10133863 
-#&gt;                             0.02532239                             0.04050088 
-#&gt; 5_CHROMOSOME_dumped__10359352_10364274 5_CHROMOSOME_dumped__10638480_10643372 
-#&gt;                             0.03615681                             0.03944410 
-#&gt; 5_CHROMOSOME_dumped__10808404_10812940 5_CHROMOSOME_dumped__11159506_11166120 
-#&gt;                             0.02556756                             0.02343159 
-#&gt; 5_CHROMOSOME_dumped__11491567_11496131 5_CHROMOSOME_dumped__11503488_11512862 
-#&gt;                             0.01248631                             0.06314667 
-#&gt; 5_CHROMOSOME_dumped__11515554_11521087 5_CHROMOSOME_dumped__11621561_11635005 
-#&gt;                             0.01752801                             0.01316475 
-#&gt; 5_CHROMOSOME_dumped__11980554_11994151 5_CHROMOSOME_dumped__12189060_12194348 
-#&gt;                             0.02279747                             0.07052373 
-#&gt; 5_CHROMOSOME_dumped__13253687_13258453 5_CHROMOSOME_dumped__13261021_13272510 
-#&gt;                             0.01950913                             0.02680592 
-#&gt; 5_CHROMOSOME_dumped__13344204_13354020 5_CHROMOSOME_dumped__13607605_13621821 
-#&gt;                             0.02668840                             0.01941338 
-#&gt; 5_CHROMOSOME_dumped__13712934_13721136 5_CHROMOSOME_dumped__13736102_13741134 
-#&gt;                             0.01974887                             0.01529903 
-#&gt; 5_CHROMOSOME_dumped__13948926_13953982 5_CHROMOSOME_dumped__14083253_14088531 
-#&gt;                             0.03579197                             0.01344952 
-#&gt; 5_CHROMOSOME_dumped__14113154_14118424 5_CHROMOSOME_dumped__14203867_14209072 
-#&gt;                             0.01422880                             0.01863235 
-#&gt; 5_CHROMOSOME_dumped__14409576_14414448 5_CHROMOSOME_dumped__14468876_14473748 
-#&gt;                             0.01580135                             0.01580135 
-#&gt; 5_CHROMOSOME_dumped__14756546_14764119 5_CHROMOSOME_dumped__14873452_14880646 
-#&gt;                             0.02323739                             0.01806810 
-#&gt; 5_CHROMOSOME_dumped__15175722_15180975 5_CHROMOSOME_dumped__15277978_15284587 
-#&gt;                             0.01522649                             0.01966717 
-#&gt; 5_CHROMOSOME_dumped__15320410_15326088 5_CHROMOSOME_dumped__15377478_15384917 
-#&gt;                             0.02253918                             0.02446237 
-#&gt; 5_CHROMOSOME_dumped__15411867_15416287 5_CHROMOSOME_dumped__15646198_15651172 
-#&gt;                             0.02375028                             0.02572864 
-#&gt; 5_CHROMOSOME_dumped__15813256_15821248 5_CHROMOSOME_dumped__16509654_16515435 
-#&gt;                             0.02902540                             0.01919751 
-#&gt; 5_CHROMOSOME_dumped__16615185_16620067 5_CHROMOSOME_dumped__16882616_16889700 
-#&gt;                             0.02375589                             0.01947777 
-#&gt; 5_CHROMOSOME_dumped__17090770_17095675 5_CHROMOSOME_dumped__17394157_17400642 
-#&gt;                             0.01549124                             0.02204749 
-#&gt; 5_CHROMOSOME_dumped__17596764_17605847 5_CHROMOSOME_dumped__18119049_18132012 
-#&gt;                             0.02366799                             0.03046899 
-#&gt; 5_CHROMOSOME_dumped__18142156_18146897 5_CHROMOSOME_dumped__18233616_18238203 
-#&gt;                             0.04512864                             0.01612903 
-#&gt; 5_CHROMOSOME_dumped__18490606_18495233 5_CHROMOSOME_dumped__18511248_18518552 
-#&gt;                             0.02312014                             0.02724162 
-#&gt; 5_CHROMOSOME_dumped__18551370_18557055 5_CHROMOSOME_dumped__18673108_18678357 
-#&gt;                             0.02057686                             0.02666667 
-#&gt; 5_CHROMOSOME_dumped__18933102_18938947 5_CHROMOSOME_dumped__19345986_19351107 
-#&gt;                             0.01710571                             0.02499024 
-#&gt; 5_CHROMOSOME_dumped__19700784_19710576 5_CHROMOSOME_dumped__19987111_19992585 
-#&gt;                             0.01827836                             0.01990868 
-#&gt; 5_CHROMOSOME_dumped__20391919_20401644 5_CHROMOSOME_dumped__21384430_21390116 
-#&gt;                             0.02118034                             0.02215579 
-#&gt; 5_CHROMOSOME_dumped__21800243_21805138 5_CHROMOSOME_dumped__21915762_21920415 
-#&gt;                             0.02389706                             0.02750322 
-#&gt; 5_CHROMOSOME_dumped__22002013_22006896 5_CHROMOSOME_dumped__22911048_22916161 
-#&gt;                             0.03153153                             0.01525225 
-#&gt; 5_CHROMOSOME_dumped__24129974_24138730 5_CHROMOSOME_dumped__24526077_24530973 
-#&gt;                             0.02329565                             0.02675107 
-#&gt; 5_CHROMOSOME_dumped__25509002_25517288 5_CHROMOSOME_dumped__25992308_25997851 
-#&gt;                             0.02304815                             0.01695527 
-#&gt; 5_CHROMOSOME_dumped__26207873_26219365 5_CHROMOSOME_dumped__26587592_26591987 
-#&gt;                             0.02088228                             0.02183803 
-#&gt;     mitochondria_CHROMOS_111563_129916     mitochondria_CHROMOS_241879_260732 
-#&gt;                             0.03160074                             0.03638485 </div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># find number of "CG" motifs in predicted LTR transposons</span></span>
+<span class='r-in'><span class='fu'>motif.count</span><span class='op'>(</span>seq.file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"LTRseqs.fas"</span>,package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>, </span>
+<span class='r-in'>            motif    <span class='op'>=</span> <span class='st'>"CG"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   [1] 245 186 235 116 129 118  98 180 236  75  81 105 127  56 214  77 152 172</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [19] 115 581 459 196 129  70 165  84  84 169 124 216 179 263 166 107 133  79</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [37] 117 664 113  81 152 102 191  77 146  92 156 116 140 297 104 108 116 204</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [55] 173  85 133 260 119 129 291 274 134 113 655 169 224 189  62  67  81 210</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [73] 605  75 437 347 178 106  93 146 585  67  96 191 147 159  83 163  79 190</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [91] 150 102 109 119 181 135 150 130 216 122 117 131  80 234 188 176  91 187</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [109] 224 152 124 627 157 367 146 130  66 145 405 265  56 110  63 165  88 300</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [127] 164  86 110  96  99 239  92  87 164 117 136  83 611 686 576 973 445 112</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [145] 151  66  91 396  80 111 130 300 191 136 409  62 172 369  84 192 326 190</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [163] 129 140  88 139 206 203 112  81  82  96 328 229 334 206  89 235 116 165</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [181] 124 291 100 200  81 177 154 522 154 174 205 124 194 120 397 198 459 615</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [199] 142  90 173 147 117 108  99  93 125  87 176  77 170 208  64 121 116 318</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [217] 185 189 112 206 123 124 287 218 103 117 318 564 114 212 304 211 327 223</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [235] 302 333 401 116 116 129 113 518 204 741 226 137 310 162 120 149  98 225</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [253] 532  81 169  76 144 218  66  98 452  83 247 418 156  91 254  69 222 128</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [271]  89 151 134  77 482  94 102  78  95 159 128 126 157 385 385 211  91 145</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [289] 111 125 247 207 522 117 111 151 186 148 194 125 122 659 660  66 138 101</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [307] 527 145  88 132  91 147 190 309 115 498 108 187 653 104 257 327 301 147</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [325] 162 187 134 146 101 240  84 162 168 235  80 114  75 132 111  93 117 132</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [343] 235 139  78  70  79 188  74  69 350 399  79 131 108  88 181  72 258 122</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [361] 132 643  74 104 143 137 316 236 368 239 215 177 701  82 176 119 121 176</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [379] 115  93  73  99 199 171 113 114 219 108 289 119 238 274  76  62 108 207</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [397] 178 193 116 155  57 592  97 177 310 373  93 308 262 276 162  77 181  71</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [415]  75  97  77  77 176 130  80 130 128 182 105 128 232 111 116 138  76 143</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [433] 215 395 214  74 107 199 117 140 100 128 179 109 206 126 117 128 154  78</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [451] 204 131 191  94 240  96 580 686</span>
+<span class='r-in'>            </span>
+<span class='r-in'><span class='co'># find number of "CG" motifs in predicted LTR transposons: rel. frequency</span></span>
+<span class='r-in'><span class='fu'>motif.count</span><span class='op'>(</span>seq.file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"LTRseqs.fas"</span>,package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span>, </span>
+<span class='r-in'>            motif    <span class='op'>=</span> <span class='st'>"CG"</span>,</span>
+<span class='r-in'>            as.ratio <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>             </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1_CHROMOSOME_dumped__149500_155909     1_CHROMOSOME_dumped__249531_259127 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03822153                             0.01938106 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1_CHROMOSOME_dumped__428932_438092   1_CHROMOSOME_dumped__2659374_2663971 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02565222                             0.02522836 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__3357954_3363283   1_CHROMOSOME_dumped__3780765_3785720 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02420263                             0.02380952 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__3907118_3911673   1_CHROMOSOME_dumped__4081628_4091086 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02151010                             0.01902950 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__4119030_4126617   1_CHROMOSOME_dumped__4405997_4411118 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03110174                             0.01464272 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__5691759_5696703   1_CHROMOSOME_dumped__5897842_5902839 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01638018                             0.02100840 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__5920835_5927113   1_CHROMOSOME_dumped__6009304_6014076 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02022615                             0.01173266 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__6191403_6197517   1_CHROMOSOME_dumped__6538418_6543536 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03499591                             0.01504200 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__6719067_6724311   1_CHROMOSOME_dumped__6767255_6773967 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02897998                             0.02562193 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__6825176_6830220   1_CHROMOSOME_dumped__7025897_7047012 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02279485                             0.02751468 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__8445394_8466734   1_CHROMOSOME_dumped__8578711_8588761 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02150790                             0.01950055 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__8643650_8649288   1_CHROMOSOME_dumped__9368344_9373311 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02287640                             0.01409018 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   1_CHROMOSOME_dumped__9476002_9480634 1_CHROMOSOME_dumped__10121579_10125768 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03561407                             0.02004773 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__10696719_10701589 1_CHROMOSOME_dumped__11125145_11133104 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01724492                             0.02123116 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__11148084_11152830 1_CHROMOSOME_dumped__11284903_11295619 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02612176                             0.02015489 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__11339006_11344662 1_CHROMOSOME_dumped__11346530_11355061 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03164221                             0.03082513 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__11697950_11705480 1_CHROMOSOME_dumped__11789447_11794074 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02204223                             0.02312014 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__11890866_11900756 1_CHROMOSOME_dumped__12194788_12199420 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01344657                             0.01705159 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__12541821_12546900 1_CHROMOSOME_dumped__12664511_12673933 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02303150                             0.07046588 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__12871512_12878779 1_CHROMOSOME_dumped__12969459_12975236 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01554761                             0.01401869 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__13324761_13329591 1_CHROMOSOME_dumped__13334465_13339870 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03146347                             0.01886792 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__13388869_13396650 1_CHROMOSOME_dumped__13398499_13402662 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02454382                             0.01849183 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__13439443_13448531 1_CHROMOSOME_dumped__13559843_13564825 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01606337                             0.01846277 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__13593058_13599710 1_CHROMOSOME_dumped__13676498_13682108 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02344807                             0.02067368 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__13818567_13823889 1_CHROMOSOME_dumped__13883095_13890935 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02630096                             0.03787782 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__13912841_13919010 1_CHROMOSOME_dumped__14019278_14024519 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01685575                             0.02060282 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__14179555_14183988 1_CHROMOSOME_dumped__14214740_14225657 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02616148                             0.01868474 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__14282118_14286791 1_CHROMOSOME_dumped__14745962_14750821 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03701326                             0.01748971 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__15610250_15615956 1_CHROMOSOME_dumped__16012601_16019700 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02330471                             0.03661972 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__16117817_16124067 1_CHROMOSOME_dumped__16176836_16181678 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01903695                             0.02663638 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__16387793_16398190 1_CHROMOSOME_dumped__16537640_16548760 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02798615                             0.02463807 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__16551721_16557069 1_CHROMOSOME_dumped__16569870_16575240 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02505141                             0.02103891 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__16626036_16637234 1_CHROMOSOME_dumped__16638793_16645558 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.05848736                             0.02497783 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__16674908_16683328 1_CHROMOSOME_dumped__16853317_16858040 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02660017                             0.04000847 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__17023916_17029257 1_CHROMOSOME_dumped__17054990_17060023 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01160614                             0.01330950 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__17156581_17161059 1_CHROMOSOME_dumped__17247721_17252580 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01808439                             0.04320988 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__17255285_17265290 1_CHROMOSOME_dumped__17520596_17525126 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.06046372                             0.01655264 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__17528667_17536139 1_CHROMOSOME_dumped__17574998_17592212 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.05847718                             0.02015684 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__17606460_17612336 1_CHROMOSOME_dumped__18198315_18206598 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03028756                             0.01279575 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__18552993_18557995 1_CHROMOSOME_dumped__18639849_18648168 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01858885                             0.01754808 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__18962095_18971496 1_CHROMOSOME_dumped__18996885_19001831 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.06222080                             0.01354356 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__20085162_20090239 1_CHROMOSOME_dumped__21244323_21249201 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01890508                             0.03914737 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__21318903_21325509 1_CHROMOSOME_dumped__21346162_21351041 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02224913                             0.03258197 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__21438251_21442649 1_CHROMOSOME_dumped__21930876_21937598 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01886792                             0.02424513 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__21947272_21951934 1_CHROMOSOME_dumped__22100643_22105329 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01694188                             0.04053766 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__22272951_22280403 1_CHROMOSOME_dumped__22619338_22624555 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02012612                             0.01954772 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__22831590_22837366 1_CHROMOSOME_dumped__22941592_22946917 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01886792                             0.02234322 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__23000655_23008290 1_CHROMOSOME_dumped__23118242_23123215 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02370351                             0.02714113 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__23569996_23575851 1_CHROMOSOME_dumped__23646949_23653338 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02561475                             0.02034429 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__24506842_24514619 1_CHROMOSOME_dumped__24873949_24879663 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02777064                             0.02134733 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__24938566_24945901 1_CHROMOSOME_dumped__25265020_25271109 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01594875                             0.02151067 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__26366608_26371676 1_CHROMOSOME_dumped__27199829_27210847 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01578221                             0.02123605 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__27829437_27835759 1_CHROMOSOME_dumped__27930411_27936476 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02973272                             0.02901418 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__28501879_28506082 1_CHROMOSOME_dumped__29587846_29595895 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02164605                             0.02322981 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__29642083_29647526 1_CHROMOSOME_dumped__29700884_29707698 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.04114622                             0.02230374 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1_CHROMOSOME_dumped__30419866_30424328        2_CHROMOSOME_dumped__2080_10521 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02778400                             0.07427150 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2_CHROMOSOME_dumped__167975_174024     2_CHROMOSOME_dumped__593307_610013 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02595041                             0.02196684 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2_CHROMOSOME_dumped__611690_617410     2_CHROMOSOME_dumped__775782_782412 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02552001                             0.01960489 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2_CHROMOSOME_dumped__909733_914339     2_CHROMOSOME_dumped__959966_964731 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01432603                             0.03042384 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2_CHROMOSOME_dumped__975729_990317   2_CHROMOSOME_dumped__1235983_1250415 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02776064                             0.01836070 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__1292790_1297013   2_CHROMOSOME_dumped__1388832_1393901 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01325758                             0.02169625 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__1395261_1399523   2_CHROMOSOME_dumped__1523655_1531024 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01477833                             0.02238806 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__1557140_1562062   2_CHROMOSOME_dumped__1629671_1637490 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01787528                             0.03836317 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__1882607_1887821   2_CHROMOSOME_dumped__1970254_1974960 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03144775                             0.01827066 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__2075307_2080607   2_CHROMOSOME_dumped__2274202_2280048 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02075080                             0.01641868 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__2302464_2307170   2_CHROMOSOME_dumped__2745600_2752272 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02103250                             0.03581597 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__2844749_2849616   2_CHROMOSOME_dumped__2858551_2864192 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01889893                             0.01542006 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__2902330_2907117   2_CHROMOSOME_dumped__2911997_2919582 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03425230                             0.01542315 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__3083903_3089468   2_CHROMOSOME_dumped__3160549_3166281 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02443406                             0.01447759 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__3221681_3238915   2_CHROMOSOME_dumped__3270279_3289109 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03545112                             0.03642929 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__3367929_3386289   2_CHROMOSOME_dumped__3426174_3451000 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03137084                             0.03919120 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__3539977_3559406   2_CHROMOSOME_dumped__4080728_4088155 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02290273                             0.01507808 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__4090709_4096103   2_CHROMOSOME_dumped__4110947_4115696 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02798888                             0.01389474 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__4116023_4120740   2_CHROMOSOME_dumped__4161050_4173975 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01928783                             0.03063593 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__4230743_4236513   2_CHROMOSOME_dumped__4408338_4413617 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01386242                             0.02102273 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__4542920_4547698   2_CHROMOSOME_dumped__4558517_4566125 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02720234                             0.03942699 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__4682601_4690775   2_CHROMOSOME_dumped__4693482_4698777 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02336391                             0.02567976 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__4737963_4753533   2_CHROMOSOME_dumped__4775685_4780521 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02626678                             0.01281786 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__4818686_4826103   2_CHROMOSOME_dumped__5040989_5048393 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02318684                             0.04983120 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__5073848_5078420   2_CHROMOSOME_dumped__5394710_5399650 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01836869                             0.03885853 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__6023868_6032902   2_CHROMOSOME_dumped__6256496_6260935 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03608190                             0.04279279 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__6422229_6427295   2_CHROMOSOME_dumped__6819006_6823730 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02545885                             0.02962963 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__6837314_6843322   2_CHROMOSOME_dumped__6894106_6899938 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01464470                             0.02382993 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__7157625_7166649   2_CHROMOSOME_dumped__7224084_7229138 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02282548                             0.04015826 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__7373364_7379268   2_CHROMOSOME_dumped__7448762_7454290 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01896698                             0.01465003 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__8697239_8702070   2_CHROMOSOME_dumped__8816049_8820894 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01697020                             0.01981015 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__8873017_8891285   2_CHROMOSOME_dumped__9187492_9195280 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01795391                             0.02940044 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   2_CHROMOSOME_dumped__9306572_9319034   2_CHROMOSOME_dumped__9927681_9932559 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02679933                             0.04222177 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2_CHROMOSOME_dumped__10464648_10471481 2_CHROMOSOME_dumped__10483666_10492018 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01302312                             0.02813360 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2_CHROMOSOME_dumped__10637411_10647335 2_CHROMOSOME_dumped__11435732_11443090 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01168766                             0.02242152 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2_CHROMOSOME_dumped__11721105_11726615 2_CHROMOSOME_dumped__12445635_12457164 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02250045                             0.02523851 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2_CHROMOSOME_dumped__12620243_12625077 2_CHROMOSOME_dumped__13508554_13515938 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02068252                             0.02708192 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2_CHROMOSOME_dumped__13664992_13669870 2_CHROMOSOME_dumped__14026300_14032819 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01660176                             0.02714724 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2_CHROMOSOME_dumped__14406571_14412855 2_CHROMOSOME_dumped__16280712_16302420 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02450278                             0.02404533 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2_CHROMOSOME_dumped__17136148_17141211 2_CHROMOSOME_dumped__17252349_17258537 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03041074                             0.02811440 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2_CHROMOSOME_dumped__17270937_17278587 2_CHROMOSOME_dumped__17676479_17684201 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02679388                             0.01605594 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2_CHROMOSOME_dumped__18347446_18355355 2_CHROMOSOME_dumped__18659187_18664902 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02452592                             0.02099370 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3_CHROMOSOME_dumped__780904_798849   3_CHROMOSOME_dumped__1526151_1535730 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02212192                             0.02066806 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3_CHROMOSOME_dumped__1657651_1681989   3_CHROMOSOME_dumped__3110405_3124906 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01885862                             0.04240794 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3_CHROMOSOME_dumped__3807306_3812643   3_CHROMOSOME_dumped__6188741_6193283 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02660172                             0.01981070 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3_CHROMOSOME_dumped__6372409_6378607   3_CHROMOSOME_dumped__7354085_7359059 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02790773                             0.02954774 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3_CHROMOSOME_dumped__7728276_7733244   3_CHROMOSOME_dumped__7760615_7765156 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02354599                             0.02377807 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3_CHROMOSOME_dumped__8046323_8051045   3_CHROMOSOME_dumped__8537355_8543559 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02096125                             0.01498791 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3_CHROMOSOME_dumped__8632393_8638600   3_CHROMOSOME_dumped__9226633_9231377 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02013531                             0.01833509 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3_CHROMOSOME_dumped__9243115_9251762   3_CHROMOSOME_dumped__9387852_9393276 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02035153                             0.01419355 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3_CHROMOSOME_dumped__9404664_9410413   3_CHROMOSOME_dumped__9604460_9613216 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02956522                             0.02375243 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   3_CHROMOSOME_dumped__9692211_9697532 3_CHROMOSOME_dumped__10494353_10500970 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01202555                             0.01828347 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__10577158_10581825 3_CHROMOSOME_dumped__10711160_10725823 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02485004                             0.02168576 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__11016111_11020804 3_CHROMOSOME_dumped__11122707_11127675 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03941202                             0.03803582 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__11387801_11394402 3_CHROMOSOME_dumped__11652697_11657743 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01696456                             0.04081633 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__11664969_11669787 3_CHROMOSOME_dumped__11853471_11859849 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02552397                             0.01943878 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__12056081_12071267 3_CHROMOSOME_dumped__12275508_12287360 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01889774                             0.01839197 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__12303477_12308746 3_CHROMOSOME_dumped__12314647_12319070 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01954459                             0.02644665 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__12478086_12486327 3_CHROMOSOME_dumped__12491757_12502106 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03858287                             0.05449275 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__12502664_12508397 3_CHROMOSOME_dumped__12549509_12555919 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01988141                             0.03306816 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__12613331_12620941 3_CHROMOSOME_dumped__12636500_12644002 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03994219                             0.02812208 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__12674274_12684173 3_CHROMOSOME_dumped__12695928_12704543 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03303030                             0.02588208 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__12960389_12968468 3_CHROMOSOME_dumped__13087350_13092790 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03737624                             0.06120198 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__13096163_13112097 3_CHROMOSOME_dumped__13318010_13323173 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02516473                             0.02246321 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__13334612_13342566 3_CHROMOSOME_dumped__13360109_13368309 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01458202                             0.01572979 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__13369174_13374107 3_CHROMOSOME_dumped__13440036_13449242 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02290231                             0.05626154 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__14073146_14081964 3_CHROMOSOME_dumped__14117876_14141561 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02313187                             0.03128430 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__14272824_14285579 3_CHROMOSOME_dumped__14329874_14334136 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01771715                             0.03213699 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__14504089_14511689 3_CHROMOSOME_dumped__14579222_14584089 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.04078411                             0.03327855 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__14608928_14615360 3_CHROMOSOME_dumped__14616107_14623209 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01865382                             0.02097705 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__14671141_14675856 3_CHROMOSOME_dumped__14729381_14734607 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02078032                             0.04304572 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__14762490_14785730 3_CHROMOSOME_dumped__14860990_14866191 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02289058                             0.01557093 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__14890955_14900038 3_CHROMOSOME_dumped__14956986_14962254 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01860414                             0.01442399 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__15540529_15549180 3_CHROMOSOME_dumped__15591669_15600822 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01664355                             0.02381473 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__15621872_15626854 3_CHROMOSOME_dumped__15768786_15773747 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01324503                             0.01975010 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__15779153_15801235 3_CHROMOSOME_dumped__15919026_15924075 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02046823                             0.01643564 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__16172247_16183071 3_CHROMOSOME_dumped__16243296_16256896 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02281755                             0.03073303 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__16809187_16814152 3_CHROMOSOME_dumped__16826414_16832203 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03141361                             0.01571675 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__16885889_16894261 3_CHROMOSOME_dumped__16957465_16962731 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03033560                             0.01310044 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__17031074_17041106 3_CHROMOSOME_dumped__17235380_17239718 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02212698                             0.02949988 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__17354612_17359635 3_CHROMOSOME_dumped__17403584_17414141 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01771497                             0.01430195 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__17447389_17451847 3_CHROMOSOME_dumped__17978754_17983948 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03005158                             0.01482194 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__18151296_18168081 3_CHROMOSOME_dumped__18169847_18174127 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02871440                             0.02195749 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__18536569_18541113 3_CHROMOSOME_dumped__18734248_18739393 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02244224                             0.01515740 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__18791152_18796089 3_CHROMOSOME_dumped__19290470_19296623 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01923856                             0.02583685 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__19759349_19765040 3_CHROMOSOME_dumped__20304946_20310167 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02248770                             0.02412869 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__21485038_21491983 3_CHROMOSOME_dumped__21576037_21593706 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02260294                             0.02178834 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__21642929_21660064 3_CHROMOSOME_dumped__21894821_21904623 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02246732                             0.02152402 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__21971055_21975268 3_CHROMOSOME_dumped__22015001_22020670 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02159468                             0.02557319 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__22059535_22064329 3_CHROMOSOME_dumped__22232190_22236820 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02314911                             0.02699201 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__22237229_22242466 3_CHROMOSOME_dumped__22334467_22341333 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.04715540                             0.03014417 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__22513587_22521224 3_CHROMOSOME_dumped__22695566_22700521 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.06834250                             0.02360775 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3_CHROMOSOME_dumped__23100313_23104853     4_CHROMOSOME_dumped__178046_186886 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02444396                             0.01707952 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__1340159_1351874   4_CHROMOSOME_dumped__1473821_1478344 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01587573                             0.03271441 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__1619054_1624381   4_CHROMOSOME_dumped__1749269_1755807 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03641141                             0.01911607 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__1814108_1818633   4_CHROMOSOME_dumped__1943797_1955321 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02695537                             0.05718004 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__2001193_2010885   4_CHROMOSOME_dumped__2064089_2068818 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.06809037                             0.01395349 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__2188978_2194314   4_CHROMOSOME_dumped__2198167_2203996 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02585722                             0.01732419 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__2243443_2261156   4_CHROMOSOME_dumped__2279948_2286705 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02975048                             0.02145605 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__2302657_2307843   4_CHROMOSOME_dumped__2442384_2446881 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01696549                             0.02934638 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__2597020_2602180   4_CHROMOSOME_dumped__2615229_2622565 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01763224                             0.02003544 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__2763293_2771367   4_CHROMOSOME_dumped__2867762_2875913 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02352941                             0.03790481 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__2989830_2994788   4_CHROMOSOME_dumped__3704587_3716723 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02319016                             0.04103156 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__3881650_3886431   4_CHROMOSOME_dumped__3907466_3915200 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02258469                             0.02417582 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__4464332_4482516   4_CHROMOSOME_dumped__4623486_4628226 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03590872                             0.02193630 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__4677141_4684195   4_CHROMOSOME_dumped__4958195_4969598 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03642807                             0.02867415 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__5127101_5135153   4_CHROMOSOME_dumped__5291921_5296999 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03737737                             0.02894271 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__5591440_5596425   4_CHROMOSOME_dumped__5822426_5827300 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03249097                             0.03835897 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__5987008_5991992   4_CHROMOSOME_dumped__6588726_6593808 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02688064                             0.02872319 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__6594136_6598635   4_CHROMOSOME_dumped__6659028_6672586 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02244444                             0.01770042 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__6723347_6728791   4_CHROMOSOME_dumped__6826682_6833259 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01542700                             0.02462755 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__6914662_6919598   4_CHROMOSOME_dumped__7298372_7305107 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03402876                             0.03488717 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__7359462_7364591   4_CHROMOSOME_dumped__7522904_7527330 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01559454                             0.02575107 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__7816826_7821792   4_CHROMOSOME_dumped__8086223_8092247 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01509966                             0.02190871 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__8202631_8206965   4_CHROMOSOME_dumped__8313595_8319066 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02560554                             0.01699561 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__8589987_8597164   4_CHROMOSOME_dumped__8852913_8857290 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01629980                             0.03015075 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__9163509_9172988   4_CHROMOSOME_dumped__9182952_9188015 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02478903                             0.02744866 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__9570498_9575604   4_CHROMOSOME_dumped__9732605_9737731 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01527315                             0.01365321 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   4_CHROMOSOME_dumped__9908989_9914046   4_CHROMOSOME_dumped__9950615_9958242 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01561882                             0.02464604 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4_CHROMOSOME_dumped__10899527_10904693 4_CHROMOSOME_dumped__10992996_10998058 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01432166                             0.01362828 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4_CHROMOSOME_dumped__11040514_11046715 4_CHROMOSOME_dumped__11206541_11211219 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.05643341                             0.08527463 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4_CHROMOSOME_dumped__11481824_11486753 4_CHROMOSOME_dumped__11703299_11707622 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01602434                             0.03029602 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4_CHROMOSOME_dumped__11734522_11739041 4_CHROMOSOME_dumped__12211784_12218169 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02389381                             0.01378014 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4_CHROMOSOME_dumped__13336302_13341644 4_CHROMOSOME_dumped__14258825_14263830 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03387610                             0.01438274 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4_CHROMOSOME_dumped__14503006_14512023 4_CHROMOSOME_dumped__14684005_14688751 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02860945                             0.02570044 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4_CHROMOSOME_dumped__15027814_15033127 4_CHROMOSOME_dumped__15551901_15565729 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02484005                             0.04649649 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4_CHROMOSOME_dumped__15840427_15844699 4_CHROMOSOME_dumped__16320863_16325954 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01731804                             0.02042419 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4_CHROMOSOME_dumped__17225299_17230933 4_CHROMOSOME_dumped__17712151_17716968 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02537711                             0.02843504 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4_CHROMOSOME_dumped__18381613_18390512       5_CHROMOSOME_dumped__64772_71199 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03550562                             0.03671437 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     5_CHROMOSOME_dumped__211336_219089   5_CHROMOSOME_dumped__1331310_1337190 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.04745938                             0.04063935 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__1961367_1970365   5_CHROMOSOME_dumped__2373775_2379810 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02389154                             0.02932406 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__2380969_2405489   5_CHROMOSOME_dumped__2510278_2515356 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02858774                             0.01614491 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__3247646_3253022   5_CHROMOSOME_dumped__3904675_3909862 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03273201                             0.02293755 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__4208083_4213084   5_CHROMOSOME_dumped__5603823_5608721 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02419032                             0.03592570 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__6064597_6068747   5_CHROMOSOME_dumped__6403057_6408054 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02770417                             0.01860744 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__6433629_6438777   5_CHROMOSOME_dumped__6468251_6472831 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01417751                             0.02161100 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__7170326_7177335   5_CHROMOSOME_dumped__7210794_7219564 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02838802                             0.01949607 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__7505453_7511007   5_CHROMOSOME_dumped__7511425_7516841 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02034203                             0.02104486 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__7820047_7826629   5_CHROMOSOME_dumped__7858641_7864260 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03326751                             0.01921708 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__8204176_8218846   5_CHROMOSOME_dumped__8245442_8252558 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01969873                             0.01672053 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__8927997_8934328   5_CHROMOSOME_dumped__9181894_9189365 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03758686                             0.03667024 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   5_CHROMOSOME_dumped__9381694_9386622   5_CHROMOSOME_dumped__9949175_9954432 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01541895                             0.01179156 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__10026369_10030633 5_CHROMOSOME_dumped__10128753_10133863 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02532239                             0.04050088 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__10359352_10364274 5_CHROMOSOME_dumped__10638480_10643372 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03615681                             0.03944410 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__10808404_10812940 5_CHROMOSOME_dumped__11159506_11166120 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02556756                             0.02343159 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__11491567_11496131 5_CHROMOSOME_dumped__11503488_11512862 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01248631                             0.06314667 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__11515554_11521087 5_CHROMOSOME_dumped__11621561_11635005 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01752801                             0.01316475 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__11980554_11994151 5_CHROMOSOME_dumped__12189060_12194348 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02279747                             0.07052373 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__13253687_13258453 5_CHROMOSOME_dumped__13261021_13272510 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01950913                             0.02680592 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__13344204_13354020 5_CHROMOSOME_dumped__13607605_13621821 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02668840                             0.01941338 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__13712934_13721136 5_CHROMOSOME_dumped__13736102_13741134 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01974887                             0.01529903 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__13948926_13953982 5_CHROMOSOME_dumped__14083253_14088531 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03579197                             0.01344952 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__14113154_14118424 5_CHROMOSOME_dumped__14203867_14209072 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01422880                             0.01863235 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__14409576_14414448 5_CHROMOSOME_dumped__14468876_14473748 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01580135                             0.01580135 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__14756546_14764119 5_CHROMOSOME_dumped__14873452_14880646 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02323739                             0.01806810 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__15175722_15180975 5_CHROMOSOME_dumped__15277978_15284587 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01522649                             0.01966717 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__15320410_15326088 5_CHROMOSOME_dumped__15377478_15384917 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02253918                             0.02446237 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__15411867_15416287 5_CHROMOSOME_dumped__15646198_15651172 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02375028                             0.02572864 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__15813256_15821248 5_CHROMOSOME_dumped__16509654_16515435 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02902540                             0.01919751 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__16615185_16620067 5_CHROMOSOME_dumped__16882616_16889700 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02375589                             0.01947777 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__17090770_17095675 5_CHROMOSOME_dumped__17394157_17400642 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01549124                             0.02204749 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__17596764_17605847 5_CHROMOSOME_dumped__18119049_18132012 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02366799                             0.03046899 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__18142156_18146897 5_CHROMOSOME_dumped__18233616_18238203 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.04512864                             0.01612903 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__18490606_18495233 5_CHROMOSOME_dumped__18511248_18518552 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02312014                             0.02724162 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__18551370_18557055 5_CHROMOSOME_dumped__18673108_18678357 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02057686                             0.02666667 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__18933102_18938947 5_CHROMOSOME_dumped__19345986_19351107 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01710571                             0.02499024 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__19700784_19710576 5_CHROMOSOME_dumped__19987111_19992585 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.01827836                             0.01990868 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__20391919_20401644 5_CHROMOSOME_dumped__21384430_21390116 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02118034                             0.02215579 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__21800243_21805138 5_CHROMOSOME_dumped__21915762_21920415 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02389706                             0.02750322 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__22002013_22006896 5_CHROMOSOME_dumped__22911048_22916161 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03153153                             0.01525225 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__24129974_24138730 5_CHROMOSOME_dumped__24526077_24530973 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02329565                             0.02675107 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__25509002_25517288 5_CHROMOSOME_dumped__25992308_25997851 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02304815                             0.01695527 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5_CHROMOSOME_dumped__26207873_26219365 5_CHROMOSOME_dumped__26587592_26591987 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.02088228                             0.02183803 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     mitochondria_CHROMOS_111563_129916     mitochondria_CHROMOS_241879_260732 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                             0.03160074                             0.03638485 </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

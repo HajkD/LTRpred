@@ -76,12 +76,12 @@
 
       
 
-      </header><script src="Introduction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="Introduction_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to LTRpred</h1>
             
-            <h4 class="date">2021-04-26</h4>
+            <h4 class="date">2022-02-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/HajkD/LTRpred/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
@@ -150,12 +150,12 @@
 <div id="download-drostlabltrpred-container-for-use-with-r-command-line" class="section level4">
 <h4 class="hasAnchor">
 <a href="#download-drostlabltrpred-container-for-use-with-r-command-line" class="anchor"></a>Download <code>drostlab/ltrpred</code> container for use with R command line</h4>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># retrieve docker image from dockerhub</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="ex">docker</span> pull drostlab/ltrpred</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># run ltrpred container</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="ex">docker</span> run --rm -ti drostlab/ltrpred</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># start R prompt within ltrpred container</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="ex">~</span>:/<span class="ex">app</span># R</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve docker image from dockerhub</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull drostlab/ltrpred</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># run ltrpred container</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-ti</span> drostlab/ltrpred</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># start R prompt within ltrpred container</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">~:/app#</span> R</span></code></pre></div>
 <p>Users who wish to run the <code>LTRpred</code> Docker container in a <a href="https://docs.conda.io/en/latest/">conda</a> environment can use the <a href="https://github.com/HajkD/LTRpred/issues/16">following approach based on UDocker</a> (Many thanks to Ilja Bezrukov).</p>
 <p>Within the ltrpred container R prompt run the <code>ltrpred</code> example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -164,27 +164,27 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/quit.html">q</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>And to exit the <code>ltrpred</code> container run:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">~</span>:/<span class="ex">app</span># exit</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">~:/app#</span> exit</span></code></pre></div>
 <p>Now, users can add their own genome data as well as the Dfam database for further annotation to the <code>ltrpred</code> container by following these steps (in a different Terminal window):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># go to the folder path in which you want to</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># store all genome and Dfam data you want to</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="co"># mount in the ltrpred container and then run:</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># create a new folder which will store</span></span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="co"># all files that will be required in the</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co"># ltrpred container</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="fu">mkdir</span> ltrpred_data</span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="bu">cd</span> ltrpred_data</span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co"># create a dfam database folder</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="fu">mkdir</span> Dfam</span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="bu">cd</span> Dfam</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># go to the folder path in which you want to</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># store all genome and Dfam data you want to</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># mount in the ltrpred container and then run:</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new folder which will store</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># all files that will be required in the</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ltrpred container</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> ltrpred_data</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ltrpred_data</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dfam database folder</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> Dfam</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Dfam</span></code></pre></div>
 <p>Now users can download and format the Dfam database as follows (within the <code>Dfam</code> folder created above). Unfortunately, the <code>Dfam</code> database size is too large to make it part of the <code>drostlab/ltrpred</code> container. In addition, the database is frequently curated and updated. Thus, it is recommended that users download and format the <code>Dfam</code> database to their local hard drive and mount it to the running <code>drostlab/ltrpred</code> container.</p>
 <p><strong>To format the Dfam database locally, users need to install <a href="http://hmmer.org/download.html">HMMER</a> on their local machine (to use <code>hmmpress</code>). However, within the <code>drostlab/ltrpred</code> and <code>drostlab/ltrpred_rstudio</code> containers HMMER is already preinstalled and does not need to be installed by the user.</strong> An example installation of HMMER for Linux machines is listed below.</p>
 <p>For <code>macOS</code> users, please install <code>wget</code> on your <code>masOS</code> machine using <a href="http://brew.sh/">Homebrew</a>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">gunzip</span> Dfam.hmm.gz</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># format database by running hmmpress</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="ex">hmmpress</span> Dfam.hmm</span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="bu">cd</span> ..</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> Dfam.hmm.gz</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># format database by running hmmpress</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmpress</span> Dfam.hmm</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div>
 <p>Next, make sure to also store the genome assembly file (in <code>fasta</code> format) you want to <em>de novo</em> annotate with <code>LTRpred</code> in the <code>ltrpred_data</code> folder you just created.</p>
 <p>A possible way to retrieve such a genome is (within R) using <a href="https://github.com/ropensci/biomartr">biomartr</a>. If you use <code>biomartr</code> please make sure to <a href="https://github.com/ropensci/biomartr#installation">install all <code>biomartr</code> package dependencies</a> before running the following code.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -195,15 +195,15 @@
                     gunzip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>The respective genome assembly file is now stored at <code>yeast_genome/Saccharomyces_cerevisiae.R64-1-1.dna.toplevel.fa</code> and needs to be copied into the <code>ltrpred_data</code> folder you just created.</p>
 <p>Now users can mount the <code>ltrpred_data</code> folder to the <code>ltrpred</code> Docker container (using the <code>-v</code> option). This <code>-v</code> mounting option is also available for the <code>RStudio</code> container version and can also be run within the <code>RStudio</code> Terminal.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="ex">docker</span> run --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/app/ltrpred_data -ti drostlab/ltrpred</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-p</span> 8787:8787 <span class="at">-v</span> /put/here/your/path/to/ltrpred_data:/app/ltrpred_data <span class="at">-ti</span> drostlab/ltrpred</span></code></pre></div>
 <p>Within the <code>ltrpred</code> Docker container the <code>ltrpred_data</code> folder is now stored in the working directory <code>/app</code>.</p>
 <p>When running the <code>ltrpred</code> Docker container you should be able to see the mounted <code>ltrpred_data</code> folder as following:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="ex">~</span>:/<span class="ex">app</span># ls</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">~:/app#</span> ls</span></code></pre></div>
 <pre><code>latticeExtra_0.6-28.tar.gz
 ltrpred_data
 software_downloads</code></pre>
 <p>Next, users can again run the <code>R prompt</code> within the <code>ltrpred</code> Docker container to run <code>LTRpred</code> with the local data that was mounted:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="ex">~</span>:/<span class="ex">app</span># R</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">~:/app#</span> R</span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># run LTRpred on the yeast genome that was mounted</span>
 <span class="co"># to the ltrpred container from your local 'ltrpred_data' folder</span>
@@ -229,20 +229,20 @@ software_downloads</code></pre>
 <li>Copy the docker ID, in this case <code>ac389gfja8089</code> (this docker ID is just an example, please use the docker ID shown on your system).</li>
 <li>Type in the newly opened <code>Terminal</code> window:</li>
 </ol>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># copy Hsapiens_ChrY_ltrpred output from docker container to hard drive</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="ex">docker</span> cp ac389gfja8089:/app/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</span></code></pre></div>
-<p>This example assumes that you ran the example <code>LTRpred</code> run <code><a href="../reference/LTRpred.html">LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))</a></code> which created the output folder <code>Hsapiens_ChrY_ltrpred</code> in the docker folder <code>/app/</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># copy Hsapiens_ChrY_ltrpred output from docker container to hard drive</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> cp ac389gfja8089:/app/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</span></code></pre></div>
+<p>This example assumes that you ran the example <code>LTRpred</code> run <code>LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))</code> which created the output folder <code>Hsapiens_ChrY_ltrpred</code> in the docker folder <code>/app/</code>.</p>
 <p>Please note, that if you specify different file paths when creating files within the docker container, these must be adjusted when running:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># copy files from docker container to hard drive</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="ex">docker</span> cp ac389gfja8089:/app/your/inside/docker/path/here/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># copy files from docker container to hard drive</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> cp ac389gfja8089:/app/your/inside/docker/path/here/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</span></code></pre></div>
 </div>
 <div id="download-drostlabltrpred_rstudio-container-for-use-with-rstudio-server" class="section level4">
 <h4 class="hasAnchor">
 <a href="#download-drostlabltrpred_rstudio-container-for-use-with-rstudio-server" class="anchor"></a>Download <code>drostlab/ltrpred_rstudio</code> container for use with RStudio Server</h4>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># retrieve docker image from dockerhub</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</span>
-<span id="cb16-3"><a href="#cb16-3"></a><span class="co"># run ltrpred container</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -ti drostlab/ltrpred_rstudio</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve docker image from dockerhub</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># run ltrpred container</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=ltrpred <span class="at">--rm</span> <span class="at">-p</span> 8787:8787 <span class="at">-ti</span> drostlab/ltrpred_rstudio</span></code></pre></div>
 <p>To open <code>RStudio</code> and interact with the container go to your standard web browser and type in the following url:</p>
 <p><code>http://localhost:8787</code></p>
 <p>Username: <code>rstudio</code> Password: <code>ltrpred</code></p>
@@ -251,10 +251,10 @@ software_downloads</code></pre>
 <code class="sourceCode R"><span class="fu">LTRpred</span><span class="fu">::</span><span class="fu"><a href="../reference/LTRpred.html">LTRpred</a></span><span class="op">(</span>genome.file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"Hsapiens_ChrY.fa"</span>, package <span class="op">=</span> <span class="st">"LTRpred"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Users can <code>exit</code> the container by pressing <code>Ctrl + c</code> multiple times.</p>
 <p>Next, users can mount their <code>ltrpred_data</code> folder to the RStudio server run the same way they mounted folders in the command line container version (using <code>-v</code>). This folder mounting can also be run within the <code>RStudio</code> Terminal of the <code>drostlab/ltrpred_rstudio</code> container.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># retrieve docker image from dockerhub</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="co"># run ltrpred container</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="ex">docker</span> run -e PASSWORD=ltrpred --rm -p 8787:8787 -v /put/here/your/path/to/ltrpred_data:/home/rstudio/ltrpred_data -ti drostlab/ltrpred_rstudio</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve docker image from dockerhub</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull drostlab/ltrpred_rstudio</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># run ltrpred container</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=ltrpred <span class="at">--rm</span> <span class="at">-p</span> 8787:8787 <span class="at">-v</span> /put/here/your/path/to/ltrpred_data:/home/rstudio/ltrpred_data <span class="at">-ti</span> drostlab/ltrpred_rstudio</span></code></pre></div>
 <p>Now go to your standard web browser and type in the following url:</p>
 <p><code>http://localhost:8787</code></p>
 <p>Username: <code>rstudio</code> Password: <code>ltrpred</code></p>
@@ -274,12 +274,12 @@ software_downloads</code></pre>
 <li>Copy the docker ID, in this case <code>ac389gfja8089</code> (this docker ID is just an example, please use the docker ID shown on your system).</li>
 <li>Type in the newly opened <code>Terminal</code> window:</li>
 </ol>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># copy Hsapiens_ChrY_ltrpred output from docker container to hard drive</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="ex">docker</span> cp ac389gfja8089:/app/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</span></code></pre></div>
-<p>This example assumes that you ran the example <code>LTRpred</code> run <code><a href="../reference/LTRpred.html">LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))</a></code> which created the output folder <code>Hsapiens_ChrY_ltrpred</code> in the docker folder <code>/app/</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># copy Hsapiens_ChrY_ltrpred output from docker container to hard drive</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> cp ac389gfja8089:/app/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</span></code></pre></div>
+<p>This example assumes that you ran the example <code>LTRpred</code> run <code>LTRpred::LTRpred(genome.file = system.file("Hsapiens_ChrY.fa", package = "LTRpred"))</code> which created the output folder <code>Hsapiens_ChrY_ltrpred</code> in the docker folder <code>/app/</code>.</p>
 <p>Please note, that if you specify different file paths when creating files within the docker container, these must be adjusted when running:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># copy files from docker container to hard drive</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="ex">docker</span> cp ac389gfja8089:/app/your/inside/docker/path/here/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># copy files from docker container to hard drive</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> cp ac389gfja8089:/app/your/inside/docker/path/here/Hsapiens_ChrY_ltrpred path/to/your/host/hard/drive/Hsapiens_ChrY_ltrpred</span></code></pre></div>
 <p>__Please read more details about how to transfer genome files and the Dfam database in the previous section <a href="#ltrpred-docker-container">Download ltrpred container for use with R command line</a>.</p>
 </div>
 </div>
@@ -301,41 +301,41 @@ software_downloads</code></pre>
 <div id="install-programming-languages-and-linux-tools" class="section level4">
 <h4 class="hasAnchor">
 <a href="#install-programming-languages-and-linux-tools" class="anchor"></a>Install Programming languages and Linux Tools</h4>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1"></a><span class="ex">apt-get</span> update \</span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install apt-utils \</span>
-<span id="cb22-3"><a href="#cb22-3"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install  gcc \</span>
-<span id="cb22-4"><a href="#cb22-4"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install python3 \</span>
-<span id="cb22-5"><a href="#cb22-5"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install perl \</span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install make \</span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install sudo \</span>
-<span id="cb22-8"><a href="#cb22-8"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install wget \</span>
-<span id="cb22-9"><a href="#cb22-9"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install genometools \</span>
-<span id="cb22-10"><a href="#cb22-10"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install git \</span>
-<span id="cb22-11"><a href="#cb22-11"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install autoconf \</span>
-<span id="cb22-12"><a href="#cb22-12"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install g++ \</span>
-<span id="cb22-13"><a href="#cb22-13"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install ncbi-blast+ \</span>
-<span id="cb22-14"><a href="#cb22-14"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install build-essential \</span>
-<span id="cb22-15"><a href="#cb22-15"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install libcurl4-gnutls-dev \</span>
-<span id="cb22-16"><a href="#cb22-16"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install libxml2-dev \</span>
-<span id="cb22-17"><a href="#cb22-17"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install libssl-dev \</span>
-<span id="cb22-18"><a href="#cb22-18"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install libpq-dev \</span>
-<span id="cb22-19"><a href="#cb22-19"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> -y install software-properties-common</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apt-get</span> update <span class="dt">\</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install apt-utils <span class="dt">\</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install  gcc <span class="dt">\</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install python3 <span class="dt">\</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install perl <span class="dt">\</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install make <span class="dt">\</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install sudo <span class="dt">\</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install wget <span class="dt">\</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install genometools <span class="dt">\</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install git <span class="dt">\</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install autoconf <span class="dt">\</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install g++ <span class="dt">\</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install ncbi-blast+ <span class="dt">\</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install build-essential <span class="dt">\</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install libcurl4-gnutls-dev <span class="dt">\</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install libxml2-dev <span class="dt">\</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install libssl-dev <span class="dt">\</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install libpq-dev <span class="dt">\</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">apt-get</span> <span class="at">-y</span> install software-properties-common</span></code></pre></div>
 </div>
 <div id="install-hmmer" class="section level4">
 <h4 class="hasAnchor">
 <a href="#install-hmmer" class="anchor"></a>Install <a href="http://hmmer.org/download.html">HMMER</a>
 </h4>
 <p>A detailed description of how to install <code>HMMER</code> for several operating systems can be found <a href="http://hmmer.org/download.html">here</a>.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">mkdir</span> software_downloads \</span>
-<span id="cb23-2"><a href="#cb23-2"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> software_downloads \</span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">wget</span> http://eddylab.org/software/hmmer/hmmer-3.3.tar.gz \</span>
-<span id="cb23-4"><a href="#cb23-4"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">tar</span> xf hmmer-3.3.tar.gz \</span>
-<span id="cb23-5"><a href="#cb23-5"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> hmmer-3.3 \</span>
-<span id="cb23-6"><a href="#cb23-6"></a>  <span class="kw">&amp;&amp;</span> <span class="ex">./configure</span> \</span>
-<span id="cb23-7"><a href="#cb23-7"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">make</span> \</span>
-<span id="cb23-8"><a href="#cb23-8"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">make</span> check \</span>
-<span id="cb23-9"><a href="#cb23-9"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> make install \</span>
-<span id="cb23-10"><a href="#cb23-10"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ..</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> software_downloads <span class="dt">\</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> software_downloads <span class="dt">\</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">wget</span> http://eddylab.org/software/hmmer/hmmer-3.3.tar.gz <span class="dt">\</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">tar</span> xf hmmer-3.3.tar.gz <span class="dt">\</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> hmmer-3.3 <span class="dt">\</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="ex">./configure</span> <span class="dt">\</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">make</span> <span class="dt">\</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">make</span> check <span class="dt">\</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> make install <span class="dt">\</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ..</span></code></pre></div>
 </div>
 <div id="install-usearch" class="section level4">
 <h4 class="hasAnchor">
@@ -344,14 +344,14 @@ software_downloads</code></pre>
 <p>A detailed description of how to install <code>USEARCH</code> for several operating systems can be found <a href="http://drive5.com/usearch/manual/install.html">here</a>.</p>
 <p>First, users will need to register and download USEARCH for their operating system from <a href="http://drive5.com/usearch/download.html" class="uri">http://drive5.com/usearch/download.html</a> .</p>
 <p>After downloading USEARCH you will need to install it as a command line tool in your <code>/usr/local/</code> directory and you should be able to execute the following command in your Terminal:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1"></a><span class="bu">cd</span> software_downloads \</span>
-<span id="cb24-2"><a href="#cb24-2"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">wget</span> https://www.drive5.com/downloads/usearch11.0.667_i86linux32.gz \</span>
-<span id="cb24-3"><a href="#cb24-3"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">gunzip</span> usearch11.0.667_i86linux32.gz \</span>
-<span id="cb24-4"><a href="#cb24-4"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">chmod</span> +x usearch11.0.667_i86linux32 \</span>
-<span id="cb24-5"><a href="#cb24-5"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> mv usearch11.0.667_i86linux32 usearch \</span>
-<span id="cb24-6"><a href="#cb24-6"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> cp usearch /usr/local/bin/usearch \</span>
-<span id="cb24-7"><a href="#cb24-7"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ..</span>
-<span id="cb24-8"><a href="#cb24-8"></a><span class="ex">usearch</span> -version</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> software_downloads <span class="dt">\</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">wget</span> https://www.drive5.com/downloads/usearch11.0.667_i86linux32.gz <span class="dt">\</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">gunzip</span> usearch11.0.667_i86linux32.gz <span class="dt">\</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">chmod</span> +x usearch11.0.667_i86linux32 <span class="dt">\</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> mv usearch11.0.667_i86linux32 usearch <span class="dt">\</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> cp usearch /usr/local/bin/usearch <span class="dt">\</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ..</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="ex">usearch</span> <span class="at">-version</span></span></code></pre></div>
 <pre><code>usearch v11.0.667_i86linux32</code></pre>
 </div>
 <div id="install-vsearch" class="section level4">
@@ -360,32 +360,32 @@ software_downloads</code></pre>
 </h4>
 <p>A detailed description of how to install <code>VSEARCH</code> for several operating systems can be found <a href="https://github.com/torognes/vsearch">here</a>.</p>
 <p>Please <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">install git</a> before running the following commands.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1"></a><span class="bu">cd</span> software_downloads \</span>
-<span id="cb26-2"><a href="#cb26-2"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">wget</span> https://github.com/torognes/vsearch/archive/v2.14.2.tar.gz \</span>
-<span id="cb26-3"><a href="#cb26-3"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">tar</span> xzf v2.14.2.tar.gz \</span>
-<span id="cb26-4"><a href="#cb26-4"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> vsearch-2.14.2 \</span>
-<span id="cb26-5"><a href="#cb26-5"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> ./autogen.sh \</span>
-<span id="cb26-6"><a href="#cb26-6"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> ./configure \</span>
-<span id="cb26-7"><a href="#cb26-7"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> make \</span>
-<span id="cb26-8"><a href="#cb26-8"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> make install \</span>
-<span id="cb26-9"><a href="#cb26-9"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ..</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> software_downloads <span class="dt">\</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">wget</span> https://github.com/torognes/vsearch/archive/v2.14.2.tar.gz <span class="dt">\</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">tar</span> xzf v2.14.2.tar.gz <span class="dt">\</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> vsearch-2.14.2 <span class="dt">\</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> ./autogen.sh <span class="dt">\</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> ./configure <span class="dt">\</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> make <span class="dt">\</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> make install <span class="dt">\</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ..</span></code></pre></div>
 </div>
 </div>
 <div id="install-dfamscan-pl" class="section level3">
 <h3 class="hasAnchor">
-<a href="#install-dfamscan-pl" class="anchor"></a>Install <a href="http://www.dfam.org/web_download/Current_Release/dfamscan.pl">dfamscan.pl</a>
+<a href="#install-dfamscan-pl" class="anchor"></a>Install <a href="https://dfam.org/releases/current/infrastructure/dfamscan.pl.gz">dfamscan.pl</a>
 </h3>
-<p><a href="https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz">dfamscan.pl</a> needs to be unzipped and stored at <code>/usr/local/bin/dfamscan.pl</code> and executabe via <code>perl /usr/local/bin/dfamscan.pl -help</code>. This is important to be able to run the hmmer search against the Dfam database.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1"></a><span class="bu">cd</span> software_downloads \</span>
-<span id="cb27-2"><a href="#cb27-2"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/infrastructure/dfamscan.pl.gz \</span>
-<span id="cb27-3"><a href="#cb27-3"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">gunzip</span> dfamscan.pl.gz \</span>
-<span id="cb27-4"><a href="#cb27-4"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> cp dfamscan.pl /usr/local/bin/dfamscan.pl \</span>
-<span id="cb27-5"><a href="#cb27-5"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ..</span></code></pre></div>
+<p><a href="https://dfam.org/releases/current/infrastructure/dfamscan.pl.gz">dfamscan.pl</a> needs to be unzipped and stored at <code>/usr/local/bin/dfamscan.pl</code> and executable via <code>perl /usr/local/bin/dfamscan.pl -help</code>. This is important to be able to run the hmmer search against the Dfam database.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> software_downloads <span class="dt">\</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">wget</span> https://dfam.org/releases/current/infrastructure/dfamscan.pl.gz <span class="dt">\</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">gunzip</span> dfamscan.pl.gz <span class="dt">\</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> cp dfamscan.pl /usr/local/bin/dfamscan.pl <span class="dt">\</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> ..</span></code></pre></div>
 <p>Users can download the <a href="https://www.dfam.org/releases/Dfam_3.1/families/">Dfam database v3.1</a> by running:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz</span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">gunzip</span> Dfam.hmm.gz</span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="co"># run hmmpress</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="ex">hmmpress</span> Dfam.hmm</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.dfam.org/releases/Dfam_3.1/families/Dfam.hmm.gz</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gunzip</span> Dfam.hmm.gz</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># run hmmpress</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmpress</span> Dfam.hmm</span></code></pre></div>
 <p>The path to the folder where the formatted <code>Dfam</code> database can be found can then be passed as argument <code>Dfam.db</code> to the <code><a href="../reference/LTRpred.html">LTRpred::LTRpred()</a></code> function.</p>
 </div>
 <div id="install-r-packages" class="section level3">
@@ -393,22 +393,22 @@ software_downloads</code></pre>
 <a href="#install-r-packages" class="anchor"></a>Install R packages</h3>
 <p>Please make sure that <a href="https://www.bioconductor.org/install/">Bioconductor</a> and all package dependencies are installed on the system on which you would like to run <code>LTRpred</code>.</p>
 <p>Install prerequisite CRAN and Bioconductor packages:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">install.packages</span>(<span class="st">'devtools'</span>)</span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="kw">install.packages</span>(<span class="st">'tidyverse'</span>)</span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="kw">install.packages</span>(<span class="st">'BiocManager'</span>)</span>
-<span id="cb29-4"><a href="#cb29-4"></a>BiocManager<span class="op">::</span><span class="kw">install</span>()</span>
-<span id="cb29-5"><a href="#cb29-5"></a>BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="kw">c</span>(<span class="st">'rtracklayer'</span>, <span class="st">'GenomicFeatures'</span>, <span class="st">'GenomicRanges'</span>, <span class="st">'GenomeInfoDb'</span>, <span class="st">'biomaRt'</span>, <span class="st">'Biostrings'</span>))</span>
-<span id="cb29-6"><a href="#cb29-6"></a><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">'tidyverse'</span>, <span class="st">'data.table'</span>, <span class="st">'seqinr'</span>, <span class="st">'biomartr'</span>, <span class="st">'ape'</span>, <span class="st">'dtplyr'</span>, <span class="st">'devtools'</span>))</span>
-<span id="cb29-7"><a href="#cb29-7"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'HajkD/metablastr'</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb29-8"><a href="#cb29-8"></a><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">'BSDA'</span>, <span class="st">'ggrepel'</span>, <span class="st">'gridExtra'</span>))</span>
-<span id="cb29-9"><a href="#cb29-9"></a>https<span class="op">:</span><span class="er">//</span>cran.r<span class="op">-</span>project.org<span class="op">/</span>src<span class="op">/</span>contrib<span class="op">/</span>Archive<span class="op">/</span>latticeExtra<span class="op">/</span>latticeExtra_<span class="fl">0.6-28.</span>tar.gz</span>
-<span id="cb29-10"><a href="#cb29-10"></a><span class="kw">install.packages</span>(<span class="st">'latticeExtra_0.6-28.tar.gz'</span>, <span class="dt">type =</span> <span class="st">'source'</span>)</span>
-<span id="cb29-11"><a href="#cb29-11"></a><span class="kw">install.packages</span>(<span class="st">'survival'</span>)</span>
-<span id="cb29-12"><a href="#cb29-12"></a>BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">'ggbio'</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'devtools'</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'tidyverse'</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'BiocManager'</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>()</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="fu">c</span>(<span class="st">'rtracklayer'</span>, <span class="st">'GenomicFeatures'</span>, <span class="st">'GenomicRanges'</span>, <span class="st">'GenomeInfoDb'</span>, <span class="st">'biomaRt'</span>, <span class="st">'Biostrings'</span>))</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'tidyverse'</span>, <span class="st">'data.table'</span>, <span class="st">'seqinr'</span>, <span class="st">'biomartr'</span>, <span class="st">'ape'</span>, <span class="st">'dtplyr'</span>, <span class="st">'devtools'</span>))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'HajkD/metablastr'</span>, <span class="at">build_vignettes =</span> <span class="cn">TRUE</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">'BSDA'</span>, <span class="st">'ggrepel'</span>, <span class="st">'gridExtra'</span>))</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>https<span class="sc">:</span><span class="er">//</span>cran.r<span class="sc">-</span>project.org<span class="sc">/</span>src<span class="sc">/</span>contrib<span class="sc">/</span>Archive<span class="sc">/</span>latticeExtra<span class="sc">/</span>latticeExtra_0<span class="fl">.6-28.</span>tar.gz</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'latticeExtra_0.6-28.tar.gz'</span>, <span class="at">type =</span> <span class="st">'source'</span>)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'survival'</span>)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">'ggbio'</span>)</span></code></pre></div>
 <p>Now users may install <code>LTRpred</code> as follows:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"HajkD/LTRpred"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"HajkD/LTRpred"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="quick-start" class="section level2">
@@ -546,7 +546,7 @@ LTRpred finished all analyses successfully. All output files were stored at 'Hsa
 <code class="sourceCode R"><span class="co"># import LTRpred prediction output</span>
 <span class="va">Hsapiens_chrY</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span><span class="op">(</span><span class="st">"Hsapiens_ChrY_ltrpred/Hsapiens_ChrY_LTRpred_DataSheet.tsv"</span><span class="op">)</span>
 <span class="co"># look at some results</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Hsapiens_chrY</span>, <span class="va">ltr_similarity</span><span class="op">:</span><span class="va">end</span>, <span class="va">tRNA_motif</span>, <span class="va">Clust_cn</span><span class="op">)</span></code></pre></div>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">Hsapiens_chrY</span>, <span class="va">ltr_similarity</span><span class="op">:</span><span class="va">end</span>, <span class="va">tRNA_motif</span>, <span class="va">Clust_cn</span><span class="op">)</span></code></pre></div>
 <pre><code># A tibble: 14 x 9
    ltr_similarity similarity protein_domain  orfs        chromosome
             &lt;dbl&gt;      &lt;chr&gt;          &lt;chr&gt; &lt;int&gt;             &lt;chr&gt;
@@ -568,7 +568,7 @@ LTRpred finished all analyses successfully. All output files were stored at 'Hsa
 #   Clust_cn &lt;int&gt;</code></pre>
 <p>Looking at all columns:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Hsapiens_chrY</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pillar/man/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Hsapiens_chrY</span><span class="op">)</span></code></pre></div>
 <pre><code>Observations: 21
 Variables: 92
 $ species                 &lt;chr&gt; "Hsapiens_ChrY", "Hsapien...
@@ -827,7 +827,7 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
                       organism  <span class="op">=</span> <span class="st">"Saccharomyces cerevisiae"</span><span class="op">)</span>
 <span class="co"># show path to S. cerevisiae genome</span>
 <span class="va">Scerevisiae_genome</span></code></pre></div>
-<p>Next, we run <code>LTRpred</code> to generate functional annotation for <code>S. cerevisiae</code> LTR retrotransposons. In general, the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function takes the path to a genome file in <code>fasta</code> format (compressed files can be used as well) as input to the <code>genome.file</code> argument. The <code>trnas</code> argument takes a file path to a <code>fasta</code> file storing tRNA sequences. In this case, for example reasons only, we use the tRNA file <code>sacCer3-tRNAs.fa</code> that comes with the <code>LTRpred</code> package. In addition, users can find tRNA files at <a href="http://gtrnadb.ucsc.edu/" class="uri">http://gtrnadb.ucsc.edu/</a> or <a href="http://gtrnadb2009.ucsc.edu/" class="uri">http://gtrnadb2009.ucsc.edu/</a>. The <code>hmms</code> argument takes a path to a folder storing the HMM models of the gag and pol protein domains. Protein domains can be found at <a href="http://pfam.xfam.org/" class="uri">http://pfam.xfam.org/</a> . When renaming the protein domains using the specification <code>hmm_*</code> users can specify <code>hmm_*</code> which indicates that all files in the folder starting with <code>hmm_</code> shall be used. The <code>LTRpred</code> package already stores the most prominent gag and pol protein domains and can be used by specifying the path <code><a href="https://rdrr.io/r/base/paste.html">paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*")</a></code>. In detail, the following HMM models are stored in <code>LTRpred</code>:</p>
+<p>Next, we run <code>LTRpred</code> to generate functional annotation for <code>S. cerevisiae</code> LTR retrotransposons. In general, the <code><a href="../reference/LTRpred.html">LTRpred()</a></code> function takes the path to a genome file in <code>fasta</code> format (compressed files can be used as well) as input to the <code>genome.file</code> argument. The <code>trnas</code> argument takes a file path to a <code>fasta</code> file storing tRNA sequences. In this case, for example reasons only, we use the tRNA file <code>sacCer3-tRNAs.fa</code> that comes with the <code>LTRpred</code> package. In addition, users can find tRNA files at <a href="http://gtrnadb.ucsc.edu/" class="uri">http://gtrnadb.ucsc.edu/</a> or <a href="http://gtrnadb2009.ucsc.edu/" class="uri">http://gtrnadb2009.ucsc.edu/</a>. The <code>hmms</code> argument takes a path to a folder storing the HMM models of the gag and pol protein domains. Protein domains can be found at <a href="http://pfam.xfam.org/" class="uri">http://pfam.xfam.org/</a> . When renaming the protein domains using the specification <code>hmm_*</code> users can specify <code>hmm_*</code> which indicates that all files in the folder starting with <code>hmm_</code> shall be used. The <code>LTRpred</code> package already stores the most prominent gag and pol protein domains and can be used by specifying the path <code>paste0(system.file("HMMs/", package = "LTRpred"), "hmm_*")</code>. In detail, the following HMM models are stored in <code>LTRpred</code>:</p>
 <div id="hmm-models" class="section level4">
 <h4 class="hasAnchor">
 <a href="#hmm-models" class="anchor"></a>HMM Models:</h4>
@@ -983,7 +983,7 @@ The LTR copy number estimation returned an empty file. This suggests that there 
                   <span class="st">"Saccharomyces_cerevisiae_genomic_refseq_LTRpred_DataSheet.tsv"</span><span class="op">)</span>
 <span class="va">Scerevisiae_LTRpred</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read.ltrpred.html">read.ltrpred</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span>
 <span class="co"># look at output</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Scerevisiae_LTRpred</span><span class="op">)</span></code></pre></div>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pillar/man/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Scerevisiae_LTRpred</span><span class="op">)</span></code></pre></div>
 <pre><code>Observations: 31
 Variables: 92
 $ species                 &lt;chr&gt; "Saccharomyces_cerevisiae...
@@ -1101,7 +1101,7 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
                                          sim <span class="op">=</span> <span class="fl">97</span>, 
                                          n.orfs <span class="op">=</span> <span class="fl">1</span>,
                                          strategy <span class="op">=</span> <span class="st">"stringent"</span><span class="op">)</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Scerevisiae_functional</span><span class="op">)</span></code></pre></div>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pillar/man/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">Scerevisiae_functional</span><span class="op">)</span></code></pre></div>
 <pre><code>Observations: 25
 Variables: 92
 $ species                 &lt;chr&gt; "Saccharomyces_cerevisiae...
@@ -1333,7 +1333,7 @@ $ cn_5ltr                 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, N...</code></pre>
 <li>
 <code>copy.number.est</code>: shall copy number estimation of 3’ and 5’ LTRs in the genome be performed? In case <code>copy.number.est = TRUE</code> for each 3’ and 5’ LTR of a predicted LTR retrotransposon a stringent BLAST search is performed against the genome to determine the number of copies (solo LTR copies) of that element within the genome. Default is <code>copy.number.est = FALSE</code>.</li>
 <li>
-<code>fix.chr.name</code>: sometimes chromosome names have unwanted characters such as "_" etc in them. Shall <code>LTRpred</code> try to fix chromosome names as good as possible?</li>
+<code>fix.chr.name</code>: sometimes chromosome names have unwanted characters such as “_” etc in them. Shall <code>LTRpred</code> try to fix chromosome names as good as possible?</li>
 <li>
 <code>cn.eval</code>: BLAST evalue for copy number estimation (<code>copy.number.est</code>) (BLAST hit threshold). Default is <code>cn.eval = 1e-5</code>.</li>
 <li>

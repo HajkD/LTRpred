@@ -145,31 +145,32 @@
     <p>Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># import example Dfam output</span>
-<span class='va'>dfam.file</span> <span class='op'>&lt;-</span> <span class='fu'>read.dfam</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"example_dfam.out"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>dfam.file</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;     target_name         acc                             query_name  bits
-#&gt; 1   Copia1-I_DM DF0001559.0 1_CHROMOSOME_dumped__10696719_10701589  57.8
-#&gt; 2       Copia_I DF0001563.0 1_CHROMOSOME_dumped__10696719_10701589 154.8
-#&gt; 3   Copia1-I_DM DF0001559.0 1_CHROMOSOME_dumped__11148084_11152830  74.8
-#&gt; 4       Copia_I DF0001563.0 1_CHROMOSOME_dumped__11148084_11152830 141.9
-#&gt; 5 HelitronY4_CE DF0001412.0 1_CHROMOSOME_dumped__11284903_11295619  49.7
-#&gt; 6   Copia1-I_DM DF0001559.0 1_CHROMOSOME_dumped__11789447_11794074 218.6
-#&gt;   e_value bias hmm-st hmm-en strand ali-st ali-en env-st env-en modlen
-#&gt; 1 1.6e-16 24.2   1329   2113      +   1982   2748   1957   2782   4124
-#&gt; 2 7.5e-46 35.2   2862   4321      +   3160   4619   3139   4639   4593
-#&gt; 3 1.1e-21 16.1   1326   2030      +   1689   2381   1669   2417   4124
-#&gt; 4 5.9e-42 20.3   2858   4355      +   2929   4412   2908   4419   4593
-#&gt; 5 2.7e-13 35.6    350    705      +   2131   2483   2122   2503   1855
-#&gt; 6 5.3e-65 33.8   1329   2185      +   1621   2483   1594   2503   4124
-#&gt;                                                     target_description
-#&gt; 1                LTR retrotransposon from fruit fly: internal portion.
-#&gt; 2                  Drosophila melanogaster transposable element copia.
-#&gt; 3                LTR retrotransposon from fruit fly: internal portion.
-#&gt; 4                  Drosophila melanogaster transposable element copia.
-#&gt; 5 HELITRONY4_CE is a family of non-autonomous Helitron DNA transposons
-#&gt; 6                LTR retrotransposon from fruit fly: internal portion.</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># import example Dfam output</span></span>
+<span class='r-in'><span class='va'>dfam.file</span> <span class='op'>&lt;-</span> <span class='fu'>read.dfam</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"example_dfam.out"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>dfam.file</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     target_name         acc                             query_name  bits</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1   Copia1-I_DM DF0001559.0 1_CHROMOSOME_dumped__10696719_10701589  57.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2       Copia_I DF0001563.0 1_CHROMOSOME_dumped__10696719_10701589 154.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3   Copia1-I_DM DF0001559.0 1_CHROMOSOME_dumped__11148084_11152830  74.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4       Copia_I DF0001563.0 1_CHROMOSOME_dumped__11148084_11152830 141.9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 HelitronY4_CE DF0001412.0 1_CHROMOSOME_dumped__11284903_11295619  49.7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6   Copia1-I_DM DF0001559.0 1_CHROMOSOME_dumped__11789447_11794074 218.6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   e_value bias hmm-st hmm-en strand ali-st ali-en env-st env-en modlen</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1 1.6e-16 24.2   1329   2113      +   1982   2748   1957   2782   4124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2 7.5e-46 35.2   2862   4321      +   3160   4619   3139   4639   4593</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3 1.1e-21 16.1   1326   2030      +   1689   2381   1669   2417   4124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4 5.9e-42 20.3   2858   4355      +   2929   4412   2908   4419   4593</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 2.7e-13 35.6    350    705      +   2131   2483   2122   2503   1855</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6 5.3e-65 33.8   1329   2185      +   1621   2483   1594   2503   4124</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                     target_description</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                LTR retrotransposon from fruit fly: internal portion.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                  Drosophila melanogaster transposable element copia.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                LTR retrotransposon from fruit fly: internal portion.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                  Drosophila melanogaster transposable element copia.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5 HELITRONY4_CE is a family of non-autonomous Helitron DNA transposons</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6                LTR retrotransposon from fruit fly: internal portion.</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

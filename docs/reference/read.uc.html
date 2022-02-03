@@ -168,20 +168,21 @@ record instead of an 'N' record.</p></li>
     <p>Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># read example *.uc file</span>
-<span class='va'>test.uc</span> <span class='op'>&lt;-</span> <span class='fu'>read.uc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"test.uc"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># look at the format in R</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>test.uc</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 6 x 7</span><span>
-#&gt;   Type  Cluster  Size Perc_Ident Strand Query                             Target
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                             </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> S           0 </span><span style='text-decoration: underline;'>24</span><span>827 *          *      2_CHROMOSOME_dumped__3426174_345… *     
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> S           1 </span><span style='text-decoration: underline;'>24</span><span>521 *          *      5_CHROMOSOME_dumped__2380969_240… *     
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> S           2 </span><span style='text-decoration: underline;'>24</span><span>339 *          *      3_CHROMOSOME_dumped__1657651_168… *     
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> S           3 </span><span style='text-decoration: underline;'>23</span><span>686 *          *      3_CHROMOSOME_dumped__14117876_14… *     
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> S           4 </span><span style='text-decoration: underline;'>23</span><span>241 *          *      3_CHROMOSOME_dumped__14762490_14… *     
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> S           5 </span><span style='text-decoration: underline;'>22</span><span>083 *          *      3_CHROMOSOME_dumped__15779153_15… *     </div></span></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># read example *.uc file</span></span>
+<span class='r-in'><span class='va'>test.uc</span> <span class='op'>&lt;-</span> <span class='fu'>read.uc</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"test.uc"</span>, package <span class='op'>=</span> <span class='st'>"LTRpred"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># look at the format in R</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>test.uc</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 6 × 7</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Type  Cluster  Size Perc_Ident Strand Query                             Target</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> S           0 <span style='text-decoration: underline;'>24</span>827 *          *      2_CHROMOSOME_dumped__3426174_345… *     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> S           1 <span style='text-decoration: underline;'>24</span>521 *          *      5_CHROMOSOME_dumped__2380969_240… *     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> S           2 <span style='text-decoration: underline;'>24</span>339 *          *      3_CHROMOSOME_dumped__1657651_168… *     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> S           3 <span style='text-decoration: underline;'>23</span>686 *          *      3_CHROMOSOME_dumped__14117876_14… *     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> S           4 <span style='text-decoration: underline;'>23</span>241 *          *      3_CHROMOSOME_dumped__14762490_14… *     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> S           5 <span style='text-decoration: underline;'>22</span>083 *          *      3_CHROMOSOME_dumped__15779153_15… *     </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
