@@ -53,7 +53,9 @@ quality.filter <- function(pred, sim, n.orfs, strategy = "default"){
     n.orfs,
     ". Furthermore, TEs having more than 10% of N's in their sequence have also been removed."
   )
-  message("Input #TEs: ", length(unique(pred$ID)))
+  message("/n")
+  message("Input non-unique #TEs: ", length(pred$ID))
+  message("Input unique #TEs: ", length(unique(pred$ID)))
   filtered.res <- dplyr::filter(
     pred,
     (TE_N_abs / width) <= 0.1,
@@ -69,6 +71,7 @@ quality.filter <- function(pred, sim, n.orfs, strategy = "default"){
                       (dfam_target_name != "unknown"))
   }
   
-  message("Output #TEs: ", length(unique(filtered.res$ID)))
+  message("Output non-unique #TEs: ", length(filtered.res$ID))
+  message("Output unique #TEs: ", length(unique(filtered.res$ID)))
   return(filtered.res)   
 }
