@@ -25,14 +25,14 @@ read.orfs <- function(input.file){
   
   if (length(ReadSeqFile) == 0){
     message("The ORF prediction file was empty ... Therefore, no ORFs are added to the result table.")
-    return(dplyr::data_frame(seq.id = NULL,
+    return(dplyr::tibble(seq.id = NULL,
                              orfs = NULL))
   }
   
   SeqFile.table <- table(sapply(ReadSeqFile@ranges@NAMES,
                                 function(x)
                                     unlist(stringr::str_split(x, "[|]"))[1]))
-  ORFCount.df <- dplyr::data_frame(seq.id = names(SeqFile.table),
+  ORFCount.df <- dplyr::tibble(seq.id = names(SeqFile.table),
                                    orfs = as.numeric(SeqFile.table))
   
 #   GenomicLocus <- as.data.frame(do.call(rbind, sapply(ORFCount.df$seq.id, function(x){
